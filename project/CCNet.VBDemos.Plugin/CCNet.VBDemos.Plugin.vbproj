@@ -10,11 +10,12 @@
     <AssemblyName>CCNet.VBDemos.Plugin</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>Windows</MyType>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <OptionExplicit>On</OptionExplicit>
     <OptionCompare>Binary</OptionCompare>
     <OptionStrict>Off</OptionStrict>
     <OptionInfer>On</OptionInfer>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -109,10 +110,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\core\core.csproj">
-      <Project>{F8113DB9-6C47-4FD1-8A01-655FCF151747}</Project>
-      <Name>core</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Remote\Remote.csproj">
       <Project>{E820CF3B-8C5A-4002-BC16-B7818D3D54A8}</Project>
       <Name>Remote</Name>

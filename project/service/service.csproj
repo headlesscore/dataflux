@@ -22,7 +22,8 @@
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
     <StartupObject>
     </StartupObject>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <OutputPath>bin\Debug\</OutputPath>
@@ -114,9 +115,8 @@
     </Reference>
     <Reference Include="System.Xml" />
     <ProjectReference Include="..\core\core.csproj">
+      <Project>{f8113db9-6c47-4fd1-8a01-655fcf151747}</Project>
       <Name>core</Name>
-      <Project>{F8113DB9-6C47-4FD1-8A01-655FCF151747}</Project>
-      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
     </ProjectReference>
     <ProjectReference Include="..\Remote\Remote.csproj">
       <Name>Remote</Name>

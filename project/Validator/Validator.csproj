@@ -10,7 +10,8 @@
     <RootNamespace>Validator</RootNamespace>
     <AssemblyName>CCValidator</AssemblyName>
     <ApplicationIcon>AppIcon.ico</ApplicationIcon>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -166,8 +167,8 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\core\core.csproj">
-      <Project>{F8113DB9-6C47-4FD1-8A01-655FCF151747}</Project>
-      <Name>core %28CruiseControl.Net\Core\core%29</Name>
+      <Project>{f8113db9-6c47-4fd1-8a01-655fcf151747}</Project>
+      <Name>core</Name>
     </ProjectReference>
     <ProjectReference Include="..\Remote\Remote.csproj">
       <Project>{E820CF3B-8C5A-4002-BC16-B7818D3D54A8}</Project>
