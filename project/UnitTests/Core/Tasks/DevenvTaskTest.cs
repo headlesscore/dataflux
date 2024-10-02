@@ -2,6 +2,7 @@ using System.IO;
 using Exortech.NetReflector;
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Tasks;
 using ThoughtWorks.CruiseControl.Core.Util;
@@ -58,31 +59,33 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 </devenv>";
 
 			DevenvTask task2 = (DevenvTask) NetReflector.Read(xml);
-			Assert.AreEqual(@"c:\vs.net\devenv.com", task2.Executable);
-			Assert.AreEqual(@"mySolution.sln", task2.SolutionFile);
-			Assert.AreEqual(@"Debug", task2.Configuration);
-			Assert.AreEqual(4, task2.BuildTimeoutSeconds);
-			Assert.AreEqual(@"Clean", task2.BuildType);
-			Assert.AreEqual(@"MyProject", task2.Project);
-		}
+			ClassicAssert.AreEqual(@"c:\vs.net\devenv.com", task2.Executable);
+			ClassicAssert.AreEqual(@"mySolution.sln", task2.SolutionFile);
+			ClassicAssert.AreEqual(@"Debug", task2.Configuration);
+			ClassicAssert.AreEqual(4, task2.BuildTimeoutSeconds);
+			ClassicAssert.AreEqual(@"Clean", task2.BuildType);
+			ClassicAssert.AreEqual(@"MyProject", task2.Project);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
+        }
 
 		[Test]
 		public void ShouldLoadMinimalValuesFromConfiguration()
 		{
 			const string xml = @"<devenv solutionfile=""mySolution.sln"" configuration=""Release"" />";
 			DevenvTask task2 = (DevenvTask) NetReflector.Read(xml);
-			Assert.AreEqual(@"mySolution.sln", task2.SolutionFile);
-			Assert.AreEqual(@"Release", task2.Configuration);
-			Assert.AreEqual(DevenvTask.DEFAULT_BUILD_TIMEOUT, task2.BuildTimeoutSeconds);
-			Assert.AreEqual(@"rebuild", task2.BuildType);
-			Assert.AreEqual(@"", task2.Project);
+			ClassicAssert.AreEqual(@"mySolution.sln", task2.SolutionFile);
+			ClassicAssert.AreEqual(@"Release", task2.Configuration);
+			ClassicAssert.AreEqual(DevenvTask.DEFAULT_BUILD_TIMEOUT, task2.BuildTimeoutSeconds);
+			ClassicAssert.AreEqual(@"rebuild", task2.BuildType);
+			ClassicAssert.AreEqual(@"", task2.Project);
 		}
 
 		[Test]
 		public void ShouldFailToLoadInvalidVersionFromConfiguration()
 		{
 			const string xml = @"<devenv solutionfile=""mySolution.sln"" configuration=""Release"" version=""VSBAD""/>";
-            Assert.That(delegate { NetReflector.Read(xml); },
+            ClassicAssert.That(delegate { NetReflector.Read(xml); },
                         Throws.TypeOf<NetReflectorException>());
 		}
 
@@ -96,7 +99,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
             mockRegistry2.Setup(registry => registry.GetLocalMachineSubKeyValue(DevenvTask.VS2012_REGISTRY_PATH, DevenvTask.VS_REGISTRY_KEY)).Returns(() => null).Verifiable();
             mockRegistry2.Setup(registry => registry.GetLocalMachineSubKeyValue(DevenvTask.VS2010_REGISTRY_PATH, DevenvTask.VS_REGISTRY_KEY)).Returns(DEVENV_2010_PATH).Verifiable();
 
-            Assert.AreEqual(System.IO.Path.Combine(DEVENV_2010_PATH, "devenv.com"), task2.Executable);
+            ClassicAssert.AreEqual(System.IO.Path.Combine(DEVENV_2010_PATH, "devenv.com"), task2.Executable);
             mockRegistry2.Verify();
             mockProcessExecutor.Verify();
         }
@@ -111,7 +114,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
             mockRegistry2.Setup(registry => registry.GetLocalMachineSubKeyValue(DevenvTask.VS2012_REGISTRY_PATH, DevenvTask.VS_REGISTRY_KEY)).Returns(() => null).Verifiable();
             mockRegistry2.Setup(registry => registry.GetLocalMachineSubKeyValue(DevenvTask.VS2010_REGISTRY_PATH, DevenvTask.VS_REGISTRY_KEY)).Returns(() => null).Verifiable();
             mockRegistry2.Setup(registry => registry.GetLocalMachineSubKeyValue(DevenvTask.VS2008_REGISTRY_PATH, DevenvTask.VS_REGISTRY_KEY)).Returns(DEVENV_2008_PATH).Verifiable();
-            Assert.AreEqual(System.IO.Path.Combine(DEVENV_2008_PATH, "devenv.com"), task2.Executable);
+            ClassicAssert.AreEqual(System.IO.Path.Combine(DEVENV_2008_PATH, "devenv.com"), task2.Executable);
             mockRegistry2.Verify();
             mockProcessExecutor.Verify();
         }
@@ -126,7 +129,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 
             task2.Version = "10.0";
 
-            Assert.AreEqual(System.IO.Path.Combine(DEVENV_2010_PATH, "devenv.com"), task2.Executable);
+            ClassicAssert.AreEqual(System.IO.Path.Combine(DEVENV_2010_PATH, "devenv.com"), task2.Executable);
             mockRegistry2.Verify();
             mockProcessExecutor.Verify();
         }
@@ -141,7 +144,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 
 			task2.Version = "9.0";
 
-			Assert.AreEqual(System.IO.Path.Combine(DEVENV_2008_PATH, "devenv.com"), task2.Executable);
+			ClassicAssert.AreEqual(System.IO.Path.Combine(DEVENV_2008_PATH, "devenv.com"), task2.Executable);
 			mockRegistry2.Verify();
 			mockProcessExecutor.Verify();
 		}
@@ -156,7 +159,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 
             task2.Version = "VS2010";
 
-            Assert.AreEqual(System.IO.Path.Combine(DEVENV_2010_PATH, "devenv.com"), task2.Executable);
+            ClassicAssert.AreEqual(System.IO.Path.Combine(DEVENV_2010_PATH, "devenv.com"), task2.Executable);
             mockRegistry2.Verify();
             mockProcessExecutor.Verify();
         }
@@ -171,7 +174,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 
             task2.Version = "VS2008";
 
-            Assert.AreEqual(System.IO.Path.Combine(DEVENV_2008_PATH, "devenv.com"), task2.Executable);
+            ClassicAssert.AreEqual(System.IO.Path.Combine(DEVENV_2008_PATH, "devenv.com"), task2.Executable);
             mockRegistry2.Verify();
             mockProcessExecutor.Verify();
         }
@@ -187,7 +190,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
             mockRegistry2.Setup(registry => registry.GetLocalMachineSubKeyValue(DevenvTask.VS2010_REGISTRY_PATH, DevenvTask.VS_REGISTRY_KEY)).Returns(() => null).Verifiable();
             mockRegistry2.Setup(registry => registry.GetLocalMachineSubKeyValue(DevenvTask.VS2008_REGISTRY_PATH, DevenvTask.VS_REGISTRY_KEY)).Returns(() => null).Verifiable();
 			mockRegistry2.Setup(registry => registry.GetLocalMachineSubKeyValue(DevenvTask.VS2005_REGISTRY_PATH, DevenvTask.VS_REGISTRY_KEY)).Returns(DEVENV_2005_PATH).Verifiable();
-			Assert.AreEqual(System.IO.Path.Combine(DEVENV_2005_PATH, "devenv.com"), task2.Executable);
+			ClassicAssert.AreEqual(System.IO.Path.Combine(DEVENV_2005_PATH, "devenv.com"), task2.Executable);
 			mockRegistry2.Verify();
             mockProcessExecutor.Verify();
         }
@@ -202,7 +205,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 
 			task2.Version = "8.0";
 
-			Assert.AreEqual(System.IO.Path.Combine(DEVENV_2005_PATH, "devenv.com"), task2.Executable);
+			ClassicAssert.AreEqual(System.IO.Path.Combine(DEVENV_2005_PATH, "devenv.com"), task2.Executable);
 			mockRegistry2.Verify();
 			mockProcessExecutor.Verify();
 		}
@@ -217,7 +220,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 
 			task2.Version = "VS2005";
 
-			Assert.AreEqual(System.IO.Path.Combine(DEVENV_2005_PATH, "devenv.com"), task2.Executable);
+			ClassicAssert.AreEqual(System.IO.Path.Combine(DEVENV_2005_PATH, "devenv.com"), task2.Executable);
 			mockRegistry2.Verify();
 			mockProcessExecutor.Verify();
 		}
@@ -234,7 +237,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
             mockRegistry2.Setup(registry => registry.GetLocalMachineSubKeyValue(DevenvTask.VS2008_REGISTRY_PATH, DevenvTask.VS_REGISTRY_KEY)).Returns(() => null).Verifiable();
             mockRegistry2.Setup(registry => registry.GetLocalMachineSubKeyValue(DevenvTask.VS2005_REGISTRY_PATH, DevenvTask.VS_REGISTRY_KEY)).Returns(() => null).Verifiable();
 			mockRegistry2.Setup(registry => registry.GetLocalMachineSubKeyValue(DevenvTask.VS2003_REGISTRY_PATH, DevenvTask.VS_REGISTRY_KEY)).Returns(DEVENV_2003_PATH).Verifiable();
-			Assert.AreEqual(System.IO.Path.Combine(DEVENV_2003_PATH, "devenv.com"), task2.Executable);
+			ClassicAssert.AreEqual(System.IO.Path.Combine(DEVENV_2003_PATH, "devenv.com"), task2.Executable);
 			mockRegistry2.Verify();
             mockProcessExecutor.Verify();
         }
@@ -249,7 +252,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 
 			task2.Version = "7.1";
 
-			Assert.AreEqual(System.IO.Path.Combine(DEVENV_2003_PATH, "devenv.com"), task2.Executable);
+			ClassicAssert.AreEqual(System.IO.Path.Combine(DEVENV_2003_PATH, "devenv.com"), task2.Executable);
 			mockRegistry2.Verify();
 			mockProcessExecutor.Verify();
 		}
@@ -264,7 +267,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 
 			task2.Version = "VS2003";
 
-			Assert.AreEqual(System.IO.Path.Combine(DEVENV_2003_PATH, "devenv.com"), task2.Executable);
+			ClassicAssert.AreEqual(System.IO.Path.Combine(DEVENV_2003_PATH, "devenv.com"), task2.Executable);
 			mockRegistry2.Verify();
 			mockProcessExecutor.Verify();
 		}
@@ -283,7 +286,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
             mockRegistry2.Setup(registry => registry.GetLocalMachineSubKeyValue(DevenvTask.VS2003_REGISTRY_PATH, DevenvTask.VS_REGISTRY_KEY)).Returns(() => null).Verifiable();
             mockRegistry2.Setup(registry => registry.GetLocalMachineSubKeyValue(DevenvTask.VS2002_REGISTRY_PATH, DevenvTask.VS_REGISTRY_KEY)).Returns(DEVENV_2002_PATH).Verifiable();
 
-			Assert.AreEqual(System.IO.Path.Combine(DEVENV_2002_PATH, "devenv.com"), task2.Executable);
+			ClassicAssert.AreEqual(System.IO.Path.Combine(DEVENV_2002_PATH, "devenv.com"), task2.Executable);
 			mockRegistry2.Verify();
             mockProcessExecutor.Verify();
         }
@@ -298,7 +301,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 
 			task2.Version = "7.0";
 
-			Assert.AreEqual(System.IO.Path.Combine(DEVENV_2002_PATH, "devenv.com"), task2.Executable);
+			ClassicAssert.AreEqual(System.IO.Path.Combine(DEVENV_2002_PATH, "devenv.com"), task2.Executable);
 			mockRegistry2.Verify();
 			mockProcessExecutor.Verify();
 		}
@@ -313,7 +316,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 
 			task2.Version = "VS2002";
 
-			Assert.AreEqual(System.IO.Path.Combine(DEVENV_2002_PATH, "devenv.com"), task2.Executable);
+			ClassicAssert.AreEqual(System.IO.Path.Combine(DEVENV_2002_PATH, "devenv.com"), task2.Executable);
 			mockRegistry2.Verify();
 			mockProcessExecutor.Verify();
 		}
@@ -331,8 +334,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 
 			task.Run(IntegrationResult());
 
-			Assert.AreEqual(DEVENV_PATH, info.FileName);
-			Assert.AreEqual(DevenvTask.DEFAULT_BUILD_TIMEOUT*1000, info.TimeOut);
+			ClassicAssert.AreEqual(DEVENV_PATH, info.FileName);
+			ClassicAssert.AreEqual(DevenvTask.DEFAULT_BUILD_TIMEOUT*1000, info.TimeOut);
             AssertStartsWith("\"mySolution.sln\" /rebuild \"Debug\"", info.Arguments);
 		}
 
@@ -350,8 +353,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 
 			task.Run(IntegrationResult());
 
-			Assert.AreEqual(DEVENV_PATH, info.FileName);
-			Assert.AreEqual(DevenvTask.DEFAULT_BUILD_TIMEOUT*1000, info.TimeOut);
+			ClassicAssert.AreEqual(DEVENV_PATH, info.FileName);
+			ClassicAssert.AreEqual(DevenvTask.DEFAULT_BUILD_TIMEOUT*1000, info.TimeOut);
             AssertStartsWith("\"mySolution.sln\" /rebuild \"Debug\" /project \"myProject\"", info.Arguments);
 		}
 
@@ -367,7 +370,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 			IntegrationResult result = (IntegrationResult)IntegrationResult();
 			task.Run(result);
 
-			Assert.AreEqual(IntegrationStatus.Success, result.Status);
+			ClassicAssert.AreEqual(IntegrationStatus.Success, result.Status);
 			AssertMatches(@"Rebuild All: \d+ succeeded, \d+ failed, \d+ skipped", result.TaskOutput);
 		}
 
@@ -386,9 +389,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 			IIntegrationResult result = Integration("myProject", "myWorkingDirectory", "myArtifactDirectory");
 			task.Run(result);
 
-			Assert.AreEqual("myWorkingDirectory", info.WorkingDirectory);
+			ClassicAssert.AreEqual("myWorkingDirectory", info.WorkingDirectory);
 
-			Assert.AreEqual(IntegrationStatus.Failure, result.Status);
+			ClassicAssert.AreEqual(IntegrationStatus.Failure, result.Status);
 			AssertMatches(@"(\.|\n)*could not be found and will not be loaded", result.TaskOutput);
 		}
 
@@ -400,7 +403,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 			task.SolutionFile = @"D:\dev\ccnet\ccnet\project\nosolution.sln";
 			task.Configuration = "Debug";
 
-            Assert.That(delegate { task.Run(IntegrationResult()); },
+            ClassicAssert.That(delegate { task.Run(IntegrationResult()); },
                         Throws.TypeOf<BuilderException>());
 		}
 
@@ -413,7 +416,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 			task.Configuration = CONFIGURATION;
 			task.Project = "unknownproject";
 
-            Assert.That(delegate { task.Run(IntegrationResult()); },
+            ClassicAssert.That(delegate { task.Run(IntegrationResult()); },
                         Throws.TypeOf<BuilderException>());
 		}
 
@@ -427,7 +430,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 			task.SolutionFile = SOLUTION_FILE;
 			task.Configuration = CONFIGURATION;
 
-            Assert.That(delegate { task.Run(IntegrationResult()); },
+            ClassicAssert.That(delegate { task.Run(IntegrationResult()); },
                         Throws.TypeOf<BuilderException>());
 		}
 	}

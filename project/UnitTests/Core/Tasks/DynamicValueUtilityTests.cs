@@ -1,5 +1,6 @@
 ﻿using Exortech.NetReflector;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -14,7 +15,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
         public void SplitPropertyIntoPartsSingleValue()
         {
             DynamicValueUtility.PropertyPart[] parts = DynamicValueUtility.SplitPropertyName("Test");
-            Assert.AreEqual(1, parts.Length, "Length differs from expected");
+            ClassicAssert.AreEqual(1, parts.Length, "Length differs from expected");
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
             CheckPart(parts[0], 0, "Test", null, null);
         }
 
@@ -22,7 +25,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
         public void SplitPropertyIntoPartsSingleValueWithKey()
         {
             DynamicValueUtility.PropertyPart[] parts = DynamicValueUtility.SplitPropertyName("Test[Key=Value]");
-            Assert.AreEqual(1, parts.Length, "Length differs from expected");
+            ClassicAssert.AreEqual(1, parts.Length, "Length differs from expected");
             CheckPart(parts[0], 0, "Test", "Key", "Value");
         }
 
@@ -30,7 +33,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
         public void SplitPropertyIntoPartsMultipleValues()
         {
             DynamicValueUtility.PropertyPart[] parts = DynamicValueUtility.SplitPropertyName("Test.Part2.Part3");
-            Assert.AreEqual(3, parts.Length, "Length differs from expected");
+            ClassicAssert.AreEqual(3, parts.Length, "Length differs from expected");
             CheckPart(parts[0], 0, "Test", null, null);
             CheckPart(parts[1], 1, "Part2", null, null);
             CheckPart(parts[2], 2, "Part3", null, null);
@@ -40,7 +43,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
         public void SplitPropertyIntoPartsMultipleValuesWithKey()
         {
             DynamicValueUtility.PropertyPart[] parts = DynamicValueUtility.SplitPropertyName("Test.Part2[Key=Value].Part3");
-            Assert.AreEqual(3, parts.Length, "Length differs from expected");
+            ClassicAssert.AreEqual(3, parts.Length, "Length differs from expected");
             CheckPart(parts[0], 0, "Test", null, null);
             CheckPart(parts[1], 1, "Part2", "Key", "Value");
             CheckPart(parts[2], 2, "Part3", null, null);
@@ -48,9 +51,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 
         private void CheckPart(DynamicValueUtility.PropertyPart part, int position, string name, string keyName, string keyValue)
         {
-            Assert.AreEqual(name, part.Name, string.Format(System.Globalization.CultureInfo.CurrentCulture, "Part name does not match [{0}]", position));
-            Assert.AreEqual(keyName, part.KeyName, string.Format(System.Globalization.CultureInfo.CurrentCulture, "Part key name does not match [{0}]", position));
-            Assert.AreEqual(keyValue, part.KeyValue, string.Format(System.Globalization.CultureInfo.CurrentCulture, "Part key value does not match [{0}]", position));
+            ClassicAssert.AreEqual(name, part.Name, string.Format(System.Globalization.CultureInfo.CurrentCulture, "Part name does not match [{0}]", position));
+            ClassicAssert.AreEqual(keyName, part.KeyName, string.Format(System.Globalization.CultureInfo.CurrentCulture, "Part key name does not match [{0}]", position));
+            ClassicAssert.AreEqual(keyValue, part.KeyValue, string.Format(System.Globalization.CultureInfo.CurrentCulture, "Part key value does not match [{0}]", position));
         }
 
         [Test]
@@ -59,8 +62,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
             TestClass testValue = new TestClass();
             testValue.Name = "My name";
             MemberInfo property = DynamicValueUtility.FindActualProperty(testValue, "someName");
-            Assert.IsNotNull(property, "Property not found");
-            Assert.AreEqual("Name", property.Name, "Property names do not match");
+            ClassicAssert.IsNotNull(property, "Property not found");
+            ClassicAssert.AreEqual("Name", property.Name, "Property names do not match");
         }
 
         [Test]
@@ -69,7 +72,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
             TestClass testValue = new TestClass();
             testValue.Name = "My name";
             object property = DynamicValueUtility.FindActualProperty(testValue, "Name");
-            Assert.IsNull(property, "Property found");
+            ClassicAssert.IsNull(property, "Property found");
         }
 
         [Test]
@@ -82,8 +85,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
                 subValue
             };
             object result = DynamicValueUtility.FindKeyedValue(testValue.SubValues, "someName", "A value");
-            Assert.IsNotNull(result, "Keyed value not found");
-            Assert.AreSame(subValue, result, "Found value does not match");
+            ClassicAssert.IsNotNull(result, "Keyed value not found");
+            ClassicAssert.AreSame(subValue, result, "Found value does not match");
         }
 
         [Test]
@@ -95,8 +98,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
                 subValue
             };
             object result = DynamicValueUtility.FindTypedValue(testValue.SubValues, "testInstance");
-            Assert.IsNotNull(result, "Typed value not found");
-            Assert.AreSame(subValue, result, "Found value does not match");
+            ClassicAssert.IsNotNull(result, "Typed value not found");
+            ClassicAssert.AreSame(subValue, result, "Found value does not match");
         }
 
         [Test]
@@ -104,9 +107,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
         {
             TestClass rootValue = new TestClass("root");
             DynamicValueUtility.PropertyValue result = DynamicValueUtility.FindProperty(rootValue, "someName");
-            Assert.IsNotNull(result, "Property not found");
-            Assert.AreEqual("Name", result.Property.Name, "Property names do not match");
-            Assert.AreEqual("root", result.Value, "Property values do not match");
+            ClassicAssert.IsNotNull(result, "Property not found");
+            ClassicAssert.AreEqual("Name", result.Property.Name, "Property names do not match");
+            ClassicAssert.AreEqual("root", result.Value, "Property values do not match");
         }
 
         [Test]
@@ -118,9 +121,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
                 new TestClass("child2")
             };
             DynamicValueUtility.PropertyValue result = DynamicValueUtility.FindProperty(rootValue, "sub.testInstance.someName");
-            Assert.IsNotNull(result, "Property not found");
-            Assert.AreEqual("Name", result.Property.Name, "Property names do not match");
-            Assert.AreEqual("child2", result.Value, "Property values do not match");
+            ClassicAssert.IsNotNull(result, "Property not found");
+            ClassicAssert.AreEqual("Name", result.Property.Name, "Property names do not match");
+            ClassicAssert.AreEqual("child2", result.Value, "Property values do not match");
         }
 
         [Test]
@@ -132,9 +135,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
                 new TestClass("child2")
             };
             DynamicValueUtility.PropertyValue result = DynamicValueUtility.FindProperty(rootValue, "sub[someName=child1].someName");
-            Assert.IsNotNull(result, "Property not found");
-            Assert.AreEqual("Name", result.Property.Name, "Property names do not match");
-            Assert.AreEqual("child1", result.Value, "Property values do not match");
+            ClassicAssert.IsNotNull(result, "Property not found");
+            ClassicAssert.AreEqual("Name", result.Property.Name, "Property names do not match");
+            ClassicAssert.AreEqual("child1", result.Value, "Property values do not match");
         }
 
         [Test]
@@ -146,9 +149,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
                 new TestClass("child2")
             };
             DynamicValueUtility.PropertyValue result = DynamicValueUtility.FindProperty(rootValue, "sub[0].someName");
-            Assert.IsNotNull(result, "Property not found");
-            Assert.AreEqual("Name", result.Property.Name, "Property names do not match");
-            Assert.AreEqual("child1", result.Value, "Property values do not match");
+            ClassicAssert.IsNotNull(result, "Property not found");
+            ClassicAssert.AreEqual("Name", result.Property.Name, "Property names do not match");
+            ClassicAssert.AreEqual("child1", result.Value, "Property values do not match");
         }
 
         [Test]
@@ -157,7 +160,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
             TestClass rootValue = new TestClass("root");
             DynamicValueUtility.PropertyValue result = DynamicValueUtility.FindProperty(rootValue, "someName");
             result.ChangeProperty("nonRoot");
-            Assert.AreEqual("nonRoot", rootValue.Name, "Property not changed");
+            ClassicAssert.AreEqual("nonRoot", rootValue.Name, "Property not changed");
         }
 
         [Test]
@@ -167,7 +170,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
             rootValue.Value = 100;
             DynamicValueUtility.PropertyValue result = DynamicValueUtility.FindProperty(rootValue, "aValue");
             result.ChangeProperty("20");
-            Assert.AreEqual(20, rootValue.Value, "Property not changed");
+            ClassicAssert.AreEqual(20, rootValue.Value, "Property not changed");
         }
 
         [Test]
@@ -237,7 +240,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 
             xdoc.LoadXml(processedTaskXml); // load in xdoc to ease comparing xml documents
 
-            Assert.AreEqual(xdoc.OuterXml, result.OuterXml);
+            ClassicAssert.AreEqual(xdoc.OuterXml, result.OuterXml);
         }
 
         [Test]
@@ -314,7 +317,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 
             xdoc.LoadXml(processedTaskXml); // load in xdoc to ease comparing xml documents
 
-            Assert.AreEqual(xdoc.OuterXml, result.OuterXml);
+            ClassicAssert.AreEqual(xdoc.OuterXml, result.OuterXml);
         }
 
         private string GetNestedTasksWithParametersXML()

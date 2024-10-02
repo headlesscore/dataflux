@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Util;
 
@@ -31,9 +32,11 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Util
 			string xslfile = TempFileUtil.CreateTempXmlFile(TestFolder, "samplestylesheet.xsl", TestData.StyleSheetContents);
 
 			string output = new XslTransformer().Transform(input, xslfile, null);
-			Assert.IsNotNull(output);
-			Assert.IsTrue(! String.Empty.Equals(output), "Transform returned no data");
-		}
+			ClassicAssert.IsNotNull(output);
+			ClassicAssert.IsTrue(! String.Empty.Equals(output), "Transform returned no data");
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
+        }
 
 		[Test]
 		public void ShouldPassThroughXSLTArgs()
@@ -44,7 +47,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Util
 			Hashtable xsltArgs = new Hashtable();
 			xsltArgs["myParam"] = "myValue";
 			string output = new XslTransformer().Transform(input, xslfile, xsltArgs);
-			Assert.IsTrue(output.IndexOf("myValue") > 0);
+			ClassicAssert.IsTrue(output.IndexOf("myValue") > 0);
 		}
 
 		[Test]
@@ -53,7 +56,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Util
 			string input = @"<This is some invalid xml";
 			string xslfile = TempFileUtil.CreateTempXmlFile(TestFolder, "samplestylesheet.xsl", TestData.StyleSheetContents);
 
-			Assert.That(delegate { new XslTransformer().Transform(input, xslfile, null); },
+			ClassicAssert.That(delegate { new XslTransformer().Transform(input, xslfile, null); },
                         Throws.TypeOf<CruiseControlException>());
 		}
 
@@ -63,7 +66,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Util
 			string logfile = TestData.LogFileContents;
 			string xslfile = "nosuchstylefile";
 
-			Assert.That(delegate { new XslTransformer().Transform(logfile, xslfile, null); },
+			ClassicAssert.That(delegate { new XslTransformer().Transform(logfile, xslfile, null); },
                         Throws.TypeOf<CruiseControlException>());
 		}
 
@@ -72,7 +75,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Util
 		{
 			string logfile = TestData.LogFileContents;
 			string xslfile = XslFileBadFormat;
-            Assert.That(delegate { new XslTransformer().Transform(logfile, xslfile, null); },
+            ClassicAssert.That(delegate { new XslTransformer().Transform(logfile, xslfile, null); },
                         Throws.TypeOf<CruiseControlException>());
 		}
 

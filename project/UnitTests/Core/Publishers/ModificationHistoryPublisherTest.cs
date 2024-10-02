@@ -3,6 +3,7 @@ using System.IO;
 using System.Xml;
 using Exortech.NetReflector;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Publishers;
 using ThoughtWorks.CruiseControl.Core.Util;
@@ -55,7 +56,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Publishers
             //Verify
             PublishedModifications = ModificationHistoryPublisher.LoadHistory(ARTIFACTS_DIR_PATH);
 
-            Assert.AreEqual(ExpectedLoggedModifications, PublishedModifications, "Differences in log Detected");
+            ClassicAssert.AreEqual(ExpectedLoggedModifications, PublishedModifications, "Differences in log Detected");
+            ClassicAssert.AreEqual(ExpectedLoggedModifications, PublishedModifications, "Differences in log Detected");
         }
 
         [Test]
@@ -75,7 +77,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Publishers
             //Verify
             PublishedModifications = ModificationHistoryPublisher.LoadHistory(ARTIFACTS_DIR_PATH);
 
-            Assert.AreEqual(ExpectedLoggedModifications, PublishedModifications, "Differences in log Detected");
+            ClassicAssert.AreEqual(ExpectedLoggedModifications, PublishedModifications, "Differences in log Detected");
         }
 
         [Test]
@@ -98,7 +100,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Publishers
             //Verify
             PublishedModifications = ModificationHistoryPublisher.LoadHistory(ARTIFACTS_DIR_PATH);
 
-            Assert.AreEqual(ExpectedLoggedModifications.ToString(), PublishedModifications, "Differences in log Detected");
+            ClassicAssert.AreEqual(ExpectedLoggedModifications.ToString(), PublishedModifications, "Differences in log Detected");
         }
 
         [Test]
@@ -123,7 +125,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Publishers
             //Verify
             PublishedModifications = ModificationHistoryPublisher.LoadHistory(ARTIFACTS_DIR_PATH);
 
-            Assert.AreEqual(ExpectedLoggedModifications.ToString(), PublishedModifications, "Differences in log Detected");
+            ClassicAssert.AreEqual(ExpectedLoggedModifications.ToString(), PublishedModifications, "Differences in log Detected");
         }
 
         private string GetExpectedMods(IntegrationResult result)

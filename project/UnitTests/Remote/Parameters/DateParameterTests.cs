@@ -6,6 +6,7 @@
     using System.Text;
     using ThoughtWorks.CruiseControl.Remote.Parameters;
     using ThoughtWorks.CruiseControl.Remote;
+    using NUnit.Framework.Legacy;
 
     [TestFixture]
     public class DateParameterTests
@@ -15,7 +16,9 @@
         {
             var name = "newParam";
             var parameter = new DateParameter(name);
-            Assert.AreEqual(name, parameter.Name);
+            ClassicAssert.AreEqual(name, parameter.Name);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
         }
 
         [Test]
@@ -24,32 +27,32 @@
             var parameter = new DateParameter();
             var trueValue = new NameValuePair("TrueName", "TrueValue");
             var falseValue = new NameValuePair("FalseName", "FalseValue");
-            Assert.IsNull(parameter.AllowedValues);
-            Assert.AreEqual(typeof(DateTime), parameter.DataType, "DataType does not match");
+            ClassicAssert.IsNull(parameter.AllowedValues);
+            ClassicAssert.AreEqual(typeof(DateTime), parameter.DataType, "DataType does not match");
 
             parameter.IsRequired = false;
-            Assert.AreEqual(false, parameter.IsRequired, "IsRequired does not match");
+            ClassicAssert.AreEqual(false, parameter.IsRequired, "IsRequired does not match");
             parameter.IsRequired = true;
-            Assert.AreEqual(true, parameter.IsRequired, "IsRequired does not match");
+            ClassicAssert.AreEqual(true, parameter.IsRequired, "IsRequired does not match");
             parameter.Description = "Some description goes here";
-            Assert.AreEqual("Some description goes here", parameter.Description, "Description does not match");
+            ClassicAssert.AreEqual("Some description goes here", parameter.Description, "Description does not match");
             parameter.Name = "Some name";
-            Assert.AreEqual("Some name", parameter.Name, "Name does not match");
-            Assert.AreEqual("Some name", parameter.DisplayName, "DisplayName does not match");
+            ClassicAssert.AreEqual("Some name", parameter.Name, "Name does not match");
+            ClassicAssert.AreEqual("Some name", parameter.DisplayName, "DisplayName does not match");
             parameter.DisplayName = "Another name";
-            Assert.AreEqual("Another name", parameter.DisplayName, "DisplayName does not match");
+            ClassicAssert.AreEqual("Another name", parameter.DisplayName, "DisplayName does not match");
 
             var minValue = new DateTime(2010, 1, 1);
             parameter.MinimumValue = minValue;
-            Assert.AreEqual(minValue, parameter.MinimumValue);
+            ClassicAssert.AreEqual(minValue, parameter.MinimumValue);
 
             var maxValue = new DateTime(2010, 1, 1);
             parameter.MaximumValue = maxValue;
-            Assert.AreEqual(maxValue, parameter.MaximumValue);
+            ClassicAssert.AreEqual(maxValue, parameter.MaximumValue);
 
             var defaultValue = "today";
             parameter.ClientDefaultValue = defaultValue;
-            Assert.AreEqual(defaultValue, parameter.ClientDefaultValue);
+            ClassicAssert.AreEqual(defaultValue, parameter.ClientDefaultValue);
         }
 
         [Test]
@@ -59,8 +62,8 @@
             parameter.Name = "Test";
             parameter.IsRequired = true;
             var results = parameter.Validate(string.Empty);
-            Assert.AreEqual(1, results.Length, "Number of exceptions does not match");
-            Assert.AreEqual("Value of 'Test' is required", results[0].Message, "Exception message does not match");
+            ClassicAssert.AreEqual(1, results.Length, "Number of exceptions does not match");
+            ClassicAssert.AreEqual("Value of 'Test' is required", results[0].Message, "Exception message does not match");
         }
 
         [Test]
@@ -69,7 +72,7 @@
             var parameter = new DateParameter();
             parameter.ClientDefaultValue = "today";
             parameter.GenerateClientDefault();
-            Assert.AreEqual(DateTime.Today.ToShortDateString(), parameter.ClientDefaultValue);
+            ClassicAssert.AreEqual(DateTime.Today.ToShortDateString(), parameter.ClientDefaultValue);
         }
 
         [Test]
@@ -77,7 +80,7 @@
         {
             var parameter = new DateParameter();
             var actualValue = parameter.Convert(string.Empty);
-            Assert.AreEqual(DateTime.Today, actualValue);
+            ClassicAssert.AreEqual(DateTime.Today, actualValue);
         }
 
         [Test]
@@ -85,7 +88,7 @@
         {
             var parameter = new DateParameter();
             var actualValue = parameter.Convert("Today");
-            Assert.AreEqual(DateTime.Today, actualValue);
+            ClassicAssert.AreEqual(DateTime.Today, actualValue);
         }
 
         [Test]
@@ -93,7 +96,7 @@
         {
             var parameter = new DateParameter();
             var actualValue = parameter.Convert("Today+2");
-            Assert.AreEqual(DateTime.Today.AddDays(2), actualValue);
+            ClassicAssert.AreEqual(DateTime.Today.AddDays(2), actualValue);
         }
 
         [Test]
@@ -101,18 +104,18 @@
         {
             var parameter = new DateParameter();
             var actualValue = parameter.Convert("Today-2");
-            Assert.AreEqual(DateTime.Today.AddDays(-2), actualValue);
+            ClassicAssert.AreEqual(DateTime.Today.AddDays(-2), actualValue);
         }
 
         [Test]
         public void ConvertFailsWhenOperationIsUnknown()
         {
             var parameter = new DateParameter();
-            var error = Assert.Throws<InvalidOperationException>(() =>
+            var error = ClassicAssert.Throws<InvalidOperationException>(() =>
             {
                 parameter.Convert("Today*2");
             });
-            Assert.AreEqual("Unknown operation: '*'", error.Message);
+            ClassicAssert.AreEqual("Unknown operation: '*'", error.Message);
         }
 
         [Test]
@@ -120,7 +123,7 @@
         {
             var parameter = new DateParameter();
             var actualValue = parameter.Convert("dayofweek(3)");
-            Assert.AreEqual(DateTime.Today.AddDays(-(int)DateTime.Today.DayOfWeek + 3), actualValue);
+            ClassicAssert.AreEqual(DateTime.Today.AddDays(-(int)DateTime.Today.DayOfWeek + 3), actualValue);
         }
 
         [Test]
@@ -128,7 +131,7 @@
         {
             var parameter = new DateParameter();
             var actualValue = parameter.Convert("dayofmonth(10)");
-            Assert.AreEqual(DateTime.Today.AddDays(-DateTime.Today.Day+10), actualValue);
+            ClassicAssert.AreEqual(DateTime.Today.AddDays(-DateTime.Today.Day+10), actualValue);
         }
 
         [Test]
@@ -136,7 +139,7 @@
         {
             var parameter = new DateParameter();
             var actualValue = parameter.Convert("2010-01-01");
-            Assert.AreEqual(new DateTime(2010, 1, 1), actualValue);
+            ClassicAssert.AreEqual(new DateTime(2010, 1, 1), actualValue);
         }
 
         [Test]
@@ -144,8 +147,8 @@
         {
             var parameter = new DateParameter("Test");
             var exceptions = parameter.Validate("notadate!");
-            Assert.AreEqual(1, exceptions.Length);
-            Assert.AreEqual("Value of 'Test' is not a date", exceptions[0].Message);
+            ClassicAssert.AreEqual(1, exceptions.Length);
+            ClassicAssert.AreEqual("Value of 'Test' is not a date", exceptions[0].Message);
         }
 
         [Test]
@@ -154,8 +157,8 @@
             var parameter = new DateParameter("Test");
             parameter.MaximumValue = new DateTime(2010, 1, 1);
             var exceptions = parameter.Validate("2010-1-31");
-            Assert.AreEqual(1, exceptions.Length);
-            Assert.AreEqual("Value of 'Test' is more than the maximum allowed (01/01/2010)", exceptions[0].Message);
+            ClassicAssert.AreEqual(1, exceptions.Length);
+            ClassicAssert.AreEqual("Value of 'Test' is more than the maximum allowed (01/01/2010)", exceptions[0].Message);
         }
 
         [Test]
@@ -164,8 +167,8 @@
             var parameter = new DateParameter("Test");
             parameter.MinimumValue = new DateTime(2010, 1, 31);
             var exceptions = parameter.Validate("2010-1-1");
-            Assert.AreEqual(1, exceptions.Length);
-            Assert.AreEqual("Value of 'Test' is less than the minimum allowed (01/31/2010)", exceptions[0].Message);
+            ClassicAssert.AreEqual(1, exceptions.Length);
+            ClassicAssert.AreEqual("Value of 'Test' is less than the minimum allowed (01/31/2010)", exceptions[0].Message);
         }
     }
 }

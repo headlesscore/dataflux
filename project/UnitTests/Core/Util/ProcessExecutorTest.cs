@@ -4,6 +4,7 @@ using System.IO;
 using System.Text;
 using System.Threading;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core.Util;
 
 namespace ThoughtWorks.CruiseControl.UnitTests.Core.Util
@@ -32,15 +33,17 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Util
 		public void ExecuteProcessAndEchoResultsBackThroughStandardOut()
 		{
 			ProcessResult result = executor.Execute(Platform.IsWindows ? new ProcessInfo("cmd.exe", "/C @echo Hello World") : new ProcessInfo("echo", "Hello World"));
-			Assert.AreEqual("Hello World", result.StandardOutput.Trim());
-			AssertProcessExitsSuccessfully(result);
+			ClassicAssert.AreEqual("Hello World", result.StandardOutput.Trim());
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
+            AssertProcessExitsSuccessfully(result);
 		}
 
 		[Test]
 		public void ExecuteProcessAndEchoResultsBackThroughStandardOutWhereALargeAmountOfOutputIsProduced()
 		{
 			ProcessResult result = executor.Execute(Platform.IsWindows ? new ProcessInfo("cmd.exe", "/C @dir " + Environment.SystemDirectory) :  new ProcessInfo("ls", Environment.SystemDirectory));
-			Assert.IsTrue(! result.TimedOut);
+			ClassicAssert.IsTrue(! result.TimedOut);
 			AssertProcessExitsSuccessfully(result);
 		}
 
@@ -51,7 +54,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Util
 			processInfo.TimeOut = ProcessInfo.InfiniteTimeout;
 			ProcessResult result = executor.Execute(processInfo);
 			AssertProcessExitsSuccessfully(result);
-			Assert.AreEqual("Hello World", result.StandardOutput.Trim());			
+			ClassicAssert.AreEqual("Hello World", result.StandardOutput.Trim());			
 		}
 
 		[Test]
@@ -61,8 +64,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Util
 
 			AssertProcessExitsWithFailure(result);
 			AssertContains("zerk.exe", result.StandardError);
-			Assert.AreEqual(string.Empty, result.StandardOutput);
-			Assert.IsTrue(! result.TimedOut);
+			ClassicAssert.AreEqual(string.Empty, result.StandardOutput);
+			ClassicAssert.IsTrue(! result.TimedOut);
 		}
 
 		[Test]
@@ -73,7 +76,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Util
 			ProcessResult result = executor.Execute(processInfo);
 
 			AssertProcessExitsSuccessfully(result);
-			Assert.AreEqual("foo=bar" + Environment.NewLine, result.StandardOutput);
+			ClassicAssert.AreEqual("foo=bar" + Environment.NewLine, result.StandardOutput);
 		}
 
 		[Test]
@@ -83,22 +86,22 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Util
 			processInfo.TimeOut = 100;
 			ProcessResult result = executor.Execute(processInfo);
 
-			Assert.IsTrue(result.TimedOut, "process did not time out, but it should have.");
-			Assert.IsNotNull(result.StandardOutput, "some output should have been produced");
+			ClassicAssert.IsTrue(result.TimedOut, "process did not time out, but it should have.");
+			ClassicAssert.IsNotNull(result.StandardOutput, "some output should have been produced");
 			AssertProcessExitsWithFailure(result);
 		}
 
 		[Test]
 		public void SupplyInvalidFilenameAndVerifyException()
 		{
-            Assert.That(delegate { executor.Execute(new ProcessInfo("foodaddy.bat")); },
+            ClassicAssert.That(delegate { executor.Execute(new ProcessInfo("foodaddy.bat")); },
                         Throws.TypeOf<IOException>());
 		}
 
 		[Test]
 		public void ShouldThrowMeaningfulExceptionIfWorkingDirectoryDoesNotExist()
 		{
-            Assert.That(delegate { executor.Execute(new ProcessInfo("myExecutable", "", @"c:\invalid_path\that_is_invalid")); },
+            ClassicAssert.That(delegate { executor.Execute(new ProcessInfo("myExecutable", "", @"c:\invalid_path\that_is_invalid")); },
                         Throws.TypeOf<DirectoryNotFoundException>());
 		}
 
@@ -116,16 +119,16 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Util
 
 			// ASSERT
 			thread.Join();
-			Assert.IsTrue(runnerThreadWasAborted, "Runner thread should be aborted.");
+			ClassicAssert.IsTrue(runnerThreadWasAborted, "Runner thread should be aborted.");
 			// Ensure the external process was killed
 			try
 			{
-				Assert.AreEqual(0, Process.GetProcessesByName("sleeper").Length);
+				ClassicAssert.AreEqual(0, Process.GetProcessesByName("sleeper").Length);
 			}
 			catch (Exception)
 			{
 				Process.GetProcessesByName("sleeper")[0].Kill();
-				Assert.Fail("Process was not killed.");
+				ClassicAssert.Fail("Process was not killed.");
 			}
 		}
 
@@ -145,17 +148,17 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Util
 			// Sleeper runs for 60 seconds. We need to give up early and fail the test if it takes longer than 50.
 			// If it runs for the full 60 seconds it will look the same as being interrupted, and the test will pass
 			// incorrectly.
-			Assert.IsTrue(thread.Join(TimeSpan.FromSeconds(50)), "Thread did not exit in reasonable time."); 
-			Assert.IsTrue(runnerThreadCompletedNormally, "Runner thread should have exited through normally.");
+			ClassicAssert.IsTrue(thread.Join(TimeSpan.FromSeconds(50)), "Thread did not exit in reasonable time."); 
+			ClassicAssert.IsTrue(runnerThreadCompletedNormally, "Runner thread should have exited through normally.");
 			// Ensure the external process was killed
 			try
 			{
-				Assert.AreEqual(0, Process.GetProcessesByName("sleeper").Length);
+				ClassicAssert.AreEqual(0, Process.GetProcessesByName("sleeper").Length);
 			}
 			catch (Exception)
 			{
 				Process.GetProcessesByName("sleeper")[0].Kill();
-				Assert.Fail("Process was not killed.");
+				ClassicAssert.Fail("Process was not killed.");
 			}
 		}
 
@@ -170,8 +173,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Util
 				ProcessInfo processInfo = Platform.IsWindows ? new ProcessInfo("cmd.exe", "/C type \"" + tempFile + "\"") : new ProcessInfo("cat", "\"" + tempFile + "\"");
 				processInfo.StreamEncoding = Encoding.UTF8;
 				ProcessResult result = executor.Execute(processInfo);
-				Assert.IsTrue(!result.Failed);
-				Assert.AreEqual(content + Environment.NewLine, result.StandardOutput);
+				ClassicAssert.IsTrue(!result.Failed);
+				ClassicAssert.AreEqual(content + Environment.NewLine, result.StandardOutput);
 			}
 			finally
 			{
@@ -187,42 +190,42 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Util
 			ProcessInfo processInfo1 = Platform.IsWindows ? new ProcessInfo("cmd.exe", "/C @echo Hello World & exit 1", null, ProcessPriorityClass.AboveNormal, successExitCodes) : new ProcessInfo("bash", "-c \"echo Hello World ; exit 1\"", null, ProcessPriorityClass.AboveNormal, successExitCodes);
 
 			ProcessResult result1 = executor.Execute(processInfo1);
-			Assert.AreEqual("Hello World", result1.StandardOutput.Trim());
-			Assert.AreEqual(1, result1.ExitCode, "Process did not exit successfully");
+			ClassicAssert.AreEqual("Hello World", result1.StandardOutput.Trim());
+			ClassicAssert.AreEqual(1, result1.ExitCode, "Process did not exit successfully");
 			AssertFalse("process should not return an error", result1.Failed);
 
             ProcessInfo processInfo2 = Platform.IsWindows ? new ProcessInfo("cmd.exe", "/C @echo Hello World & exit 3", null, ProcessPriorityClass.AboveNormal, successExitCodes) : new ProcessInfo("bash", "-c \"echo Hello World ; exit 3\"", null, ProcessPriorityClass.AboveNormal, successExitCodes);
 
 			ProcessResult result2 = executor.Execute(processInfo2);
-			Assert.AreEqual("Hello World", result2.StandardOutput.Trim());
-			Assert.AreEqual(3, result2.ExitCode, "Process did not exit successfully");
+			ClassicAssert.AreEqual("Hello World", result2.StandardOutput.Trim());
+			ClassicAssert.AreEqual(3, result2.ExitCode, "Process did not exit successfully");
 			AssertFalse("process should not return an error", result2.Failed);
 
             ProcessInfo processInfo3 = Platform.IsWindows ? new ProcessInfo("cmd.exe", "/C @echo Hello World & exit 5", null, ProcessPriorityClass.AboveNormal, successExitCodes) : new ProcessInfo("bash", "-c \"echo Hello World ; exit 5\"", null, ProcessPriorityClass.AboveNormal, successExitCodes);
 
 			ProcessResult result3 = executor.Execute(processInfo3);
-			Assert.AreEqual("Hello World", result3.StandardOutput.Trim());
-			Assert.AreEqual(5, result3.ExitCode, "Process did not exit successfully");
+			ClassicAssert.AreEqual("Hello World", result3.StandardOutput.Trim());
+			ClassicAssert.AreEqual(5, result3.ExitCode, "Process did not exit successfully");
 			AssertFalse("process should not return an error", result3.Failed);
 
             ProcessInfo processInfo4 = Platform.IsWindows ? new ProcessInfo("cmd.exe", "/C @echo Hello World", null, ProcessPriorityClass.AboveNormal, successExitCodes) : new ProcessInfo("bash", "-c \"echo Hello World\"", null, ProcessPriorityClass.AboveNormal, successExitCodes);
 
 			ProcessResult result4 = executor.Execute(processInfo4);
-			Assert.AreEqual("Hello World", result4.StandardOutput.Trim());
-			Assert.AreEqual(ProcessResult.SUCCESSFUL_EXIT_CODE, result4.ExitCode, "Process did not exit successfully");
-			Assert.IsTrue(result4.Failed, "process should return an error");
+			ClassicAssert.AreEqual("Hello World", result4.StandardOutput.Trim());
+			ClassicAssert.AreEqual(ProcessResult.SUCCESSFUL_EXIT_CODE, result4.ExitCode, "Process did not exit successfully");
+			ClassicAssert.IsTrue(result4.Failed, "process should return an error");
 		}
 
 		private static void AssertProcessExitsSuccessfully(ProcessResult result)
 		{
-			Assert.AreEqual(ProcessResult.SUCCESSFUL_EXIT_CODE, result.ExitCode, "Process did not exit successfully");
+			ClassicAssert.AreEqual(ProcessResult.SUCCESSFUL_EXIT_CODE, result.ExitCode, "Process did not exit successfully");
 			AssertFalse("process should not return an error", result.Failed);
 		}
 
 		private static void AssertProcessExitsWithFailure(ProcessResult result)
 		{
-			Assert.AreNotEqual(ProcessResult.SUCCESSFUL_EXIT_CODE, result.ExitCode);
-			Assert.IsTrue(result.Failed, "process should return an error");
+			ClassicAssert.AreNotEqual(ProcessResult.SUCCESSFUL_EXIT_CODE, result.ExitCode);
+			ClassicAssert.IsTrue(result.Failed, "process should return an error");
 		}
         
         private static bool SleeperProcessExists()
@@ -261,7 +264,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Util
 				count++;
 			}
 			Thread.Sleep(2000);
-			if (count == 1000) Assert.Fail("sleeper process did not start.");
+			if (count == 1000) ClassicAssert.Fail("sleeper process did not start.");
 		}
 
 		private void StartSleeperProcess()

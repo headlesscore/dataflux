@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Config;
 
@@ -27,8 +28,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Config
             Configuration config = new Configuration();
             config.QueueConfigurations.Add(queueConfig);
             IQueueConfiguration foundConfig = config.FindQueueConfiguration("Test Queue");
-            Assert.IsNotNull(foundConfig);
-            Assert.AreSame(queueConfig, foundConfig);
+            ClassicAssert.IsNotNull(foundConfig);
+            ClassicAssert.IsNotNull(foundConfig);
+            ClassicAssert.AreSame(queueConfig, foundConfig);
         }
 
         [Test]
@@ -36,10 +38,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Config
         {
             Configuration config = new Configuration();
             IQueueConfiguration foundConfig = config.FindQueueConfiguration("Test Queue");
-            Assert.IsNotNull(foundConfig);
-            Assert.That(foundConfig, Is.InstanceOf<DefaultQueueConfiguration>());
-            Assert.AreEqual("Test Queue", foundConfig.Name);
-            Assert.AreEqual(QueueDuplicateHandlingMode.UseFirst, foundConfig.HandlingMode);
+            ClassicAssert.IsNotNull(foundConfig);
+            ClassicAssert.That(foundConfig, Is.InstanceOf<DefaultQueueConfiguration>());
+            ClassicAssert.AreEqual("Test Queue", foundConfig.Name);
+            ClassicAssert.AreEqual(QueueDuplicateHandlingMode.UseFirst, foundConfig.HandlingMode);
         }
     }
 }

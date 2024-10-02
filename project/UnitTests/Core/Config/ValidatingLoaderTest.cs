@@ -3,6 +3,7 @@ using System.Reflection;
 using System.Xml;
 using System.Xml.Schema;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Config;
 using ThoughtWorks.CruiseControl.Core.Util;
@@ -18,14 +19,14 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Config
 		public void FailedLoad() 
 		{
 			XmlValidatingLoader loader = XmlValidatingLoader(@"<cruisecontrol><projectx></projectx></cruisecontrol>");
-			Assert.IsNull(loader.Load());
-		}
+			ClassicAssert.IsNull(loader.Load());
+        }
 
 		[Test]
 		public void SuccessfulLoad() 
 		{
 			XmlValidatingLoader loader = XmlValidatingLoader(ConfigurationFixture.GenerateConfigXml());
-			Assert.IsNotNull(loader.Load());
+			ClassicAssert.IsNotNull(loader.Load());
 		}
 
 		[Test]
@@ -40,9 +41,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Config
 			XmlTextReader xr = new XmlTextReader(new StringReader(xml));
 			XmlValidatingLoader loader = new XmlValidatingLoader(xr);
 			XmlDocument doc = loader.Load();
-			Assert.IsNotNull(doc, "Unable to load document because it is not valid according to reader");
+			ClassicAssert.IsNotNull(doc, "Unable to load document because it is not valid according to reader");
 			IConfiguration config = new NetReflectorConfigurationReader().Read(doc, null);
-			Assert.IsNotNull(config.Projects["p1"], "p1 should have been found");
+			ClassicAssert.IsNotNull(config.Projects["p1"], "p1 should have been found");
 		}
 
 		[TearDown]

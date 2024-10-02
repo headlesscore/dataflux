@@ -2,6 +2,7 @@
 {
     using Moq;
     using NUnit.Framework;
+    using NUnit.Framework.Legacy;
     using ThoughtWorks.CruiseControl.WebDashboard.Dashboard;
     using ThoughtWorks.CruiseControl.WebDashboard.MVC.Cruise;
     using ThoughtWorks.CruiseControl.WebDashboard.Plugins.ProjectReport;
@@ -25,7 +26,9 @@
         public void DescriptionIsCorrect()
         {
             var plugin = new ProjectTimelinePlugin(null);
-            Assert.AreEqual("Project Timeline", plugin.LinkDescription);
+            ClassicAssert.AreEqual("Project Timeline", plugin.LinkDescription);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
         }
 
         [Test]
@@ -40,13 +43,13 @@
             var actions = plugin.NamedActions;
 
             this.mocks.VerifyAll();
-            Assert.AreEqual(2, actions.Length);
-            Assert.IsInstanceOf<ImmutableNamedAction>(actions[0]);
-            Assert.AreEqual(ProjectTimelineAction.TimelineActionName, actions[0].ActionName);
-            Assert.AreSame(action, actions[0].Action);
-            Assert.IsInstanceOf<ImmutableNamedAction>(actions[1]);
-            Assert.AreEqual(ProjectTimelineAction.DataActionName, actions[1].ActionName);
-            Assert.AreSame(action, actions[1].Action);
+            ClassicAssert.AreEqual(2, actions.Length);
+            ClassicAssert.IsInstanceOf<ImmutableNamedAction>(actions[0]);
+            ClassicAssert.AreEqual(ProjectTimelineAction.TimelineActionName, actions[0].ActionName);
+            ClassicAssert.AreSame(action, actions[0].Action);
+            ClassicAssert.IsInstanceOf<ImmutableNamedAction>(actions[1]);
+            ClassicAssert.AreEqual(ProjectTimelineAction.DataActionName, actions[1].ActionName);
+            ClassicAssert.AreSame(action, actions[1].Action);
         }
         #endregion
     }

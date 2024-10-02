@@ -1,6 +1,7 @@
 using System;
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.State;
 using ThoughtWorks.CruiseControl.Remote;
@@ -26,8 +27,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
 			catch (Exception) { }
 
 			project.Integrate(new IntegrationRequest(BuildCondition.ForceBuild, "test", null));
-			Assert.AreEqual(IntegrationStatus.Success, project.CurrentResult.Status);
-			Assert.AreEqual("1", project.CurrentResult.Label);
+			ClassicAssert.AreEqual(IntegrationStatus.Success, project.CurrentResult.Status);
+            ClassicAssert.AreEqual(IntegrationStatus.Success, project.CurrentResult.Status);
+            ClassicAssert.AreEqual("1", project.CurrentResult.Label);
 		}
 
 		[Test]
@@ -49,8 +51,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
 			catch (Exception) { }
 
             project.Integrate(new IntegrationRequest(BuildCondition.ForceBuild, "test", null));
-			Assert.AreEqual(IntegrationStatus.Success, project.CurrentResult.Status);
-			Assert.AreEqual("11", project.CurrentResult.Label);			
+			ClassicAssert.AreEqual(IntegrationStatus.Success, project.CurrentResult.Status);
+			ClassicAssert.AreEqual("11", project.CurrentResult.Label);			
 		}
 	}
 

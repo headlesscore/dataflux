@@ -1,5 +1,6 @@
 using Exortech.NetReflector;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Sourcecontrol;
 
@@ -19,8 +20,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 		[Test]
 		public void ShouldNotAcceptIfNoUserIsSpecified()
 		{
-			Assert.IsFalse(filter.Accept(new Modification()));
-		}
+			ClassicAssert.IsFalse(filter.Accept(new Modification()));
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
+        }
 
 		[Test]
 		public void ShouldFilterSpecifiedUser()
@@ -29,16 +32,16 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 			mod.UserName = "bob";
 
 			filter.UserNames = new string[] { "bob" };
-			Assert.IsTrue(filter.Accept(mod));
+			ClassicAssert.IsTrue(filter.Accept(mod));
 		}
 
 		[Test]
 		public void LoadFromConfiguration()
 		{
 			filter = (UserFilter) NetReflector.Read(@"<userFilter><names><name>bob</name><name>perry</name></names></userFilter>");
-			Assert.AreEqual(2, filter.UserNames.Length);
-			Assert.AreEqual("bob", filter.UserNames[0]);
-			Assert.AreEqual("perry", filter.UserNames[1]);
+			ClassicAssert.AreEqual(2, filter.UserNames.Length);
+			ClassicAssert.AreEqual("bob", filter.UserNames[0]);
+			ClassicAssert.AreEqual("perry", filter.UserNames[1]);
 		}
 	}
 }

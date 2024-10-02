@@ -3,6 +3,7 @@
     using System.Collections;
     using Moq;
     using NUnit.Framework;
+    using NUnit.Framework.Legacy;
     using ThoughtWorks.CruiseControl.Core.Reporting.Dashboard.Navigation;
     using ThoughtWorks.CruiseControl.WebDashboard.Dashboard;
     using ThoughtWorks.CruiseControl.WebDashboard.IO;
@@ -30,17 +31,19 @@
         public void DescriptionIsCorrect()
         {
             var plugin = new OhlohProjectPlugin(null, null);
-            Assert.AreEqual("View Ohloh Stats", plugin.LinkDescription);
+            ClassicAssert.AreEqual("View Ohloh Stats", plugin.LinkDescription);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
         }
 
         [Test]
         public void NamedActionsReturnedImmutableAction()
         {
             var plugin = new OhlohProjectPlugin(null, null);
-            Assert.AreEqual(1, plugin.NamedActions.Length);
-            Assert.IsInstanceOf<ImmutableNamedAction>(plugin.NamedActions[0]);
-            Assert.AreEqual("ViewOhlohProjectStats", plugin.NamedActions[0].ActionName);
-            Assert.AreSame(plugin, plugin.NamedActions[0].Action);
+            ClassicAssert.AreEqual(1, plugin.NamedActions.Length);
+            ClassicAssert.IsInstanceOf<ImmutableNamedAction>(plugin.NamedActions[0]);
+            ClassicAssert.AreEqual("ViewOhlohProjectStats", plugin.NamedActions[0].ActionName);
+            ClassicAssert.AreSame(plugin, plugin.NamedActions[0].Action);
         }
 
         [Test]
@@ -58,9 +61,9 @@
             var response = plugin.Execute(request);
 
             this.mocks.VerifyAll();
-            Assert.IsInstanceOf<HtmlFragmentResponse>(response);
+            ClassicAssert.IsInstanceOf<HtmlFragmentResponse>(response);
             var actual = response as HtmlFragmentResponse;
-            Assert.AreEqual("<div>This project has not been linked to a project in Ohloh</div>", actual.ResponseFragment);
+            ClassicAssert.AreEqual("<div>This project has not been linked to a project in Ohloh</div>", actual.ResponseFragment);
         }
 
         [Test]
@@ -76,12 +79,12 @@
             Mock.Get(farmService).Setup(_farmService => _farmService.GetLinkedSiteId(projectSpec, null, "ohloh")).Returns("1234567");
             Mock.Get(viewGenerator).Setup(_viewGenerator => _viewGenerator.GenerateView(It.IsAny<string>(), It.IsAny<Hashtable>()))
                 .Callback<string, Hashtable>((n, ht) => {
-                    Assert.AreEqual("OhlohStats.vm", n);
-                    Assert.IsNotNull(ht);
-                    Assert.IsTrue(ht.ContainsKey("ohloh"));
-                    Assert.IsTrue(ht.ContainsKey("projectName"));
-                    Assert.AreEqual("1234567", ht["ohloh"]);
-                    Assert.AreEqual("Test Project", ht["projectName"]);
+                    ClassicAssert.AreEqual("OhlohStats.vm", n);
+                    ClassicAssert.IsNotNull(ht);
+                    ClassicAssert.IsTrue(ht.ContainsKey("ohloh"));
+                    ClassicAssert.IsTrue(ht.ContainsKey("projectName"));
+                    ClassicAssert.AreEqual("1234567", ht["ohloh"]);
+                    ClassicAssert.AreEqual("Test Project", ht["projectName"]);
                 })
                 .Returns(new HtmlFragmentResponse("from nVelocity")).Verifiable();
 
@@ -89,9 +92,9 @@
             var response = plugin.Execute(request);
 
             this.mocks.VerifyAll();
-            Assert.IsInstanceOf<HtmlFragmentResponse>(response);
+            ClassicAssert.IsInstanceOf<HtmlFragmentResponse>(response);
             var actual = response as HtmlFragmentResponse;
-            Assert.AreEqual("from nVelocity", actual.ResponseFragment);
+            ClassicAssert.AreEqual("from nVelocity", actual.ResponseFragment);
         }
         #endregion
     }

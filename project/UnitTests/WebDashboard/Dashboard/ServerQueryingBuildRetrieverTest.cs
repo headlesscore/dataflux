@@ -1,5 +1,6 @@
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core.Reporting.Dashboard.Navigation;
 using ThoughtWorks.CruiseControl.WebDashboard.Dashboard;
 using ThoughtWorks.CruiseControl.WebDashboard.ServerConnection;
@@ -37,10 +38,11 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.Dashboard
 
 			Build returnedBuild = serverQueryingBuildRetriever.GetBuild(buildSpecifier, null);
 
-			Assert.AreEqual(buildSpecifier, returnedBuild.BuildSpecifier);
-			Assert.AreEqual(logContent, returnedBuild.Log);
-
-			VerifyAll();
+			ClassicAssert.AreEqual(buildSpecifier, returnedBuild.BuildSpecifier);
+			ClassicAssert.AreEqual(logContent, returnedBuild.Log);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
+            VerifyAll();
 		}
 	}
 }

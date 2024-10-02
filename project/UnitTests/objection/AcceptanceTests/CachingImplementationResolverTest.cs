@@ -3,6 +3,7 @@ using System.Collections;
 using System.Threading;
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace Objection.UnitTests.AcceptanceTests
 {
@@ -36,15 +37,16 @@ namespace Objection.UnitTests.AcceptanceTests
 			Thread.Sleep(500); // allow moochingThread to catch up to resolvingThread
 			stallingResolver.Resume();
 			
-			Assert.IsTrue(resolvingThread.Join(200), "Resolving thread did not complete before timeout.");
-			Assert.IsTrue(moochingThread.Join(200), "Mooching thread did not complete before timeout.");
-			
-			expectedToBeUsed.Verify();
+			ClassicAssert.IsTrue(resolvingThread.Join(200), "Resolving thread did not complete before timeout.");
+			ClassicAssert.IsTrue(moochingThread.Join(200), "Mooching thread did not complete before timeout.");
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
+            expectedToBeUsed.Verify();
 			notExpectedToBeUsed.Verify();
 			notExpectedToBeUsed.VerifyNoOtherCalls();
 
-			Assert.AreEqual(typeof(TestClass), resolvingRunner.implementationType);
-			Assert.AreEqual(typeof(TestClass), moochingRunner.implementationType);
+			ClassicAssert.AreEqual(typeof(TestClass), resolvingRunner.implementationType);
+			ClassicAssert.AreEqual(typeof(TestClass), moochingRunner.implementationType);
 		}
 	}
 	

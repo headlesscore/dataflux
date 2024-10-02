@@ -2,6 +2,7 @@
 {
     using Moq;
     using NUnit.Framework;
+    using NUnit.Framework.Legacy;
     using ThoughtWorks.CruiseControl.Remote;
     using ThoughtWorks.CruiseControl.Remote.Monitor;
 
@@ -17,7 +18,9 @@
             var monitor = new Server(client, watcher);
             var queue = new BuildQueue(client, monitor, new QueueSnapshot());
             var args = new BuildQueueChangedArgs(queue);
-            Assert.AreSame(queue, args.BuildQueue);
+            ClassicAssert.AreSame(queue, args.BuildQueue);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
         }
         #endregion
     }

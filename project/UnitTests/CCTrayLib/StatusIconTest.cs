@@ -1,5 +1,6 @@
 using System.Drawing;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.CCTrayLib;
 
 namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib
@@ -18,13 +19,14 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib
 		{
 			StatusIcon iconFile = StatusIcon.LoadFromFile(file);
 			Size size = iconFile.Icon.Size;
-			Assert.AreEqual(originalIcon.Size, size);
-		}
+			ClassicAssert.AreEqual(originalIcon.Size, size);
+            ClassicAssert.AreEqual(originalIcon.Size, size);
+        }
 
 		[Test]
 		public void ShouldThrowIconNotFoundExceptionIfFileDoesNotExist()
 		{
-		    Assert.That(delegate { StatusIcon.LoadFromFile("./fileNotOnDisk.ico"); },
+		    ClassicAssert.That(delegate { StatusIcon.LoadFromFile("./fileNotOnDisk.ico"); },
 		                Throws.TypeOf<IconNotFoundException>());
 		}
 

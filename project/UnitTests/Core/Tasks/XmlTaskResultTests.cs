@@ -2,6 +2,7 @@
 {
     using CruiseControl.Core.Tasks;
     using NUnit.Framework;
+    using NUnit.Framework.Legacy;
     using System;
 
     public class XmlTaskResultTests
@@ -14,7 +15,9 @@
                              {
                                  Success = true
                              };
-            Assert.IsTrue(result.CheckIfSuccess());
+            ClassicAssert.IsTrue(result.CheckIfSuccess());
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
         }
 
         [Test]
@@ -25,7 +28,7 @@
             writer.WriteElementString("key", "value");
             var actual = result.Data;
             var expected = "<key>value</key>";
-            Assert.AreEqual(expected, actual);
+            ClassicAssert.AreEqual(expected, actual);
         }
 
         [Test]
@@ -36,7 +39,7 @@
             writer.WriteElementString("key", "value");
             var first = result.Data;
             var second = result.Data;
-            Assert.AreEqual(first, second);
+            ClassicAssert.AreEqual(first, second);
         }
 
         [Test]
@@ -44,8 +47,8 @@
         {
             var result = new XmlTaskResult();
             string data = null;
-            Assert.Throws<InvalidOperationException>(() => data = result.Data);
-            Assert.IsNull(data);
+            ClassicAssert.Throws<InvalidOperationException>(() => data = result.Data);
+            ClassicAssert.IsNull(data);
         }
 
         [Test]
@@ -54,8 +57,8 @@
             var result = new XmlTaskResult();
             result.GetWriter();
             var data = result.Data;
-            Assert.AreEqual(string.Empty, data);
-            Assert.Throws<InvalidOperationException>(() => result.GetWriter());
+            ClassicAssert.AreEqual(string.Empty, data);
+            ClassicAssert.Throws<InvalidOperationException>(() => result.GetWriter());
         }
         #endregion
     }

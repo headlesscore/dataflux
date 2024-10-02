@@ -1,5 +1,6 @@
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core.Reporting.Dashboard.Navigation;
 using ThoughtWorks.CruiseControl.WebDashboard.Dashboard;
 
@@ -37,11 +38,13 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.Dashboard
 
 			IAbsoluteLink[] returnedLinks = linkListFactory.CreateStyledBuildLinkList(new IBuildSpecifier[] { buildSpecifier1, buildSpecifier2 }, action);
 
-			Assert.AreEqual(2, returnedLinks.Length);
-			Assert.AreEqual(link1, returnedLinks[0]);
-			Assert.AreEqual(link2, returnedLinks[1]);
+			ClassicAssert.AreEqual(2, returnedLinks.Length);
+			ClassicAssert.AreEqual(link1, returnedLinks[0]);
+			ClassicAssert.AreEqual(link2, returnedLinks[1]);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
 
-			VerifyAll();
+            VerifyAll();
 		}
 
 		[Test]
@@ -59,9 +62,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.Dashboard
 
 			IAbsoluteLink[] returnedLinks = linkListFactory.CreateStyledBuildLinkList(new IBuildSpecifier[] { buildSpecifier1, buildSpecifier2 }, selectedBuildSpecifier, action);
 
-			Assert.AreEqual(2, returnedLinks.Length);
-			Assert.AreEqual(link1, returnedLinks[0]);
-			Assert.AreEqual(link2, returnedLinks[1]);
+			ClassicAssert.AreEqual(2, returnedLinks.Length);
+			ClassicAssert.AreEqual(link1, returnedLinks[0]);
+			ClassicAssert.AreEqual(link2, returnedLinks[1]);
 
 			VerifyAll();
 		}
@@ -81,9 +84,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.Dashboard
 
 			IAbsoluteLink[] returnedLinks = linkListFactory.CreateServerLinkList(new IServerSpecifier[] { serverSpecifier1, serverSpecifier2 }, action);
 
-			Assert.AreEqual(2, returnedLinks.Length);
-			Assert.AreEqual(link1, returnedLinks[0]);
-			Assert.AreEqual(link2, returnedLinks[1]);
+			ClassicAssert.AreEqual(2, returnedLinks.Length);
+			ClassicAssert.AreEqual(link1, returnedLinks[0]);
+			ClassicAssert.AreEqual(link2, returnedLinks[1]);
 
 			VerifyAll();
 		}

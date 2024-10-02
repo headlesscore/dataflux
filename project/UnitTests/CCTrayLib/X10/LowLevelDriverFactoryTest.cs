@@ -1,5 +1,6 @@
 using System;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.CCTrayLib.Configuration;
 using ThoughtWorks.CruiseControl.CCTrayLib.X10;
 
@@ -23,14 +24,15 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.X10
                 // factory will return null driver if it can't create one - caller needs to check!
                 if (driver != null)
                 {
-                    Assert.That(driver, Is.InstanceOf<Cm11LowLevelDriver>(), "driver should be correct type");
+                    ClassicAssert.That(driver, Is.InstanceOf<Cm11LowLevelDriver>(), "driver should be correct type");
+                    ClassicAssert.That(driver, Is.InstanceOf<Cm11LowLevelDriver>(), "driver should be correct type");
                 }
             }
             catch (ApplicationException appEx)
             {
                 // this test only works if COM1 is available...fail if the message is anything other than
                 // something about the com port not being there. 
-                Assert.IsTrue(appEx.InnerException.Message.Contains("The port 'COM1' does not exist."),"threw an exception, but the message was wrong");
+                ClassicAssert.IsTrue(appEx.InnerException.Message.Contains("The port 'COM1' does not exist."),"threw an exception, but the message was wrong");
             }
 
         }
@@ -48,7 +50,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.X10
             // factory will return null driver if it can't create one - caller needs to check!
             if (driver != null)
             {
-                Assert.That(driver, Is.InstanceOf<Cm17LowLevelDriver>());
+                ClassicAssert.That(driver, Is.InstanceOf<Cm17LowLevelDriver>());
             }
         }
     }

@@ -8,6 +8,7 @@
     using Exortech.NetReflector;
     using Exortech.NetReflector.Util;
     using System.Xml;
+    using NUnit.Framework.Legacy;
 
     [TestFixture]
     public class PrivateStringSerialiserTests
@@ -22,8 +23,10 @@
             var element = document.CreateElement("test");
             element.InnerText = "value of the element";
             var result = serialiser.Read(element, null);
-            Assert.IsInstanceOf<PrivateString>(result);
-            Assert.AreEqual("value of the element", (result as PrivateString).PrivateValue);
+            ClassicAssert.IsInstanceOf<PrivateString>(result);
+            ClassicAssert.AreEqual("value of the element", (result as PrivateString).PrivateValue);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
         }
 
         [Test]
@@ -36,8 +39,8 @@
             var element = document.CreateAttribute("test");
             element.Value = "value of the attribute";
             var result = serialiser.Read(element, null);
-            Assert.IsInstanceOf<PrivateString>(result);
-            Assert.AreEqual("value of the attribute", (result as PrivateString).PrivateValue);
+            ClassicAssert.IsInstanceOf<PrivateString>(result);
+            ClassicAssert.AreEqual("value of the attribute", (result as PrivateString).PrivateValue);
         }
 
         [Test]
@@ -48,7 +51,7 @@
             attribute.Required = false;
             var serialiser = new PrivateStringSerialiser(member, attribute);
             var result = serialiser.Read(null, null);
-            Assert.IsNull(result);
+            ClassicAssert.IsNull(result);
         }
 
         [Test]
@@ -58,7 +61,7 @@
             var attribute = new ReflectorPropertyAttribute("test");
             attribute.Required = true;
             var serialiser = new PrivateStringSerialiser(member, attribute);
-            Assert.Throws<NetReflectorItemRequiredException>(() =>
+            ClassicAssert.Throws<NetReflectorItemRequiredException>(() =>
             {
                 serialiser.Read(null, null);
             }, "test is required");
@@ -83,7 +86,7 @@
                 });
             }
 
-            Assert.AreEqual("<test>********</test>", builder.ToString());
+            ClassicAssert.AreEqual("<test>********</test>", builder.ToString());
         }
 
         [Test]
@@ -108,7 +111,7 @@
                 });
             }
 
-            Assert.AreEqual("<test>********</test>", builder.ToString());
+            ClassicAssert.AreEqual("<test>********</test>", builder.ToString());
         }
 
         private class TestClass

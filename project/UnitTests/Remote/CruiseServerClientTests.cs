@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using Moq;
     using NUnit.Framework;
+    using NUnit.Framework.Legacy;
     using ThoughtWorks.CruiseControl.Remote;
     using ThoughtWorks.CruiseControl.Remote.Messages;
     using ThoughtWorks.CruiseControl.Remote.Security;
@@ -26,8 +27,10 @@
                 .Returns(response);
 
             CruiseServerClient client = new CruiseServerClient(connection);
-            Assert.That(delegate { client.GetProjectStatus(); },
+            ClassicAssert.That(delegate { client.GetProjectStatus(); },
                         Throws.TypeOf<CommunicationsException>());
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
         }
 
         [Test]
@@ -43,8 +46,8 @@
 
             CruiseServerClient client = new CruiseServerClient(connection);
             ProjectStatus[] results = client.GetProjectStatus();
-            Assert.AreEqual(1, results.Length);
-            Assert.AreEqual(status, results[0]);
+            ClassicAssert.AreEqual(1, results.Length);
+            ClassicAssert.AreEqual(status, results[0]);
         }
 
         [Test]
@@ -163,7 +166,7 @@
             CruiseServerClient client = new CruiseServerClient(
                 new ServerStub("GetLatestBuildName", typeof(ProjectRequest), "Project #1", response));
             string result = client.GetLatestBuildName("Project #1");
-            Assert.AreEqual(response.Data, result);
+            ClassicAssert.AreEqual(response.Data, result);
         }
         #endregion
 
@@ -201,7 +204,7 @@
             CruiseServerClient client = new CruiseServerClient(
                 new ServerStub("GetLog", typeof(BuildRequest), "Project #1", response));
             string result = client.GetLog("Project #1", "Build #1");
-            Assert.AreEqual(response.Data, result);
+            ClassicAssert.AreEqual(response.Data, result);
         }
         #endregion
 
@@ -215,7 +218,7 @@
             var client = new CruiseServerClient(
                 new ServerStub("GetFinalBuildStatus", typeof(BuildRequest), "Project #1", response));
             var result = client.GetFinalBuildStatus("Project #1", "Build #1");
-            Assert.AreSame(response.Snapshot, result);
+            ClassicAssert.AreSame(response.Snapshot, result);
         }
 
         [Test]
@@ -223,9 +226,9 @@
         {
             var client = new CruiseServerClient(
                 new ServerStub("GetFinalBuildStatus", typeof(BuildRequest)));
-            var exception = Assert.Throws<ArgumentNullException>(() =>
+            var exception = ClassicAssert.Throws<ArgumentNullException>(() =>
                 client.GetFinalBuildStatus(null, null));
-            Assert.AreEqual("projectName", exception.ParamName);
+            ClassicAssert.AreEqual("projectName", exception.ParamName);
         }
 
         [Test]
@@ -233,9 +236,9 @@
         {
             var client = new CruiseServerClient(
                 new ServerStub("GetFinalBuildStatus", typeof(BuildRequest)));
-            var exception = Assert.Throws<ArgumentNullException>(() =>
+            var exception = ClassicAssert.Throws<ArgumentNullException>(() =>
                 client.GetFinalBuildStatus("Project #1", null));
-            Assert.AreEqual("buildName", exception.ParamName);
+            ClassicAssert.AreEqual("buildName", exception.ParamName);
         }
         #endregion
 
@@ -249,7 +252,7 @@
             var client = new CruiseServerClient(
                 new ServerStub("TakeStatusSnapshot", typeof(ProjectRequest), "Project #1", response));
             var result = client.TakeStatusSnapshot("Project #1");
-            Assert.AreSame(response.Snapshot, result);
+            ClassicAssert.AreSame(response.Snapshot, result);
         }
 
         [Test]
@@ -257,9 +260,9 @@
         {
             var client = new CruiseServerClient(
                 new ServerStub("TakeStatusSnapshot", typeof(BuildRequest)));
-            var exception = Assert.Throws<ArgumentNullException>(() =>
+            var exception = ClassicAssert.Throws<ArgumentNullException>(() =>
                 client.TakeStatusSnapshot(null));
-            Assert.AreEqual("projectName", exception.ParamName);
+            ClassicAssert.AreEqual("projectName", exception.ParamName);
         }
         #endregion
 
@@ -273,7 +276,7 @@
             var client = new CruiseServerClient(
                 new ServerStub("RetrieveFileTransfer", typeof(FileTransferRequest), "Project #1", response));
             var result = client.RetrieveFileTransfer("Project #1", "Build #1");
-            Assert.AreSame(response.FileTransfer, result);
+            ClassicAssert.AreSame(response.FileTransfer, result);
         }
 
         [Test]
@@ -281,9 +284,9 @@
         {
             var client = new CruiseServerClient(
                 new ServerStub("RetrieveFileTransfer", typeof(BuildRequest)));
-            var exception = Assert.Throws<ArgumentNullException>(() =>
+            var exception = ClassicAssert.Throws<ArgumentNullException>(() =>
                 client.RetrieveFileTransfer(null, null));
-            Assert.AreEqual("projectName", exception.ParamName);
+            ClassicAssert.AreEqual("projectName", exception.ParamName);
         }
 
         [Test]
@@ -291,9 +294,9 @@
         {
             var client = new CruiseServerClient(
                 new ServerStub("RetrieveFileTransfer", typeof(BuildRequest)));
-            var exception = Assert.Throws<ArgumentNullException>(() =>
+            var exception = ClassicAssert.Throws<ArgumentNullException>(() =>
                 client.RetrieveFileTransfer("Project #1", null));
-            Assert.AreEqual("fileName", exception.ParamName);
+            ClassicAssert.AreEqual("fileName", exception.ParamName);
         }
         #endregion
 
@@ -307,7 +310,7 @@
             CruiseServerClient client = new CruiseServerClient(
                 new ServerStub("GetServerLog", typeof(ServerRequest), null, response));
             string result = client.GetServerLog();
-            Assert.AreEqual(response.Data, result);
+            ClassicAssert.AreEqual(response.Data, result);
         }
 
         [Test]
@@ -319,7 +322,7 @@
             CruiseServerClient client = new CruiseServerClient(
                 new ServerStub("GetServerLog", typeof(ProjectRequest), "Project #1", response));
             string result = client.GetServerLog("Project #1");
-            Assert.AreEqual(response.Data, result);
+            ClassicAssert.AreEqual(response.Data, result);
         }
         #endregion
 
@@ -333,7 +336,7 @@
             CruiseServerClient client = new CruiseServerClient(
                 new ServerStub("GetServerVersion", typeof(ServerRequest), null, response));
             string result = client.GetServerVersion();
-            Assert.AreEqual(response.Data, result);
+            ClassicAssert.AreEqual(response.Data, result);
         }
         #endregion
 
@@ -365,7 +368,7 @@
             CruiseServerClient client = new CruiseServerClient(
                 new ServerStub("GetProject", typeof(ProjectRequest), "Project #1", response));
             string result = client.GetProject("Project #1");
-            Assert.AreEqual(response.Data, result);
+            ClassicAssert.AreEqual(response.Data, result);
         }
         #endregion
 
@@ -400,7 +403,7 @@
             CruiseServerClient client = new CruiseServerClient(
                 new ServerStub("GetArtifactDirectory", typeof(ProjectRequest), "Project #1", response));
             string result = client.GetArtifactDirectory("Project #1");
-            Assert.AreEqual(response.Data, result);
+            ClassicAssert.AreEqual(response.Data, result);
         }
         #endregion
 
@@ -414,7 +417,7 @@
             CruiseServerClient client = new CruiseServerClient(
                 new ServerStub("GetStatisticsDocument", typeof(ProjectRequest), "Project #1", response));
             string result = client.GetStatisticsDocument("Project #1");
-            Assert.AreEqual(response.Data, result);
+            ClassicAssert.AreEqual(response.Data, result);
         }
         #endregion
 
@@ -428,7 +431,7 @@
             CruiseServerClient client = new CruiseServerClient(
                 new ServerStub("GetModificationHistoryDocument", typeof(ProjectRequest), "Project #1", response));
             string result = client.GetModificationHistoryDocument("Project #1");
-            Assert.AreEqual(response.Data, result);
+            ClassicAssert.AreEqual(response.Data, result);
         }
         #endregion
 
@@ -442,7 +445,7 @@
             CruiseServerClient client = new CruiseServerClient(
                 new ServerStub("GetRSSFeed", typeof(ProjectRequest), "Project #1", response));
             string result = client.GetRSSFeed("Project #1");
-            Assert.AreEqual(response.Data, result);
+            ClassicAssert.AreEqual(response.Data, result);
         }
         #endregion
 
@@ -457,8 +460,8 @@
                 new ServerStub("Login", typeof(LoginRequest), null, response));
             List<NameValuePair> credentials = new List<NameValuePair>();
             bool result = client.Login(credentials);
-            Assert.IsTrue(result);
-            Assert.AreEqual(response.SessionToken, client.SessionToken);
+            ClassicAssert.IsTrue(result);
+            ClassicAssert.AreEqual(response.SessionToken, client.SessionToken);
         }
 
         [Test]
@@ -470,8 +473,8 @@
                 new ServerStub("Login", typeof(LoginRequest), null, response));
             List<NameValuePair> credentials = new List<NameValuePair>();
             bool result = client.Login(credentials);
-            Assert.IsFalse(result);
-            Assert.AreEqual(null, client.SessionToken);
+            ClassicAssert.IsFalse(result);
+            ClassicAssert.AreEqual(null, client.SessionToken);
         }
         #endregion
 
@@ -482,7 +485,7 @@
             CruiseServerClient client = new CruiseServerClient(
                 new ServerStub("Logout", typeof(ServerRequest)));
             client.Logout();
-            Assert.AreEqual(null, client.SessionToken);
+            ClassicAssert.AreEqual(null, client.SessionToken);
         }
         #endregion
 
@@ -496,7 +499,7 @@
             CruiseServerClient client = new CruiseServerClient(
                 new ServerStub("GetSecurityConfiguration", typeof(ServerRequest), null, response));
             string result = client.GetSecurityConfiguration();
-            Assert.AreEqual(response.Data, result);
+            ClassicAssert.AreEqual(response.Data, result);
         }
         #endregion
 
@@ -583,7 +586,7 @@
         {
             CruiseServerClient client = new CruiseServerClient(null);
             client.SessionToken = "sessionId";
-            Assert.AreEqual("sessionId", client.SessionToken);
+            ClassicAssert.AreEqual("sessionId", client.SessionToken);
         }
         #endregion
 
@@ -595,7 +598,7 @@
             Mock.Get(connection).SetupGet(_connection => _connection.IsBusy).Returns(true);
 
             CruiseServerClient client = new CruiseServerClient(connection);
-            Assert.IsTrue(client.IsBusy);
+            ClassicAssert.IsTrue(client.IsBusy);
         }
         #endregion
 
@@ -608,7 +611,7 @@
             Mock.Get(connection).SetupGet(_connection => _connection.Address).Returns(address);
 
             CruiseServerClient client = new CruiseServerClient(connection);
-            Assert.AreEqual(address, client.Address);
+            ClassicAssert.AreEqual(address, client.Address);
         }
         #endregion
         #endregion
@@ -670,11 +673,11 @@
 
             public Response SendMessage(string action, ServerRequest request)
             {
-                Assert.AreEqual(this.action, action);
-                Assert.AreEqual(this.message, request.GetType());
+                ClassicAssert.AreEqual(this.action, action);
+                ClassicAssert.AreEqual(this.message, request.GetType());
                 if (!string.IsNullOrEmpty(projectName) && (request is ProjectRequest))
                 {
-                    Assert.AreEqual(this.projectName, (request as ProjectRequest).ProjectName);
+                    ClassicAssert.AreEqual(this.projectName, (request as ProjectRequest).ProjectName);
                 }
                 if (response == null)
                 {

@@ -2,6 +2,7 @@ using System;
 using Exortech.NetReflector;
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Sourcecontrol;
 using ThoughtWorks.CruiseControl.Core.Util;
@@ -90,7 +91,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 			InitialiseAlienbrain();
 			alienbrain.Project = project;
 			ProcessInfo info = alienbrain.CreateModificationProcess(Alienbrain.MODIFICATIONS_COMMAND_TEMPLATE, from, to);
-			Assert.AreEqual(EXECUTABLE + " " + String.Format(Alienbrain.MODIFICATIONS_COMMAND_TEMPLATE,
+			ClassicAssert.AreEqual(EXECUTABLE + " " + String.Format(Alienbrain.MODIFICATIONS_COMMAND_TEMPLATE,
 			                                                 project,
 			                                                 SERVER,
 			                                                 DATABASE,
@@ -98,7 +99,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 			                                                 PASSWORD,
 			                                                 from.ToFileTime(), to.ToFileTime()),
 			                info.FileName + " " + info.Arguments);
-		}
+            ClassicAssert.IsTrue(true);
+        }
 
 		[Test]
 		public void CanCreateLabelProcess()
@@ -110,7 +112,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 			alienbrain.Project = project;
 
 			ProcessInfo info = alienbrain.CreateLabelProcess(Alienbrain.LABEL_COMMAND_TEMPLATE, IntegrationResultMother.CreateSuccessful(name));
-			Assert.AreEqual(EXECUTABLE + " " + String.Format(Alienbrain.LABEL_COMMAND_TEMPLATE,
+			ClassicAssert.AreEqual(EXECUTABLE + " " + String.Format(Alienbrain.LABEL_COMMAND_TEMPLATE,
 			                                                 project,
 			                                                 SERVER,
 			                                                 DATABASE,
@@ -131,8 +133,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 			alienbrain.Password = "p w";
 			alienbrain.WorkingDirectory = "c:\\my source";
 			ProcessInfo info = alienbrain.CreateGetProcess();
-			Assert.AreEqual("ab.exe", info.FileName);
-			Assert.AreEqual(
+			ClassicAssert.AreEqual("ab.exe", info.FileName);
+			ClassicAssert.AreEqual(
 				@"getlatest ""ab://my project"" -s ""s c m"" -d ""d b"" -u ""o r"" -p ""p w"" -localpath ""c:\my source"" -overwritewritable replace -overwritecheckedout replace -response:GetLatest.PathInvalid y -response:GetLatest.Writable y -response:GetLatest.CheckedOut y", info.Arguments);
 		}
 
@@ -146,8 +148,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 			alienbrain.Username = "user";
 			alienbrain.Password = "password";
 			ProcessInfo info = alienbrain.CreateGetProcess();
-			Assert.AreEqual("ab.exe", info.FileName);
-			Assert.AreEqual(
+			ClassicAssert.AreEqual("ab.exe", info.FileName);
+			ClassicAssert.AreEqual(
 				@"getlatest ab://project -s server -d database -u user -p password -overwritewritable replace -overwritecheckedout replace -response:GetLatest.PathInvalid y -response:GetLatest.Writable y -response:GetLatest.CheckedOut y", info.Arguments);
 		}
 
@@ -159,7 +161,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 			alienbrain.Branch = name;
 
 			ProcessInfo info = alienbrain.CreateBranchProcess(Alienbrain.BRANCH_COMMAND_TEMPLATE);
-			Assert.AreEqual(EXECUTABLE + " " + String.Format(Alienbrain.BRANCH_COMMAND_TEMPLATE,
+			ClassicAssert.AreEqual(EXECUTABLE + " " + String.Format(Alienbrain.BRANCH_COMMAND_TEMPLATE,
 			                                                 name,
 			                                                 SERVER,
 			                                                 DATABASE,
@@ -173,16 +175,16 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 		public void ShouldPopulateCorrectlyFromXml()
 		{
 			NetReflector.Read(ALIENBRAIN_XML, alienbrain);
-			Assert.AreEqual(EXECUTABLE, alienbrain.Executable);
-			Assert.AreEqual(SERVER, alienbrain.Server);
-			Assert.AreEqual(DATABASE, alienbrain.Database);
-			Assert.AreEqual(USER, alienbrain.Username);
-			Assert.AreEqual(PASSWORD, alienbrain.Password.PrivateValue);
-			Assert.AreEqual(PROJECT_PATH, alienbrain.Project);
-			Assert.AreEqual(WORKDIR_PATH, alienbrain.WorkingDirectory);
-			Assert.AreEqual(BRANCH_PATH, alienbrain.Branch);
-			Assert.AreEqual(Convert.ToBoolean(AUTO_GET_SOURCE), alienbrain.AutoGetSource);
-			Assert.AreEqual(Convert.ToBoolean(LABEL_ON_SUCCESS), alienbrain.LabelOnSuccess);
+			ClassicAssert.AreEqual(EXECUTABLE, alienbrain.Executable);
+			ClassicAssert.AreEqual(SERVER, alienbrain.Server);
+			ClassicAssert.AreEqual(DATABASE, alienbrain.Database);
+			ClassicAssert.AreEqual(USER, alienbrain.Username);
+			ClassicAssert.AreEqual(PASSWORD, alienbrain.Password.PrivateValue);
+			ClassicAssert.AreEqual(PROJECT_PATH, alienbrain.Project);
+			ClassicAssert.AreEqual(WORKDIR_PATH, alienbrain.WorkingDirectory);
+			ClassicAssert.AreEqual(BRANCH_PATH, alienbrain.Branch);
+			ClassicAssert.AreEqual(Convert.ToBoolean(AUTO_GET_SOURCE), alienbrain.AutoGetSource);
+			ClassicAssert.AreEqual(Convert.ToBoolean(LABEL_ON_SUCCESS), alienbrain.LabelOnSuccess);
 		}
 
 		[Test]
@@ -194,23 +196,23 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 			registry.Setup(r => r.GetExpectedLocalMachineSubKeyValue(Alienbrain.AB_REGISTRY_PATH, Alienbrain.AB_REGISTRY_KEY)).Returns(INSTALLDIR).Verifiable();
 			alienbrain.Executable = string.Empty;
 
-			Assert.AreEqual(INSTALLDIR + System.IO.Path.DirectorySeparatorChar + Alienbrain.AB_COMMMAND_PATH + "\\" + Alienbrain.AB_EXE, alienbrain.Executable);
-			Assert.AreEqual(SERVER, alienbrain.Server);
-			Assert.AreEqual(DATABASE, alienbrain.Database);
-			Assert.AreEqual(USER, alienbrain.Username);
-			Assert.AreEqual(PASSWORD, alienbrain.Password.PrivateValue);
-			Assert.AreEqual(PROJECT_PATH, alienbrain.Project);
-			Assert.AreEqual(string.Empty, alienbrain.WorkingDirectory);
-			Assert.AreEqual(string.Empty, alienbrain.Branch);
-			Assert.AreEqual(Convert.ToBoolean(true), alienbrain.AutoGetSource);
-			Assert.AreEqual(Convert.ToBoolean(false), alienbrain.LabelOnSuccess);
+			ClassicAssert.AreEqual(INSTALLDIR + System.IO.Path.DirectorySeparatorChar + Alienbrain.AB_COMMMAND_PATH + "\\" + Alienbrain.AB_EXE, alienbrain.Executable);
+			ClassicAssert.AreEqual(SERVER, alienbrain.Server);
+			ClassicAssert.AreEqual(DATABASE, alienbrain.Database);
+			ClassicAssert.AreEqual(USER, alienbrain.Username);
+			ClassicAssert.AreEqual(PASSWORD, alienbrain.Password.PrivateValue);
+			ClassicAssert.AreEqual(PROJECT_PATH, alienbrain.Project);
+			ClassicAssert.AreEqual(string.Empty, alienbrain.WorkingDirectory);
+			ClassicAssert.AreEqual(string.Empty, alienbrain.Branch);
+			ClassicAssert.AreEqual(Convert.ToBoolean(true), alienbrain.AutoGetSource);
+			ClassicAssert.AreEqual(Convert.ToBoolean(false), alienbrain.LabelOnSuccess);
 		}
 
 		[Test]
 		public void CanCatchInvalidGetSourceFlagConfiguration()
 		{
 			const string invalidXml = "<sourcecontrol type=\"alienbrain\"><autoGetSource>NOT_A_BOOLEAN</autoGetSource></sourcecontrol>";
-			Assert.That(delegate { NetReflector.Read(invalidXml); },
+			ClassicAssert.That(delegate { NetReflector.Read(invalidXml); },
                         Throws.TypeOf<NetReflectorException>());
 		}
 
@@ -218,7 +220,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 		public void CanCatchInvalidLabelOnSuccessConfiguration()
 		{
 			const string invalidXml = "<sourcecontrol type=\"alienbrain\"><labelOnSuccess>NOT_A_BOOLEAN</labelOnSuccess></sourcecontrol>";
-            Assert.That(delegate { NetReflector.Read(invalidXml); },
+            ClassicAssert.That(delegate { NetReflector.Read(invalidXml); },
                         Throws.TypeOf<NetReflectorException>());
 		}
 
@@ -237,7 +239,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 			expectedProcessRequest.TimeOut = Timeout.DefaultTimeout.Millis;
 
 			executor.Setup(e => e.Execute(expectedProcessRequest)).Returns(new ProcessResult("foo", null, 0, false)).Verifiable();
-			Assert.IsTrue(alienbrain.HasChanges(expectedProcessRequest));
+			ClassicAssert.IsTrue(alienbrain.HasChanges(expectedProcessRequest));
 			executor.Verify();
 		}
 

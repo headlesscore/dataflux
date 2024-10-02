@@ -4,6 +4,7 @@ using FluentAssertions;
 using FluentAssertions.Execution;
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Sourcecontrol;
 using ThoughtWorks.CruiseControl.Core.Util;
@@ -39,20 +40,21 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 		[Test]
 		public void MissingDirectoryThrowsException()
 		{
-			Assert.IsFalse(tempRoot.Exists(), "Temporary directory should not exist: " + tempRoot.ToString());
-            Assert.That(delegate { sc.GetModifications(IntegrationResult(DateTime.MinValue), IntegrationResult(DateTime.MaxValue)); },
+			ClassicAssert.IsFalse(tempRoot.Exists(), "Temporary directory should not exist: " + tempRoot.ToString());
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.That(delegate { sc.GetModifications(IntegrationResult(DateTime.MinValue), IntegrationResult(DateTime.MaxValue)); },
                         Throws.TypeOf<DirectoryNotFoundException>());
 		}
 
 		[Test]
 		public void IgnoreMissingDirectoryReturnsZeroMods()
 		{
-			Assert.IsFalse(tempRoot.Exists(), "Temporary directory should not exist: " + tempRoot.ToString());
+			ClassicAssert.IsFalse(tempRoot.Exists(), "Temporary directory should not exist: " + tempRoot.ToString());
 			sc.IgnoreMissingRoot = true;
 			try
 			{
 				Modification[] mods = sc.GetModifications(IntegrationResult(DateTime.MinValue), IntegrationResult(DateTime.MaxValue));
-				Assert.AreEqual(0, mods.Length, "Modifications found in a missing directory");
+				ClassicAssert.AreEqual(0, mods.Length, "Modifications found in a missing directory");
 			}
 			finally
 			{
@@ -111,8 +113,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 		{
 			tempRoot.CreateDirectory();
 			Modification[] mods = sc.GetModifications(IntegrationResult(DateTime.MinValue), IntegrationResult(DateTime.MaxValue));
-			Assert.IsNotNull(mods);
-			Assert.AreEqual(0, mods.Length);
+			ClassicAssert.IsNotNull(mods);
+			ClassicAssert.AreEqual(0, mods.Length);
 		}
 
 		[Test]
@@ -124,8 +126,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 			new FileInfo(file2).LastWriteTime = DateTime.Now.AddHours(2);
 
 			Modification[] mods = sc.GetModifications(IntegrationResult(DateTime.Now.AddHours(1)), IntegrationResult(DateTime.MaxValue));
-			Assert.AreEqual(1, mods.Length);
-			Assert.AreEqual("file2.txt", mods[0].FileName);
+			ClassicAssert.AreEqual(1, mods.Length);
+			ClassicAssert.AreEqual("file2.txt", mods[0].FileName);
 		}
 
 		[Test]

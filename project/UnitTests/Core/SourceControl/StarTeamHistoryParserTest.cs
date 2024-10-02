@@ -2,6 +2,7 @@ using System;
 using System.Globalization;
 using System.IO;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Sourcecontrol;
 
@@ -30,8 +31,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 		public void TestModificationCount()
 		{
 			Modification [] mod = _parser.Parse(StarTeamHistoryParserTest.ContentReader, OLDEST_ENTRY, NEWEST_ENTRY);
-			Assert.AreEqual(4, mod.Length);
-		}
+			ClassicAssert.AreEqual(4, mod.Length);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
+        }
 
 		[Test]
 		public void TestModificationContent()

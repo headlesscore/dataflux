@@ -3,6 +3,7 @@
     using System;
     using System.Threading;
     using NUnit.Framework;
+    using NUnit.Framework.Legacy;
     using ThoughtWorks.CruiseControl.Core.Triggers;
     using ThoughtWorks.CruiseControl.Core.Util;
 
@@ -28,14 +29,16 @@
                 expected = new DateTime(DateTime.Now.Year + 1, 1, 1);
             }
 
-            Assert.AreEqual(expected, c.NextBuild);
+            ClassicAssert.AreEqual(expected, c.NextBuild);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
         }
 
         [Test]
         public void NameReturnsTypeName()
         {
             var trigger = new CronTrigger();
-            Assert.AreEqual(typeof(CronTrigger).Name, trigger.Name);
+            ClassicAssert.AreEqual(typeof(CronTrigger).Name, trigger.Name);
         }
 
         [Test]
@@ -43,7 +46,7 @@
         {
             var name = "testName";
             var trigger = new CronTrigger { Name = name };
-            Assert.AreEqual(name, trigger.Name);
+            ClassicAssert.AreEqual(name, trigger.Name);
         }
 
         [Test]
@@ -58,7 +61,7 @@
             var nextTime = trigger.NextBuild;
             trigger.StartDate = DateTime.Now.AddHours(2);
             trigger.IntegrationCompleted();
-            Assert.AreEqual(nextTime, trigger.NextBuild);
+            ClassicAssert.AreEqual(nextTime, trigger.NextBuild);
         }
 
         [Test]
@@ -71,7 +74,7 @@
                 };
             trigger.StartDate = DateTime.Today;
             var actual = trigger.Fire();
-            Assert.IsNotNull(actual);
+            ClassicAssert.IsNotNull(actual);
         }
 
         [Test]
@@ -88,7 +91,7 @@
             trigger.StartDate = DateTime.Now.AddHours(2);
             trigger.Fire();
             trigger.IntegrationCompleted();
-            Assert.AreNotEqual(nextTime, trigger.NextBuild);
+            ClassicAssert.AreNotEqual(nextTime, trigger.NextBuild);
         }
     }
 }

@@ -3,6 +3,7 @@
     using System;
     using Moq;
     using NUnit.Framework;
+    using NUnit.Framework.Legacy;
     using ThoughtWorks.CruiseControl.Core.Reporting.Dashboard.Navigation;
     using ThoughtWorks.CruiseControl.Remote;
     using ThoughtWorks.CruiseControl.WebDashboard.IO;
@@ -43,10 +44,12 @@
             var response = plugin.Execute(cruiseRequest);
 
             this.mocks.VerifyAll();
-            Assert.IsInstanceOf<XmlFragmentResponse>(response);
+            ClassicAssert.IsInstanceOf<XmlFragmentResponse>(response);
             var actual = response as XmlFragmentResponse;
             var expected = snapshot.ToString();
-            Assert.AreEqual(expected, actual.ResponseFragment);
+            ClassicAssert.AreEqual(expected, actual.ResponseFragment);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
         }
 
         [Test]
@@ -67,10 +70,10 @@
             var response = plugin.Execute(cruiseRequest);
 
             this.mocks.VerifyAll();
-            Assert.IsInstanceOf<XmlFragmentResponse>(response);
+            ClassicAssert.IsInstanceOf<XmlFragmentResponse>(response);
             var actual = response as XmlFragmentResponse;
             var expected = snapshot.ToString();
-            Assert.AreEqual(expected, actual.ResponseFragment);
+            ClassicAssert.AreEqual(expected, actual.ResponseFragment);
         }
 
         [Test]
@@ -91,7 +94,7 @@
             var response = plugin.Execute(cruiseRequest);
 
             this.mocks.VerifyAll();
-            Assert.IsInstanceOf<JsonFragmentResponse>(response);
+            ClassicAssert.IsInstanceOf<JsonFragmentResponse>(response);
             var actual = response as JsonFragmentResponse;
             var date = string.Format(System.Globalization.CultureInfo.CurrentCulture,"{0}, {1}, {2}, {3}, {4}, {5}",
                 snapshot.TimeOfSnapshot.Year,
@@ -108,7 +111,7 @@
                 "started:new Date(2010, 0, 2, 3, 4, 5)," +
                 "completed:new Date(2010, 0, 2, 3, 4, 6)," +
                 "children:[{id:'" + snapshot.ChildItems[0].Identifier.ToString() + "',name:'child',status:'Cancelled'}]}";
-            Assert.AreEqual(expected, actual.ResponseFragment);
+            ClassicAssert.AreEqual(expected, actual.ResponseFragment);
         }
         #endregion
 

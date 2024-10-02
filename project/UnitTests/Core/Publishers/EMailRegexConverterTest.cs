@@ -1,5 +1,6 @@
 using Exortech.NetReflector;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core.Publishers;
 
 namespace ThoughtWorks.CruiseControl.UnitTests.Core.Publishers
@@ -13,8 +14,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Publishers
             EmailRegexConverter regexConverter = (EmailRegexConverter) NetReflector.Read(
                 @"<regexConverter find=""$"" replace=""@Example.com""/>"
                 );
-            Assert.AreEqual("$", regexConverter.Find);
-            Assert.AreEqual("@Example.com", regexConverter.Replace);
+            ClassicAssert.AreEqual("$", regexConverter.Find);
+            ClassicAssert.AreEqual("$", regexConverter.Find);
+            ClassicAssert.AreEqual("@Example.com", regexConverter.Replace);
         }
 
         [Test]
@@ -26,28 +28,28 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Publishers
     <replace>@Example.com</replace>
 </regexConverter>"
                 );
-            Assert.AreEqual("$", regexConverter.Find);
-            Assert.AreEqual("@Example.com", regexConverter.Replace);
+            ClassicAssert.AreEqual("$", regexConverter.Find);
+            ClassicAssert.AreEqual("@Example.com", regexConverter.Replace);
         }
 
         [Test]
         public void ShouldFailToReadEmptyConverter()
         {
-            Assert.That(delegate { NetReflector.Read(@"<regexConverter/>"); },
+            ClassicAssert.That(delegate { NetReflector.Read(@"<regexConverter/>"); },
                         Throws.TypeOf<NetReflectorException>());
         }
 
         [Test]
         public void ShouldFailToReadOmittedFindAttribute()
         {
-            Assert.That(delegate { NetReflector.Read(@"<regexConverter replace=""asdf"" />"); },
+            ClassicAssert.That(delegate { NetReflector.Read(@"<regexConverter replace=""asdf"" />"); },
                         Throws.TypeOf<NetReflectorException>());
         }
 
         [Test]
         public void ShouldFailToReadOmittedReplaceAttribute()
         {
-            Assert.That(delegate { NetReflector.Read(@"<regexConverter find=""asdf""/>"); },
+            ClassicAssert.That(delegate { NetReflector.Read(@"<regexConverter find=""asdf""/>"); },
                         Throws.TypeOf<NetReflectorException>());
         }
 	}

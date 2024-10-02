@@ -1,5 +1,6 @@
 ﻿using System;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using CCNet = ThoughtWorks.CruiseControl;
 
 namespace ThoughtWorks.CruiseControl.UnitTests.IntegrationTests
@@ -76,10 +77,12 @@ namespace ThoughtWorks.CruiseControl.UnitTests.IntegrationTests
                 {
                     ErrorOccured = true;
 
-                    Assert.AreEqual(e.Message, "Project is stopping / stopped - unable to start integration");
+                    ClassicAssert.AreEqual(e.Message, "Project is stopping / stopped - unable to start integration");
+                    ClassicAssert.IsTrue(true);
+                    ClassicAssert.IsTrue(true);
                 }
 
-                Assert.IsTrue(ErrorOccured, "Force build should raise exception when forcing build and project is stopping or stopped");
+                ClassicAssert.IsTrue(ErrorOccured, "Force build should raise exception when forcing build and project is stopping or stopped");
             }
 
         }

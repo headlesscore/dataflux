@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Remote;
 
 namespace ThoughtWorks.CruiseControl.UnitTests.Remote
@@ -16,7 +17,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote
         {
             NameValuePair pair = new NameValuePair();
             pair.Name = "pairName";
-            Assert.AreEqual("pairName", pair.Name);
+            ClassicAssert.AreEqual("pairName", pair.Name);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
         }
 
         [Test]
@@ -24,7 +27,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote
         {
             NameValuePair pair = new NameValuePair();
             pair.Value = "pairValue";
-            Assert.AreEqual("pairValue", pair.Value);
+            ClassicAssert.AreEqual("pairValue", pair.Value);
         }
         #endregion
 
@@ -33,7 +36,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote
         public void ToDictionaryHandlesNull()
         {
             Dictionary<string, string> dictionary = NameValuePair.ToDictionary(null);
-            Assert.AreEqual(0, dictionary.Count);
+            ClassicAssert.AreEqual(0, dictionary.Count);
         }
 
         [Test]
@@ -42,9 +45,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote
             List<NameValuePair> pairs = new List<NameValuePair>();
             pairs.Add(new NameValuePair("name", "value"));
             Dictionary<string, string> dictionary = NameValuePair.ToDictionary(pairs);
-            Assert.AreEqual(1, dictionary.Count);
-            Assert.IsTrue(dictionary.ContainsKey("name"));
-            Assert.AreEqual("value", dictionary["name"]);
+            ClassicAssert.AreEqual(1, dictionary.Count);
+            ClassicAssert.IsTrue(dictionary.ContainsKey("name"));
+            ClassicAssert.AreEqual("value", dictionary["name"]);
         }
         #endregion
 
@@ -53,7 +56,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote
         public void FromDictionaryHandlesNull()
         {
             List<NameValuePair> list = NameValuePair.FromDictionary(null);
-            Assert.AreEqual(0, list.Count);
+            ClassicAssert.AreEqual(0, list.Count);
         }
 
         [Test]
@@ -62,9 +65,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote
             Dictionary<string, string> dictionary = new Dictionary<string, string>();
             dictionary.Add("name", "value");
             List<NameValuePair> list = NameValuePair.FromDictionary(dictionary);
-            Assert.AreEqual(1, dictionary.Count);
-            Assert.AreEqual("name", list[0].Name);
-            Assert.AreEqual("value", list[0].Value);
+            ClassicAssert.AreEqual(1, dictionary.Count);
+            ClassicAssert.AreEqual("name", list[0].Name);
+            ClassicAssert.AreEqual("value", list[0].Value);
         }
         #endregion
 
@@ -74,7 +77,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote
         {
             var value1 = new NameValuePair("value", "key");
             var value2 = new NameValuePair("value", "key");
-            Assert.IsTrue(value1.Equals(value2));
+            ClassicAssert.IsTrue(value1.Equals(value2));
         }
 
         [Test]
@@ -82,21 +85,21 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote
         {
             var value1 = new NameValuePair("value1", "key");
             var value2 = new NameValuePair("value2", "key");
-            Assert.IsFalse(value1.Equals(value2));
+            ClassicAssert.IsFalse(value1.Equals(value2));
         }
 
         [Test]
         public void EqualsReturnsFalseIfTheOtherIsNull()
         {
             var value = new NameValuePair("value1", "key");
-            Assert.IsFalse(value.Equals(null));
+            ClassicAssert.IsFalse(value.Equals(null));
         }
 
         [Test]
         public void EqualsReturnsFalseIfTheOtherIsNotNamedValue()
         {
             var value = new NameValuePair("value1", "key");
-            Assert.IsFalse(value.Equals("test"));
+            ClassicAssert.IsFalse(value.Equals("test"));
         }
         #endregion
         #endregion

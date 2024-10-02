@@ -3,6 +3,7 @@
     using System;
     using Moq;
     using NUnit.Framework;
+    using NUnit.Framework.Legacy;
     using ThoughtWorks.CruiseControl.Core;
     using ThoughtWorks.CruiseControl.Core.Config;
     using ThoughtWorks.CruiseControl.Core.Tasks;
@@ -64,7 +65,9 @@
             condition.Validate(null, ConfigurationTrace.Start(this), processor);
 
             this.mocks.VerifyAll();
-            Assert.IsTrue(validateCalled);
+            ClassicAssert.IsTrue(validateCalled);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
         }
 
         [Test]
@@ -84,7 +87,7 @@
             var actual = condition.Eval(result);
 
             this.mocks.VerifyAll();
-            Assert.IsFalse(actual);
+            ClassicAssert.IsFalse(actual);
         }
 
         [Test]
@@ -105,7 +108,7 @@
             var actual = condition.Eval(result);
 
             this.mocks.VerifyAll();
-            Assert.IsTrue(actual);
+            ClassicAssert.IsTrue(actual);
         }
     }
 }

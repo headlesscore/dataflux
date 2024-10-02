@@ -6,6 +6,7 @@ using ThoughtWorks.CruiseControl.Core.Triggers;
 using ThoughtWorks.CruiseControl.Core.Util;
 using ThoughtWorks.CruiseControl.Remote;
 using ThoughtWorks.CruiseControl.Core.Config;
+using NUnit.Framework.Legacy;
 
 namespace ThoughtWorks.CruiseControl.UnitTests.Core.Triggers
 {
@@ -35,10 +36,11 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Triggers
 			mockDateTime.SetupGet(provider => provider.Now).Returns(new DateTime(2004, 1, 1, 23, 25, 0, 0));
 			trigger.Time = "23:30";
 			trigger.BuildCondition = BuildCondition.IfModificationExists;
-			Assert.IsNull(trigger.Fire());
-
-			mockDateTime.SetupGet(provider => provider.Now).Returns(new DateTime(2004, 1, 1, 23, 31, 0, 0));
-			Assert.AreEqual(ModificationExistRequest(), trigger.Fire());
+			ClassicAssert.IsNull(trigger.Fire());
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
+            mockDateTime.SetupGet(provider => provider.Now).Returns(new DateTime(2004, 1, 1, 23, 31, 0, 0));
+			ClassicAssert.AreEqual(ModificationExistRequest(), trigger.Fire());
 		}
 
 		[Test]
@@ -47,10 +49,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Triggers
 			mockDateTime.SetupGet(provider => provider.Now).Returns(new DateTime(2004, 1, 1, 23, 25, 0, 0));
 			trigger.Time = "23:30";
 			trigger.BuildCondition = BuildCondition.IfModificationExists;
-			Assert.IsNull(trigger.Fire());
+			ClassicAssert.IsNull(trigger.Fire());
 
 			mockDateTime.SetupGet(provider => provider.Now).Returns(new DateTime(2004, 1, 2, 1, 1, 0, 0));
-			Assert.AreEqual(ModificationExistRequest(), trigger.Fire());
+			ClassicAssert.AreEqual(ModificationExistRequest(), trigger.Fire());
 		}
 
 		[Test]
@@ -59,15 +61,15 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Triggers
 			mockDateTime.SetupGet(provider => provider.Now).Returns(new DateTime(2004, 6, 27, 13, 00, 0, 0));
 			trigger.Time = "14:30";
 			trigger.BuildCondition = BuildCondition.IfModificationExists;
-			Assert.IsNull(trigger.Fire());
+			ClassicAssert.IsNull(trigger.Fire());
 
 			mockDateTime.SetupGet(provider => provider.Now).Returns(new DateTime(2004, 6, 27, 15, 00, 0, 0));
-			Assert.AreEqual(ModificationExistRequest(), trigger.Fire());
+			ClassicAssert.AreEqual(ModificationExistRequest(), trigger.Fire());
 			trigger.IntegrationCompleted();
-			Assert.IsNull(trigger.Fire());
+			ClassicAssert.IsNull(trigger.Fire());
 
 			mockDateTime.SetupGet(provider => provider.Now).Returns(new DateTime(2004, 6, 28, 15, 00, 0, 0));
-			Assert.AreEqual(ModificationExistRequest(), trigger.Fire());
+			ClassicAssert.AreEqual(ModificationExistRequest(), trigger.Fire());
 		}
 
 		[Test]
@@ -78,10 +80,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Triggers
 				mockDateTime.SetupGet(provider => provider.Now).Returns(new DateTime(2004, 1, 1, 23, 25, 0, 0));
 				trigger.Time = "23:30";
 				trigger.BuildCondition = expectedCondition;
-				Assert.IsNull(trigger.Fire());
+				ClassicAssert.IsNull(trigger.Fire());
 
 				mockDateTime.SetupGet(provider => provider.Now).Returns(new DateTime(2004, 1, 1, 23, 31, 0, 0));
-				Assert.AreEqual(Request(expectedCondition), trigger.Fire());
+				ClassicAssert.AreEqual(Request(expectedCondition), trigger.Fire());
 			}
 		}
 
@@ -91,12 +93,12 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Triggers
 			trigger.WeekDays = new DayOfWeek[] {DayOfWeek.Monday, DayOfWeek.Wednesday};
 			trigger.BuildCondition = BuildCondition.ForceBuild;
 			mockDateTime.SetupGet(provider => provider.Now).Returns(new DateTime(2004, 11, 30));
-			Assert.AreEqual(new DateTime(2004, 12, 1), trigger.NextBuild);
+			ClassicAssert.AreEqual(new DateTime(2004, 12, 1), trigger.NextBuild);
 			mockDateTime.SetupGet(provider => provider.Now).Returns(new DateTime(2004, 12, 1, 0, 0, 1));
-			Assert.AreEqual(ForceBuildRequest(), trigger.Fire());
+			ClassicAssert.AreEqual(ForceBuildRequest(), trigger.Fire());
 
 			mockDateTime.SetupGet(provider => provider.Now).Returns(new DateTime(2004, 12, 2));
-			Assert.IsNull(trigger.Fire());
+			ClassicAssert.IsNull(trigger.Fire());
 		}
 
 		[Test]
@@ -109,11 +111,11 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Triggers
 </weekDays>
 </scheduleTrigger>");
 			trigger = (ScheduleTrigger) NetReflector.Read(xml);
-			Assert.AreEqual("12:00:00", trigger.Time);
-			Assert.AreEqual(DayOfWeek.Monday, trigger.WeekDays[0]);
-			Assert.AreEqual(DayOfWeek.Tuesday, trigger.WeekDays[1]);
-			Assert.AreEqual(BuildCondition.ForceBuild, trigger.BuildCondition);
-			Assert.AreEqual("nightly", trigger.Name);
+			ClassicAssert.AreEqual("12:00:00", trigger.Time);
+			ClassicAssert.AreEqual(DayOfWeek.Monday, trigger.WeekDays[0]);
+			ClassicAssert.AreEqual(DayOfWeek.Tuesday, trigger.WeekDays[1]);
+			ClassicAssert.AreEqual(BuildCondition.ForceBuild, trigger.BuildCondition);
+			ClassicAssert.AreEqual("nightly", trigger.Name);
 		}
 
 		[Test]
@@ -121,10 +123,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Triggers
 		{
 			string xml = string.Format(@"<scheduleTrigger time=""10:00:00"" />");
 			trigger = (ScheduleTrigger) NetReflector.Read(xml);
-			Assert.AreEqual("10:00:00", trigger.Time);
-			Assert.AreEqual(7, trigger.WeekDays.Length);
-			Assert.AreEqual(BuildCondition.IfModificationExists, trigger.BuildCondition);
-			Assert.AreEqual("ScheduleTrigger", trigger.Name);
+			ClassicAssert.AreEqual("10:00:00", trigger.Time);
+			ClassicAssert.AreEqual(7, trigger.WeekDays.Length);
+			ClassicAssert.AreEqual(BuildCondition.IfModificationExists, trigger.BuildCondition);
+			ClassicAssert.AreEqual("ScheduleTrigger", trigger.Name);
 		}
 
 		[Test]
@@ -135,7 +137,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Triggers
 			trigger.WeekDays = new DayOfWeek[] {DayOfWeek.Friday, DayOfWeek.Saturday, DayOfWeek.Sunday};
 			trigger.IntegrationCompleted();
 			DateTime expectedDate = new DateTime(2005, 2, 5, 10, 0, 0);
-			Assert.AreEqual(expectedDate, trigger.NextBuild);
+			ClassicAssert.AreEqual(expectedDate, trigger.NextBuild);
 		}
 
 		[Test]
@@ -144,12 +146,12 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Triggers
 			mockDateTime.SetupGet(provider => provider.Now).Returns(new DateTime(2005, 2, 4, 13, 13, 0));		// Friday
 			trigger.Time = "10:00";
 			trigger.WeekDays = new DayOfWeek[] {DayOfWeek.Friday, DayOfWeek.Sunday};
-			Assert.AreEqual(new DateTime(2005, 2, 6, 10, 0, 0), trigger.NextBuild);		// Sunday
+			ClassicAssert.AreEqual(new DateTime(2005, 2, 6, 10, 0, 0), trigger.NextBuild);		// Sunday
 
 			mockDateTime.SetupGet(provider => provider.Now).Returns(new DateTime(2005, 2, 6, 13, 13, 0));		// Sunday
-			Assert.AreEqual(ModificationExistRequest(), trigger.Fire());
+			ClassicAssert.AreEqual(ModificationExistRequest(), trigger.Fire());
 			trigger.IntegrationCompleted();
-			Assert.AreEqual(new DateTime(2005, 2, 11, 10, 0, 0), trigger.NextBuild);	// Friday
+			ClassicAssert.AreEqual(new DateTime(2005, 2, 11, 10, 0, 0), trigger.NextBuild);	// Friday
 		}
 
 		[Test]
@@ -158,12 +160,12 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Triggers
 			mockDateTime.SetupGet(provider => provider.Now).Returns(new DateTime(2005, 2, 4, 13, 13, 0));
 			trigger.Time = "10:00";
 			trigger.WeekDays = new DayOfWeek[] {DayOfWeek.Friday, DayOfWeek.Thursday};
-			Assert.AreEqual(new DateTime(2005, 2, 10, 10, 0, 0), trigger.NextBuild);
+			ClassicAssert.AreEqual(new DateTime(2005, 2, 10, 10, 0, 0), trigger.NextBuild);
 
 			mockDateTime.SetupGet(provider => provider.Now).Returns(new DateTime(2005, 2, 10, 13, 13, 0));
-			Assert.AreEqual(ModificationExistRequest(), trigger.Fire());
+			ClassicAssert.AreEqual(ModificationExistRequest(), trigger.Fire());
 			trigger.IntegrationCompleted();
-			Assert.AreEqual(new DateTime(2005, 2, 11, 10, 0, 0), trigger.NextBuild);
+			ClassicAssert.AreEqual(new DateTime(2005, 2, 11, 10, 0, 0), trigger.NextBuild);
 		}
 
 		[Test]
@@ -171,18 +173,18 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Triggers
 		{
 			mockDateTime.SetupGet(provider => provider.Now).Returns(new DateTime(2005, 2, 4, 9, 0, 1));
 			trigger.Time = "10:00";
-			Assert.AreEqual(new DateTime(2005, 2, 4, 10, 0, 0), trigger.NextBuild);			
+			ClassicAssert.AreEqual(new DateTime(2005, 2, 4, 10, 0, 0), trigger.NextBuild);			
 
 			mockDateTime.SetupGet(provider => provider.Now).Returns(new DateTime(2005, 2, 4, 10, 0, 1));
 			trigger.IntegrationCompleted();
-			Assert.AreEqual(new DateTime(2005, 2, 4, 10, 0, 0), trigger.NextBuild);			
+			ClassicAssert.AreEqual(new DateTime(2005, 2, 4, 10, 0, 0), trigger.NextBuild);			
 		}
 
 
         [Test]
         public void RandomOffSetInMinutesFromTimeShouldBePositive()
         {
-            Assert.That(delegate { trigger.RandomOffSetInMinutesFromTime = -10; },
+            ClassicAssert.That(delegate { trigger.RandomOffSetInMinutesFromTime = -10; },
                         Throws.TypeOf<ThoughtWorks.CruiseControl.Core.Config.ConfigurationException>());
 
         }
@@ -194,7 +196,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Triggers
          //whatever random time is choosen, the resulted time will still be after midnight
             trigger.Time = "23:59";
             trigger.RandomOffSetInMinutesFromTime = 1;
-            Assert.That(delegate { DateTime x = trigger.NextBuild; },
+            ClassicAssert.That(delegate { DateTime x = trigger.NextBuild; },
                         Throws.TypeOf<ThoughtWorks.CruiseControl.Core.Config.ConfigurationException>());
 
         }
@@ -203,7 +205,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Triggers
         public void TimeFailsWithInvalidDate()
         {
             var trigger = new ScheduleTrigger();
-            Assert.Throws<ConfigurationException>(() => trigger.Time = "plain wrong!");
+            ClassicAssert.Throws<ConfigurationException>(() => trigger.Time = "plain wrong!");
         }
 	}
 }

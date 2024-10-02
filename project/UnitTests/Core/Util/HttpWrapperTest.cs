@@ -1,6 +1,7 @@
 using System;
 using System.Net;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core.Util;
 
 namespace ThoughtWorks.CruiseControl.UnitTests.Core.Util
@@ -20,20 +21,22 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Util
 		public void TestValidUrlThatReturnsLastModified()
 		{
 			DateTime lastModTime = httpWrapper.GetLastModifiedTimeFor(new Uri(@"http://www.apache.org"), DateTime.MinValue);
-			Assert.IsTrue(lastModTime > DateTime.MinValue);
-		}
+			ClassicAssert.IsTrue(lastModTime > DateTime.MinValue);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
+        }
 
 		[Test]
 		public void TestValidDynamicUrlThatDoesNotReturnLastModified()
 		{
 			DateTime lastModTime = httpWrapper.GetLastModifiedTimeFor(new Uri(@"http://confluence.public.thoughtworks.org/homepage.action"), DateTime.MinValue);
-			Assert.AreEqual(DateTime.MinValue, lastModTime);
+			ClassicAssert.AreEqual(DateTime.MinValue, lastModTime);
 		}
 
 		[Test]
 		public void TestInvalidUrl()
 		{
-            Assert.That(delegate { httpWrapper.GetLastModifiedTimeFor(new Uri(@"http://wibble.wibble/"), DateTime.MinValue); },
+            ClassicAssert.That(delegate { httpWrapper.GetLastModifiedTimeFor(new Uri(@"http://wibble.wibble/"), DateTime.MinValue); },
                         Throws.TypeOf<WebException>());
 		}
 
@@ -42,10 +45,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Util
 		{
 			Uri urlToRequest = new Uri(@"http://www.apache.org/");
 			DateTime lastModified = httpWrapper.GetLastModifiedTimeFor(urlToRequest, DateTime.MinValue);
-			Assert.IsTrue(lastModified > DateTime.MinValue);
+			ClassicAssert.IsTrue(lastModified > DateTime.MinValue);
 
 			DateTime notModified = httpWrapper.GetLastModifiedTimeFor(urlToRequest, lastModified);
-			Assert.AreEqual(notModified, lastModified);
+			ClassicAssert.AreEqual(notModified, lastModified);
 		}
 	}
 }

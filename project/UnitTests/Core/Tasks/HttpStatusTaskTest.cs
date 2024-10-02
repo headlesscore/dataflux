@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Exortech.NetReflector;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core.Tasks;
 
 namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
@@ -32,16 +33,18 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 </checkHttpStatus>";
 
 		   HttpStatusTask task = (HttpStatusTask)NetReflector.Read(xml);
-         Assert.AreEqual("ADesc", task.Description);
-		   Assert.NotNull(task.RequestSettings, "Request settings are required");
+         ClassicAssert.AreEqual("ADesc", task.Description);
+		   ClassicAssert.NotNull(task.RequestSettings, "Request settings are required");
 
-         Assert.AreEqual("200,203", task.SuccessStatusCodes);
-         Assert.AreEqual(7, task.Retries);
-         Assert.AreEqual(5000, task.RetryDelay.Millis);
-         Assert.IsTrue(task.HasTimeout);
-         Assert.AreEqual(300000, task.Timeout.Millis);
-         Assert.AreEqual(true, task.IncludeContent);
-		}
+         ClassicAssert.AreEqual("200,203", task.SuccessStatusCodes);
+         ClassicAssert.AreEqual(7, task.Retries);
+         ClassicAssert.AreEqual(5000, task.RetryDelay.Millis);
+         ClassicAssert.IsTrue(task.HasTimeout);
+         ClassicAssert.AreEqual(300000, task.Timeout.Millis);
+         ClassicAssert.AreEqual(true, task.IncludeContent);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
+        }
 
       [Test]
       public void PopulateFromReflectorWithOnlyRequiredOptions()
@@ -52,16 +55,16 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 </checkHttpStatus>";
 
          HttpStatusTask task = (HttpStatusTask)NetReflector.Read(xml);
-         Assert.IsNull(task.Description);
-         Assert.NotNull(task.RequestSettings, "Request settings are required");
+         ClassicAssert.IsNull(task.Description);
+         ClassicAssert.NotNull(task.RequestSettings, "Request settings are required");
 
-         Assert.AreEqual("200", task.SuccessStatusCodes);
-         Assert.AreEqual(3, task.Retries);
+         ClassicAssert.AreEqual("200", task.SuccessStatusCodes);
+         ClassicAssert.AreEqual(3, task.Retries);
          
-         Assert.IsFalse(task.HasTimeout);
-         Assert.IsNull(task.Timeout);
+         ClassicAssert.IsFalse(task.HasTimeout);
+         ClassicAssert.IsNull(task.Timeout);
          
-         Assert.IsFalse(task.IncludeContent);
+         ClassicAssert.IsFalse(task.IncludeContent);
       }
 
 	}

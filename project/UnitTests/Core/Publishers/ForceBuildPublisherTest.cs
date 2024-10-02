@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Exortech.NetReflector;
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core.Publishers;
 using ThoughtWorks.CruiseControl.Remote;
 
@@ -23,9 +24,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Publishers
 		{
 			string xml = @"<forcebuild project=""proj"" serverUri=""http://localhost"" integrationStatus=""Failure"" />";
 			ForceBuildPublisher publisher = NetReflector.Read(xml) as ForceBuildPublisher;
-			Assert.AreEqual("proj", publisher.Project);
-			Assert.AreEqual("http://localhost", publisher.ServerUri);
-			Assert.AreEqual(IntegrationStatus.Failure, publisher.IntegrationStatus);
+			ClassicAssert.AreEqual("proj", publisher.Project);
+            ClassicAssert.AreEqual("proj", publisher.Project);
+            ClassicAssert.AreEqual("http://localhost", publisher.ServerUri);
+			ClassicAssert.AreEqual(IntegrationStatus.Failure, publisher.IntegrationStatus);
 		}
 
 		[Test]
@@ -33,9 +35,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Publishers
 		{
 			string xml = @"<forcebuild project=""proj"" />";
 			ForceBuildPublisher publisher = NetReflector.Read(xml) as ForceBuildPublisher;
-			Assert.AreEqual("proj", publisher.Project);
-			Assert.AreEqual("tcp://localhost:21234/CruiseManager.rem", publisher.ServerUri);
-			Assert.AreEqual(IntegrationStatus.Success, publisher.IntegrationStatus);
+			ClassicAssert.AreEqual("proj", publisher.Project);
+			ClassicAssert.AreEqual("tcp://localhost:21234/CruiseManager.rem", publisher.ServerUri);
+			ClassicAssert.AreEqual(IntegrationStatus.Success, publisher.IntegrationStatus);
 		}
 
 		[Test]

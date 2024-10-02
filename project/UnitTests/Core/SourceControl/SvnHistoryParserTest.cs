@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Sourcecontrol;
 
@@ -22,7 +23,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 		public void ParsingEmptyLogProducesNoModifications()
 		{
 			Modification[] modifications = svn.Parse(new StringReader(emptyLogXml), oldestEntry, newestEntry);
-			Assert.AreEqual(0, modifications.Length);
+			ClassicAssert.AreEqual(0, modifications.Length);
 		}
 
 		[Test]
@@ -30,9 +31,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 		{
 			Modification[] modifications = svn.Parse(new StringReader(oneEntryLogXml), oldestEntry, newestEntry);
 
-			Assert.AreEqual(1, modifications.Length);
-
-			Modification expected = new Modification();
+			ClassicAssert.AreEqual(1, modifications.Length);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
+            Modification expected = new Modification();
 			expected.Type = "Added";
 			expected.FileName = "addedfile.txt";
 			expected.FolderName = "/foo";
@@ -41,7 +43,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 			expected.UserName =string.Empty;
 			expected.Comment = "i added a file";
 
-			Assert.AreEqual(expected, modifications[0]);
+			ClassicAssert.AreEqual(expected, modifications[0]);
 		}
 
 		[Test]
@@ -49,7 +51,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 		{
 			Modification[] modifications = svn.Parse(new StringReader(fullLogXml), oldestEntry, newestEntry);
 
-			Assert.AreEqual(9, modifications.Length);
+			ClassicAssert.AreEqual(9, modifications.Length);
 
 			Modification mbrMod1 = new Modification();
 			mbrMod1.Type = "Modified";
@@ -60,13 +62,13 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 			mbrMod1.UserName = "mbr";
 			mbrMod1.Comment = "Other Mike made some changes";
 
-			Assert.AreEqual(mbrMod1, modifications[0]);
+			ClassicAssert.AreEqual(mbrMod1, modifications[0]);
 
 			mbrMod1.Type = "Deleted";
 			mbrMod1.FolderName = "/foo";
 			mbrMod1.FileName = "foofile.txt";
 
-			Assert.AreEqual(mbrMod1, modifications[1]);
+			ClassicAssert.AreEqual(mbrMod1, modifications[1]);
 		}
 
 		[Test]
@@ -76,13 +78,13 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 			DateTime oldest = DateTime.Parse("2003-12-12T16:48:52Z");
 
 			Modification[] modifications = svn.Parse(new StringReader(fullLogXml), oldest, newest);
-			Assert.AreEqual(3, modifications.Length);
+			ClassicAssert.AreEqual(3, modifications.Length);
 		}
 
 		[Test]
 		public void HandleInvalidXml()
 		{
-            Assert.That(delegate { svn.Parse(new StringReader("<foo/><bar/>"), DateTime.Now, DateTime.Now); },
+            ClassicAssert.That(delegate { svn.Parse(new StringReader("<foo/><bar/>"), DateTime.Now, DateTime.Now); },
                         Throws.TypeOf<CruiseControlException>());
 		}
 
@@ -91,7 +93,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 		{
 			string xml = "<?xml version=\"1.0\" encoding=\"utf-8\"?><log><logentry revision=\"4\"><date>2003-12-12T16:48:51Z</date><paths><path action=\"R\">/foo/addedfile.txt</path></paths><msg>i added a file</msg></logentry></log>";
 			Modification[] mods = svn.Parse(new StringReader(xml), oldestEntry, newestEntry);
-			Assert.AreEqual("Replaced", mods[0].Type);
+			ClassicAssert.AreEqual("Replaced", mods[0].Type);
 		}
 
 		[Test]
@@ -99,7 +101,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 		{
 			string xml = "<?xml version=\"1.0\" encoding=\"utf-8\"?><log><logentry revision=\"4\"><date>2007-02-02T23:17:08.718100Z</date><paths><path action=\"R\">/foo/addedfile.txt</path></paths><msg>i added a file</msg></logentry></log>";
 			Modification[] mods = svn.Parse(new StringReader(xml), new DateTime(2007, 2, 1, 23, 17, 8), new DateTime(2007, 2, 3, 23, 17, 9));
-			Assert.AreEqual("Replaced", mods[0].Type);
+			ClassicAssert.AreEqual("Replaced", mods[0].Type);
 		}
 
         [Test]
@@ -112,7 +114,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 </log>
             ";
             Modification[] mods = svn.Parse(new StringReader(xml), new DateTime(2007, 2, 1, 23, 17, 8), new DateTime(2007, 2, 3, 23, 17, 9));
-            Assert.AreEqual(0, mods.Length, "Number of modifications found");
+            ClassicAssert.AreEqual(0, mods.Length, "Number of modifications found");
         }
 
         [Test]
@@ -129,16 +131,16 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 </log>
             ";
             Modification[] mods = svn.Parse(new StringReader(xml), new DateTime(2007, 2, 1, 23, 17, 8), new DateTime(2007, 2, 3, 23, 17, 9));
-            Assert.AreEqual(1, mods.Length, "Number of modifications found");
-            Assert.AreEqual("4", mods[0].ChangeNumber, "Revision number");
-            Assert.IsEmpty(mods[0].Comment, "Message should be empty");
-            Assert.IsNull(mods[0].EmailAddress, "Email address should be null");
-            Assert.AreEqual("addedfile.txt", mods[0].FileName, "File name");
-            Assert.AreEqual("/foo", mods[0].FolderName, "Folder name");
-            Assert.AreEqual(CreateDate("2007-02-02T23:17:08.718100Z"), mods[0].ModifiedTime, "Timestamp");
-            Assert.AreEqual("Replaced", mods[0].Type, "Modification type");
-            Assert.IsEmpty(mods[0].UserName, "Userid should be empty");
-            Assert.IsEmpty(mods[0].Version, "File version should be empty");
+            ClassicAssert.AreEqual(1, mods.Length, "Number of modifications found");
+            ClassicAssert.AreEqual("4", mods[0].ChangeNumber, "Revision number");
+            ClassicAssert.IsEmpty(mods[0].Comment, "Message should be empty");
+            ClassicAssert.IsNull(mods[0].EmailAddress, "Email address should be null");
+            ClassicAssert.AreEqual("addedfile.txt", mods[0].FileName, "File name");
+            ClassicAssert.AreEqual("/foo", mods[0].FolderName, "Folder name");
+            ClassicAssert.AreEqual(CreateDate("2007-02-02T23:17:08.718100Z"), mods[0].ModifiedTime, "Timestamp");
+            ClassicAssert.AreEqual("Replaced", mods[0].Type, "Modification type");
+            ClassicAssert.IsEmpty(mods[0].UserName, "Userid should be empty");
+            ClassicAssert.IsEmpty(mods[0].Version, "File version should be empty");
         }
 
 		private DateTime CreateDate(string dateString)

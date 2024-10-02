@@ -3,6 +3,7 @@ using System.IO;
 using Exortech.NetReflector;
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Tasks;
 using ThoughtWorks.CruiseControl.Core.Util;
@@ -49,16 +50,18 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
     </nant>";
 
 			NetReflector.Read(xml, builder);
-			Assert.AreEqual(@"C:\", builder.ConfiguredBaseDirectory);
-			Assert.AreEqual("mybuild.build", builder.BuildFile);
-			Assert.AreEqual("NAnt.exe", builder.Executable);
-			Assert.AreEqual(1, builder.Targets.Length);
-			Assert.AreEqual(123, builder.BuildTimeoutSeconds);
-			Assert.AreEqual("SourceForge.NAnt.XmlLogger", builder.Logger);
-			Assert.AreEqual("CCNetListener, CCNetListener", builder.Listener);
-			Assert.AreEqual("foo", builder.Targets[0]);
-			Assert.AreEqual(false, builder.NoLogo);
-		}
+			ClassicAssert.AreEqual(@"C:\", builder.ConfiguredBaseDirectory);
+			ClassicAssert.AreEqual("mybuild.build", builder.BuildFile);
+			ClassicAssert.AreEqual("NAnt.exe", builder.Executable);
+			ClassicAssert.AreEqual(1, builder.Targets.Length);
+			ClassicAssert.AreEqual(123, builder.BuildTimeoutSeconds);
+			ClassicAssert.AreEqual("SourceForge.NAnt.XmlLogger", builder.Logger);
+			ClassicAssert.AreEqual("CCNetListener, CCNetListener", builder.Listener);
+			ClassicAssert.AreEqual("foo", builder.Targets[0]);
+			ClassicAssert.AreEqual(false, builder.NoLogo);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
+        }
 
 		[Test]
 		public void PopulateFromConfigurationUsingOnlyRequiredElementsAndCheckDefaultValues()
@@ -66,13 +69,13 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 			const string xml = @"<nant />";
 
 			NetReflector.Read(xml, builder);
-			Assert.AreEqual("", builder.ConfiguredBaseDirectory);
-			Assert.AreEqual(NAntTask.defaultExecutable, builder.Executable);
-			Assert.AreEqual(0, builder.Targets.Length);
-			Assert.AreEqual(NAntTask.DefaultBuildTimeout, builder.BuildTimeoutSeconds);
-			Assert.AreEqual(NAntTask.DefaultLogger, builder.Logger);
-			Assert.AreEqual(NAntTask.DefaultListener, builder.Listener);
-			Assert.AreEqual(NAntTask.DefaultNoLogo, builder.NoLogo);
+			ClassicAssert.AreEqual("", builder.ConfiguredBaseDirectory);
+			ClassicAssert.AreEqual(NAntTask.defaultExecutable, builder.Executable);
+			ClassicAssert.AreEqual(0, builder.Targets.Length);
+			ClassicAssert.AreEqual(NAntTask.DefaultBuildTimeout, builder.BuildTimeoutSeconds);
+			ClassicAssert.AreEqual(NAntTask.DefaultLogger, builder.Logger);
+			ClassicAssert.AreEqual(NAntTask.DefaultListener, builder.Listener);
+			ClassicAssert.AreEqual(NAntTask.DefaultNoLogo, builder.NoLogo);
 		}
 
 		[Test]
@@ -82,9 +85,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 			
 			builder.Run(result);
 			
-			Assert.IsTrue(result.Succeeded);
-			Assert.AreEqual(IntegrationStatus.Success, result.Status);
-		    Assert.That(result.TaskOutput, Is.Empty);
+			ClassicAssert.IsTrue(result.Succeeded);
+			ClassicAssert.AreEqual(IntegrationStatus.Success, result.Status);
+		    ClassicAssert.That(result.TaskOutput, Is.Empty);
 		}
 
 		[Test]
@@ -94,9 +97,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 			
 			builder.Run(result);
 			
-			Assert.IsTrue(result.Failed);
-			Assert.AreEqual(IntegrationStatus.Failure, result.Status);
-			Assert.AreEqual(FailedProcessResult().StandardOutput, result.TaskOutput);
+			ClassicAssert.IsTrue(result.Failed);
+			ClassicAssert.AreEqual(IntegrationStatus.Failure, result.Status);
+			ClassicAssert.AreEqual(FailedProcessResult().StandardOutput, result.TaskOutput);
 		}
 
 		[Test]
@@ -106,15 +109,15 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 
 			builder.Run(result);
 
-			Assert.That(result.Status, Is.EqualTo(IntegrationStatus.Failure));
-			Assert.That(result.TaskOutput, Does.Match("Command line '.*' timed out after \\d+ seconds"));
+			ClassicAssert.That(result.Status, Is.EqualTo(IntegrationStatus.Failure));
+			ClassicAssert.That(result.TaskOutput, Does.Match("Command line '.*' timed out after \\d+ seconds"));
 		}
 		
 		[Test]
 		public void ShouldThrowBuilderExceptionIfProcessThrowsException()
 		{
 			ExpectToExecuteAndThrow();
-            Assert.That(delegate { builder.Run(result); },
+            ClassicAssert.That(delegate { builder.Run(result); },
                         Throws.TypeOf<BuilderException>());
 		}
 
@@ -217,40 +220,40 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 			mockProcessExecutor.Setup(executor => executor.Execute(It.IsAny<ProcessInfo>())).
 				Callback<ProcessInfo>(processInfo => info = processInfo).Returns(returnVal).Verifiable();
 			builder.Run(integrationResult);
-			Assert.AreEqual(expectedBaseDirectory, info.WorkingDirectory);
+			ClassicAssert.AreEqual(expectedBaseDirectory, info.WorkingDirectory);
 		}
 		
 		[Test]
 		public void ShouldGiveAPresentationValueForTargetsThatIsANewLineSeparatedEquivalentOfAllTargets()
 		{
 			builder.Targets = new string[] {"target1", "target2"};
-			Assert.AreEqual("target1" + Environment.NewLine + "target2", builder.TargetsForPresentation);
+			ClassicAssert.AreEqual("target1" + Environment.NewLine + "target2", builder.TargetsForPresentation);
 		}
 
 		[Test]
 		public void ShouldWorkForSingleTargetWhenSettingThroughPresentationValue()
 		{
 			builder.TargetsForPresentation = "target1";
-			Assert.AreEqual("target1", builder.Targets[0]);
-			Assert.AreEqual(1, builder.Targets.Length);
+			ClassicAssert.AreEqual("target1", builder.Targets[0]);
+			ClassicAssert.AreEqual(1, builder.Targets.Length);
 		}
 
 		[Test]
 		public void ShouldSplitAtNewLineWhenSettingThroughPresentationValue()
 		{
 			builder.TargetsForPresentation = "target1" + Environment.NewLine + "target2";
-			Assert.AreEqual("target1", builder.Targets[0]);
-			Assert.AreEqual("target2", builder.Targets[1]);
-			Assert.AreEqual(2, builder.Targets.Length);
+			ClassicAssert.AreEqual("target1", builder.Targets[0]);
+			ClassicAssert.AreEqual("target2", builder.Targets[1]);
+			ClassicAssert.AreEqual(2, builder.Targets.Length);
 		}
 
 		[Test]
 		public void ShouldWorkForEmptyAndNullStringsWhenSettingThroughPresentationValue()
 		{
 			builder.TargetsForPresentation = "";
-			Assert.AreEqual(0, builder.Targets.Length);
+			ClassicAssert.AreEqual(0, builder.Targets.Length);
 			builder.TargetsForPresentation = null;
-			Assert.AreEqual(0, builder.Targets.Length);
+			ClassicAssert.AreEqual(0, builder.Targets.Length);
 		}
 
 		private string IntegrationProperties(string workingDirectory, string artifactDirectory)

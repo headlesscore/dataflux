@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -20,17 +21,17 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security.Auditing
             FileXmlLogger logger = new FileXmlLogger();
             string fileName = "LogFile.xml";
             logger.AuditFileLocation = fileName;
-            Assert.AreEqual(fileName, logger.AuditFileLocation, "AuditFileLocation not correctly set");
+            ClassicAssert.AreEqual(fileName, logger.AuditFileLocation, "AuditFileLocation not correctly set");
 
             logger.LogFailureEvents = false;
-            Assert.IsFalse(logger.LogFailureEvents, "LogFailureEvents not correctly set");
+            ClassicAssert.IsFalse(logger.LogFailureEvents, "LogFailureEvents not correctly set");
             logger.LogFailureEvents = true;
-            Assert.IsTrue(logger.LogFailureEvents, "LogFailureEvents not correctly set");
+            ClassicAssert.IsTrue(logger.LogFailureEvents, "LogFailureEvents not correctly set");
 
             logger.LogSuccessfulEvents = false;
-            Assert.IsFalse(logger.LogSuccessfulEvents, "LogSuccessfulEvents not correctly set");
+            ClassicAssert.IsFalse(logger.LogSuccessfulEvents, "LogSuccessfulEvents not correctly set");
             logger.LogSuccessfulEvents = true;
-            Assert.IsTrue(logger.LogSuccessfulEvents, "LogSuccessfulEvents not correctly set");
+            ClassicAssert.IsTrue(logger.LogSuccessfulEvents, "LogSuccessfulEvents not correctly set");
         }
 
         [Test]
@@ -44,7 +45,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security.Auditing
             logger.LogSuccessfulEvents = true;
 
             logger.LogEvent("A project", "A user", SecurityEvent.ForceBuild, SecurityRight.Allow, "A message");
-            Assert.IsTrue(File.Exists(logFile), "Audit log not generated");
+            ClassicAssert.IsTrue(File.Exists(logFile), "Audit log not generated");
             string actual = File.ReadAllText(logFile);
             string expected = "<event>" +
                     "<dateTime>[^<]*</dateTime>" + 
@@ -68,7 +69,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security.Auditing
             logger.LogSuccessfulEvents = false;
 
             logger.LogEvent("A project", "A user", SecurityEvent.ForceBuild, SecurityRight.Allow, "A message");
-            Assert.IsFalse(File.Exists(logFile), "Audit log was generated");
+            ClassicAssert.IsFalse(File.Exists(logFile), "Audit log was generated");
+            
         }
 
         [Test]
@@ -82,7 +84,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security.Auditing
             logger.LogFailureEvents = true;
 
             logger.LogEvent("A project", "A user", SecurityEvent.ForceBuild, SecurityRight.Deny, "A message");
-            Assert.IsTrue(File.Exists(logFile), "Audit log not generated");
+            ClassicAssert.IsTrue(File.Exists(logFile), "Audit log not generated");
             string actual = File.ReadAllText(logFile);
             string expected = "<event>" +
                     "<dateTime>[^<]*</dateTime>" +
@@ -106,7 +108,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security.Auditing
             logger.LogFailureEvents = false;
 
             logger.LogEvent("A project", "A user", SecurityEvent.ForceBuild, SecurityRight.Deny, "A message");
-            Assert.IsFalse(File.Exists(logFile), "Audit log was generated");
+            ClassicAssert.IsFalse(File.Exists(logFile), "Audit log was generated");
         }
 
         [Test]
@@ -119,7 +121,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security.Auditing
             logger.AuditFileLocation = logFile;
 
             logger.LogEvent("A project", "A user", SecurityEvent.ForceBuild, SecurityRight.Inherit, "A message");
-            Assert.IsTrue(File.Exists(logFile), "Audit log not generated");
+            ClassicAssert.IsTrue(File.Exists(logFile), "Audit log not generated");
             string actual = File.ReadAllText(logFile);
             string expected = "<event>" +
                     "<dateTime>[^<]*</dateTime>" +
@@ -141,7 +143,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security.Auditing
             logger.AuditFileLocation = logFile;
 
             logger.LogEvent(null, null, SecurityEvent.ForceBuild, SecurityRight.Inherit, null);
-            Assert.IsTrue(File.Exists(logFile), "Audit log not generated");
+            ClassicAssert.IsTrue(File.Exists(logFile), "Audit log not generated");
             string actual = File.ReadAllText(logFile);
             string expected = "<event>" +
                     "<dateTime>[^<]*</dateTime>" +
@@ -155,7 +157,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security.Auditing
             Regex test = new Regex(expected);
             if (!test.IsMatch(actual))
             {
-                Assert.AreEqual(expected, actual, "Log details do not match");
+                ClassicAssert.AreEqual(expected, actual, "Log details do not match");
             }
         }
     }

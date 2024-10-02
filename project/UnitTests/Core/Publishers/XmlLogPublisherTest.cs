@@ -3,6 +3,7 @@ using System.IO;
 using System.Xml;
 using Exortech.NetReflector;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Publishers;
 using ThoughtWorks.CruiseControl.Core.Util;
@@ -43,8 +44,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Publishers
         {
 			string xml = string.Format(@"<xmllogger><logDir>foo</logDir></xmllogger>", FULL_CONFIGURED_LOG_DIR_PATH);
         	publisher = NetReflector.Read(xml) as XmlLogPublisher;
-			Assert.IsNotNull(publisher);
-            Assert.AreEqual("foo", publisher.ConfiguredLogDirectory);
+			ClassicAssert.IsNotNull(publisher);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.AreEqual("foo", publisher.ConfiguredLogDirectory);
         }
 
 		[Test]
@@ -60,7 +62,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Publishers
 
 			// Verify
 			string expectedOutputPath = Path.Combine(Path.Combine(ARTIFACTS_DIR_PATH, "relativePath"), "log19800101000000Lbuild.1.xml");
-			Assert.IsTrue(File.Exists(expectedOutputPath));
+			ClassicAssert.IsTrue(File.Exists(expectedOutputPath));
 			CheckForXml(expectedOutputPath);
 		}
 
@@ -76,7 +78,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Publishers
 
 			// Verify
 			string expectedOutputPath = Path.Combine(Path.Combine(ARTIFACTS_DIR_PATH, XmlLogPublisher.DEFAULT_LOG_SUBDIRECTORY), "log19800101000000Lbuild.1.xml");
-			Assert.IsTrue(File.Exists(expectedOutputPath));
+			ClassicAssert.IsTrue(File.Exists(expectedOutputPath));
 			CheckForXml(expectedOutputPath);
 		}
 
@@ -92,7 +94,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Publishers
 
 			// Verify
 			string expectedOutputPath = Path.Combine(FULL_CONFIGURED_LOG_DIR_PATH, "log19800101000000.xml");
-			Assert.IsTrue(File.Exists(expectedOutputPath));
+			ClassicAssert.IsTrue(File.Exists(expectedOutputPath));
 			CheckForXml(expectedOutputPath);
 		}
 
@@ -108,7 +110,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Publishers
 
 			// Verify
 			string expectedOutputPath = Path.Combine(FULL_CONFIGURED_LOG_DIR_PATH, "log19800101000000Lbuild.1.xml");
-			Assert.IsTrue(File.Exists(expectedOutputPath));
+			ClassicAssert.IsTrue(File.Exists(expectedOutputPath));
 			CheckForXml(expectedOutputPath);
         }
 

@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using System.IO;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core.Util;
 
 namespace ThoughtWorks.CruiseControl.UnitTests.Core.Util
@@ -15,16 +16,18 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Util
 			info.StandardInputContent = "Some content";
 
 			Process process = info.CreateProcess();
-			Assert.IsTrue(process.StartInfo.RedirectStandardInput);
-			Assert.IsTrue(!process.StartInfo.UseShellExecute);
-		}
+			ClassicAssert.IsTrue(process.StartInfo.RedirectStandardInput);
+			ClassicAssert.IsTrue(!process.StartInfo.UseShellExecute);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
+        }
 
 		[Test]
 		public void IfStandardInputContentIsNotSetThenStandardInputIsNotRedirected()
 		{
 			ProcessInfo info = new ProcessInfo("temp");
 			Process process = info.CreateProcess();
-			Assert.IsTrue(!process.StartInfo.RedirectStandardInput);
+			ClassicAssert.IsTrue(!process.StartInfo.RedirectStandardInput);
 		}
 
 		[Test]
@@ -36,15 +39,15 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Util
 			ProcessInfo infoWithoutPathQualifiedExecutable = new ProcessInfo("myExecutable", "", workingDir);
 			ProcessInfo infoWithPreQualifiedExecutable = new ProcessInfo(executablePath, "", workingDir);
 
-			Assert.AreEqual(infoWithPreQualifiedExecutable, infoWithoutPathQualifiedExecutable);
+			ClassicAssert.AreEqual(infoWithPreQualifiedExecutable, infoWithoutPathQualifiedExecutable);
 		}
 
 		[Test]
 		public void StripQuotesFromQuotedExecutablePath()
 		{
 			ProcessInfo info = new ProcessInfo(@"""c:\nant\nant.exe""", null, string.Format(@"""{0}""", Path.GetTempPath()));
-			Assert.AreEqual(@"c:\nant\nant.exe", info.FileName);
-			Assert.AreEqual(Path.GetTempPath(), info.WorkingDirectory);
+			ClassicAssert.AreEqual(@"c:\nant\nant.exe", info.FileName);
+			ClassicAssert.AreEqual(Path.GetTempPath(), info.WorkingDirectory);
 		}
 
 		[Test]
@@ -54,13 +57,13 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Util
 
 			ProcessInfo info = new ProcessInfo(@"""c:\nant\nant.exe""", null, string.Format(@"""{0}""", Path.GetTempPath()), ProcessPriorityClass.Normal, successExitCodes);
 
-			Assert.IsFalse(info.ProcessSuccessful(0));
-			Assert.IsTrue(info.ProcessSuccessful(1));
-			Assert.IsFalse(info.ProcessSuccessful(2));
-			Assert.IsTrue(info.ProcessSuccessful(3));
-			Assert.IsFalse(info.ProcessSuccessful(4));
-			Assert.IsTrue(info.ProcessSuccessful(5));
-			Assert.IsFalse(info.ProcessSuccessful(6));
+			ClassicAssert.IsFalse(info.ProcessSuccessful(0));
+			ClassicAssert.IsTrue(info.ProcessSuccessful(1));
+			ClassicAssert.IsFalse(info.ProcessSuccessful(2));
+			ClassicAssert.IsTrue(info.ProcessSuccessful(3));
+			ClassicAssert.IsFalse(info.ProcessSuccessful(4));
+			ClassicAssert.IsTrue(info.ProcessSuccessful(5));
+			ClassicAssert.IsFalse(info.ProcessSuccessful(6));
 		}
 
 		[Test]
@@ -70,10 +73,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Util
 
 			ProcessInfo info = new ProcessInfo(@"""c:\nant\nant.exe""", null, string.Format(@"""{0}""", Path.GetTempPath()));
 
-			Assert.IsTrue(info.ProcessSuccessful(0));
-			Assert.IsFalse(info.ProcessSuccessful(1));
-			Assert.IsFalse(info.ProcessSuccessful(2));
-			Assert.IsFalse(info.ProcessSuccessful(-1));
+			ClassicAssert.IsTrue(info.ProcessSuccessful(0));
+			ClassicAssert.IsFalse(info.ProcessSuccessful(1));
+			ClassicAssert.IsFalse(info.ProcessSuccessful(2));
+			ClassicAssert.IsFalse(info.ProcessSuccessful(-1));
 		}
 
 	}

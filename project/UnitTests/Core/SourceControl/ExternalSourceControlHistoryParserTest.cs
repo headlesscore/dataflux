@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Sourcecontrol;
 
@@ -76,20 +77,21 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 
             ExternalSourceControlHistoryParser parser = new ExternalSourceControlHistoryParser();
             Modification[] mods = parser.Parse(historyReader, oldestModification, newestModification);
-            Assert.IsNotNull(mods, "mods should not be null");
-            Assert.AreEqual(expectedModifications.Length, mods.Length);
+            ClassicAssert.IsNotNull(mods, "mods should not be null");
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.AreEqual(expectedModifications.Length, mods.Length);
             for (int i = 0; i < expectedModifications.Length; i++)
             {
-                Assert.AreEqual(expectedModifications[i].ChangeNumber, mods[i].ChangeNumber);
-                Assert.AreEqual(expectedModifications[i].Comment, mods[i].Comment);
-                Assert.AreEqual(expectedModifications[i].EmailAddress, mods[i].EmailAddress);
-                Assert.AreEqual(expectedModifications[i].FileName, mods[i].FileName);
-                Assert.AreEqual(expectedModifications[i].FolderName, mods[i].FolderName);
-                Assert.AreEqual(expectedModifications[i].ModifiedTime, mods[i].ModifiedTime);
-                Assert.AreEqual(expectedModifications[i].Type, mods[i].Type);
-                Assert.AreEqual(expectedModifications[i].Url, mods[i].Url);
-                Assert.AreEqual(expectedModifications[i].UserName, mods[i].UserName);
-                Assert.AreEqual(expectedModifications[i].Version, mods[i].Version);
+                ClassicAssert.AreEqual(expectedModifications[i].ChangeNumber, mods[i].ChangeNumber);
+                ClassicAssert.AreEqual(expectedModifications[i].Comment, mods[i].Comment);
+                ClassicAssert.AreEqual(expectedModifications[i].EmailAddress, mods[i].EmailAddress);
+                ClassicAssert.AreEqual(expectedModifications[i].FileName, mods[i].FileName);
+                ClassicAssert.AreEqual(expectedModifications[i].FolderName, mods[i].FolderName);
+                ClassicAssert.AreEqual(expectedModifications[i].ModifiedTime, mods[i].ModifiedTime);
+                ClassicAssert.AreEqual(expectedModifications[i].Type, mods[i].Type);
+                ClassicAssert.AreEqual(expectedModifications[i].Url, mods[i].Url);
+                ClassicAssert.AreEqual(expectedModifications[i].UserName, mods[i].UserName);
+                ClassicAssert.AreEqual(expectedModifications[i].Version, mods[i].Version);
             }
         }
 
@@ -102,8 +104,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 
             ExternalSourceControlHistoryParser parser = new ExternalSourceControlHistoryParser();
             Modification[] mods = parser.Parse(historyReader, oldestModification, newestModification);
-            Assert.IsNotNull(mods, "mods should not be null");
-            Assert.AreEqual(0, mods.Length);
+            ClassicAssert.IsNotNull(mods, "mods should not be null");
+            ClassicAssert.AreEqual(0, mods.Length);
         }
     }
 }

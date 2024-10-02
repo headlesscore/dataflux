@@ -1,6 +1,7 @@
 ﻿namespace ThoughtWorks.CruiseControl.UnitTests.Remote.Messages
 {
     using NUnit.Framework;
+    using NUnit.Framework.Legacy;
     using ThoughtWorks.CruiseControl.Remote.Messages;
 
     [TestFixture]
@@ -13,7 +14,9 @@
         {
             var sessionId = "MyNewSession";
             var request = new FileTransferRequest(sessionId);
-            Assert.AreEqual(sessionId, request.SessionToken);
+            ClassicAssert.AreEqual(sessionId, request.SessionToken);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
         }
 
         [Test]
@@ -23,9 +26,9 @@
             var projectName = "projectName";
             var fileName = "fileName";
             var request = new FileTransferRequest(sessionId, projectName, fileName);
-            Assert.AreEqual(sessionId, request.SessionToken);
-            Assert.AreEqual(projectName, request.ProjectName);
-            Assert.AreEqual(fileName, request.FileName);
+            ClassicAssert.AreEqual(sessionId, request.SessionToken);
+            ClassicAssert.AreEqual(projectName, request.ProjectName);
+            ClassicAssert.AreEqual(fileName, request.FileName);
         }
         #endregion
 
@@ -36,7 +39,7 @@
             var request = new FileTransferRequest();
             var projectName = "projectName";
             request.FileName = projectName;
-            Assert.AreEqual(projectName, request.FileName);
+            ClassicAssert.AreEqual(projectName, request.FileName);
         }
         #endregion
         #endregion

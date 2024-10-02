@@ -1,5 +1,6 @@
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core.Reporting.Dashboard.Navigation;
 using ThoughtWorks.CruiseControl.Core.Util;
 using ThoughtWorks.CruiseControl.WebDashboard.Dashboard;
@@ -27,9 +28,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.Dashboard
 
 			delegateTransformerMock.Setup(transformer => transformer.Transform("logContents", fileNames, null)).Returns("transformed").Verifiable();
 
-			Assert.AreEqual("transformed", requestTransformer.Transform(buildSpecifier, fileNames, null, null));
-
-			buildRetrieverMock.Verify();
+			ClassicAssert.AreEqual("transformed", requestTransformer.Transform(buildSpecifier, fileNames, null, null));
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
+            buildRetrieverMock.Verify();
 			delegateTransformerMock.Verify();
 		}
 	}

@@ -1,5 +1,6 @@
 using System;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Util;
 using ThoughtWorks.CruiseControl.Remote;
@@ -13,8 +14,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
 		public void ParseDateFromFilename()
 		{
 			DateTime date = new DateTime(2002, 3, 28, 13, 0, 0);
-			Assert.AreEqual(date, new LogFile("log20020328130000.xml").Date);
-		}
+			ClassicAssert.AreEqual(date, new LogFile("log20020328130000.xml").Date);
+            ClassicAssert.AreEqual(date, new LogFile("log20020328130000.xml").Date);
+        }
 		
 		[Test]
 		public void VerifyFormattedDateString()
@@ -22,7 +24,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
 			DateTime date = new DateTime(1971, 5, 14, 15, 0, 0);
 			string actual = new LogFile("log19710514150000.xml").FormattedDateString;
 			string expected = DateUtil.FormatDate(date);
-			Assert.AreEqual(expected, actual);
+			ClassicAssert.AreEqual(expected, actual);
 		}
 		
 		[Test]
@@ -48,14 +50,14 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
 												 "log19710514150004.xml"
 											 };
 			int actual = LogFileUtil.GetLatestBuildNumber(filenames);
-			Assert.AreEqual(9, actual);
+			ClassicAssert.AreEqual(9, actual);
 		}
 
 		[Test]
 		public void GetLatestBuildNumberHandlesString()
 		{
 			int actual = LogFileUtil.GetLatestBuildNumber(new string[] {"log20020830164057Lbuild.v1.1.8.xml"});
-			Assert.AreEqual(118, actual);
+			ClassicAssert.AreEqual(118, actual);
 		}
 
 		[Test]
@@ -70,9 +72,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
 				CreateTempFiles(tempPath, testFilenames);
 				string[] fileNames = LogFileUtil.GetLogFileNames(tempPath.ToString());
                 Array.Sort(fileNames);
-				Assert.AreEqual(3,fileNames.Length);
-				Assert.AreEqual(testFilenames[0],fileNames[0]);
-				Assert.AreEqual(testFilenames[1],fileNames[1]);
+				ClassicAssert.AreEqual(3,fileNames.Length);
+				ClassicAssert.AreEqual(testFilenames[0],fileNames[0]);
+				ClassicAssert.AreEqual(testFilenames[1],fileNames[1]);
 			}
 		}
 		
@@ -88,7 +90,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
 			{
 				CreateTempFiles(tempPath, testFilenames);
 				string logfile = LogFileUtil.GetLatestLogFileName(tempPath.ToString());
-				Assert.AreEqual("log20011230164057Lbuild.8.xml", logfile);
+				ClassicAssert.AreEqual("log20011230164057Lbuild.8.xml", logfile);
 			}
 		}
 
@@ -96,7 +98,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
 		public void GetLastLogFileName_UnknownPath()
 		{
 			string logfile = LogFileUtil.GetLatestLogFileName(@"c:\non\exi\stent");
-			Assert.IsNull(logfile);
+			ClassicAssert.IsNull(logfile);
 		}
 		
 		[Test]
@@ -104,7 +106,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
 		{
 			using (TempDirectory tempDir = new TempDirectory())
 			{
-				Assert.IsNull(LogFileUtil.GetLatestLogFileName(tempDir.ToString()));
+				ClassicAssert.IsNull(LogFileUtil.GetLatestLogFileName(tempDir.ToString()));
 			}
 		}
 
@@ -121,7 +123,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
 				CreateTempFiles(tempPath, testFilenames);
 				DateTime expected = new DateTime(2001,12,30,16,40,57);
 				DateTime actual = LogFileUtil.GetLastBuildDate(tempPath.ToString(), new DateTime());
-				Assert.AreEqual(expected, actual);
+				ClassicAssert.AreEqual(expected, actual);
 			}
 		}
 
@@ -136,7 +138,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
 		[Test]
 		public void GetLastBuildDate_NoDirectory()
 		{
-			Assert.AreEqual(new DateTime(), LogFileUtil.GetLastBuildDate(@"c:\non\exi\stent", new DateTime()));
+			ClassicAssert.AreEqual(new DateTime(), LogFileUtil.GetLastBuildDate(@"c:\non\exi\stent", new DateTime()));
 		}
 
 		[Test]
@@ -144,41 +146,41 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
 		{
 			using (TempDirectory tempDir = new TempDirectory())
 			{				
-				Assert.AreEqual(new DateTime(), LogFileUtil.GetLastBuildDate(tempDir.ToString(), new DateTime()));
+				ClassicAssert.AreEqual(new DateTime(), LogFileUtil.GetLastBuildDate(tempDir.ToString(), new DateTime()));
 			}
 		}
 
 		[Test]
 		public void GetLatestBuildNumberWithMissingPath()
 		{
-			Assert.AreEqual(0, LogFileUtil.GetLatestBuildNumber(@"c:\non\exi\stent"));
+			ClassicAssert.AreEqual(0, LogFileUtil.GetLatestBuildNumber(@"c:\non\exi\stent"));
 		}
 		
 		private void CheckDateString(string expected, string filename)
 		{
 			string actual = new LogFile(filename).FilenameFormattedDateString;
-			Assert.AreEqual(expected, actual);
+			ClassicAssert.AreEqual(expected, actual);
 		}
 		
 		[Test]
 		public void AttemptToCreateLogFileForFilenameWithWrongPrefix()
 		{
-            Assert.That(delegate { new LogFile("garbage.txt"); },
+            ClassicAssert.That(delegate { new LogFile("garbage.txt"); },
                         Throws.TypeOf<ArgumentException>().With.Property("ParamName").EqualTo("filename"));
 		}
 		
 		[Test]
 		public void AttemptToCreateLogFileForFilenameWithoutDate()
 		{
-			Assert.That(delegate { new LogFile("log3.xml"); },
+			ClassicAssert.That(delegate { new LogFile("log3.xml"); },
                         Throws.TypeOf<ArgumentException>().With.Property("ParamName").EqualTo("filename"));
 		}
 		
 		[Test]
 		public void BuildSuccessful()
 		{
-			Assert.IsTrue(!new LogFile("log19750101120000.xml").Succeeded);
-			Assert.IsTrue(new LogFile("log20020830164057Lbuild.6.xml").Succeeded);
+			ClassicAssert.IsTrue(!new LogFile("log19750101120000.xml").Succeeded);
+			ClassicAssert.IsTrue(new LogFile("log20020830164057Lbuild.6.xml").Succeeded);
 		}
 		
 		[Test]
@@ -188,7 +190,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
 			string expected = "log20020328130000.xml";
 			IntegrationResult result = new IntegrationResult();
 			result.StartTime = date;
-			Assert.AreEqual(expected, new LogFile(result).Filename);
+			ClassicAssert.AreEqual(expected, new LogFile(result).Filename);
 		}
 		
 		[Test]
@@ -200,7 +202,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
 			result.StartTime = date;
 			result.Label = "33";
 			result.Status = IntegrationStatus.Success;
-			Assert.AreEqual(expected, new LogFile(result).Filename);
+			ClassicAssert.AreEqual(expected, new LogFile(result).Filename);
 		}
 
 		[Test]
@@ -208,7 +210,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
 		{
 			string expected = "?log=log20020222120000Lbuild.0.xml";
 			string actual = LogFileUtil.CreateUrl(CreateIntegrationResult(IntegrationStatus.Success, new DateTime(2002, 02, 22, 12, 00, 00)));
-			Assert.AreEqual(expected, actual);
+			ClassicAssert.AreEqual(expected, actual);
 		}
 
 		private IntegrationResult CreateIntegrationResult(IntegrationStatus status, DateTime lastModifiedDate)
@@ -228,7 +230,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
 		{
 			string expected = "?log=log20020222120000.xml";
 			string actual = LogFileUtil.CreateUrl(CreateIntegrationResult(IntegrationStatus.Failure, new DateTime(2002, 02, 22, 12, 00, 00)));
-			Assert.AreEqual(expected, actual);
+			ClassicAssert.AreEqual(expected, actual);
 		}
 
 		[Test]
@@ -237,7 +239,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
 			string filename = "log20020222120000Lbuild.0.xml";
 			string expected = "?log=log20020222120000Lbuild.0.xml";
 			string actual = LogFileUtil.CreateUrl(filename);				
-			Assert.AreEqual(expected, actual);
+			ClassicAssert.AreEqual(expected, actual);
 		}
 
 		[Test]
@@ -246,7 +248,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
 			string filename = "log20020222120000Lbuild.0.xml";
 			string expected = "?log=log20020222120000Lbuild.0.xml&project=myproject";
 			string actual = LogFileUtil.CreateUrl(filename, "myproject");				
-			Assert.AreEqual(expected, actual);
+			ClassicAssert.AreEqual(expected, actual);
 		}
 	}
 }

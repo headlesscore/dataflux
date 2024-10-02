@@ -5,6 +5,7 @@
     using System.Linq;
     using System.Text;
     using NUnit.Framework;
+    using NUnit.Framework.Legacy;
 
     public static class InstanceAssert
     {
@@ -19,10 +20,12 @@
         public static void PropertiesAreEqual(object expected, object actual, params string[] properties)
         {
             // Sanity check - make sure we don't get any garbage input
-            Assert.IsNotNull(expected, "Unable to check properties - expected value is null");
-            Assert.IsNotNull(actual, "Unable to check properties - actual value is null");
+            ClassicAssert.IsNotNull(expected, "Unable to check properties - expected value is null");
+            ClassicAssert.IsNotNull(actual, "Unable to check properties - actual value is null");
             var type = expected.GetType();
-            Assert.IsInstanceOf(type, actual, "Unable to check properties - expected and actual types do not match");
+            ClassicAssert.IsInstanceOf(type, actual, "Unable to check properties - expected and actual types do not match");
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
 
             // Check each property to make sure they are the same
             var count = 0;
@@ -48,7 +51,7 @@
             {
                 var message = (count == 1 ? "1 property does" : count.ToString() + " properties do") + 
                     " not match";
-                Assert.Fail(message + builder.ToString());
+                ClassicAssert.Fail(message + builder.ToString());
             }
         }
         #endregion

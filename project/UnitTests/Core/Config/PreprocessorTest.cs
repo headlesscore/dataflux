@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Xml;
 using System.Xml.XPath;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core.Config.Preprocessor;
 
 namespace ThoughtWorks.CruiseControl.UnitTests.Core.Config
@@ -35,7 +36,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Config
         [Test]
         public void TestAttributeWithNoName()
         {
-            Assert.Throws<InvalidMarkupException>(() =>
+            ClassicAssert.Throws<InvalidMarkupException>(() =>
             {
                 _Preprocess("TestInvalidAttribute2.xml");
             });
@@ -119,7 +120,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Config
         [Test]
         public void TestExplicitDefine2()
         {
-            Assert.Throws<ExplicitDefinitionRequiredException>(() =>
+            ClassicAssert.Throws<ExplicitDefinitionRequiredException>(() =>
             {
                 var settings = new PreprocessorSettings();
                 try
@@ -219,7 +220,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Config
         [Test]
         public void TestInitialDefine2()
         {
-            Assert.Throws<ExplicitDefinitionRequiredException>(() =>
+            ClassicAssert.Throws<ExplicitDefinitionRequiredException>(() =>
             {
                 var settings = new PreprocessorSettings();
                 var defs = new Dictionary<string, string>();
@@ -235,7 +236,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Config
         [Test]
         public void TestMisplacedAttribute()
         {
-            Assert.Throws<InvalidMarkupException>(() =>
+            ClassicAssert.Throws<InvalidMarkupException>(() =>
             {
                 _Preprocess("TestInvalidAttribute.xml");
             });
@@ -261,7 +262,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Config
                     ConfigPreprocessor preprocessor = new ConfigPreprocessor();
                     PreprocessorEnvironment env =
                         preprocessor.PreProcess(input, output, _resolver, null );
-                    Assert.AreEqual( env.EvalSymbol( "var1" ).GetTextValue(), "value1" );                    
+                    ClassicAssert.AreEqual( env.EvalSymbol( "var1" ).GetTextValue(), "value1" );
+                    //ClassicAssert.AreEqual(env.EvalSymbol("var1").GetTextValue(), "value1");
                 }
             }
         }        
@@ -328,12 +330,12 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Config
 
                 AssertNodeExists( ReadOutputDoc().CreateNavigator(), "/includer/included/included2" );
 
-                Assert.AreEqual( env.Fileset.Length, 3 );
-                Assert.AreEqual( GetTestPath( "TestIncluder.xml" ), env.Fileset[ 0 ].LocalPath );
-                Assert.AreEqual(
+                ClassicAssert.AreEqual( env.Fileset.Length, 3 );
+                ClassicAssert.AreEqual( GetTestPath( "TestIncluder.xml" ), env.Fileset[ 0 ].LocalPath );
+                ClassicAssert.AreEqual(
                     GetTestPath( String.Format( "Subfolder{0}TestIncluded.xml", Path.DirectorySeparatorChar ) ),
                     env.Fileset[ 1 ].LocalPath );
-                Assert.AreEqual( GetTestPath( "TestIncluded2.xml" ), env.Fileset[ 2 ].LocalPath );
+                ClassicAssert.AreEqual( GetTestPath( "TestIncluded2.xml" ), env.Fileset[ 2 ].LocalPath );
             }
         }
 
@@ -355,20 +357,20 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Config
                 AssertNodeExists(ReadOutputDoc().CreateNavigator(), "/TestIncludeStack1/TestIncludeStack2/TestIncludeStack3");
                 AssertNodeExists(ReadOutputDoc().CreateNavigator(), "/TestIncludeStack1/TestIncludeStack4");
 
-                Assert.AreEqual(env.Fileset.Length, 4);
+                ClassicAssert.AreEqual(env.Fileset.Length, 4);
 
-                Assert.AreEqual(GetTestPath("TestIncludeStack1.xml"), env.Fileset[0].LocalPath);
-                Assert.AreEqual(GetTestPath(String.Format(
+                ClassicAssert.AreEqual(GetTestPath("TestIncludeStack1.xml"), env.Fileset[0].LocalPath);
+                ClassicAssert.AreEqual(GetTestPath(String.Format(
                     "Subfolder{0}TestIncludeStack2.xml", Path.DirectorySeparatorChar)), env.Fileset[1].LocalPath);
-                Assert.AreEqual(GetTestPath("TestIncludeStack3.xml"), env.Fileset[2].LocalPath);
-                Assert.AreEqual(GetTestPath("TestIncludeStack4.xml"), env.Fileset[3].LocalPath);
+                ClassicAssert.AreEqual(GetTestPath("TestIncludeStack3.xml"), env.Fileset[2].LocalPath);
+                ClassicAssert.AreEqual(GetTestPath("TestIncludeStack4.xml"), env.Fileset[3].LocalPath);
             }
         }
 
         [Test]
         public void TestMissingIncludeFile()
         {
-            Assert.Throws<MissingIncludeException>(() =>
+            ClassicAssert.Throws<MissingIncludeException>(() =>
             {
                 string filename = "TestMissingIncludeFile.xml";
 
@@ -399,7 +401,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Config
         [Test]        
         public void TestCycle()
         {
-            Assert.Throws<CyclicalEvaluationException>(() =>
+            ClassicAssert.Throws<CyclicalEvaluationException>(() =>
             {
                 _Preprocess("TestCycle.xml");
             });
@@ -443,8 +445,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Config
                 XmlDocument doc = ReadOutputDoc();
                 AssertNodeValue(doc, "/element", "value");
 
-                Assert.AreEqual(env.Fileset.Length, 1);
-                Assert.AreEqual( new Uri(GetTestPath("Test Include File With Spaces.xml")), env.Fileset[0]);
+                ClassicAssert.AreEqual(env.Fileset.Length, 1);
+                ClassicAssert.AreEqual( new Uri(GetTestPath("Test Include File With Spaces.xml")), env.Fileset[0]);
             }
         }
 
@@ -466,10 +468,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Config
                 AssertNodeExists(ReadOutputDoc().CreateNavigator(),
                                   "/includeVariable/included/included2");
 
-                Assert.AreEqual(env.Fileset.Length, 3);
-                Assert.AreEqual(GetTestPath("TestIncludeVariable.xml"), env.Fileset[0].LocalPath);
-                Assert.AreEqual(GetTestPath(String.Format( "Subfolder{0}TestIncluded.xml", Path.DirectorySeparatorChar )), env.Fileset[1].LocalPath);
-                Assert.AreEqual(GetTestPath("TestIncluded2.xml"), env.Fileset[2].LocalPath);
+                ClassicAssert.AreEqual(env.Fileset.Length, 3);
+                ClassicAssert.AreEqual(GetTestPath("TestIncludeVariable.xml"), env.Fileset[0].LocalPath);
+                ClassicAssert.AreEqual(GetTestPath(String.Format( "Subfolder{0}TestIncluded.xml", Path.DirectorySeparatorChar )), env.Fileset[1].LocalPath);
+                ClassicAssert.AreEqual(GetTestPath("TestIncluded2.xml"), env.Fileset[2].LocalPath);
             }
         }
 
@@ -510,34 +512,34 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Config
         private static void AssertNodeCount(XPathNavigator nav, string xpath, int count)
         {
             XPathNodeIterator nodes = nav.Select(xpath, nav);
-            Assert.That(nodes.Count, Is.EqualTo(count));
+            ClassicAssert.That(nodes.Count, Is.EqualTo(count));
         }
 
         private static void AssertNodeValue(IXPathNavigable doc, string xpath, string expected_val)
         {
             XPathNavigator nav = doc.CreateNavigator();
             XPathNavigator node = nav.SelectSingleNode(xpath, nav);
-            Assert.IsNotNull(node, "Node '{0}' not found", xpath);
-            Assert.AreEqual( node.Value.Trim(), expected_val);
+            ClassicAssert.IsNotNull(node, "Node '{0}' not found", xpath);
+            ClassicAssert.AreEqual( node.Value.Trim(), expected_val);
         }
 
         private static void AssertNodeValue(XPathNavigator nav, string xpath, string expected_val)
         {
             XPathNavigator node = nav.SelectSingleNode(xpath, nav);
-            Assert.IsNotNull(node, "Node '{0}' not found", xpath);
-            Assert.AreEqual( node.Value.Trim(), expected_val);
+            ClassicAssert.IsNotNull(node, "Node '{0}' not found", xpath);
+            ClassicAssert.AreEqual( node.Value.Trim(), expected_val);
         }
 
         private static void AssertNodeExists(XPathNavigator nav, string xpath)
         {
             XPathNavigator node = nav.SelectSingleNode(xpath, nav);
-            Assert.IsNotNull(node, "Node '{0}' not found", xpath);
+            ClassicAssert.IsNotNull(node, "Node '{0}' not found", xpath);
         }
 
         private static void AssertNodeDoesNotExist(XPathNavigator nav, string xpath)
         {
             XPathNavigator node = nav.SelectSingleNode(xpath, nav);
-            Assert.IsNull(node, "Node '{0}' found when it should not exist", xpath);
+            ClassicAssert.IsNull(node, "Node '{0}' found when it should not exist", xpath);
         }
 
         private static XmlReader GetInput(string filename)
@@ -561,7 +563,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Config
 				filename.Replace("/", "."));
             if (assertResourceFound)
             {
-                Assert.IsNotNull(result, "Unable to load data from assembly : " + filename);
+                ClassicAssert.IsNotNull(result, "Unable to load data from assembly : " + filename);
             }
 			return result;
 		}

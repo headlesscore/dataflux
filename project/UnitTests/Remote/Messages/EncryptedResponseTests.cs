@@ -1,6 +1,7 @@
 ﻿namespace ThoughtWorks.CruiseControl.UnitTests.Remote.Messages
 {
     using NUnit.Framework;
+    using NUnit.Framework.Legacy;
     using ThoughtWorks.CruiseControl.Remote.Messages;
 
     [TestFixture]
@@ -14,7 +15,9 @@
             var request = new EncryptedRequest();
             var response = new EncryptedResponse(request);
             // Only check one property is set, since the properties are set by the base class
-            Assert.AreEqual(request.Identifier, response.RequestIdentifier);
+            ClassicAssert.AreEqual(request.Identifier, response.RequestIdentifier);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
         }
 
         [Test]
@@ -24,7 +27,7 @@
             response1.RequestIdentifier = "12345";
             var response2 = new EncryptedResponse(response1);
             // Only check one property is set, since the properties are set by the base class
-            Assert.AreEqual(response1.RequestIdentifier, response2.RequestIdentifier);
+            ClassicAssert.AreEqual(response1.RequestIdentifier, response2.RequestIdentifier);
         }
         #endregion
 
@@ -35,7 +38,7 @@
             var request = new EncryptedResponse();
             var data = "SomeEncryptedData";
             request.EncryptedData = data;
-            Assert.AreEqual(data, request.EncryptedData);
+            ClassicAssert.AreEqual(data, request.EncryptedData);
         }
         #endregion
         #endregion

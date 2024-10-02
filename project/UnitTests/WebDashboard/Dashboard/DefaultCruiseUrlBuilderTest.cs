@@ -1,5 +1,6 @@
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core.Reporting.Dashboard.Navigation;
 
 namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.Dashboard
@@ -38,7 +39,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.Dashboard
 			string url = cruiseUrlBuilder.BuildServerUrl("myAction", serverSpecifier);
 
 			// Verify
-			Assert.AreEqual("myUrl", url);
+			ClassicAssert.AreEqual("myUrl", url);
 			VerifyAll();
 		}
 
@@ -52,8 +53,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.Dashboard
 			string url = cruiseUrlBuilder.BuildServerUrl("myAction", serverSpecifier, "query1=arg1");
 
 			// Verify
-			Assert.AreEqual("myUrl", url);
-			VerifyAll();
+			ClassicAssert.AreEqual("myUrl", url);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
+            VerifyAll();
 		}
 
 		[Test]
@@ -66,7 +69,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.Dashboard
 			string url = cruiseUrlBuilder.BuildProjectUrl("myAction", projectSpecifier);
 
 			// Verify
-			Assert.AreEqual("myUrl", url);
+			ClassicAssert.AreEqual("myUrl", url);
 			VerifyAll();
 		}
 
@@ -81,7 +84,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.Dashboard
 			string url = cruiseUrlBuilder.BuildProjectUrl("myAction", projectSpecifier);
 
 			// Verify
-			Assert.AreEqual("myUrl", url);
+			ClassicAssert.AreEqual("myUrl", url);
 			VerifyAll();
 		}
 
@@ -96,7 +99,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.Dashboard
 			string url = cruiseUrlBuilder.BuildProjectUrl("myAction", projectSpecifier);
 
 			// Verify
-			Assert.AreEqual("myUrl", url);
+			ClassicAssert.AreEqual("myUrl", url);
 			VerifyAll();
 		}
 
@@ -110,7 +113,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.Dashboard
 			string url = cruiseUrlBuilder.BuildBuildUrl("myAction", buildSpecifier);
 
 			// Verify
-			Assert.AreEqual("myUrl", url);
+			ClassicAssert.AreEqual("myUrl", url);
 			VerifyAll();
 		}
 

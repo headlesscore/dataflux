@@ -2,6 +2,7 @@ using System;
 using Exortech.NetReflector;
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Sourcecontrol;
 using ThoughtWorks.CruiseControl.Core.Util;
@@ -27,10 +28,11 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 			
 			AccuRev accurev = new AccuRev();
 			NetReflector.Read(AccuRev_XML, accurev);
-			Assert.AreEqual(false, accurev.AutoGetSource);
-			Assert.AreEqual("accurev.exe", accurev.Executable);
-			Assert.AreEqual(true, accurev.LabelOnSuccess);
-			Assert.AreEqual(@"C:\DOES NOT\EXIST", accurev.Workspace);
+			ClassicAssert.AreEqual(false, accurev.AutoGetSource);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.AreEqual("accurev.exe", accurev.Executable);
+			ClassicAssert.AreEqual(true, accurev.LabelOnSuccess);
+			ClassicAssert.AreEqual(@"C:\DOES NOT\EXIST", accurev.Workspace);
 		}
 
         [Test]
@@ -41,7 +43,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 @"<sourcecontrol type=""accurev"">
     <autoGetSource>NOT_A_BOOLEAN</autoGetSource>
 </sourcecontrol>";
-            Assert.That(delegate { NetReflector.Read(invalidXml, accurev); },
+            ClassicAssert.That(delegate { NetReflector.Read(invalidXml, accurev); },
                         Throws.TypeOf<NetReflectorConverterException>());
         }
 
@@ -53,7 +55,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 @"<sourcecontrol type=""accurev"">
     <labelOnSuccess>NOT_A_BOOLEAN</labelOnSuccess>
 </sourcecontrol>";
-            Assert.That(delegate { NetReflector.Read(invalidXml, accurev); },
+            ClassicAssert.That(delegate { NetReflector.Read(invalidXml, accurev); },
                         Throws.TypeOf<NetReflectorConverterException>());
         }
 

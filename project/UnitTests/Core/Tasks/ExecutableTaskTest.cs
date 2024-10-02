@@ -4,6 +4,7 @@ using System.Xml;
 using Exortech.NetReflector;
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Tasks;
 using ThoughtWorks.CruiseControl.Core.Util;
@@ -49,20 +50,22 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
     </exec>";
 
 			task = (ExecutableTask) NetReflector.Read(xml);
-			Assert.AreEqual(@"C:\", task.ConfiguredBaseDirectory, "Checking ConfiguredBaseDirectory property.");
-			Assert.AreEqual("mybatchfile.bat", task.Executable, "Checking property.");
-			Assert.AreEqual(123, task.BuildTimeoutSeconds, "Checking BuildTimeoutSeconds property.");
-			Assert.AreEqual("myarg1 myarg2", task.BuildArgs, "Checking BuildArgs property.");
-			Assert.AreEqual(3, task.EnvironmentVariables.Length, "Checking environment variable array size.");
-			Assert.AreEqual("name1", task.EnvironmentVariables[0].name, "Checking name1 environment variable.");
-			Assert.AreEqual("value1", task.EnvironmentVariables[0].value, "Checking name1 environment value.");
-			Assert.AreEqual("name2", task.EnvironmentVariables[1].name, "Checking name2 environment variable.");
-			Assert.AreEqual("", task.EnvironmentVariables[1].value, "Checking name2 environment value.");
-			Assert.AreEqual("name3", task.EnvironmentVariables[2].name, "Checking name3 environment variable.");
-			Assert.AreEqual("value3", task.EnvironmentVariables[2].value, "Checking name3 environment value.");
-			Assert.AreEqual("0,1,3,5", task.SuccessExitCodes);
-            Assert.AreEqual(ProcessPriorityClass.BelowNormal, task.Priority);
-			Verify();
+			ClassicAssert.AreEqual(@"C:\", task.ConfiguredBaseDirectory, "Checking ConfiguredBaseDirectory property.");
+			ClassicAssert.AreEqual("mybatchfile.bat", task.Executable, "Checking property.");
+			ClassicAssert.AreEqual(123, task.BuildTimeoutSeconds, "Checking BuildTimeoutSeconds property.");
+			ClassicAssert.AreEqual("myarg1 myarg2", task.BuildArgs, "Checking BuildArgs property.");
+			ClassicAssert.AreEqual(3, task.EnvironmentVariables.Length, "Checking environment variable array size.");
+			ClassicAssert.AreEqual("name1", task.EnvironmentVariables[0].name, "Checking name1 environment variable.");
+			ClassicAssert.AreEqual("value1", task.EnvironmentVariables[0].value, "Checking name1 environment value.");
+			ClassicAssert.AreEqual("name2", task.EnvironmentVariables[1].name, "Checking name2 environment variable.");
+			ClassicAssert.AreEqual("", task.EnvironmentVariables[1].value, "Checking name2 environment value.");
+			ClassicAssert.AreEqual("name3", task.EnvironmentVariables[2].name, "Checking name3 environment variable.");
+			ClassicAssert.AreEqual("value3", task.EnvironmentVariables[2].value, "Checking name3 environment value.");
+			ClassicAssert.AreEqual("0,1,3,5", task.SuccessExitCodes);
+            ClassicAssert.AreEqual(ProcessPriorityClass.BelowNormal, task.Priority);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
+            Verify();
 		}
 
 		[Test]
@@ -74,12 +77,12 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
     </exec>";
 
 			task = (ExecutableTask) NetReflector.Read(xml);
-            Assert.AreEqual("mybatchfile.bat", task.Executable, "Checking property.");
-            Assert.AreEqual(600, task.BuildTimeoutSeconds, "Checking BuildTimeoutSeconds property.");
-            Assert.AreEqual("", task.BuildArgs, "Checking BuildArgs property.");
-            Assert.AreEqual(0, task.EnvironmentVariables.Length, "Checking environment variable array size.");
-			Assert.AreEqual("", task.SuccessExitCodes);
-            Assert.AreEqual(ProcessPriorityClass.Normal, task.Priority);
+            ClassicAssert.AreEqual("mybatchfile.bat", task.Executable, "Checking property.");
+            ClassicAssert.AreEqual(600, task.BuildTimeoutSeconds, "Checking BuildTimeoutSeconds property.");
+            ClassicAssert.AreEqual("", task.BuildArgs, "Checking BuildArgs property.");
+            ClassicAssert.AreEqual(0, task.EnvironmentVariables.Length, "Checking environment variable array size.");
+			ClassicAssert.AreEqual("", task.SuccessExitCodes);
+            ClassicAssert.AreEqual(ProcessPriorityClass.Normal, task.Priority);
 			Verify();
 		}
 
@@ -94,9 +97,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
             StringWriter buffer = new StringWriter();
             new ReflectorTypeAttribute("task").Write(new XmlTextWriter(buffer), task);
 
-            Assert.IsTrue(result.Succeeded);
-			Assert.AreEqual(IntegrationStatus.Success, result.Status);
-            Assert.AreEqual(System.Environment.NewLine + "<buildresults>" + System.Environment.NewLine
+            ClassicAssert.IsTrue(result.Succeeded);
+			ClassicAssert.AreEqual(IntegrationStatus.Success, result.Status);
+            ClassicAssert.AreEqual(System.Environment.NewLine + "<buildresults>" + System.Environment.NewLine
                 + buffer.ToString() + System.Environment.NewLine + "  <message>" 
                 + ProcessResultOutput + "</message>" + System.Environment.NewLine + "</buildresults>" 
                 + System.Environment.NewLine, result.TaskOutput);
@@ -114,9 +117,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
             StringWriter buffer = new StringWriter();
             new ReflectorTypeAttribute("task").Write(new XmlTextWriter(buffer), task);
 
-			Assert.IsTrue(result.Failed);
-			Assert.AreEqual(IntegrationStatus.Failure, result.Status);
-            Assert.AreEqual(System.Environment.NewLine + "<buildresults>" + System.Environment.NewLine
+			ClassicAssert.IsTrue(result.Failed);
+			ClassicAssert.AreEqual(IntegrationStatus.Failure, result.Status);
+            ClassicAssert.AreEqual(System.Environment.NewLine + "<buildresults>" + System.Environment.NewLine
                 + buffer.ToString() + System.Environment.NewLine + "  <message>" 
                 + ProcessResultOutput + "</message>" + System.Environment.NewLine + "</buildresults>" 
                 + System.Environment.NewLine, result.TaskOutput);
@@ -130,7 +133,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 		{
 			ExpectToExecuteAndThrow();
 
-            Assert.That(delegate { task.Run(IntegrationResult()); },
+            ClassicAssert.That(delegate { task.Run(IntegrationResult()); },
                         Throws.TypeOf<BuilderException>());
 			Verify();
 		}
@@ -153,13 +156,13 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 			task.BuildTimeoutSeconds = 222;
 			task.Run(result);
 
-			Assert.AreEqual("test-exe", info.FileName);
-			Assert.AreEqual(222000, info.TimeOut);
-			Assert.AreEqual("test-args", info.Arguments);
-			Assert.AreEqual("1.0", info.EnvironmentVariables["CCNetLabel"]);
-			Assert.AreEqual("ForceBuild", info.EnvironmentVariables["CCNetBuildCondition"]);
-			Assert.AreEqual(@"c:\workingdir\", info.EnvironmentVariables["CCNetWorkingDirectory"]);
-			Assert.AreEqual(@"c:\artifactdir\", info.EnvironmentVariables["CCNetArtifactDirectory"]);
+			ClassicAssert.AreEqual("test-exe", info.FileName);
+			ClassicAssert.AreEqual(222000, info.TimeOut);
+			ClassicAssert.AreEqual("test-args", info.Arguments);
+			ClassicAssert.AreEqual("1.0", info.EnvironmentVariables["CCNetLabel"]);
+			ClassicAssert.AreEqual("ForceBuild", info.EnvironmentVariables["CCNetBuildCondition"]);
+			ClassicAssert.AreEqual(@"c:\workingdir\", info.EnvironmentVariables["CCNetWorkingDirectory"]);
+			ClassicAssert.AreEqual(@"c:\artifactdir\", info.EnvironmentVariables["CCNetArtifactDirectory"]);
 			Verify();
 		}
 
@@ -211,7 +214,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 
 			task.Run(result);
 
-			Assert.AreEqual(expectedBaseDirectory, info.WorkingDirectory);
+			ClassicAssert.AreEqual(expectedBaseDirectory, info.WorkingDirectory);
 			Verify();
 		}
 
@@ -226,8 +229,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
             IIntegrationResult result = IntegrationResult();
             xmlTestTask.Run(result);
 
-            Assert.IsTrue(result.Succeeded);
-            Assert.AreEqual(IntegrationStatus.Success, result.Status);
+            ClassicAssert.IsTrue(result.Succeeded);
+            ClassicAssert.AreEqual(IntegrationStatus.Success, result.Status);
 
             StringWriter buffer = new StringWriter();
             new ReflectorTypeAttribute("task").Write(new XmlTextWriter(buffer), xmlTestTask);
@@ -235,7 +238,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
             // TODO: The following only works correctly when ProcessResultOutput is a single non-empty line.
             // That is always the case, courtesy of our superclass' initialization.  If that should ever
             // change, this test needs to be adjusted accordingly.
-            Assert.AreEqual(System.Environment.NewLine + "<buildresults>" + System.Environment.NewLine
+            ClassicAssert.AreEqual(System.Environment.NewLine + "<buildresults>" + System.Environment.NewLine
                 + buffer.ToString() + System.Environment.NewLine + "  <message>" 
                 + ProcessResultOutput + "</message>" + System.Environment.NewLine + "</buildresults>"
                 + System.Environment.NewLine, result.TaskOutput);
@@ -253,7 +256,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 		[Test]
 		public void ShouldThrowExceptionOnInvalidSuccessExitCodes()
 		{
-			Assert.That(delegate { task.SuccessExitCodes = "0, 1, GOOD"; },
+			ClassicAssert.That(delegate { task.SuccessExitCodes = "0, 1, GOOD"; },
                         Throws.TypeOf<System.FormatException>());
 		}
 
@@ -273,13 +276,13 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 			task.SuccessExitCodes = "0,1,3,5";
 			task.Run(result);
 
-			Assert.IsTrue(info.ProcessSuccessful(0));
-			Assert.IsTrue(info.ProcessSuccessful(1));
-			Assert.IsFalse(info.ProcessSuccessful(2));
-			Assert.IsTrue(info.ProcessSuccessful(3));
-			Assert.IsFalse(info.ProcessSuccessful(4));
-			Assert.IsTrue(info.ProcessSuccessful(5));
-			Assert.IsFalse(info.ProcessSuccessful(6));
+			ClassicAssert.IsTrue(info.ProcessSuccessful(0));
+			ClassicAssert.IsTrue(info.ProcessSuccessful(1));
+			ClassicAssert.IsFalse(info.ProcessSuccessful(2));
+			ClassicAssert.IsTrue(info.ProcessSuccessful(3));
+			ClassicAssert.IsFalse(info.ProcessSuccessful(4));
+			ClassicAssert.IsTrue(info.ProcessSuccessful(5));
+			ClassicAssert.IsFalse(info.ProcessSuccessful(6));
 
 			Verify();
 		}
@@ -292,8 +295,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 			IIntegrationResult result = IntegrationResult();
 			task.Run(result);
 
-			Assert.That(result.Status, Is.EqualTo(IntegrationStatus.Failure));
-			Assert.That(result.TaskOutput, Does.Match("Command line '.*' timed out after \\d+ seconds"));
+			ClassicAssert.That(result.Status, Is.EqualTo(IntegrationStatus.Failure));
+			ClassicAssert.That(result.TaskOutput, Does.Match("Command line '.*' timed out after \\d+ seconds"));
 
 			Verify();
 		}

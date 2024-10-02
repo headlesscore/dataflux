@@ -3,6 +3,7 @@
     using NUnit.Framework;
     using ThoughtWorks.CruiseControl.Remote.Messages;
     using ThoughtWorks.CruiseControl.Remote;
+    using NUnit.Framework.Legacy;
 
     [TestFixture]
     public class StatusSnapshotResponseTests
@@ -15,7 +16,9 @@
             var request = new EncryptedRequest();
             var response = new StatusSnapshotResponse(request);
             // Only check one property is set, since the properties are set by the base class
-            Assert.AreEqual(request.Identifier, response.RequestIdentifier);
+            ClassicAssert.AreEqual(request.Identifier, response.RequestIdentifier);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
         }
 
         [Test]
@@ -25,7 +28,7 @@
             response1.RequestIdentifier = "12345";
             var response2 = new StatusSnapshotResponse(response1);
             // Only check one property is set, since the properties are set by the base class
-            Assert.AreEqual(response1.RequestIdentifier, response2.RequestIdentifier);
+            ClassicAssert.AreEqual(response1.RequestIdentifier, response2.RequestIdentifier);
         }
         #endregion
 
@@ -36,7 +39,7 @@
             var request = new StatusSnapshotResponse();
             var snapshot = new ProjectStatusSnapshot();
             request.Snapshot = snapshot;
-            Assert.AreSame(snapshot, request.Snapshot);
+            ClassicAssert.AreSame(snapshot, request.Snapshot);
         }
         #endregion
         #endregion

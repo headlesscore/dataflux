@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.CCTrayLib;
 using ThoughtWorks.CruiseControl.CCTrayLib.Monitoring;
 using ThoughtWorks.CruiseControl.CCTrayLib.Presentation;
@@ -56,7 +57,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Monitoring
 		[Test]
 		public void ThrowsWhenAttemptingToRetrieveSingleProjectDetail()
 		{
-		    Assert.That(delegate { ISingleProjectDetail detail = aggregator.Detail; },
+		    ClassicAssert.That(delegate { ISingleProjectDetail detail = aggregator.Detail; },
 		                Throws.TypeOf<InvalidOperationException>());
 		}
 
@@ -74,13 +75,13 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Monitoring
 
 			aggregator = new AggregatingProjectMonitor(stubProjectMonitor1, stubProjectMonitor2);
 			aggregator.BuildOccurred += new MonitorBuildOccurredEventHandler(Aggregator_BuildOccurred);
-
-			Assert.AreEqual(0, buildOccurredCount);
+            
+            ClassicAssert.AreEqual(0, buildOccurredCount);
 			stubProjectMonitor1.OnBuildOccurred(new MonitorBuildOccurredEventArgs(stubProjectMonitor1, BuildTransition.Fixed));
 
-			Assert.AreEqual(1, buildOccurredCount);
-			Assert.AreSame(stubProjectMonitor1, lastBuildOccurredEventArgs.ProjectMonitor);
-			Assert.AreEqual(BuildTransition.Fixed, lastBuildOccurredEventArgs.BuildTransition);
+			ClassicAssert.AreEqual(1, buildOccurredCount);
+			ClassicAssert.AreSame(stubProjectMonitor1, lastBuildOccurredEventArgs.ProjectMonitor);
+			ClassicAssert.AreEqual(BuildTransition.Fixed, lastBuildOccurredEventArgs.BuildTransition);
 		}
 
 		private void Aggregator_BuildOccurred(object sauce, MonitorBuildOccurredEventArgs e)
@@ -104,10 +105,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Monitoring
 			aggregator = new AggregatingProjectMonitor(stubProjectMonitor1, stubProjectMonitor2);
 			aggregator.Polled += new MonitorPolledEventHandler(Aggregator_Polled);
 
-			Assert.AreEqual(0, pollCount);
+			ClassicAssert.AreEqual(0, pollCount);
 			stubProjectMonitor1.OnPolled(new MonitorPolledEventArgs(stubProjectMonitor1));
 
-			Assert.AreEqual(1, pollCount);
+			ClassicAssert.AreEqual(1, pollCount);
 		}
 
 		private void Aggregator_Polled(object source, MonitorPolledEventArgs args)
@@ -128,8 +129,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Monitoring
 
 			stubProjectMonitor1.OnPolled(new MonitorPolledEventArgs(stubProjectMonitor1));
 
-			Assert.AreSame(lastPolledSource, aggregator);
-			Assert.AreSame(lastPolledArgs.ProjectMonitor, stubProjectMonitor1);
+			ClassicAssert.AreSame(lastPolledSource, aggregator);
+			ClassicAssert.AreSame(lastPolledArgs.ProjectMonitor, stubProjectMonitor1);
 		}
 
 
@@ -142,17 +143,17 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Monitoring
 			//  NotConnected
 			//  Success
 
-			Assert.AreEqual(ProjectState.Success, CombinedState(ProjectState.Success, ProjectState.Success, ProjectState.Success));
-			Assert.AreEqual(ProjectState.Building,
+			ClassicAssert.AreEqual(ProjectState.Success, CombinedState(ProjectState.Success, ProjectState.Success, ProjectState.Success));
+			ClassicAssert.AreEqual(ProjectState.Building,
 			                CombinedState(ProjectState.Success, ProjectState.Building, ProjectState.Success));
-			Assert.AreEqual(ProjectState.Building,
+			ClassicAssert.AreEqual(ProjectState.Building,
 			                CombinedState(ProjectState.Building, ProjectState.Success, ProjectState.NotConnected));
-			Assert.AreEqual(ProjectState.NotConnected,
+			ClassicAssert.AreEqual(ProjectState.NotConnected,
 			                CombinedState(ProjectState.Success, ProjectState.Success, ProjectState.NotConnected));
-			Assert.AreEqual(ProjectState.Broken,
+			ClassicAssert.AreEqual(ProjectState.Broken,
 			                CombinedState(ProjectState.NotConnected, ProjectState.Success, ProjectState.Broken));
-			Assert.AreEqual(ProjectState.Broken, CombinedState(ProjectState.Broken, ProjectState.Building, ProjectState.Success));
-			Assert.AreEqual(ProjectState.Broken,
+			ClassicAssert.AreEqual(ProjectState.Broken, CombinedState(ProjectState.Broken, ProjectState.Building, ProjectState.Success));
+			ClassicAssert.AreEqual(ProjectState.Broken,
 			                CombinedState(ProjectState.Success, ProjectState.Broken, ProjectState.NotConnected));
 		}
 
@@ -173,7 +174,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Monitoring
 			monitor3.SetupGet(_monitor => _monitor.SummaryStatusString).Returns("goodbye from monitor3").Verifiable();
 			string statusString = aggregator.SummaryStatusString;
 
-			Assert.AreEqual("hello from monitor1\nand from monitor2\ngoodbye from monitor3", statusString);
+			ClassicAssert.AreEqual("hello from monitor1\nand from monitor2\ngoodbye from monitor3", statusString);
 		}
 
 		[Test]
@@ -184,7 +185,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Monitoring
 			monitor3.SetupGet(_monitor => _monitor.SummaryStatusString).Returns("goodbye from monitor3").Verifiable();
 			string statusString = aggregator.SummaryStatusString;
 
-			Assert.AreEqual("hello from monitor1\ngoodbye from monitor3", statusString);
+			ClassicAssert.AreEqual("hello from monitor1\ngoodbye from monitor3", statusString);
 		}
 
 		[Test]
@@ -195,7 +196,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Monitoring
 			monitor3.SetupGet(_monitor => _monitor.SummaryStatusString).Returns(string.Empty).Verifiable();
 			string statusString = aggregator.SummaryStatusString;
 
-			Assert.AreEqual("All builds are good", statusString);
+			ClassicAssert.AreEqual("All builds are good", statusString);
 		}
 
 		[Test]
@@ -207,17 +208,17 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Monitoring
 			//  Unknown
 			//  Success
 
-			Assert.AreEqual(IntegrationStatus.Success,
+			ClassicAssert.AreEqual(IntegrationStatus.Success,
 			                CombinedIntegrationStatus(IntegrationStatus.Success, IntegrationStatus.Success, IntegrationStatus.Success));
-			Assert.AreEqual(IntegrationStatus.Unknown,
+			ClassicAssert.AreEqual(IntegrationStatus.Unknown,
 			                CombinedIntegrationStatus(IntegrationStatus.Success, IntegrationStatus.Success, IntegrationStatus.Unknown));
-			Assert.AreEqual(IntegrationStatus.Exception,
+			ClassicAssert.AreEqual(IntegrationStatus.Exception,
 			                CombinedIntegrationStatus(IntegrationStatus.Success, IntegrationStatus.Exception, IntegrationStatus.Success));
-			Assert.AreEqual(IntegrationStatus.Exception,
+			ClassicAssert.AreEqual(IntegrationStatus.Exception,
 			                CombinedIntegrationStatus(IntegrationStatus.Success, IntegrationStatus.Exception, IntegrationStatus.Unknown));
-			Assert.AreEqual(IntegrationStatus.Failure,
+			ClassicAssert.AreEqual(IntegrationStatus.Failure,
 			                CombinedIntegrationStatus(IntegrationStatus.Failure, IntegrationStatus.Exception, IntegrationStatus.Success));
-			Assert.AreEqual(IntegrationStatus.Failure,
+			ClassicAssert.AreEqual(IntegrationStatus.Failure,
 			                CombinedIntegrationStatus(IntegrationStatus.Failure, IntegrationStatus.Success, IntegrationStatus.Success));
 		}
 

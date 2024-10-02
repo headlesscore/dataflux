@@ -1,6 +1,7 @@
 using System.IO;
 using System.Xml;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core.Config;
 using ThoughtWorks.CruiseControl.Core.Util;
 
@@ -29,15 +30,16 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Config
 			string xml = "<cruisecontrol />";
 			FileInfo configFile = new FileInfo(TempFileUtil.CreateTempXmlFile(TempFileUtil.CreateTempDir(this), "loadernet.config", xml));
 			XmlDocument config = fileLoader.LoadConfiguration(configFile);
-			Assert.IsNotNull(config);
-			Assert.AreEqual(xml, config.OuterXml);
+			ClassicAssert.IsNotNull(config);
+            ClassicAssert.IsNotNull(config);
+            ClassicAssert.AreEqual(xml, config.OuterXml);
 		}
 
 		[Test]
 		public void LoadConfigurationFile_MissingFile()
 		{
 			FileInfo configFile = new FileInfo(@"c:\unknown\config.file.xml");
-			Assert.That(delegate { fileLoader.LoadConfiguration(configFile); },
+			ClassicAssert.That(delegate { fileLoader.LoadConfiguration(configFile); },
                         Throws.TypeOf<ConfigurationFileMissingException>());
 		}
 
@@ -45,7 +47,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Config
 		public void LoadConfigurationFile_FileOnlyNoPath()
 		{
 			FileInfo configFile = new FileInfo(@"ccnet_unknown.config");
-			Assert.That(delegate { fileLoader.LoadConfiguration(configFile); },
+			ClassicAssert.That(delegate { fileLoader.LoadConfiguration(configFile); },
                         Throws.TypeOf<ConfigurationFileMissingException>());
 		}
 
@@ -54,7 +56,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Config
 		{
 			FileInfo configFile = new FileInfo(TempFileUtil.CreateTempXmlFile(TempFileUtil.CreateTempDir(this), "loadernet.config"
 				, "<test><a><b/></test>"));
-            Assert.That(delegate { fileLoader.LoadConfiguration(configFile); },
+            ClassicAssert.That(delegate { fileLoader.LoadConfiguration(configFile); },
                         Throws.TypeOf<ConfigurationException>());
 		}
 	}

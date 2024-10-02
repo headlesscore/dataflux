@@ -2,6 +2,7 @@ using System;
 using Exortech.NetReflector;
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Sourcecontrol;
 
@@ -50,20 +51,21 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 			NetReflector.Read(SourceControlXml, _filteredSourceControl);
 
 			//// VERIFY
-			Assert.IsTrue(_filteredSourceControl.SourceControlProvider != null);
+			ClassicAssert.IsTrue(_filteredSourceControl.SourceControlProvider != null);
+            ClassicAssert.IsTrue(true);
 
-			string optionalProp = ((SourceControlMock)_filteredSourceControl.SourceControlProvider).AnOptionalProperty;
-			Assert.AreEqual(optionalProp, "foo", "Didn't find expected source control provider");
+            string optionalProp = ((SourceControlMock)_filteredSourceControl.SourceControlProvider).AnOptionalProperty;
+			ClassicAssert.AreEqual(optionalProp, "foo", "Didn't find expected source control provider");
 
-			Assert.AreEqual(_filteredSourceControl.InclusionFilters.Length, 1);
+			ClassicAssert.AreEqual(_filteredSourceControl.InclusionFilters.Length, 1);
 
 			string inclusionPattern = ((PathFilter)_filteredSourceControl.InclusionFilters[0]).Pattern;
-			Assert.AreEqual(inclusionPattern, "/sources/**/*.*", "Didn't find expected inclusion path pattern");
+			ClassicAssert.AreEqual(inclusionPattern, "/sources/**/*.*", "Didn't find expected inclusion path pattern");
 
-			Assert.AreEqual(_filteredSourceControl.ExclusionFilters.Length, 1);
+			ClassicAssert.AreEqual(_filteredSourceControl.ExclusionFilters.Length, 1);
 
 			string exclusionPattern = ((PathFilter)_filteredSourceControl.ExclusionFilters[0]).Pattern;
-			Assert.AreEqual(exclusionPattern, "/sources/info/version.cs", "Didn't find expected exclusion path pattern");
+			ClassicAssert.AreEqual(exclusionPattern, "/sources/info/version.cs", "Didn't find expected exclusion path pattern");
 		}
 
 		[Test]
@@ -103,7 +105,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 			Modification[] filteredResult = _filteredSourceControl.GetModifications(from, to);
 
 			//// VERIFY
-			Assert.AreEqual(1, filteredResult.Length);
+			ClassicAssert.AreEqual(1, filteredResult.Length);
 		}
 
 		private IntegrationResult IntegrationResult(DateTime dateTime1)
@@ -163,9 +165,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
             Modification[] filteredResult = _filteredSourceControl.GetModifications(from, to);
 
             //// VERIFY
-            Assert.AreEqual(2, filteredResult.Length);     
-            Assert.AreEqual("x.cs", filteredResult[0].FileName);
-            Assert.AreEqual("x.build", filteredResult[1].FileName);
+            ClassicAssert.AreEqual(2, filteredResult.Length);     
+            ClassicAssert.AreEqual("x.cs", filteredResult[0].FileName);
+            ClassicAssert.AreEqual("x.build", filteredResult[1].FileName);
         }
     }
 }

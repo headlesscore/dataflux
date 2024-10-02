@@ -1,6 +1,7 @@
 using System.Collections;
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core.Reporting.Dashboard.Navigation;
 using ThoughtWorks.CruiseControl.WebDashboard.IO;
 using ThoughtWorks.CruiseControl.WebDashboard.MVC;
@@ -54,9 +55,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.Plugins.ViewServerLo
 			viewGeneratorMock.Setup(generator => generator.GenerateView(@"ServerLog.vm", It.Is<Hashtable>(t => t.Count == 2 && (string)t["log"] == serverLog && t.ContainsKey("projectLinks")))).Returns(response).Verifiable();
 
 			// Execute
-			Assert.AreEqual(response, action.Execute((ICruiseRequest) requestMock.Object));
-
-			VerifyAll();
+			ClassicAssert.AreEqual(response, action.Execute((ICruiseRequest) requestMock.Object));
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
+            VerifyAll();
 		}
 
 		[Test]
@@ -78,7 +80,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.Plugins.ViewServerLo
 				Returns(response).Verifiable();
 
 			// Execute
-			Assert.AreEqual(response, action.Execute((ICruiseRequest) requestMock.Object));
+			ClassicAssert.AreEqual(response, action.Execute((ICruiseRequest) requestMock.Object));
 
 			VerifyAll();
 		}

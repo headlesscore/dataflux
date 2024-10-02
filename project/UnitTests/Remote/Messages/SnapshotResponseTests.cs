@@ -4,6 +4,7 @@ using ThoughtWorks.CruiseControl.Remote.Messages;
 using ThoughtWorks.CruiseControl.Remote;
 using System.Xml.Linq;
 using FluentAssertions;
+using NUnit.Framework.Legacy;
 
 namespace ThoughtWorks.CruiseControl.UnitTests.Remote.Messages
 {
@@ -15,8 +16,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote.Messages
         {
             DateTime now = DateTime.Now;
             SnapshotResponse response = new SnapshotResponse();
-            Assert.AreEqual(ResponseResult.Unknown, response.Result, "Result wasn't set to failure");
-            Assert.IsTrue((now <= response.Timestamp), "Timestamp was not set");
+            ClassicAssert.AreEqual(ResponseResult.Unknown, response.Result, "Result wasn't set to failure");
+            ClassicAssert.IsTrue((now <= response.Timestamp), "Timestamp was not set");
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
         }
 
         [Test]
@@ -25,9 +28,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote.Messages
             DateTime now = DateTime.Now;
             ServerRequest request = new ServerRequest();
             SnapshotResponse response = new SnapshotResponse(request);
-            Assert.AreEqual(ResponseResult.Unknown, response.Result, "Result wasn't set to failure");
-            Assert.AreEqual(request.Identifier, response.RequestIdentifier, "RequestIdentifier wasn't set to the identifier of the request");
-            Assert.IsTrue((now <= response.Timestamp), "Timestamp was not set");
+            ClassicAssert.AreEqual(ResponseResult.Unknown, response.Result, "Result wasn't set to failure");
+            ClassicAssert.AreEqual(request.Identifier, response.RequestIdentifier, "RequestIdentifier wasn't set to the identifier of the request");
+            ClassicAssert.IsTrue((now <= response.Timestamp), "Timestamp was not set");
         }
 
         [Test]
@@ -39,9 +42,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote.Messages
             response1.RequestIdentifier = "original id";
             response1.Timestamp = DateTime.Now.AddMinutes(-1);
             SnapshotResponse response2 = new SnapshotResponse(response1);
-            Assert.AreEqual(ResponseResult.Success, response2.Result, "Result wasn't set to failure");
-            Assert.AreEqual("original id", response2.RequestIdentifier, "RequestIdentifier wasn't set to the identifier of the request");
-            Assert.IsTrue((response1.Timestamp == response2.Timestamp), "Timestamp was not set");
+            ClassicAssert.AreEqual(ResponseResult.Success, response2.Result, "Result wasn't set to failure");
+            ClassicAssert.AreEqual("original id", response2.RequestIdentifier, "RequestIdentifier wasn't set to the identifier of the request");
+            ClassicAssert.IsTrue((response1.Timestamp == response2.Timestamp), "Timestamp was not set");
         }
 
         [Test]

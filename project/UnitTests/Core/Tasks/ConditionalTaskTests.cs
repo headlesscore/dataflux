@@ -8,6 +8,7 @@
     using CruiseControl.Remote;
     using Moq;
     using NUnit.Framework;
+    using NUnit.Framework.Legacy;
     using ThoughtWorks.CruiseControl.Core.Tasks;
     using ThoughtWorks.CruiseControl.UnitTests.Core.Tasks.Conditions;
 
@@ -29,8 +30,10 @@
         public void ConstructorInitialisesEmptyTaskLists()
         {
             var task = new ConditionalTask();
-            Assert.AreEqual(0, task.Tasks.Length);
-            Assert.AreEqual(0, task.ElseTasks.Length);
+            ClassicAssert.AreEqual(0, task.Tasks.Length);
+            ClassicAssert.AreEqual(0, task.ElseTasks.Length);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
         }
 
         [Test]
@@ -46,7 +49,7 @@
                                TaskConditions = new[] {conditionMock}
                            };
             task.Validate(null, ConfigurationTrace.Start(this), null);
-            Assert.IsTrue(wasValidated);
+            ClassicAssert.IsTrue(wasValidated);
         }
 
         [Test]
@@ -62,7 +65,7 @@
                                Tasks = new[] {taskMock}
                            };
             task.Validate(null, ConfigurationTrace.Start(this), null);
-            Assert.IsTrue(wasValidated);
+            ClassicAssert.IsTrue(wasValidated);
         }
 
         [Test]
@@ -78,7 +81,7 @@
                                ElseTasks = new[] {taskMock}
                            };
             task.Validate(null, ConfigurationTrace.Start(this), null);
-            Assert.IsTrue(wasValidated);
+            ClassicAssert.IsTrue(wasValidated);
         }
 
         [Test]
@@ -92,7 +95,7 @@
                                            }
                            };
             task.InitialiseStatus(ItemBuildStatus.Pending);
-            Assert.AreEqual(ItemBuildStatus.Pending, task.CurrentStatus.Status);
+            ClassicAssert.AreEqual(ItemBuildStatus.Pending, task.CurrentStatus.Status);
         }
 
         [Test]
@@ -124,8 +127,8 @@
             task.Run(resultMock);
 
             this.mocks.Verify();
-            Assert.IsTrue(passRan);
-            Assert.IsFalse(failRan);
+            ClassicAssert.IsTrue(passRan);
+            ClassicAssert.IsFalse(failRan);
         }
 
         [Test]
@@ -157,8 +160,8 @@
             task.Run(resultMock);
 
             this.mocks.Verify();
-            Assert.IsFalse(passRan);
-            Assert.IsTrue(failRan);
+            ClassicAssert.IsFalse(passRan);
+            ClassicAssert.IsTrue(failRan);
         }
 
         [Test]
@@ -204,10 +207,10 @@
             task.Run(resultMock);
 
             this.mocks.Verify();
-            Assert.IsTrue(firstPassRan);
-            Assert.IsTrue(secondPassRan);
-            Assert.IsTrue(thirdPassRan);
-            Assert.IsFalse(failRan);
+            ClassicAssert.IsTrue(firstPassRan);
+            ClassicAssert.IsTrue(secondPassRan);
+            ClassicAssert.IsTrue(thirdPassRan);
+            ClassicAssert.IsFalse(failRan);
         }
 
         [Test]
@@ -253,10 +256,10 @@
             task.Run(resultMock);
 
             this.mocks.Verify();
-            Assert.IsFalse(passRan);
-            Assert.IsTrue(firstFailRan);
-            Assert.IsTrue(secondFailRan);
-            Assert.IsTrue(thirdFailRan);
+            ClassicAssert.IsFalse(passRan);
+            ClassicAssert.IsTrue(firstFailRan);
+            ClassicAssert.IsTrue(secondFailRan);
+            ClassicAssert.IsTrue(thirdFailRan);
         }
 
         [Test]
@@ -301,10 +304,10 @@
             task.Run(resultMock);
 
             this.mocks.Verify();
-            Assert.IsTrue(firstPassRan);
-            Assert.IsTrue(secondPassRan);
-            Assert.IsFalse(thirdPassRan);
-            Assert.IsFalse(failRan);
+            ClassicAssert.IsTrue(firstPassRan);
+            ClassicAssert.IsTrue(secondPassRan);
+            ClassicAssert.IsFalse(thirdPassRan);
+            ClassicAssert.IsFalse(failRan);
         }
 
         [Test]
@@ -349,10 +352,10 @@
             task.Run(resultMock);
 
             this.mocks.Verify();
-            Assert.IsFalse(passRan);
-            Assert.IsTrue(firstFailRan);
-            Assert.IsTrue(secondFailRan);
-            Assert.IsFalse(thirdFailRan);
+            ClassicAssert.IsFalse(passRan);
+            ClassicAssert.IsTrue(firstFailRan);
+            ClassicAssert.IsTrue(secondFailRan);
+            ClassicAssert.IsFalse(thirdFailRan);
         }
         [Test]
         public void ExecuteRunsAllInnerTasksWhenConditionsPassAndContinueOnFailure()
@@ -422,8 +425,8 @@
             task.Run(resultMock);
 
             this.mocks.Verify();
-            Assert.AreEqual(innerCount * leafCount, taskRunCount, "Bad task run count");
-            Assert.IsFalse(failRan);
+            ClassicAssert.AreEqual(innerCount * leafCount, taskRunCount, "Bad task run count");
+            ClassicAssert.IsFalse(failRan);
         }
 
         [Test]
@@ -495,8 +498,8 @@
             task.Run(resultMock);
 
             this.mocks.Verify();
-            Assert.IsFalse(passRan);
-            Assert.AreEqual(innerCount * leafCount, taskRunCount, "Bad task run count");
+            ClassicAssert.IsFalse(passRan);
+            ClassicAssert.AreEqual(innerCount * leafCount, taskRunCount, "Bad task run count");
         }
 
         #endregion

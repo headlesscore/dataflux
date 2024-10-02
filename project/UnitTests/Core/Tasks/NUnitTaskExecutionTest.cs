@@ -1,6 +1,7 @@
 using System;
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Tasks;
 using ThoughtWorks.CruiseControl.Core.Util;
@@ -49,8 +50,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 
 			task.Run(result);
 
-			Assert.AreEqual("foo", result.TaskOutput);
-			executorMock.Verify();
+			ClassicAssert.AreEqual("foo", result.TaskOutput);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
+            executorMock.Verify();
 		}
 
 		[Test]
@@ -59,7 +62,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 			executorMock.Setup(executor => executor.Execute(It.IsAny<ProcessInfo>())).Returns(ProcessResultFixture.CreateNonZeroExitCodeResult()).Verifiable();
 
 			task = new NUnitTask((ProcessExecutor) executorMock.Object);
-            Assert.That(delegate { task.Run(result); },
+            ClassicAssert.That(delegate { task.Run(result); },
                         Throws.TypeOf<CruiseControlException>());
 		}
 

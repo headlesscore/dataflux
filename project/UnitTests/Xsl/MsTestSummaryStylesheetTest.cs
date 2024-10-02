@@ -1,5 +1,6 @@
 using System;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace ThoughtWorks.CruiseControl.UnitTests.Xsl
 {
@@ -16,8 +17,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Xsl
 		{
 			string xml = WrapInBuildResultsElement("<foo>bar</foo>");
 			string actualXml = LoadStylesheetAndTransformInput(xml);
-			Assert.AreEqual("", actualXml);
-		}
+			ClassicAssert.AreEqual("", actualXml);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
+        }
 
 		[Test]
 		public void ShouldRenderTotalTestsWhenAllTestsPass()

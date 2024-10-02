@@ -4,6 +4,7 @@ using System.Runtime.InteropServices;
 using Exortech.NetReflector;
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Tasks;
 using ThoughtWorks.CruiseControl.Core.Util;
@@ -60,10 +61,12 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 
 			task.Run(result);
 
-			Assert.AreEqual(1, result.TaskResults.Count);
-			Assert.AreEqual(IntegrationStatus.Success, result.Status);
-		    Assert.That(result.TaskOutput, Is.Empty);
-		}
+			ClassicAssert.AreEqual(1, result.TaskResults.Count);
+			ClassicAssert.AreEqual(IntegrationStatus.Success, result.Status);
+		    ClassicAssert.That(result.TaskOutput, Is.Empty);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
+        }
 
 		[Test]
 		public void AddQuotesAroundProjectsWithSpacesAndHandleNoSpecifiedTargets()
@@ -122,8 +125,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 			ExpectToExecuteAndReturn(TimedOutProcessResult());
 			task.Run(result);
 
-			Assert.That(result.Status, Is.EqualTo(IntegrationStatus.Failure));
-			Assert.That(result.TaskOutput, Does.Match("Command line '.*' timed out after \\d+ seconds"));
+			ClassicAssert.That(result.Status, Is.EqualTo(IntegrationStatus.Failure));
+			ClassicAssert.That(result.TaskOutput, Does.Match("Command line '.*' timed out after \\d+ seconds"));
 		}
 
 		[Test]
@@ -132,9 +135,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
             TempFileUtil.CreateTempXmlFile(string.Format(logfile, task.LogFileId), "<output/>");
 			ExpectToExecuteAndReturn(SuccessfulProcessResult());
 			task.Run(result);
-			Assert.AreEqual(2, result.TaskResults.Count);
-		    Assert.That(result.TaskOutput, Is.EqualTo("<output/>"));
-			Assert.IsTrue(result.Succeeded);
+			ClassicAssert.AreEqual(2, result.TaskResults.Count);
+		    ClassicAssert.That(result.TaskOutput, Is.EqualTo("<output/>"));
+			ClassicAssert.IsTrue(result.Succeeded);
 		}
 
 		[Test]
@@ -143,9 +146,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
             TempFileUtil.CreateTempXmlFile(string.Format(logfile, task.LogFileId), "<output/>");
 			ExpectToExecuteAndReturn(FailedProcessResult());
 			task.Run(result);
-			Assert.AreEqual(2, result.TaskResults.Count);
-			Assert.AreEqual("<output/>" + ProcessResultOutput, result.TaskOutput);
-			Assert.IsTrue(result.Failed);			
+			ClassicAssert.AreEqual(2, result.TaskResults.Count);
+			ClassicAssert.AreEqual("<output/>" + ProcessResultOutput, result.TaskOutput);
+			ClassicAssert.IsTrue(result.Failed);			
 		}
 
 		[Test]
@@ -166,26 +169,26 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
     <priority>BelowNormal</priority>
 </msbuild>";
 			task = (MsBuildTask) NetReflector.Read(xml);
-			Assert.AreEqual(@"C:\WINDOWS\Microsoft.NET\Framework\v2.0.50215\MSBuild.exe", task.Executable);
-			Assert.AreEqual(@"C:\dev\ccnet", task.WorkingDirectory);
-			Assert.AreEqual("CCNet.sln", task.ProjectFile);
-			Assert.AreEqual("Build;Test", task.Targets);
-			Assert.AreEqual("/p:Configuration=Debug /v:diag", task.BuildArgs);
-			Assert.AreEqual(15, task.Timeout);
-			Assert.AreEqual("Kobush.Build.Logging.XmlLogger,Kobush.MSBuild.dll", task.Logger);
-            Assert.AreEqual(2, task.LoggerParameters.Length);
-            Assert.AreEqual("buildresult.xml", task.LoggerParameters[0]);
-            Assert.AreEqual("someField=true", task.LoggerParameters[1]);
-            Assert.AreEqual(ProcessPriorityClass.BelowNormal, task.Priority);
+			ClassicAssert.AreEqual(@"C:\WINDOWS\Microsoft.NET\Framework\v2.0.50215\MSBuild.exe", task.Executable);
+			ClassicAssert.AreEqual(@"C:\dev\ccnet", task.WorkingDirectory);
+			ClassicAssert.AreEqual("CCNet.sln", task.ProjectFile);
+			ClassicAssert.AreEqual("Build;Test", task.Targets);
+			ClassicAssert.AreEqual("/p:Configuration=Debug /v:diag", task.BuildArgs);
+			ClassicAssert.AreEqual(15, task.Timeout);
+			ClassicAssert.AreEqual("Kobush.Build.Logging.XmlLogger,Kobush.MSBuild.dll", task.Logger);
+            ClassicAssert.AreEqual(2, task.LoggerParameters.Length);
+            ClassicAssert.AreEqual("buildresult.xml", task.LoggerParameters[0]);
+            ClassicAssert.AreEqual("someField=true", task.LoggerParameters[1]);
+            ClassicAssert.AreEqual(ProcessPriorityClass.BelowNormal, task.Priority);
 		}
 
 		[Test]
 		public void PopulateFromMinimalConfiguration()
 		{
 			task = (MsBuildTask) NetReflector.Read("<msbuild />");
-			Assert.AreEqual(defaultExecutable, task.Executable);
-			Assert.AreEqual(MsBuildTask.DefaultTimeout, task.Timeout);
-			Assert.AreEqual(null, task.Logger);
+			ClassicAssert.AreEqual(defaultExecutable, task.Executable);
+			ClassicAssert.AreEqual(MsBuildTask.DefaultTimeout, task.Timeout);
+			ClassicAssert.AreEqual(null, task.Logger);
 		}
 
         [Test]
@@ -201,7 +204,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 	<logger>Kobush.Build.Logging.XmlLogger,Kobush.MSBuild.dll;buildresult.xml</logger>
     <priority>BelowNormal</priority>
 </msbuild>";
-            Assert.That(delegate { task = (MsBuildTask)NetReflector.Read(xml); },
+            ClassicAssert.That(delegate { task = (MsBuildTask)NetReflector.Read(xml); },
                         Throws.TypeOf<NetReflectorException>());
             ;
         }

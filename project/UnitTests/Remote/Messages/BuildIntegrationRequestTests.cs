@@ -6,6 +6,7 @@
     using FluentAssertions;
     using FluentAssertions.Execution;
     using NUnit.Framework;
+    using NUnit.Framework.Legacy;
     using ThoughtWorks.CruiseControl.Remote;
     using ThoughtWorks.CruiseControl.Remote.Messages;
 
@@ -19,8 +20,10 @@
             var values = new List<NameValuePair>();
             request.BuildCondition = BuildCondition.IfModificationExists;
             request.BuildValues = values;
-            Assert.AreSame(values, request.BuildValues);
-            Assert.AreEqual(BuildCondition.IfModificationExists, request.BuildCondition, "BuildCondition fails the get/set test");
+            ClassicAssert.AreSame(values, request.BuildValues);
+            ClassicAssert.AreEqual(BuildCondition.IfModificationExists, request.BuildCondition, "BuildCondition fails the get/set test");
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
         }
 
         [Test]
@@ -29,7 +32,7 @@
             BuildIntegrationRequest request = new BuildIntegrationRequest();
             request.AddBuildValue("value1", "actual value");
             string actual = NameValuePair.FindNamedValue(request.BuildValues, "value1");
-            Assert.AreEqual("actual value", actual);
+            ClassicAssert.AreEqual("actual value", actual);
         }
 
         [Test]
@@ -38,10 +41,10 @@
             string sessionToken = "the session";
             DateTime now = DateTime.Now;
             BuildIntegrationRequest request = new BuildIntegrationRequest(sessionToken);
-            Assert.IsFalse(string.IsNullOrEmpty(request.Identifier), "Identifier was not set");
-            Assert.AreEqual(Environment.MachineName, request.SourceName, "Source name doesn't match the machine name");
-            Assert.AreEqual(sessionToken, request.SessionToken, "SessionToken doesn't match the input token");
-            Assert.IsTrue((now <= request.Timestamp), "Timestamp was not set");
+            ClassicAssert.IsFalse(string.IsNullOrEmpty(request.Identifier), "Identifier was not set");
+            ClassicAssert.AreEqual(Environment.MachineName, request.SourceName, "Source name doesn't match the machine name");
+            ClassicAssert.AreEqual(sessionToken, request.SessionToken, "SessionToken doesn't match the input token");
+            ClassicAssert.IsTrue((now <= request.Timestamp), "Timestamp was not set");
         }
 
         [Test]

@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Util;
 
@@ -28,13 +29,14 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
 		public void TestDefaultArguments()
 		{
 			ConsoleRunnerArguments consoleArgs = new ConsoleRunnerArguments();
-			Assert.AreEqual(true, consoleArgs.UseRemoting);
-			Assert.IsNull(consoleArgs.Project);
-			Assert.AreEqual(ConsoleRunnerArguments.DEFAULT_CONFIG_PATH, consoleArgs.ConfigFile);
-            Assert.AreEqual(false, consoleArgs.ValidateConfigOnly);
-            Assert.AreEqual(true, consoleArgs.Logging);
-            Assert.AreEqual(true, consoleArgs.PauseOnError);
-            Assert.AreEqual(false, consoleArgs.ShowHelp);
+			ClassicAssert.AreEqual(true, consoleArgs.UseRemoting);
+            ClassicAssert.AreEqual(true, consoleArgs.UseRemoting);
+            ClassicAssert.IsNull(consoleArgs.Project);
+			ClassicAssert.AreEqual(ConsoleRunnerArguments.DEFAULT_CONFIG_PATH, consoleArgs.ConfigFile);
+            ClassicAssert.AreEqual(false, consoleArgs.ValidateConfigOnly);
+            ClassicAssert.AreEqual(true, consoleArgs.Logging);
+            ClassicAssert.AreEqual(true, consoleArgs.PauseOnError);
+            ClassicAssert.AreEqual(false, consoleArgs.ShowHelp);
 		}
 	}
 }

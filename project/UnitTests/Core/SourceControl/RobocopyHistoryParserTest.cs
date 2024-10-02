@@ -3,6 +3,7 @@ using System.Collections;
 using System.Globalization;
 using System.IO;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Sourcecontrol;
 
@@ -24,35 +25,37 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 		{
 			Modification[] modifications = parser.Parse(new StringReader(""), OLDEST_ENTRY, NEWEST_ENTRY);
 
-			Assert.AreEqual(0, modifications.Length);
-		}
+			ClassicAssert.AreEqual(0, modifications.Length);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
+        }
 
 		[Test]
 		public void ParseChanges()
 		{
 			Modification[] modifications = parser.Parse(new StringReader(LOG_CONTENT), OLDEST_ENTRY, NEWEST_ENTRY);
 
-			Assert.AreEqual(8, modifications.Length);
+			ClassicAssert.AreEqual(8, modifications.Length);
 
 			Modification mod0 = new Modification();
 			mod0.Type = "deleted";
 			mod0.FolderName = Path.Combine(path, "dst", "dir2");
 
-			Assert.AreEqual(modifications[0], mod0);
+			ClassicAssert.AreEqual(modifications[0], mod0);
 
 			Modification mod1 = new Modification();
 			mod1.Type = "deleted";
 			mod1.FileName = "deleted.txt";
 			mod1.FolderName = Path.Combine(path, "dst", "dir2");
 
-			Assert.AreEqual(modifications[1], mod1);
+			ClassicAssert.AreEqual(modifications[1], mod1);
 
 			Modification mod2 = new Modification();
 			mod2.Type = "deleted";
 			mod2.FileName = "delete.txt";
 			mod2.FolderName = Path.Combine(path, "dst");
 
-			Assert.AreEqual(modifications[2], mod2);
+			ClassicAssert.AreEqual(modifications[2], mod2);
 
 			Modification mod3 = new Modification();
 			mod3.Type = "added";
@@ -60,7 +63,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 			mod3.FolderName = Path.Combine(path, "src");
 			mod3.ModifiedTime = CreateDate("2008/02/06 09:16:49");
 
-			Assert.AreEqual(modifications[3], mod3);
+			ClassicAssert.AreEqual(modifications[3], mod3);
 
 			Modification mod4 = new Modification();
 			mod4.Type = "modified";
@@ -68,7 +71,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 			mod4.FolderName = Path.Combine(path, "src");
 			mod4.ModifiedTime = CreateDate("2008/02/06 09:35:50");
 
-			Assert.AreEqual(modifications[4], mod4);
+			ClassicAssert.AreEqual(modifications[4], mod4);
 
 			Modification mod5 = new Modification();
 			mod5.Type = "added";
@@ -76,7 +79,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 			mod5.FolderName = Path.Combine(path, "src", "dir with a space");
 			mod5.ModifiedTime = CreateDate("2008/02/07 07:55:32");
 
-			Assert.AreEqual(modifications[5], mod5);
+			ClassicAssert.AreEqual(modifications[5], mod5);
 
 			Modification mod6 = new Modification();
 			mod6.Type = "added";
@@ -84,7 +87,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 			mod6.FolderName = Path.Combine(path, "src", "dir with a space");
 			mod6.ModifiedTime = CreateDate("2008/02/07 07:55:38");
 
-			Assert.AreEqual(modifications[6], mod6);
+			ClassicAssert.AreEqual(modifications[6], mod6);
 
 			Modification mod7 = new Modification();
 			mod7.Type = "added";
@@ -92,7 +95,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 			mod7.FolderName = Path.Combine(path, "src", "dir1");
 			mod7.ModifiedTime = CreateDate("2008/02/06 09:31:26");
 
-			Assert.AreEqual(modifications[7], mod7);
+			ClassicAssert.AreEqual(modifications[7], mod7);
 		}
 
 

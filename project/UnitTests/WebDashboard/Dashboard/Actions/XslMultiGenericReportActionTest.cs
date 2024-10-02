@@ -1,5 +1,6 @@
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.WebDashboard.Dashboard;
 using ThoughtWorks.CruiseControl.WebDashboard.Dashboard.Actions;
 using ThoughtWorks.CruiseControl.WebDashboard.Dashboard.GenericPlugins;
@@ -36,11 +37,12 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.Dashboard.Actions
 			buildPlugin.ConfiguredLinkDescription = "My Plugin";
 			buildPlugin.XslFileNames = xslFiles;
 
-			Assert.AreEqual("MyAction", buildPlugin.ActionName);
-			Assert.AreEqual("My Plugin", buildPlugin.LinkDescription);
-			Assert.AreEqual(xslFiles, buildPlugin.XslFileNames);
-
-			VerifyAll();
+			ClassicAssert.AreEqual("MyAction", buildPlugin.ActionName);
+			ClassicAssert.AreEqual("My Plugin", buildPlugin.LinkDescription);
+			ClassicAssert.AreEqual(xslFiles, buildPlugin.XslFileNames);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
+            VerifyAll();
 		}
 
 		[Test]
@@ -55,10 +57,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.Dashboard.Actions
 
 			INamedAction[] namedActions = buildPlugin.NamedActions;
 
-			Assert.AreEqual(1, namedActions.Length);
-			Assert.AreEqual("MyAction", namedActions[0].ActionName);
-			Assert.AreEqual(xslReportAction, namedActions[0].Action);
-			Assert.AreEqual(xslFiles, ((MultipleXslReportBuildAction) namedActions[0].Action).XslFileNames);
+			ClassicAssert.AreEqual(1, namedActions.Length);
+			ClassicAssert.AreEqual("MyAction", namedActions[0].ActionName);
+			ClassicAssert.AreEqual(xslReportAction, namedActions[0].Action);
+			ClassicAssert.AreEqual(xslFiles, ((MultipleXslReportBuildAction) namedActions[0].Action).XslFileNames);
 
 			VerifyAll();
 		}

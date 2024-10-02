@@ -5,6 +5,8 @@ using System.Xml;
 using Exortech.NetReflector;
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
+
 //using ThoughtWorks.CruiseControl.CCTrayLib.Presentation;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Tasks;
@@ -28,7 +30,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
             var task = new TestTask();
             task.Description = "Test Task";
             var actual = task.RetrieveDescriptionOrName();
-            Assert.AreEqual(task.Description, actual);
+            ClassicAssert.AreEqual(task.Description, actual);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
         }
 
         [Test]
@@ -37,7 +41,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
             var task = new TestTask();
             task.Description = null;
             var actual = task.RetrieveDescriptionOrName();
-            Assert.AreEqual(task.GetType().Name, actual);
+            ClassicAssert.AreEqual(task.GetType().Name, actual);
         }
         #endregion
 
@@ -54,8 +58,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
             task.Run(result);
             mocks.VerifyAll();
 
-            Assert.IsTrue(task.Executed);
-            Assert.AreEqual(ItemBuildStatus.CompletedSuccess, task.CurrentStatus.Status);
+            ClassicAssert.IsTrue(task.Executed);
+            ClassicAssert.AreEqual(ItemBuildStatus.CompletedSuccess, task.CurrentStatus.Status);
         }
 
         [Test]
@@ -70,8 +74,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
             task.Run(result);
             mocks.VerifyAll();
 
-            Assert.IsTrue(task.Executed);
-            Assert.AreEqual(ItemBuildStatus.CompletedFailed, task.CurrentStatus.Status);
+            ClassicAssert.IsTrue(task.Executed);
+            ClassicAssert.AreEqual(ItemBuildStatus.CompletedFailed, task.CurrentStatus.Status);
         }
 
         [Test]
@@ -94,8 +98,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
             catch (Exception) { }
             mocks.VerifyAll();
 
-            Assert.IsTrue(task.Executed);
-            Assert.AreEqual(ItemBuildStatus.CompletedFailed, task.CurrentStatus.Status);
+            ClassicAssert.IsTrue(task.Executed);
+            ClassicAssert.AreEqual(ItemBuildStatus.CompletedFailed, task.CurrentStatus.Status);
         }
         #endregion
 
@@ -109,7 +113,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 
             var task = new TestTask();
             var actual = task.PreprocessParameters(new NetReflectorTypeTable(), document.DocumentElement);
-            Assert.AreEqual(xml, actual.OuterXml);
+            ClassicAssert.AreEqual(xml, actual.OuterXml);
         }
 
         [Test]
@@ -129,7 +133,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
                         "<property>attrib</property>" +
                     "</directValue>" +
                 "</dynamicValues></item>";
-            Assert.AreEqual(expected, actual.OuterXml);
+            ClassicAssert.AreEqual(expected, actual.OuterXml);
         }
 
         [Test]
@@ -149,7 +153,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
                         "<property>subItem</property>" +
                     "</directValue>" +
                 "</dynamicValues></item>";
-            Assert.AreEqual(expected, actual.OuterXml);
+            ClassicAssert.AreEqual(expected, actual.OuterXml);
         }
 
         [Test]
@@ -168,7 +172,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
                         "<property>attrib</property>" +
                     "</directValue>" +
                 "</dynamicValues></item>";
-            Assert.AreEqual(expected, actual.OuterXml);
+            ClassicAssert.AreEqual(expected, actual.OuterXml);
         }
 
         [Test]
@@ -187,7 +191,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
                         "<property>subItem</property>" +
                     "</directValue>" +
                 "</dynamicValues></item>";
-            Assert.AreEqual(expected, actual.OuterXml);
+            ClassicAssert.AreEqual(expected, actual.OuterXml);
         }
 
         [ReflectorType("item")]
@@ -261,7 +265,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
                         "<property>subItems[1]</property>" +
                     "</directValue>" +
                 "</dynamicValues></item>";
-            Assert.AreEqual(expected, actual.OuterXml);
+            ClassicAssert.AreEqual(expected, actual.OuterXml);
         }
 
         [Test]
@@ -286,7 +290,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
                         "<property>subItems[1]</property>" +
                     "</directValue>" +
                 "</dynamicValues></item>";
-            Assert.AreEqual(expected, actual.OuterXml);
+            ClassicAssert.AreEqual(expected, actual.OuterXml);
         }
 
         [Test]
@@ -313,7 +317,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
                         "<property>subItems[0].subSubItems[1].value</property>" +
                     "</directValue>" +
                 "</dynamicValues></item>";
-            Assert.AreEqual(expected, actual.OuterXml);
+            ClassicAssert.AreEqual(expected, actual.OuterXml);
         }
 
         [Test]
@@ -340,7 +344,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
                         "<property>subItems[0].subSubItems[1].value</property>" +
                     "</directValue>" +
                 "</dynamicValues></item>";
-            Assert.AreEqual(expected, actual.OuterXml);
+            ClassicAssert.AreEqual(expected, actual.OuterXml);
         }
 
         [Test]
@@ -376,7 +380,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
                 "</subItemDV>" +
                 "</subItemsDV>" +
                 "</item>";
-            Assert.AreEqual(expected, actual.OuterXml);
+            ClassicAssert.AreEqual(expected, actual.OuterXml);
         }
 
         [Test]
@@ -412,7 +416,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
                 "</subItemDV>" +
                 "</subItems>" +
                 "</item>";
-            Assert.AreEqual(expected, actual.OuterXml);
+            ClassicAssert.AreEqual(expected, actual.OuterXml);
         }
 
         [Test]
@@ -450,7 +454,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
                 "</subSubItemDV>" +
                 "</subSubItemsDV>" +
                 "</subItem></subItems></item>";
-            Assert.AreEqual(expected, actual.OuterXml);
+            ClassicAssert.AreEqual(expected, actual.OuterXml);
         }
 
         [Test]
@@ -487,7 +491,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
                     "</directValue>" +
                 "</dynamicValues>" +
                 "</item>";
-            Assert.AreEqual(expected, actual.OuterXml);
+            ClassicAssert.AreEqual(expected, actual.OuterXml);
         }
 
         [Test]
@@ -509,7 +513,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
                         "<property>attrib</property>" +
                     "</replacementValue>" +
                 "</dynamicValues></item>";
-            Assert.AreEqual(expected, actual.OuterXml);
+            ClassicAssert.AreEqual(expected, actual.OuterXml);
         }
 
         [Test]
@@ -531,7 +535,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
                         "<property>subItem</property>" +
                     "</replacementValue>" +
                 "</dynamicValues></item>";
-            Assert.AreEqual(expected, actual.OuterXml);
+            ClassicAssert.AreEqual(expected, actual.OuterXml);
         }
 
         [Test]
@@ -553,7 +557,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
                         "<property>attrib</property>" +
                     "</replacementValue>" +
                 "</dynamicValues></item>";
-            Assert.AreEqual(expected, actual.OuterXml);
+            ClassicAssert.AreEqual(expected, actual.OuterXml);
         }
 
         [Test]
@@ -575,7 +579,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
                         "<property>subItem</property>" +
                     "</replacementValue>" +
                 "</dynamicValues></item>";
-            Assert.AreEqual(expected, actual.OuterXml);
+            ClassicAssert.AreEqual(expected, actual.OuterXml);
         }
 
         [Test]
@@ -597,7 +601,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
                         "<property>attrib</property>" +
                     "</replacementValue>" +
                 "</dynamicValues></item>";
-            Assert.AreEqual(expected, actual.OuterXml);
+            ClassicAssert.AreEqual(expected, actual.OuterXml);
         }
 
         [Test]
@@ -619,7 +623,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
                         "<property>subItem</property>" +
                     "</replacementValue>" +
                 "</dynamicValues></item>";
-            Assert.AreEqual(expected, actual.OuterXml);
+            ClassicAssert.AreEqual(expected, actual.OuterXml);
         }
 
         [Test]
@@ -642,7 +646,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
                         "<property>attrib</property>" +
                     "</replacementValue>" +
                 "</dynamicValues></item>";
-            Assert.AreEqual(expected, actual.OuterXml);
+            ClassicAssert.AreEqual(expected, actual.OuterXml);
         }
 
         [Test]
@@ -665,7 +669,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
                         "<property>subItem</property>" +
                     "</replacementValue>" +
                 "</dynamicValues></item>";
-            Assert.AreEqual(expected, actual.OuterXml);
+            ClassicAssert.AreEqual(expected, actual.OuterXml);
         }
 
         [Test]
@@ -688,7 +692,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
                         "<property>attrib</property>" +
                     "</replacementValue>" +
                 "</dynamicValues></item>";
-            Assert.AreEqual(expected, actual.OuterXml);
+            ClassicAssert.AreEqual(expected, actual.OuterXml);
         }
 
         [Test]
@@ -711,7 +715,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
                         "<property>subItem</property>" +
                     "</replacementValue>" +
                 "</dynamicValues></item>";
-            Assert.AreEqual(expected, actual.OuterXml);
+            ClassicAssert.AreEqual(expected, actual.OuterXml);
         }
 
         [Test]
@@ -734,7 +738,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
                         "<property>attrib</property>" +
                     "</replacementValue>" +
                 "</dynamicValues></item>";
-            Assert.AreEqual(expected, actual.OuterXml);
+            ClassicAssert.AreEqual(expected, actual.OuterXml);
         }
 
         [Test]
@@ -757,7 +761,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
                         "<property>subItem</property>" +
                     "</replacementValue>" +
                 "</dynamicValues></item>";
-            Assert.AreEqual(expected, actual.OuterXml);
+            ClassicAssert.AreEqual(expected, actual.OuterXml);
         }
 
         [Test]
@@ -777,7 +781,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
                         "<property>attrib</property>" +
                     "</directValue>" +
                 "</dynamicValues></item>";
-            Assert.AreEqual(expected, actual.OuterXml);
+            ClassicAssert.AreEqual(expected, actual.OuterXml);
         }
         #endregion
 

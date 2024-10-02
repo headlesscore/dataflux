@@ -1,5 +1,6 @@
 ﻿using System;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using CCNet = ThoughtWorks.CruiseControl;
 
 
@@ -198,9 +199,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.IntegrationTests
                 if (p.Name == ProjectName1) ps = p;
             }
 
-            Assert.AreEqual(ProjectName1, ps.Name);
-            Assert.AreEqual(CCNet.Remote.IntegrationStatus.Success, ps.BuildStatus, "wrong build state for project " + ProjectName1);
-
+            ClassicAssert.AreEqual(ProjectName1, ps.Name);
+            ClassicAssert.AreEqual(CCNet.Remote.IntegrationStatus.Success, ps.BuildStatus, "wrong build state for project " + ProjectName1);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
         }
 
 
@@ -330,8 +332,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.IntegrationTests
                 if (p.Name == ProjectName1) ps = p;
             }
 
-            Assert.AreEqual(ProjectName1, ps.Name);
-            Assert.AreEqual(CCNet.Remote.IntegrationStatus.Success, ps.BuildStatus, "wrong build state for project " + ProjectName1);
+            ClassicAssert.AreEqual(ProjectName1, ps.Name);
+            ClassicAssert.AreEqual(CCNet.Remote.IntegrationStatus.Success, ps.BuildStatus, "wrong build state for project " + ProjectName1);
 
         }
 

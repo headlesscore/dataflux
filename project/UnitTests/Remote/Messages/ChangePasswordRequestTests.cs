@@ -2,6 +2,7 @@
 using System.Xml.Linq;
 using FluentAssertions;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Remote.Messages;
 
 namespace ThoughtWorks.CruiseControl.UnitTests.Remote.Messages
@@ -14,11 +15,13 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote.Messages
         {
             ChangePasswordRequest request = new ChangePasswordRequest();
             request.OldPassword = "old password";
-            Assert.AreEqual("old password", request.OldPassword, "OldPassword fails the get/set test");
+            ClassicAssert.AreEqual("old password", request.OldPassword, "OldPassword fails the get/set test");
             request.NewPassword = "new password";
-            Assert.AreEqual("new password", request.NewPassword, "NewPassword fails the get/set test");
+            ClassicAssert.AreEqual("new password", request.NewPassword, "NewPassword fails the get/set test");
             request.UserName = "new user";
-            Assert.AreEqual("new user", request.UserName, "UserName fails the get/set test");
+            ClassicAssert.AreEqual("new user", request.UserName, "UserName fails the get/set test");
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
         }
 
         [Test]

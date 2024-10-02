@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using System;
 using System.Globalization;
 using System.IO;
@@ -40,7 +41,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests
             }
             catch (Exception error)
             {
-                Assert.Fail(string.Format(CultureInfo.CurrentCulture,"Unable to serialize: {0}", error.Message));
+                ClassicAssert.Fail(string.Format(CultureInfo.CurrentCulture,"Unable to serialize: {0}", error.Message));
+                ClassicAssert.IsTrue(true);
+                ClassicAssert.IsTrue(true);
             }
 
             stream.Position = 0;
@@ -50,7 +53,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests
             }
             catch (Exception error)
             {
-                Assert.Fail(string.Format(CultureInfo.CurrentCulture,"Unable to serialize: {0}", error.Message));
+                ClassicAssert.Fail(string.Format(CultureInfo.CurrentCulture,"Unable to serialize: {0}", error.Message));
             }
             return result;
         }

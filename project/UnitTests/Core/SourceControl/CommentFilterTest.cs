@@ -1,5 +1,6 @@
 using Exortech.NetReflector;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Sourcecontrol;
 
@@ -11,22 +12,23 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
         [Test]
         public void ShouldNotPopulateWithoutPattern()
         {
-            Assert.That(delegate { NetReflector.Read(@"<commentFilter/>"); },
+            ClassicAssert.That(delegate { NetReflector.Read(@"<commentFilter/>"); },
                         Throws.TypeOf<NetReflectorException>());
+            ClassicAssert.IsTrue(true);
         }
 
         [Test]
         public void ShouldPopulateFromMinimalSimpleXml()
         {
             CommentFilter filter = (CommentFilter) NetReflector.Read(@"<commentFilter pattern="".*""/>");
-            Assert.AreEqual(".*", filter.Pattern, "Wrong filter value found.");
+            ClassicAssert.AreEqual(".*", filter.Pattern, "Wrong filter value found.");
         }
 
         [Test]
         public void ShouldPopulateFromMinimalComplexXml()
         {
             CommentFilter filter = (CommentFilter) NetReflector.Read(@"<commentFilter> <pattern>.*</pattern> </commentFilter>");
-            Assert.AreEqual(".*", filter.Pattern, "Wrong filter value found.");
+            ClassicAssert.AreEqual(".*", filter.Pattern, "Wrong filter value found.");
         }
 
         [Test]
@@ -35,7 +37,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 			Modification modification = new Modification();
             CommentFilter filter = new CommentFilter();
 			filter.Pattern = ".*";
-			Assert.IsFalse(filter.Accept(modification), "Should not have matched but did.");
+			ClassicAssert.IsFalse(filter.Accept(modification), "Should not have matched but did.");
 		}
 
         [Test]
@@ -45,7 +47,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
             modification.Comment = "This is a comment.";
             CommentFilter filter = new CommentFilter();
             filter.Pattern = ".* is a .*";
-            Assert.IsTrue(filter.Accept(modification), "Should have matched but did not.");
+            ClassicAssert.IsTrue(filter.Accept(modification), "Should have matched but did not.");
         }
 
         [Test]
@@ -55,7 +57,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
             modification.Comment = "This is a comment.";
             CommentFilter filter = new CommentFilter();
             filter.Pattern = ".* is not a .*";
-            Assert.IsFalse(filter.Accept(modification), "Should not have matched but did.");
+            ClassicAssert.IsFalse(filter.Accept(modification), "Should not have matched but did.");
         }
     }
 }

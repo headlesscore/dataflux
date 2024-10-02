@@ -6,6 +6,7 @@
     using Exortech.NetReflector;
     using System.IO;
     using System.Text;
+    using NUnit.Framework.Legacy;
 
     [TestFixture]
     public class NameValuePairSerialiserTests
@@ -19,10 +20,12 @@
             var document = new XmlDocument();
             document.LoadXml("<value name=\"a name\">the value</value>");
             var value = serialiser.Read(document.DocumentElement, null);
-            Assert.IsInstanceOf<NameValuePair>(value);
+            ClassicAssert.IsInstanceOf<NameValuePair>(value);
             var actualValue = value as NameValuePair;
-            Assert.AreEqual("a name", actualValue.Name);
-            Assert.AreEqual("the value", actualValue.Value);
+            ClassicAssert.AreEqual("a name", actualValue.Name);
+            ClassicAssert.AreEqual("the value", actualValue.Value);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
         }
 
         [Test]
@@ -32,13 +35,13 @@
             var document = new XmlDocument();
             document.LoadXml("<list><value name=\"name1\">the value of 1</value><value name=\"name2\">the value of 2</value></list>");
             var value = serialiser.Read(document.DocumentElement, null);
-            Assert.IsInstanceOf<NameValuePair[]>(value);
+            ClassicAssert.IsInstanceOf<NameValuePair[]>(value);
             var actualList = value as NameValuePair[];
-            Assert.AreEqual(2, actualList.Length);
-            Assert.AreEqual("name1", actualList[0].Name);
-            Assert.AreEqual("the value of 1", actualList[0].Value);
-            Assert.AreEqual("name2", actualList[1].Name);
-            Assert.AreEqual("the value of 2", actualList[1].Value);
+            ClassicAssert.AreEqual(2, actualList.Length);
+            ClassicAssert.AreEqual("name1", actualList[0].Name);
+            ClassicAssert.AreEqual("the value of 1", actualList[0].Value);
+            ClassicAssert.AreEqual("name2", actualList[1].Name);
+            ClassicAssert.AreEqual("the value of 2", actualList[1].Value);
         }
 
         [Test]
@@ -47,7 +50,7 @@
             var serialiser = new NameValuePairSerialiser(null, null, false);
             var document = new XmlDocument();
             document.LoadXml("<value name=\"a name\"><child/></value>");
-            Assert.Throws<NetReflectorException>(() =>
+            ClassicAssert.Throws<NetReflectorException>(() =>
             {
                 serialiser.Read(document.DocumentElement, null);
             });
@@ -59,7 +62,7 @@
             var serialiser = new NameValuePairSerialiser(null, null, true);
             var document = new XmlDocument();
             document.LoadXml("<list error=\"true\"><value name=\"name1\">the value of 1</value><value name=\"name2\">the value of 2</value></list>");
-            Assert.Throws<NetReflectorException>(() =>
+            ClassicAssert.Throws<NetReflectorException>(() =>
             {
                 serialiser.Read(document.DocumentElement, null);
             });
@@ -71,7 +74,7 @@
             var serialiser = new NameValuePairSerialiser(null, null, true);
             var document = new XmlDocument();
             document.LoadXml("<list><good name=\"name1\">the value of 1</good><bad name=\"name2\">the value of 2</bad></list>");
-            Assert.Throws<NetReflectorException>(() =>
+            ClassicAssert.Throws<NetReflectorException>(() =>
             {
                 serialiser.Read(document.DocumentElement, null);
             });
@@ -100,7 +103,7 @@
                 }
             }
 
-            Assert.AreEqual("<value name=\"a name\">the value</value>", builder.ToString());
+            ClassicAssert.AreEqual("<value name=\"a name\">the value</value>", builder.ToString());
         }
 
         [Test]
@@ -128,7 +131,7 @@
                 }
             }
 
-            Assert.AreEqual(
+            ClassicAssert.AreEqual(
                 "<list><value name=\"name1\">the value of 1</value><value name=\"name2\">the value of 2</value></list>", 
                 builder.ToString());
         }

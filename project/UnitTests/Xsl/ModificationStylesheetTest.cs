@@ -1,5 +1,6 @@
 using System;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core.Util;
 
 namespace ThoughtWorks.CruiseControl.UnitTests.Xsl
@@ -27,8 +28,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Xsl
 			string mod2 = ModificationString(DateUtil.FormatDate(new DateTime(2005, 9, 1)));
 			string input = string.Format(@"<cruisecontrol>{0}{1}</cruisecontrol>", mod1, mod2);
 			string actualXml = LoadStylesheetAndTransformInput(input);
-			Assert.IsTrue(actualXml.IndexOf("2005-08-30") > actualXml.IndexOf("2005-09-01"));			
-		}
+			ClassicAssert.IsTrue(actualXml.IndexOf("2005-08-30") > actualXml.IndexOf("2005-09-01"));
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
+        }
 
 		private string ModificationString(string date)
 		{

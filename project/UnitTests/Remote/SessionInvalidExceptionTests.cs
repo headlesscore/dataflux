@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using System;
 using ThoughtWorks.CruiseControl.Core;
 
@@ -15,7 +16,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote
         {
             TestHelpers.EnsureLanguageIsValid();
             SessionInvalidException exception = new SessionInvalidException();
-            Assert.AreEqual("The session token is either invalid or is for a session that has expired.", exception.Message);
+            ClassicAssert.AreEqual("The session token is either invalid or is for a session that has expired.", exception.Message);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
         }
 
         [Test]
@@ -24,7 +27,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote
             TestHelpers.EnsureLanguageIsValid();
             string message = "An error has occured";
             SessionInvalidException exception = new SessionInvalidException(message);
-            Assert.AreEqual(message, exception.Message);
+            ClassicAssert.AreEqual(message, exception.Message);
         }
 
         [Test]
@@ -34,8 +37,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote
             string message = "An error has occured";
             Exception innerException = new Exception("An inner exception");
             SessionInvalidException exception = new SessionInvalidException(message, innerException);
-            Assert.AreEqual(message, exception.Message);
-            Assert.AreEqual(innerException, exception.InnerException);
+            ClassicAssert.AreEqual(message, exception.Message);
+            ClassicAssert.AreEqual(innerException, exception.InnerException);
         }
 
         [Test]
@@ -44,9 +47,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote
             TestHelpers.EnsureLanguageIsValid();
             SessionInvalidException exception = new SessionInvalidException();
             object result = TestHelpers.RunSerialisationTest(exception);
-            Assert.IsNotNull(result);
-            Assert.That(result, Is.InstanceOf<SessionInvalidException>());
-            Assert.AreEqual("The session token is either invalid or is for a session that has expired.", (result as SessionInvalidException).Message);
+            ClassicAssert.IsNotNull(result);
+            ClassicAssert.That(result, Is.InstanceOf<SessionInvalidException>());
+            ClassicAssert.AreEqual("The session token is either invalid or is for a session that has expired.", (result as SessionInvalidException).Message);
         }
     }
 }

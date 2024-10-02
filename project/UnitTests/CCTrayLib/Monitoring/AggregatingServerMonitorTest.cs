@@ -1,5 +1,6 @@
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.CCTrayLib.Monitoring;
 using ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Presentation;
 
@@ -62,12 +63,12 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Monitoring
 
 			aggregator = new AggregatingServerMonitor(stubServerMonitor1, stubServerMonitor2);
 			aggregator.QueueChanged += new MonitorServerQueueChangedEventHandler(Aggregator_QueueChanged);
-
-			Assert.AreEqual(0, queueChangedCount);
+            // ClassicAssert.AreEqual(0, queueChangedCount);
+            ClassicAssert.AreEqual(0, queueChangedCount);
 			stubServerMonitor1.OnQueueChanged(new MonitorServerQueueChangedEventArgs(stubServerMonitor1));
 
-			Assert.AreEqual(1, queueChangedCount);
-			Assert.AreSame(stubServerMonitor1, lastQueueChangedEventArgs.ServerMonitor);
+			ClassicAssert.AreEqual(1, queueChangedCount);
+			ClassicAssert.AreSame(stubServerMonitor1, lastQueueChangedEventArgs.ServerMonitor);
 		}
 
 		private void Aggregator_QueueChanged(object sauce, MonitorServerQueueChangedEventArgs e)
@@ -91,10 +92,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Monitoring
 			aggregator = new AggregatingServerMonitor(stubServerMonitor1, stubServerMonitor2);
 			aggregator.Polled += new MonitorServerPolledEventHandler(Aggregator_Polled);
 
-			Assert.AreEqual(0, pollCount);
+			ClassicAssert.AreEqual(0, pollCount);
 			stubServerMonitor1.Poll();
 
-			Assert.AreEqual(1, pollCount);
+			ClassicAssert.AreEqual(1, pollCount);
 		}
 
 		private void Aggregator_Polled(object source, MonitorServerPolledEventArgs args)
@@ -114,8 +115,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Monitoring
 
 			aggregator.Poll();
 
-			Assert.AreSame(lastPolledSource, aggregator);
-			Assert.AreSame(lastPolledArgs.ServerMonitor, stubServerMonitor1);
+			ClassicAssert.AreSame(lastPolledSource, aggregator);
+			ClassicAssert.AreSame(lastPolledArgs.ServerMonitor, stubServerMonitor1);
 		}
 	}
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Security;
 using ThoughtWorks.CruiseControl.Remote.Security;
@@ -24,8 +25,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security
 
             UserPermission assertion = new UserPermission();
             assertion.RefId = badReference;
-            Assert.That(delegate { assertion.CheckUser(manager, userName); },
+            ClassicAssert.That(delegate { assertion.CheckUser(manager, userName); },
                         Throws.TypeOf<BadReferenceException>().With.Message.EqualTo("Reference 'doesNotExist' is either incorrect or missing."));
+            ClassicAssert.IsTrue(true);
         }
 
         [Test]
@@ -41,7 +43,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security
             UserPermission assertion = new UserPermission();
             assertion.RefId = goodReference;
             bool result = assertion.CheckUser(manager, userName);
-            Assert.IsTrue(result);
+            ClassicAssert.IsTrue(result);
             mocks.VerifyAll();
         }
 
@@ -55,7 +57,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security
 
             UserPermission assertion = new UserPermission();
             assertion.RefId = badReference;
-            Assert.That(delegate { assertion.CheckPermission(manager, permission); },
+            ClassicAssert.That(delegate { assertion.CheckPermission(manager, permission); },
                         Throws.TypeOf<BadReferenceException>().With.Message.EqualTo("Reference 'doesNotExist' is either incorrect or missing."));
         }
 
@@ -72,7 +74,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security
             UserPermission assertion = new UserPermission();
             assertion.RefId = goodReference;
             SecurityRight result = assertion.CheckPermission(manager, permission);
-            Assert.AreEqual(SecurityRight.Allow, result);
+            ClassicAssert.AreEqual(SecurityRight.Allow, result);
             mocks.VerifyAll();
         }
 
@@ -85,7 +87,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security
                 SecurityRight.Allow,
                 SecurityRight.Deny);
             SecurityRight right = assertion.CheckPermission(null, SecurityPermission.ForceAbortBuild);
-            Assert.AreEqual(SecurityRight.Allow, right);
+            ClassicAssert.AreEqual(SecurityRight.Allow, right);
         }
 
         [Test]
@@ -97,7 +99,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security
                 SecurityRight.Deny,
                 SecurityRight.Deny);
             SecurityRight right = assertion.CheckPermission(null, SecurityPermission.SendMessage);
-            Assert.AreEqual(SecurityRight.Allow, right);
+            ClassicAssert.AreEqual(SecurityRight.Allow, right);
         }
 
         [Test]
@@ -109,7 +111,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security
                 SecurityRight.Deny,
                 SecurityRight.Allow);
             SecurityRight right = assertion.CheckPermission(null, SecurityPermission.StartStopProject);
-            Assert.AreEqual(SecurityRight.Allow, right);
+            ClassicAssert.AreEqual(SecurityRight.Allow, right);
         }
     }
 }

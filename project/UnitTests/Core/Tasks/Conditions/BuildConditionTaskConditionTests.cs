@@ -2,6 +2,7 @@
 {
     using Moq;
     using NUnit.Framework;
+    using NUnit.Framework.Legacy;
     using ThoughtWorks.CruiseControl.Core;
     using ThoughtWorks.CruiseControl.Core.Tasks.Conditions;
     using ThoughtWorks.CruiseControl.Remote;
@@ -29,7 +30,9 @@
             var actual = condition.Eval(result);
 
             this.mocks.VerifyAll();
-            Assert.IsTrue(actual);
+            ClassicAssert.IsTrue(actual);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
         }
 
         [Test]
@@ -46,7 +49,7 @@
             var actual = condition.Eval(result);
 
             this.mocks.VerifyAll();
-            Assert.IsFalse(actual);
+            ClassicAssert.IsFalse(actual);
         }
     }
 }

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.CCTrayLib.Monitoring;
 using ThoughtWorks.CruiseControl.Remote;
 using ThoughtWorks.CruiseControl.Remote.Messages;
@@ -27,8 +28,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Monitoring
 		[Test]
 		public void CanRetriveProjectName()
 		{
-			Assert.AreEqual(PROJECT_NAME, manager.ProjectName);
-		}
+			ClassicAssert.AreEqual(PROJECT_NAME, manager.ProjectName);
+            //ClassicAssert.AreEqual(PROJECT_NAME, manager.ProjectName);
+        }
 
 		[Test]
 		public void CanForceABuild()

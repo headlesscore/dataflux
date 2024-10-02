@@ -1,6 +1,7 @@
 using System.Collections;
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.WebDashboard.MVC;
 using ThoughtWorks.CruiseControl.WebDashboard.MVC.Cruise;
@@ -42,8 +43,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.MVC.Cruise
 			actionMock.Setup(_action => _action.Execute(request)).Returns(response).Verifiable();
 
 			// Execute & Verify
-			Assert.AreEqual(response, exceptionCatchingAction.Execute(request));
-			VerifyAll();
+			ClassicAssert.AreEqual(response, exceptionCatchingAction.Execute(request));
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
+            VerifyAll();
 		}
 
 		[Test]
@@ -57,7 +60,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.MVC.Cruise
 				Returns(errorResponse).Verifiable();
 
 			// Execute & Verify
-			Assert.AreEqual(errorResponse, exceptionCatchingAction.Execute(request));
+			ClassicAssert.AreEqual(errorResponse, exceptionCatchingAction.Execute(request));
 			VerifyAll();
 		}
 	}

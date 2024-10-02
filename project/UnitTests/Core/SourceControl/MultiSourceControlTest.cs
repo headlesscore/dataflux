@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Exortech.NetReflector;
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Sourcecontrol;
 using ThoughtWorks.CruiseControl.Remote;
@@ -35,15 +36,16 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 			NetReflector.Read(SourceControlXml, multiSourceControl);
 
 			//// VERIFY
-			Assert.IsTrue(multiSourceControl.SourceControls.Length == 2);
-
-			string optionalProp0 = ((SourceControlMock) multiSourceControl.SourceControls[0]).AnOptionalProperty;
+			ClassicAssert.IsTrue(multiSourceControl.SourceControls.Length == 2);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
+            string optionalProp0 = ((SourceControlMock) multiSourceControl.SourceControls[0]).AnOptionalProperty;
 			string optionalProp1 = ((SourceControlMock) multiSourceControl.SourceControls[1]).AnOptionalProperty;
 
 			bool fooFound = optionalProp0 == "foo" || optionalProp1 == "foo";
 			bool barFound = optionalProp0 == "bar" || optionalProp1 == "bar";
 
-			Assert.IsTrue(fooFound && barFound);
+			ClassicAssert.IsTrue(fooFound && barFound);
 		}
 
 		[Test]
@@ -109,9 +111,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 				mock.Verify();
 			}
 
-			Assert.IsTrue(returnedMods.Contains(mod1));
-			Assert.IsTrue(returnedMods.Contains(mod2));
-			Assert.IsTrue(returnedMods.Contains(mod3));
+			ClassicAssert.IsTrue(returnedMods.Contains(mod1));
+			ClassicAssert.IsTrue(returnedMods.Contains(mod2));
+			ClassicAssert.IsTrue(returnedMods.Contains(mod3));
 		}
 
 		[Test]
@@ -169,15 +171,15 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
             var returnedMods = new ArrayList(multiSourceControl.GetModifications(from, to));
 
             //// VERIFY
-            Assert.AreEqual(0, returnedMods.Count, "SourceControlData.Count");
+            ClassicAssert.AreEqual(0, returnedMods.Count, "SourceControlData.Count");
 
-            Assert.AreEqual(2, to.SourceControlData.Count, "SourceControlData.Count");
+            ClassicAssert.AreEqual(2, to.SourceControlData.Count, "SourceControlData.Count");
 
-            Assert.AreEqual("<ArrayOfNameValuePair />", to.SourceControlData[0].Value, "SourceControlData[0].Value");
-            Assert.AreEqual("sc0", to.SourceControlData[0].Name, "SourceControlData[0].Name");
+            ClassicAssert.AreEqual("<ArrayOfNameValuePair />", to.SourceControlData[0].Value, "SourceControlData[0].Value");
+            ClassicAssert.AreEqual("sc0", to.SourceControlData[0].Name, "SourceControlData[0].Name");
 
-            Assert.AreEqual("<ArrayOfNameValuePair><NameValuePair name=\"SVN:LastRevision:svn://myserver/mypath\" /></ArrayOfNameValuePair>", to.SourceControlData[1].Value, "SourceControlData[1].Value");
-            Assert.AreEqual("sc1", to.SourceControlData[1].Name, "SourceControlData[1].Name");
+            ClassicAssert.AreEqual("<ArrayOfNameValuePair><NameValuePair name=\"SVN:LastRevision:svn://myserver/mypath\" /></ArrayOfNameValuePair>", to.SourceControlData[1].Value, "SourceControlData[1].Value");
+            ClassicAssert.AreEqual("sc1", to.SourceControlData[1].Name, "SourceControlData[1].Name");
         }
 
         [Test]
@@ -211,18 +213,18 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
             ArrayList returnedMods = new ArrayList(multiSourceControl.GetModifications(from, to));
 
             //// VERIFY
-            Assert.AreEqual(from.SourceControlData.Count, to.SourceControlData.Count, "SourceControlData.Count");
+            ClassicAssert.AreEqual(from.SourceControlData.Count, to.SourceControlData.Count, "SourceControlData.Count");
 
             list.Add(new NameValuePair("name0", "first"));
-            Assert.AreEqual(XmlConversionUtil.ConvertObjectToXml(list), to.SourceControlData[0].Value, "SourceControlData[0].Value");
+            ClassicAssert.AreEqual(XmlConversionUtil.ConvertObjectToXml(list), to.SourceControlData[0].Value, "SourceControlData[0].Value");
             list.Clear();
-            Assert.AreEqual("sc0", to.SourceControlData[0].Name, "SourceControlData[0].Name");
+            ClassicAssert.AreEqual("sc0", to.SourceControlData[0].Name, "SourceControlData[0].Name");
 
             list.Add(new NameValuePair("name1", "first"));
             list.Add(new NameValuePair("name2", "first"));
-            Assert.AreEqual(XmlConversionUtil.ConvertObjectToXml(list), to.SourceControlData[1].Value, "SourceControlData[1].Value");
+            ClassicAssert.AreEqual(XmlConversionUtil.ConvertObjectToXml(list), to.SourceControlData[1].Value, "SourceControlData[1].Value");
             list.Clear();
-            Assert.AreEqual("sc1", to.SourceControlData[1].Name, "SourceControlData[1].Name");
+            ClassicAssert.AreEqual("sc1", to.SourceControlData[1].Name, "SourceControlData[1].Name");
         }
 
         [Test]
@@ -259,10 +261,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
                 ArrayList secondReturnedMods = new ArrayList(multiSourceControl.GetModifications(from, to));
                 ArrayList thirdReturnedMods = new ArrayList(multiSourceControl.GetModifications(from, to));
                 
-                Assert.AreEqual(secondReturnedMods.Count, thirdReturnedMods.Count);
+                ClassicAssert.AreEqual(secondReturnedMods.Count, thirdReturnedMods.Count);
             } catch (Exception e)
             {
-                Assert.Fail("GetModifications threw Exception:" + e.Message);
+                ClassicAssert.Fail("GetModifications threw Exception:" + e.Message);
             }
         }
 
@@ -290,12 +292,12 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
             ArrayList returnedMods = new ArrayList(multiSourceControl.GetModifications(from, to));
 
             //// VERIFY
-            Assert.AreEqual(from.SourceControlData.Count, to.SourceControlData.Count, "SourceControlData.Count");
+            ClassicAssert.AreEqual(from.SourceControlData.Count, to.SourceControlData.Count, "SourceControlData.Count");
 
             list.Add(new NameValuePair("name0", "first"));
-            Assert.AreEqual(XmlConversionUtil.ConvertObjectToXml(list), to.SourceControlData[0].Value, "SourceControlData[0].Value");
+            ClassicAssert.AreEqual(XmlConversionUtil.ConvertObjectToXml(list), to.SourceControlData[0].Value, "SourceControlData[0].Value");
             list.Clear();
-            Assert.AreEqual("sc0", to.SourceControlData[0].Name, "SourceControlData[0].Name");
+            ClassicAssert.AreEqual("sc0", to.SourceControlData[0].Name, "SourceControlData[0].Name");
         }
 
         [Test]
@@ -326,25 +328,25 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
             ArrayList returnedMods = new ArrayList(multiSourceControl.GetModifications(from, to));
 
             //// VERIFY
-            Assert.AreEqual(4, to.SourceControlData.Count, "SourceControlData.Count");
+            ClassicAssert.AreEqual(4, to.SourceControlData.Count, "SourceControlData.Count");
 
             List<NameValuePair> list = new List<NameValuePair>();
 
-            Assert.AreEqual(XmlConversionUtil.ConvertObjectToXml(list), to.SourceControlData[0].Value, "SourceControlData[0].Value");
-            Assert.AreEqual("sc0", to.SourceControlData[0].Name, "SourceControlData[0].Name");
+            ClassicAssert.AreEqual(XmlConversionUtil.ConvertObjectToXml(list), to.SourceControlData[0].Value, "SourceControlData[0].Value");
+            ClassicAssert.AreEqual("sc0", to.SourceControlData[0].Name, "SourceControlData[0].Name");
 
-            Assert.AreEqual(XmlConversionUtil.ConvertObjectToXml(list), to.SourceControlData[1].Value, "SourceControlData[1].Value");
-            Assert.AreEqual("sc1", to.SourceControlData[1].Name, "SourceControlData[1].Name");
+            ClassicAssert.AreEqual(XmlConversionUtil.ConvertObjectToXml(list), to.SourceControlData[1].Value, "SourceControlData[1].Value");
+            ClassicAssert.AreEqual("sc1", to.SourceControlData[1].Name, "SourceControlData[1].Name");
 
             list.Add(new NameValuePair("test", "first"));
-            Assert.AreEqual(XmlConversionUtil.ConvertObjectToXml(list), to.SourceControlData[2].Value, "SourceControlData[2].Value");
+            ClassicAssert.AreEqual(XmlConversionUtil.ConvertObjectToXml(list), to.SourceControlData[2].Value, "SourceControlData[2].Value");
             list.Clear();
-            Assert.AreEqual("sc2", to.SourceControlData[2].Name, "SourceControlData[2].Name");
+            ClassicAssert.AreEqual("sc2", to.SourceControlData[2].Name, "SourceControlData[2].Name");
 
             list.Add(new NameValuePair("commit", "first"));
-            Assert.AreEqual(XmlConversionUtil.ConvertObjectToXml(list), to.SourceControlData[3].Value, "SourceControlData[3].Value");
+            ClassicAssert.AreEqual(XmlConversionUtil.ConvertObjectToXml(list), to.SourceControlData[3].Value, "SourceControlData[3].Value");
             list.Clear();
-            Assert.AreEqual("sc3", to.SourceControlData[3].Name, "SourceControlData[3].Name");
+            ClassicAssert.AreEqual("sc3", to.SourceControlData[3].Name, "SourceControlData[3].Name");
         }
 
         [Test]
@@ -367,19 +369,19 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
             ArrayList returnedMods = new ArrayList(multiSourceControl.GetModifications(from, to));
 
             //// VERIFY
-            Assert.AreEqual(2, to.SourceControlData.Count, "SourceControlData.Count");
+            ClassicAssert.AreEqual(2, to.SourceControlData.Count, "SourceControlData.Count");
 
             List<NameValuePair> list = new List<NameValuePair>();
 
             list.Add(new NameValuePair("test", "first"));
-            Assert.AreEqual(XmlConversionUtil.ConvertObjectToXml(list), to.SourceControlData[0].Value, "SourceControlData[0].Value");
+            ClassicAssert.AreEqual(XmlConversionUtil.ConvertObjectToXml(list), to.SourceControlData[0].Value, "SourceControlData[0].Value");
             list.Clear();
-            Assert.AreEqual("sc0", to.SourceControlData[0].Name, "SourceControlData[0].Name");
+            ClassicAssert.AreEqual("sc0", to.SourceControlData[0].Name, "SourceControlData[0].Name");
 
             list.Add(new NameValuePair("commit", "first"));
-            Assert.AreEqual(XmlConversionUtil.ConvertObjectToXml(list), to.SourceControlData[1].Value, "SourceControlData[1].Value");
+            ClassicAssert.AreEqual(XmlConversionUtil.ConvertObjectToXml(list), to.SourceControlData[1].Value, "SourceControlData[1].Value");
             list.Clear();
-            Assert.AreEqual("sc1", to.SourceControlData[1].Name, "SourceControlData[1].Name");
+            ClassicAssert.AreEqual("sc1", to.SourceControlData[1].Name, "SourceControlData[1].Name");
         }
 
         [Test]
@@ -410,7 +412,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 
 			//// EXECUTE
 			ArrayList returnedMods = new ArrayList(multiSourceControl.GetModifications(from, to));
-			Assert.AreEqual(1, returnedMods.Count);
+			ClassicAssert.AreEqual(1, returnedMods.Count);
 
 			//// VERIFY
 			foreach (Mock<ISourceControl> mock in mocks)
@@ -452,7 +454,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 				mock.Verify();
 			}
 
-			Assert.AreEqual(0, returnedMods.Count);
+			ClassicAssert.AreEqual(0, returnedMods.Count);
 		}
 
 		[Test]
@@ -490,7 +492,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 				mock.VerifyNoOtherCalls();
 			}
 
-			Assert.AreEqual(0, returnedMods.Count);
+			ClassicAssert.AreEqual(0, returnedMods.Count);
 		}
 
 		[Test]
@@ -530,9 +532,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 				mock.Verify();
 			}
 
-			Assert.IsTrue(returnedMods.Contains(mod1));
-			Assert.IsTrue(returnedMods.Contains(mod2));
-			Assert.IsTrue(returnedMods.Contains(mod3));
+			ClassicAssert.IsTrue(returnedMods.Contains(mod1));
+			ClassicAssert.IsTrue(returnedMods.Contains(mod2));
+			ClassicAssert.IsTrue(returnedMods.Contains(mod3));
 		}
 	}
 }

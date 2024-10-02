@@ -1,5 +1,6 @@
 using System;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Queues;
 using ThoughtWorks.CruiseControl.Remote;
@@ -18,9 +19,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Queues
 
 			IIntegrationQueueItem integrationQueueItem = new IntegrationQueueItem(project, integrationRequest, integrationQueueNotifier);
 
-			Assert.AreEqual(project, integrationQueueItem.Project);
-			Assert.AreEqual(integrationRequest, integrationQueueItem.IntegrationRequest);
-			Assert.AreEqual(integrationQueueNotifier, integrationQueueItem.IntegrationQueueNotifier);
+			ClassicAssert.AreEqual(project, integrationQueueItem.Project);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.AreEqual(integrationRequest, integrationQueueItem.IntegrationRequest);
+			ClassicAssert.AreEqual(integrationQueueNotifier, integrationQueueItem.IntegrationQueueNotifier);
 		}
 
 		private class TestIntegrationQueueCallback : IIntegrationQueueNotifier

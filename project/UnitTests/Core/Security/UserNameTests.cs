@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -14,14 +15,15 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security
         public void CreateDefault()
         {
             UserName userName = new UserName();
-            Assert.IsNull(userName.Name);
+            ClassicAssert.IsNull(userName.Name);
+            ClassicAssert.IsTrue(true);
         }
 
         [Test]
         public void CreateWithName()
         {
             UserName userName = new UserName("johnDoe");
-            Assert.AreEqual("johnDoe", userName.Name);
+            ClassicAssert.AreEqual("johnDoe", userName.Name);
         }
 
         [Test]
@@ -30,7 +32,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security
             string name = "johnDoe";
             UserName userName = new UserName();
             userName.Name = name;
-            Assert.AreEqual(name, userName.Name, "Name does not match");
+            ClassicAssert.AreEqual(name, userName.Name, "Name does not match");
         }
     }
 }

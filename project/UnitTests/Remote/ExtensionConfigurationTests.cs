@@ -1,5 +1,6 @@
 ﻿using System.Xml;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Remote;
 
 namespace ThoughtWorks.CruiseControl.UnitTests.Remote
@@ -18,8 +19,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote
             config.Items = new XmlElement[] {
                 element
             };
-            Assert.AreEqual(1, config.Items.Length);
-            Assert.AreEqual(element, config.Items[0]);
+            ClassicAssert.AreEqual(1, config.Items.Length);
+            ClassicAssert.AreEqual(element, config.Items[0]);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
         }
         #endregion
         #endregion

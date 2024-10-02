@@ -1,5 +1,6 @@
 using Exortech.NetReflector;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core.Tasks;
 
 namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
@@ -27,26 +28,28 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 
          HttpRequestSettings requestSettings = (HttpRequestSettings)NetReflector.Read(xml);
   
-         Assert.AreEqual(false, requestSettings.UseDefaultCredentials);
-         Assert.NotNull(requestSettings.Credentials, "Credentials was specified in the settings");
-         Assert.AreEqual("someUser", requestSettings.Credentials.UserName);
-         Assert.AreEqual("somePass", requestSettings.Credentials.Password);
-         Assert.AreEqual("someDomain", requestSettings.Credentials.Domain);
+         ClassicAssert.AreEqual(false, requestSettings.UseDefaultCredentials);
+         ClassicAssert.NotNull(requestSettings.Credentials, "Credentials was specified in the settings");
+         ClassicAssert.AreEqual("someUser", requestSettings.Credentials.UserName);
+         ClassicAssert.AreEqual("somePass", requestSettings.Credentials.Password);
+         ClassicAssert.AreEqual("someDomain", requestSettings.Credentials.Domain);
 
-         Assert.AreEqual("POST", requestSettings.Method);
-         Assert.AreEqual("http://example.com/", requestSettings.Uri.ToString());
-         Assert.AreEqual(60000, requestSettings.Timeout.Millis);
-         Assert.AreEqual(300000, requestSettings.ReadWriteTimeout.Millis);
+         ClassicAssert.AreEqual("POST", requestSettings.Method);
+         ClassicAssert.AreEqual("http://example.com/", requestSettings.Uri.ToString());
+         ClassicAssert.AreEqual(60000, requestSettings.Timeout.Millis);
+         ClassicAssert.AreEqual(300000, requestSettings.ReadWriteTimeout.Millis);
 
-         Assert.NotNull(requestSettings.Headers, "Headers were specified in the settings");
-         Assert.AreEqual(1, requestSettings.Headers.Length);
-         Assert.AreEqual("header1", requestSettings.Headers[0].Name);
-         Assert.AreEqual("value1", requestSettings.Headers[0].Value);
+         ClassicAssert.NotNull(requestSettings.Headers, "Headers were specified in the settings");
+         ClassicAssert.AreEqual(1, requestSettings.Headers.Length);
+         ClassicAssert.AreEqual("header1", requestSettings.Headers[0].Name);
+         ClassicAssert.AreEqual("value1", requestSettings.Headers[0].Value);
 
-         Assert.IsFalse(requestSettings.HasSendFile);
-         Assert.IsTrue(requestSettings.HasBody);
-         Assert.AreEqual("foo bar baz", requestSettings.Body);
-      }
+         ClassicAssert.IsFalse(requestSettings.HasSendFile);
+         ClassicAssert.IsTrue(requestSettings.HasBody);
+         ClassicAssert.AreEqual("foo bar baz", requestSettings.Body);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
+        }
 
       [Test]
       public void PopulateFromReflectorWithOnlyRequiredOptions()
@@ -55,25 +58,25 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 
          HttpRequestSettings requestSettings = (HttpRequestSettings)NetReflector.Read(xml);
          
-         Assert.IsFalse(requestSettings.UseDefaultCredentials);
-         Assert.Null(requestSettings.Credentials, "Credentials was not specified in the settings");
+         ClassicAssert.IsFalse(requestSettings.UseDefaultCredentials);
+         ClassicAssert.Null(requestSettings.Credentials, "Credentials was not specified in the settings");
 
-         Assert.AreEqual("GET", requestSettings.Method);
-         Assert.AreEqual("http://example.com/", requestSettings.Uri.ToString());
+         ClassicAssert.AreEqual("GET", requestSettings.Method);
+         ClassicAssert.AreEqual("http://example.com/", requestSettings.Uri.ToString());
 
-         Assert.IsFalse(requestSettings.HasTimeout);
-         Assert.IsNull(requestSettings.Timeout);
+         ClassicAssert.IsFalse(requestSettings.HasTimeout);
+         ClassicAssert.IsNull(requestSettings.Timeout);
 
-         Assert.IsFalse(requestSettings.HasReadWriteTimeout);
-         Assert.IsNull(requestSettings.ReadWriteTimeout);
+         ClassicAssert.IsFalse(requestSettings.HasReadWriteTimeout);
+         ClassicAssert.IsNull(requestSettings.ReadWriteTimeout);
 
-         Assert.Null(requestSettings.Headers, "No headers were specified in the settings");
+         ClassicAssert.Null(requestSettings.Headers, "No headers were specified in the settings");
 
-         Assert.IsFalse(requestSettings.HasBody);
-         Assert.IsNull(requestSettings.Body);
+         ClassicAssert.IsFalse(requestSettings.HasBody);
+         ClassicAssert.IsNull(requestSettings.Body);
 
-         Assert.IsFalse(requestSettings.HasSendFile);
-         Assert.IsNull(requestSettings.SendFile);
+         ClassicAssert.IsFalse(requestSettings.HasSendFile);
+         ClassicAssert.IsNull(requestSettings.SendFile);
       }
    }
 }

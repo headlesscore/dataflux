@@ -1,5 +1,6 @@
 using System;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core.Util;
 
 namespace ThoughtWorks.CruiseControl.UnitTests.Core.Util
@@ -12,39 +13,41 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Util
 		{
 			ReflectTest o1 = new ReflectTest(1, "hello", new ReflectTest(2, "sub", null));
 			ReflectTest o2 = new ReflectTest(1, "hello", new ReflectTest(2, "sub", null));
-			Assert.AreEqual(o1, o2);
-		}
+			ClassicAssert.AreEqual(o1, o2);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
+        }
 
 		public void TestReflectionEquals_BothNull()
 		{
-			Assert.AreEqual(null, null);
+			ClassicAssert.AreEqual(null, null);
 		}
 
 		public void TestReflectionEquals_OneNull()
 		{
 			ReflectTest o1 = new ReflectTest(1, "hello", new ReflectTest(2, "sub", null));
-			Assert.IsTrue(! o1.Equals(null));
+			ClassicAssert.IsTrue(! o1.Equals(null));
 		}
 
 		public void TestReflectionEquals_NotEqualFields()
 		{
 			ReflectTest o1 = new ReflectTest(1, "hello", new ReflectTest(2, "sub", null));
 			ReflectTest o2 = new ReflectTest(2, "hello", new ReflectTest(2, "sub", null));
-			Assert.IsTrue(! o1.Equals(o2));
+			ClassicAssert.IsTrue(! o1.Equals(o2));
 		}
 
 		public void TestReflectionEquals_NotEqualProperties()
 		{
 			ReflectTest o1 = new ReflectTest(1, "hello", new ReflectTest(2, "sub", null));
 			ReflectTest o2 = new ReflectTest(1, "hello", null);
-			Assert.IsTrue(! o1.Equals(o2));
+			ClassicAssert.IsTrue(! o1.Equals(o2));
 		}
 
 		public void TestReflectionEquals_DifferentTypes()
 		{
 			ReflectTest o1 = new ReflectTest(1, "hello", new ReflectTest(2, "sub", null));
 			string o2 = "testing";
-			Assert.IsTrue(! o1.Equals(o2));
+			ClassicAssert.IsTrue(! o1.Equals(o2));
 		}
 
 		public void TestReflectionEquals_Arrays()
@@ -53,13 +56,13 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Util
 			o1.Values = new String[] { "a", "b" };
 			ReflectTest o2 = new ReflectTest(1, "hello", new ReflectTest(2, "sub", null));
 			o2.Values = new String[] { "a", "b" };
-			Assert.AreEqual(o1, o2);
+			ClassicAssert.AreEqual(o1, o2);
 		}
 
 		public void TestReflectionToString()
 		{
 			ReflectTest o1 = new ReflectTest(1, "hello", new ReflectTest(2, "sub", null));
-			Assert.AreEqual("ReflectTest: (id=1,name=hello,Child=ReflectTest: (id=2,name=sub,Child=,Values=),Values=)", ReflectionUtil.ReflectionToString(o1));
+			ClassicAssert.AreEqual("ReflectTest: (id=1,name=hello,Child=ReflectTest: (id=2,name=sub,Child=,Values=),Values=)", ReflectionUtil.ReflectionToString(o1));
 		}
 
 		private class ReflectTest

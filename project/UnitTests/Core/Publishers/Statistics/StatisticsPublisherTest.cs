@@ -3,6 +3,7 @@ using System.IO;
 using System.Xml;
 using System.Xml.XPath;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Publishers.Statistics;
 using ThoughtWorks.CruiseControl.Core.Util;
@@ -32,14 +33,14 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Publishers.Statistics
 			IntegrationResult result1 = SimulateBuild(1);
 
 			string statsFile = Path.Combine(result1.ArtifactDirectory, StatisticsPublisher.XmlFileName);
-			Assert.IsTrue(File.Exists(statsFile));
-
+			ClassicAssert.IsTrue(File.Exists(statsFile));
+            
             CountNodes(result1.ArtifactDirectory, "//statistics/integration", 1);
 
 			IntegrationResult result2 = SimulateBuild(2);
 
 			string statsFile2 = Path.Combine(result2.ArtifactDirectory, StatisticsPublisher.XmlFileName);
-			Assert.IsTrue(File.Exists(statsFile2));
+			ClassicAssert.IsTrue(File.Exists(statsFile2));
 
             CountNodes(result2.ArtifactDirectory, "//statistics/integration", 2);
 		}
@@ -50,14 +51,14 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Publishers.Statistics
 			IntegrationResult result1 = SimulateBuild(1);
 
 			string statsFile = Path.Combine(result1.ArtifactDirectory, StatisticsPublisher.CsvFileName);
-			Assert.IsTrue(File.Exists(statsFile));
+			ClassicAssert.IsTrue(File.Exists(statsFile));
 
             CountLines(statsFile, 2);
 
 			IntegrationResult result2 = SimulateBuild(2);
 
 			string statsFile2 = Path.Combine(result2.ArtifactDirectory, StatisticsPublisher.CsvFileName);
-			Assert.IsTrue(File.Exists(statsFile2));
+			ClassicAssert.IsTrue(File.Exists(statsFile2));
 
             CountLines(statsFile2, 3);
 		}
@@ -74,17 +75,17 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Publishers.Statistics
 			
 			nodeIterator.MoveNext();
 			int day = Convert.ToInt32(nodeIterator.Current.Value);
-			Assert.AreEqual(DateTime.Now.Day, day);
+			ClassicAssert.AreEqual(DateTime.Now.Day, day);
 
 			nodeIterator = navigator.Select("//timestamp/@month");
 			nodeIterator.MoveNext();
 			string month = nodeIterator.Current.Value;
-			Assert.AreEqual(DateTime.Now.ToString("MMM"), month);
+			ClassicAssert.AreEqual(DateTime.Now.ToString("MMM"), month);
 
 			nodeIterator = navigator.Select("//timestamp/@year");
 			nodeIterator.MoveNext();
 			int year = Convert.ToInt32(nodeIterator.Current.Value);
-			Assert.AreEqual(DateTime.Now.Year, year);
+			ClassicAssert.AreEqual(DateTime.Now.Year, year);
 		}
 
 		private IntegrationResult SimulateBuild(int buildLabel)
@@ -109,7 +110,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Publishers.Statistics
 			{
 				if (line.Length>0) count++;
 			}
-			Assert.AreEqual(expectedCount, count);
+			ClassicAssert.AreEqual(expectedCount, count);
 			text.Close();
 		}
 
@@ -119,7 +120,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Publishers.Statistics
 			//doc.Load(statsFile2);
             doc.LoadXml( StatisticsPublisher.LoadStatistics(artifactFolder)); 
 			XmlNodeList node = doc.SelectNodes(xpath);
-			Assert.AreEqual(count, node.Count);
+			ClassicAssert.AreEqual(count, node.Count);
 		}
 	}
 }

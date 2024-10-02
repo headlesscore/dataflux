@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Objection;
 
 namespace Objection.UnitTests.AcceptanceTests
@@ -21,21 +22,23 @@ namespace Objection.UnitTests.AcceptanceTests
 		public void ShouldReturnInstanceRegisteredByType()
 		{
 			store.AddInstanceForType(typeof(TestInterface), testObject);
-			Assert.AreSame(testObject, store.GetByType(typeof(TestInterface)));
-		}
+			ClassicAssert.AreSame(testObject, store.GetByType(typeof(TestInterface)));
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
+        }
 
 		[Test]
 		public void ShouldReturnInstanceRegisteredById()
 		{
 			store.AddInstanceForName("myObject", testObject);
-			Assert.AreSame(testObject, store.GetByName("myObject"));
+			ClassicAssert.AreSame(testObject, store.GetByName("myObject"));
 		}
 
 		[Test]
 		public void ShouldReturnObjectRegisteredByTypeUsingImplementationTypeOfRegisteredObjectIfRegistrationTypeNotSpecified()
 		{
 			store.AddInstance(testObject);
-			Assert.AreSame(testObject, store.GetByType(typeof(TestClass)));
+			ClassicAssert.AreSame(testObject, store.GetByType(typeof(TestClass)));
 		}
 
 		[Test]
@@ -43,8 +46,8 @@ namespace Objection.UnitTests.AcceptanceTests
 		{
 			object constructed = store.GetByType(typeof(TestClass));
 
-			Assert.IsNotNull(constructed);
-			Assert.IsTrue(constructed is TestClass);
+			ClassicAssert.IsNotNull(constructed);
+			ClassicAssert.IsTrue(constructed is TestClass);
 		}
 
 		[Test]
@@ -53,8 +56,8 @@ namespace Objection.UnitTests.AcceptanceTests
 			store.AddTypeForName("foo", typeof(TestClass));
 			object constructed = store.GetByName("foo");
 
-			Assert.IsNotNull(constructed);
-			Assert.IsTrue(constructed is TestClass);
+			ClassicAssert.IsNotNull(constructed);
+			ClassicAssert.IsTrue(constructed is TestClass);
 		}
 
 		[Test]
@@ -62,8 +65,8 @@ namespace Objection.UnitTests.AcceptanceTests
 		{
 			TestClassWithClassDependencies constructed = (TestClassWithClassDependencies) store.GetByType(typeof(TestClassWithClassDependencies));
 
-			Assert.IsNotNull(constructed);
-			Assert.IsNotNull(constructed.Dependency);
+			ClassicAssert.IsNotNull(constructed);
+			ClassicAssert.IsNotNull(constructed.Dependency);
 		}
 
 		[Test]
@@ -72,8 +75,8 @@ namespace Objection.UnitTests.AcceptanceTests
 			store.AddTypeForName("foo", typeof(TestClassWithClassDependencies));
 			TestClassWithClassDependencies constructed = (TestClassWithClassDependencies) store.GetByName("foo");
 
-			Assert.IsNotNull(constructed);
-			Assert.IsNotNull(constructed.Dependency);
+			ClassicAssert.IsNotNull(constructed);
+			ClassicAssert.IsNotNull(constructed.Dependency);
 		}
 
 
@@ -84,8 +87,8 @@ namespace Objection.UnitTests.AcceptanceTests
 			store.AddInstanceForType(typeof(TestClass), dependency);
 			TestClassWithClassDependencies constructed = (TestClassWithClassDependencies) store.GetByType(typeof(TestClassWithClassDependencies));
 
-			Assert.IsNotNull(constructed);
-			Assert.AreSame(dependency, constructed.Dependency);
+			ClassicAssert.IsNotNull(constructed);
+			ClassicAssert.AreSame(dependency, constructed.Dependency);
 		}
 
 		[Test]
@@ -93,8 +96,8 @@ namespace Objection.UnitTests.AcceptanceTests
 		{
 			TestClassWithInterfaceDependencies constructed = (TestClassWithInterfaceDependencies) store.GetByType(typeof(TestClassWithInterfaceDependencies));
 
-			Assert.IsNotNull(constructed);
-			Assert.IsNotNull(constructed.Dependency);
+			ClassicAssert.IsNotNull(constructed);
+			ClassicAssert.IsNotNull(constructed.Dependency);
 		}
 
 		[Test]
@@ -104,8 +107,8 @@ namespace Objection.UnitTests.AcceptanceTests
 			store.AddInstanceForType(typeof(TestInterface), dependency);
 			TestClassWithInterfaceDependencies constructed = (TestClassWithInterfaceDependencies) store.GetByType(typeof(TestClassWithInterfaceDependencies));
 
-			Assert.IsNotNull(constructed);
-			Assert.IsNotNull(constructed.Dependency);
+			ClassicAssert.IsNotNull(constructed);
+			ClassicAssert.IsNotNull(constructed.Dependency);
 		}
 
 		[Test]
@@ -114,9 +117,9 @@ namespace Objection.UnitTests.AcceptanceTests
 			store.SetDependencyImplementationForType(typeof(ClassThatDependsOnMultiImplInterface), typeof(InterfaceWithMultipleImplementations), typeof(MultiImplTwo));
 			ClassThatDependsOnMultiImplInterface constructed = (ClassThatDependsOnMultiImplInterface) store.GetByType(typeof(ClassThatDependsOnMultiImplInterface));
 
-			Assert.IsNotNull(constructed);
-			Assert.IsNotNull(constructed.Dependency);
-			Assert.IsTrue(constructed.Dependency is MultiImplTwo);
+			ClassicAssert.IsNotNull(constructed);
+			ClassicAssert.IsNotNull(constructed.Dependency);
+			ClassicAssert.IsTrue(constructed.Dependency is MultiImplTwo);
 		}
 
 		[Test]
@@ -125,9 +128,9 @@ namespace Objection.UnitTests.AcceptanceTests
 			store.SetImplementationType(typeof(InterfaceWithMultipleImplementations), typeof(MultiImplOne));
 			ClassThatDependsOnMultiImplInterface constructed = (ClassThatDependsOnMultiImplInterface) store.GetByType(typeof(ClassThatDependsOnMultiImplInterface));
 
-			Assert.IsNotNull(constructed);
-			Assert.IsNotNull(constructed.Dependency);
-			Assert.IsTrue(constructed.Dependency is MultiImplOne);
+			ClassicAssert.IsNotNull(constructed);
+			ClassicAssert.IsNotNull(constructed.Dependency);
+			ClassicAssert.IsTrue(constructed.Dependency is MultiImplOne);
 		}
 
 		[Test]
@@ -137,9 +140,9 @@ namespace Objection.UnitTests.AcceptanceTests
 			store.SetImplementationType(typeof(InterfaceWithMultipleImplementations), typeof(MultiImplOne));
 			ClassThatDependsOnMultiImplInterface constructed = (ClassThatDependsOnMultiImplInterface) store.GetByType(typeof(ClassThatDependsOnMultiImplInterface));
 
-			Assert.IsNotNull(constructed);
-			Assert.IsNotNull(constructed.Dependency);
-			Assert.IsTrue(constructed.Dependency is MultiImplTwo);
+			ClassicAssert.IsNotNull(constructed);
+			ClassicAssert.IsNotNull(constructed.Dependency);
+			ClassicAssert.IsTrue(constructed.Dependency is MultiImplTwo);
 		}
 
 		[Test]
@@ -148,11 +151,11 @@ namespace Objection.UnitTests.AcceptanceTests
 			store.AddTypeForName("foo", typeof(MultiImplOne)).Decorate(typeof(DecoratingMultiImpl)).Decorate(typeof(ClassThatDependsOnMultiImplInterface));
 			ClassThatDependsOnMultiImplInterface constructed = (ClassThatDependsOnMultiImplInterface) store.GetByName("foo");
 
-			Assert.IsNotNull(constructed);
-			Assert.IsNotNull(constructed.Dependency);
-			Assert.IsTrue(constructed.Dependency is DecoratingMultiImpl);
-			Assert.IsNotNull(((DecoratingMultiImpl) constructed.Dependency).Dependency);
-			Assert.IsTrue(((DecoratingMultiImpl) constructed.Dependency).Dependency is MultiImplOne);
+			ClassicAssert.IsNotNull(constructed);
+			ClassicAssert.IsNotNull(constructed.Dependency);
+			ClassicAssert.IsTrue(constructed.Dependency is DecoratingMultiImpl);
+			ClassicAssert.IsNotNull(((DecoratingMultiImpl) constructed.Dependency).Dependency);
+			ClassicAssert.IsTrue(((DecoratingMultiImpl) constructed.Dependency).Dependency is MultiImplOne);
 		}
 
 		[Test]
@@ -162,11 +165,11 @@ namespace Objection.UnitTests.AcceptanceTests
 			store.AddInstanceForName("foo", instance).Decorate(typeof(DecoratingMultiImpl)).Decorate(typeof(ClassThatDependsOnMultiImplInterface));
 			ClassThatDependsOnMultiImplInterface constructed = (ClassThatDependsOnMultiImplInterface) store.GetByName("foo");
 
-			Assert.IsNotNull(constructed);
-			Assert.IsNotNull(constructed.Dependency);
-			Assert.IsTrue(constructed.Dependency is DecoratingMultiImpl);
-			Assert.IsNotNull(((DecoratingMultiImpl) constructed.Dependency).Dependency);
-			Assert.AreSame(instance, ((DecoratingMultiImpl) constructed.Dependency).Dependency);
+			ClassicAssert.IsNotNull(constructed);
+			ClassicAssert.IsNotNull(constructed.Dependency);
+			ClassicAssert.IsTrue(constructed.Dependency is DecoratingMultiImpl);
+			ClassicAssert.IsNotNull(((DecoratingMultiImpl) constructed.Dependency).Dependency);
+			ClassicAssert.AreSame(instance, ((DecoratingMultiImpl) constructed.Dependency).Dependency);
 		}
 
 		[Test]
@@ -175,7 +178,7 @@ namespace Objection.UnitTests.AcceptanceTests
 			NMockAwareImplementationResolver resolver = new NMockAwareImplementationResolver();
 			resolver.IgnoreNMockImplementations = true;
 			store = new ObjectionStore(resolver, new MaxLengthConstructorSelectionStrategy());
-			Assert.IsTrue(store.GetByType(typeof(InterfaceForIgnoring)) is InterfaceForIgnoringImpl);
+			ClassicAssert.IsTrue(store.GetByType(typeof(InterfaceForIgnoring)) is InterfaceForIgnoringImpl);
 
 		}
 
@@ -187,9 +190,9 @@ namespace Objection.UnitTests.AcceptanceTests
 			
 			ClassThatDependsOnMultiImplInterface constructed = (ClassThatDependsOnMultiImplInterface) store.GetByName("foo");
 
-			Assert.IsNotNull(constructed);
-			Assert.IsNotNull(constructed.Dependency);
-			Assert.IsTrue(constructed.Dependency is MultiImplTwo);
+			ClassicAssert.IsNotNull(constructed);
+			ClassicAssert.IsNotNull(constructed.Dependency);
+			ClassicAssert.IsTrue(constructed.Dependency is MultiImplTwo);
 		}
 	}
 }

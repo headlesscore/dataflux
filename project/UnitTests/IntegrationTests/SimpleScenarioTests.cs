@@ -1,5 +1,6 @@
 ﻿using System;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using CCNet = ThoughtWorks.CruiseControl;
 
 namespace ThoughtWorks.CruiseControl.UnitTests.IntegrationTests
@@ -90,8 +91,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.IntegrationTests
             }
 
             Log("Checking the data");
-            Assert.AreEqual(2, psr.Projects.Count, "Amount of projects in configfile is not correct." + CCNetConfigFile);
-
+            ClassicAssert.AreEqual(2, psr.Projects.Count, "Amount of projects in configfile is not correct." + CCNetConfigFile);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
             CCNet.Remote.ProjectStatus ps = null;
 
             Log("checking data of project " + ProjectName1);
@@ -100,20 +102,20 @@ namespace ThoughtWorks.CruiseControl.UnitTests.IntegrationTests
                 if (p.Name == ProjectName1) ps = p;
             }
 
-            Assert.AreEqual(ProjectName1, ps.Name);
-            Assert.AreEqual(CCNet.Remote.IntegrationStatus.Success, ps.BuildStatus);
-            Assert.IsTrue(ps.Activity.IsSleeping(), "Activity should be sleeping after an integration");
-            Assert.AreEqual(ps.Category, "cat1");
-            Assert.AreEqual(string.Empty, ps.CurrentMessage, "message should be empty after an ok build");
-            Assert.AreEqual("first testing project", ps.Description);
-            Assert.AreEqual("1", ps.LastBuildLabel);
-            Assert.AreEqual("1", ps.LastSuccessfulBuildLabel);
-            Assert.AreEqual(0, ps.Messages.Length);
-            Assert.AreEqual("Q1", ps.Queue);
-            Assert.AreEqual(1, ps.QueuePriority);
-            Assert.AreEqual(System.Environment.MachineName, ps.ServerName);
-            Assert.AreEqual(CCNet.Remote.ProjectIntegratorState.Running, ps.Status);
-            Assert.AreEqual("http://confluence.public.thoughtworks.org", ps.WebURL);
+            ClassicAssert.AreEqual(ProjectName1, ps.Name);
+            ClassicAssert.AreEqual(CCNet.Remote.IntegrationStatus.Success, ps.BuildStatus);
+            ClassicAssert.IsTrue(ps.Activity.IsSleeping(), "Activity should be sleeping after an integration");
+            ClassicAssert.AreEqual(ps.Category, "cat1");
+            ClassicAssert.AreEqual(string.Empty, ps.CurrentMessage, "message should be empty after an ok build");
+            ClassicAssert.AreEqual("first testing project", ps.Description);
+            ClassicAssert.AreEqual("1", ps.LastBuildLabel);
+            ClassicAssert.AreEqual("1", ps.LastSuccessfulBuildLabel);
+            ClassicAssert.AreEqual(0, ps.Messages.Length);
+            ClassicAssert.AreEqual("Q1", ps.Queue);
+            ClassicAssert.AreEqual(1, ps.QueuePriority);
+            ClassicAssert.AreEqual(System.Environment.MachineName, ps.ServerName);
+            ClassicAssert.AreEqual(CCNet.Remote.ProjectIntegratorState.Running, ps.Status);
+            ClassicAssert.AreEqual("http://confluence.public.thoughtworks.org", ps.WebURL);
 
 
             Log("checking data of project " + ProjectName2);
@@ -122,21 +124,21 @@ namespace ThoughtWorks.CruiseControl.UnitTests.IntegrationTests
                 if (p.Name == ProjectName2) ps = p;
             }
 
-            Assert.IsFalse(IntegrationCompleted[ProjectName2], "integration not done, event may not be fired");
-            Assert.AreEqual(ProjectName2, ps.Name);
-            Assert.AreEqual(CCNet.Remote.IntegrationStatus.Unknown, ps.BuildStatus);
-            Assert.IsTrue(ps.Activity.IsSleeping(), "Activity should be still sleeping");
-            Assert.AreEqual(ps.Category, "cat2");
-            Assert.AreEqual(string.Empty, ps.CurrentMessage, "message should still be empty");
-            Assert.AreEqual("second testing project", ps.Description);
-            Assert.AreEqual("UNKNOWN", ps.LastBuildLabel);
-            Assert.AreEqual("UNKNOWN", ps.LastSuccessfulBuildLabel);
-            Assert.AreEqual(0, ps.Messages.Length);
-            Assert.AreEqual("Q1", ps.Queue);
-            Assert.AreEqual(2, ps.QueuePriority);
-            Assert.AreEqual(System.Environment.MachineName, ps.ServerName);
-            Assert.AreEqual(CCNet.Remote.ProjectIntegratorState.Unknown, ps.Status);
-            Assert.AreEqual("http://" + System.Environment.MachineName + "/ccnet", ps.WebURL, "Default url not correct");
+            ClassicAssert.IsFalse(IntegrationCompleted[ProjectName2], "integration not done, event may not be fired");
+            ClassicAssert.AreEqual(ProjectName2, ps.Name);
+            ClassicAssert.AreEqual(CCNet.Remote.IntegrationStatus.Unknown, ps.BuildStatus);
+            ClassicAssert.IsTrue(ps.Activity.IsSleeping(), "Activity should be still sleeping");
+            ClassicAssert.AreEqual(ps.Category, "cat2");
+            ClassicAssert.AreEqual(string.Empty, ps.CurrentMessage, "message should still be empty");
+            ClassicAssert.AreEqual("second testing project", ps.Description);
+            ClassicAssert.AreEqual("UNKNOWN", ps.LastBuildLabel);
+            ClassicAssert.AreEqual("UNKNOWN", ps.LastSuccessfulBuildLabel);
+            ClassicAssert.AreEqual(0, ps.Messages.Length);
+            ClassicAssert.AreEqual("Q1", ps.Queue);
+            ClassicAssert.AreEqual(2, ps.QueuePriority);
+            ClassicAssert.AreEqual(System.Environment.MachineName, ps.ServerName);
+            ClassicAssert.AreEqual(CCNet.Remote.ProjectIntegratorState.Unknown, ps.Status);
+            ClassicAssert.AreEqual("http://" + System.Environment.MachineName + "/ccnet", ps.WebURL, "Default url not correct");
 
 
 
@@ -214,7 +216,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.IntegrationTests
             }
 
             Log("Checking the data");
-            Assert.AreEqual(1, psr.Projects.Count, "Amount of projects in configfile is not correct." + CCNetConfigFile);
+            ClassicAssert.AreEqual(1, psr.Projects.Count, "Amount of projects in configfile is not correct." + CCNetConfigFile);
 
             CCNet.Remote.ProjectStatus ps = null;
 
@@ -226,12 +228,12 @@ namespace ThoughtWorks.CruiseControl.UnitTests.IntegrationTests
 
             // 1 good build 
 
-            Assert.AreEqual(ProjectName1, ps.Name);
-            Assert.AreEqual(CCNet.Remote.IntegrationStatus.Success, ps.BuildStatus);
-            Assert.AreEqual(string.Empty, ps.CurrentMessage, "message should be empty after ok build");
-            Assert.AreEqual("1.5.1603", ps.LastBuildLabel, "after ok build with initial label, the result must be the inital label");
-            Assert.AreEqual("1.5.1603", ps.LastSuccessfulBuildLabel, "after ok build with initial label, the result must be the inital label");
-            Assert.AreEqual(0, ps.Messages.Length);
+            ClassicAssert.AreEqual(ProjectName1, ps.Name);
+            ClassicAssert.AreEqual(CCNet.Remote.IntegrationStatus.Success, ps.BuildStatus);
+            ClassicAssert.AreEqual(string.Empty, ps.CurrentMessage, "message should be empty after ok build");
+            ClassicAssert.AreEqual("1.5.1603", ps.LastBuildLabel, "after ok build with initial label, the result must be the inital label");
+            ClassicAssert.AreEqual("1.5.1603", ps.LastSuccessfulBuildLabel, "after ok build with initial label, the result must be the inital label");
+            ClassicAssert.AreEqual(0, ps.Messages.Length);
 
         }
 
@@ -328,7 +330,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.IntegrationTests
             }
 
             Log("Checking the data");
-            Assert.AreEqual(1, psr.Projects.Count, "Amount of projects in configfile is not correct." + CCNetConfigFile);
+            ClassicAssert.AreEqual(1, psr.Projects.Count, "Amount of projects in configfile is not correct." + CCNetConfigFile);
 
             CCNet.Remote.ProjectStatus ps = null;
 
@@ -340,11 +342,11 @@ namespace ThoughtWorks.CruiseControl.UnitTests.IntegrationTests
 
             // 1 good build and 1 bad
 
-            Assert.AreEqual(ProjectName1, ps.Name);
-            Assert.AreEqual(CCNet.Remote.IntegrationStatus.Failure, ps.BuildStatus);
-            Assert.AreEqual("bad task", ps.CurrentMessage, "message should be the descripton / name of the failing task");
-            Assert.AreEqual("1.5.1603", ps.LastBuildLabel, "do not increase label, because the increase on failure is set to false");
-            Assert.AreEqual("1.5.1603", ps.LastSuccessfulBuildLabel, "do not increase label, because the increase on failure is set to false");
+            ClassicAssert.AreEqual(ProjectName1, ps.Name);
+            ClassicAssert.AreEqual(CCNet.Remote.IntegrationStatus.Failure, ps.BuildStatus);
+            ClassicAssert.AreEqual("bad task", ps.CurrentMessage, "message should be the descripton / name of the failing task");
+            ClassicAssert.AreEqual("1.5.1603", ps.LastBuildLabel, "do not increase label, because the increase on failure is set to false");
+            ClassicAssert.AreEqual("1.5.1603", ps.LastSuccessfulBuildLabel, "do not increase label, because the increase on failure is set to false");
 
         }
 

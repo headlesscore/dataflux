@@ -1,6 +1,7 @@
 using System;
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Sourcecontrol;
 using ThoughtWorks.CruiseControl.Core.Util;
@@ -46,9 +47,11 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 
 			Modification[] actualMods = quietPeriod.GetModifications((ISourceControl) mockSourceControl.Object, lastBuild, thisBuild);
 
-			Assert.AreEqual(mods, actualMods);
+			ClassicAssert.AreEqual(mods, actualMods);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
 
-			mockDateTimeProvider.VerifyNoOtherCalls();
+            mockDateTimeProvider.VerifyNoOtherCalls();
 		}
 
 		[Test]
@@ -65,7 +68,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 
 			Modification[] actualMods = quietPeriod.GetModifications((ISourceControl) mockSourceControl.Object, lastBuild, thisBuild);
 
-			Assert.AreEqual(mods, actualMods);
+			ClassicAssert.AreEqual(mods, actualMods);
 		}
 
 		
@@ -95,7 +98,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 
 			Modification[] actualMods = quietPeriod.GetModifications((ISourceControl) mockSourceControl.Object, lastBuild, thisBuild);
 
-			Assert.AreEqual(newMods, actualMods);
+			ClassicAssert.AreEqual(newMods, actualMods);
 		}
 
 		private Modification CreateModificationAtTime(int hour, int minute, int seconds)
@@ -119,7 +122,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 			quietPeriod.ModificationDelaySeconds = 60;
 			Modification[] actualMods = quietPeriod.GetModifications((ISourceControl) mockSourceControl.Object, lastBuild, thisBuild);
 
-			Assert.AreEqual(new Modification[0], actualMods);
+			ClassicAssert.AreEqual(new Modification[0], actualMods);
 
 			mockDateTimeProvider.VerifyNoOtherCalls();
 		}
@@ -134,7 +137,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 			quietPeriod.ModificationDelaySeconds = 60;
 			Modification[] actualMods = quietPeriod.GetModifications((ISourceControl) mockSourceControl.Object, lastBuild, thisBuild);
 
-			Assert.AreEqual(mods, actualMods);
+			ClassicAssert.AreEqual(mods, actualMods);
 
 			mockDateTimeProvider.VerifyNoOtherCalls();
 		}
@@ -149,7 +152,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 
 			Modification[] actualMods = quietPeriod.GetModifications((ISourceControl) mockSourceControl.Object, lastBuild, thisBuild);
 
-			Assert.AreEqual(mods, actualMods);
+			ClassicAssert.AreEqual(mods, actualMods);
 
 			mockDateTimeProvider.VerifyNoOtherCalls();
 		}
@@ -170,7 +173,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 
 			Modification[] actualMods = quietPeriod.GetModifications((ISourceControl) mockSourceControl.Object, lastBuild, thisBuild);
 
-			Assert.AreSame(mods, actualMods);
+			ClassicAssert.AreSame(mods, actualMods);
 		}
 
 		[Test]
@@ -189,7 +192,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 
 			Modification[] actualMods = quietPeriod.GetModifications((ISourceControl) mockSourceControl.Object, lastBuild, thisBuild);
 
-			Assert.AreEqual(mods, actualMods);
+			ClassicAssert.AreEqual(mods, actualMods);
 			
 		}
 
@@ -205,7 +208,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 
 			Modification[] actualMods = quietPeriod.GetModifications((ISourceControl) mockSourceControl.Object, lastBuild, thisBuild);
 
-			Assert.AreSame(mods, actualMods);
+			ClassicAssert.AreSame(mods, actualMods);
 
 			mockDateTimeProvider.VerifyNoOtherCalls();
 		}

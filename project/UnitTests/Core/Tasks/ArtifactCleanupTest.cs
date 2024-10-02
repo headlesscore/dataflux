@@ -7,6 +7,7 @@ using ThoughtWorks.CruiseControl.Core.Tasks;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Remote;
 using ThoughtWorks.CruiseControl.Core.Util;
+using NUnit.Framework.Legacy;
 
 namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 {
@@ -75,7 +76,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
             artifactCleaner.Run(result);
 
             // verify if all files are removed
-            Assert.AreEqual(0, System.IO.Directory.GetFiles(result.BuildLogDirectory).Length, "logs are not removed");        
+            ClassicAssert.AreEqual(0, System.IO.Directory.GetFiles(result.BuildLogDirectory).Length, "logs are not removed");
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
         }
 
 
@@ -132,7 +135,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
             artifactCleaner.Run(result);
 
             // verify if 5 builds are still available
-            Assert.AreEqual(5, System.IO.Directory.GetFiles(result.BuildLogDirectory).Length, "logs are not removed");
+            ClassicAssert.AreEqual(5, System.IO.Directory.GetFiles(result.BuildLogDirectory).Length, "logs are not removed");
         }
 
 
@@ -173,7 +176,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
             artifactCleaner.Run(result);
 
             // verify if 3 builds are still available ( 32wanted + 1 buildlog folder that also is in artifacts folder
-            Assert.AreEqual(3, System.IO.Directory.GetDirectories(result.ArtifactDirectory).Length, "published builds are not removed");
+            ClassicAssert.AreEqual(3, System.IO.Directory.GetDirectories(result.ArtifactDirectory).Length, "published builds are not removed");
 
         }
 

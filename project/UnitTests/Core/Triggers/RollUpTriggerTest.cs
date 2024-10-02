@@ -10,6 +10,7 @@
     using ThoughtWorks.CruiseControl.Core.Util;
     using ThoughtWorks.CruiseControl.Core.Triggers;
     using ThoughtWorks.CruiseControl.Remote;
+    using NUnit.Framework.Legacy;
 
     [TestFixture]
     public class RollUpTriggerTest
@@ -37,7 +38,9 @@
             trigger.InnerTrigger = innerTrigger;
             trigger.MinimumTime = new Timeout(10, TimeUnits.MINUTES);
             trigger.IntegrationCompleted();
-            Assert.Greater(trigger.NextBuild, DateTime.Now.AddMinutes(9));
+            ClassicAssert.Greater(trigger.NextBuild, DateTime.Now.AddMinutes(9));
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
             mocks.VerifyAll();
         }
         #endregion
@@ -72,7 +75,7 @@
             trigger.IntegrationCompleted();
             clock.TimePasses(new TimeSpan(0, 11, 0));
             var actual = trigger.Fire();
-            Assert.AreSame(expected, actual);
+            ClassicAssert.AreSame(expected, actual);
             mocks.VerifyAll();
         }
 
@@ -85,7 +88,7 @@
             trigger.MinimumTime = new Timeout(10, TimeUnits.MINUTES);
             trigger.InnerTrigger = innerTrigger;
             trigger.IntegrationCompleted();
-            Assert.IsNull(trigger.Fire());
+            ClassicAssert.IsNull(trigger.Fire());
             mocks.VerifyAll();
         }
 
@@ -98,7 +101,7 @@
             var trigger = new RollUpTrigger();
             trigger.MinimumTime = new Timeout(10, TimeUnits.MINUTES);
             trigger.InnerTrigger = innerTrigger;
-            Assert.IsNull(trigger.Fire());
+            ClassicAssert.IsNull(trigger.Fire());
             mocks.VerifyAll();
         }
         #endregion

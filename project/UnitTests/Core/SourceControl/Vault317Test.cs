@@ -4,6 +4,7 @@ using System.Text;
 using System.Threading;
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Sourcecontrol;
 using ThoughtWorks.CruiseControl.Core.Util;
@@ -58,9 +59,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 			ExpectToExecuteArguments(itemHistoryArgs);
 
 			Modification[] mods = vault.GetModifications(result, IntegrationResultMother.CreateSuccessful(dtAfterChange));
-			Assert.AreEqual(1, mods.Length, "Should have found 1 modification.");
-
-			VerifyAll();
+			ClassicAssert.AreEqual(1, mods.Length, "Should have found 1 modification.");
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
+            VerifyAll();
 
 			this.ProcessResultOutput = @"
 				<vault>
@@ -84,7 +86,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 			ExpectToExecuteArguments(itemHistoryArgs);
 
 			mods = vault.GetModifications(result, IntegrationResultMother.CreateSuccessful(dtAfterChange));
-			Assert.AreEqual(1, mods.Length, "Should have found 1 modification.");
+			ClassicAssert.AreEqual(1, mods.Length, "Should have found 1 modification.");
 
 			VerifyAll();
 		}
@@ -119,7 +121,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 			ExpectToExecuteArguments(itemHistoryArgs);
 
 			Modification[] mods = vault.GetModifications(result, IntegrationResultMother.CreateSuccessful(dtAfterChange));
-			Assert.AreEqual(1, mods.Length, "Should have found 1 modification.");
+			ClassicAssert.AreEqual(1, mods.Length, "Should have found 1 modification.");
 
 			VerifyAll();
 
@@ -146,7 +148,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 			ExpectToExecuteArguments(itemHistoryArgs);
 
 			mods = vault.GetModifications(result, IntegrationResultMother.CreateSuccessful(dtEnd));
-			Assert.AreEqual(1, mods.Length, "Should have found 1 modification.");
+			ClassicAssert.AreEqual(1, mods.Length, "Should have found 1 modification.");
 
 			VerifyAll();
 		}
@@ -603,7 +605,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 				VaultExceptionThrown = true;
 			}
 			VerifyAll();
-			Assert.IsTrue(VaultExceptionThrown, "Vault class did not throw expected exception.");
+			ClassicAssert.IsTrue(VaultExceptionThrown, "Vault class did not throw expected exception.");
 		}
 
 		[Test]
@@ -630,7 +632,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 				VaultExceptionThrown = true;
 			}
 			VerifyAll();
-			Assert.IsTrue(VaultExceptionThrown, "Vault class did not throw expected exception.");
+			ClassicAssert.IsTrue(VaultExceptionThrown, "Vault class did not throw expected exception.");
 		}
 
 		[Test]
@@ -697,7 +699,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 			ExpectToExecuteArguments(itemHistoryArgs);
 
 			Modification[] mods = vault.GetModifications(result, IntegrationResultMother.CreateSuccessful(dtAfterChange));
-			Assert.AreEqual(1, mods.Length, "Should have found 1 modification.");
+			ClassicAssert.AreEqual(1, mods.Length, "Should have found 1 modification.");
 
 			VerifyAll();
 

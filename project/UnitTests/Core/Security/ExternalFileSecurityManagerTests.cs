@@ -9,6 +9,7 @@ using ThoughtWorks.CruiseControl.Remote;
 using ThoughtWorks.CruiseControl.Remote.Security;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Remote.Messages;
+using NUnit.Framework.Legacy;
 
 namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security
 {
@@ -25,7 +26,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security
                 };
             manager.Initialise();
             IAuthentication actualUser = manager.RetrieveUser("johndoe");
-            Assert.IsNotNull(actualUser, "User not found");
+            ClassicAssert.IsNotNull(actualUser, "User not found");
         }
 
         [Test]
@@ -44,7 +45,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security
 
             string actual = TrimWhitespace(File.ReadAllText(GenerateUsersFileName()));
             string expected = GenerateUserFileContents("whoami");
-            Assert.AreEqual(expected, actual, "File contents do not match");
+            ClassicAssert.AreEqual(expected, actual, "File contents do not match");
+            
         }
 
         [Test]
@@ -52,7 +54,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security
         {
             ExternalFileSecurityManager manager = new ExternalFileSecurityManager();
             string session = InitialiseManagerAndLogin(manager);
-            Assert.That(delegate { manager.ChangePassword("unknown", "whoareyou", "whoami"); },
+            ClassicAssert.That(delegate { manager.ChangePassword("unknown", "whoareyou", "whoami"); },
                         Throws.TypeOf<SessionInvalidException>());
         }
 
@@ -61,7 +63,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security
         {
             ExternalFileSecurityManager manager = new ExternalFileSecurityManager();
             string session = InitialiseManagerAndLogin(manager);
-            Assert.That(delegate { manager.ChangePassword(session, "wrong", "whoami"); },
+            ClassicAssert.That(delegate { manager.ChangePassword(session, "wrong", "whoami"); },
                         Throws.TypeOf<SecurityException>());
         }
 
@@ -74,7 +76,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security
 
             string actual = TrimWhitespace(File.ReadAllText(GenerateUsersFileName()));
             string expected = GenerateUserFileContents("whoami");
-            Assert.AreEqual(expected, actual, "File contents do not match");
+            ClassicAssert.AreEqual(expected, actual, "File contents do not match");
         }
 
         [Test]
@@ -82,7 +84,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security
         {
             ExternalFileSecurityManager manager = new ExternalFileSecurityManager();
             string session = InitialiseManagerAndLogin(manager);
-            Assert.That(delegate { manager.ResetPassword("unknown", "johndoe", "whoami"); },
+            ClassicAssert.That(delegate { manager.ResetPassword("unknown", "johndoe", "whoami"); },
                         Throws.TypeOf<SessionInvalidException>());
         }
 
@@ -91,7 +93,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security
         {
             ExternalFileSecurityManager manager = new ExternalFileSecurityManager();
             string session = InitialiseManagerAndLogin(manager);
-            Assert.That(delegate { manager.ResetPassword(session, "johndoe", "whoami"); },
+            ClassicAssert.That(delegate { manager.ResetPassword(session, "johndoe", "whoami"); },
                         Throws.TypeOf<PermissionDeniedException>());
         }
 
@@ -139,7 +141,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security
             LoginRequest credentials = new LoginRequest(userName);
             credentials.AddCredential(LoginRequest.PasswordCredential, "whoareyou");
             string session = manager.Login(credentials);
-            Assert.IsFalse(string.IsNullOrEmpty(session), "Session has not been allocated");
+            ClassicAssert.IsFalse(string.IsNullOrEmpty(session), "Session has not been allocated");
             return session;
         }
 

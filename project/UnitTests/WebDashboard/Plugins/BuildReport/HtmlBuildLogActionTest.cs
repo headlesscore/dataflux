@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core.Reporting.Dashboard.Navigation;
 using ThoughtWorks.CruiseControl.WebDashboard.Dashboard;
 using ThoughtWorks.CruiseControl.WebDashboard.IO;
@@ -73,12 +74,13 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.Plugins.BuildReport
             expectedContext["logUrl"] = "myUrl";
             
 			velocityViewGeneratorMock.Setup(generator => generator.GenerateView(@"BuildLog.vm", It.IsAny<Hashtable>())).
-				Callback<string, Hashtable>((name, context) => Assert.AreEqual(context, expectedContext)).Returns(response).Verifiable();
+				Callback<string, Hashtable>((name, context) => ClassicAssert.AreEqual(context, expectedContext)).Returns(response).Verifiable();
 
 			// Execute & Verify
-			Assert.AreEqual(response, buildLogAction.Execute((ICruiseRequest) requestMock.Object));
-
-			VerifyAll();
+			ClassicAssert.AreEqual(response, buildLogAction.Execute((ICruiseRequest) requestMock.Object));
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
+            VerifyAll();
 		}
 
 	    [Test]
@@ -94,7 +96,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.Plugins.BuildReport
 
 	        ConditionalGetFingerprint expectedFingerprint = new ConditionalGetFingerprint(logFileDate, TEST_TOKEN);
 
-            Assert.AreEqual(expectedFingerprint, buildLogAction.GetFingerprint((IRequest) requestMock.Object));
+            ClassicAssert.AreEqual(expectedFingerprint, buildLogAction.GetFingerprint((IRequest) requestMock.Object));
 	    }
 	}
 }

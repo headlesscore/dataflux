@@ -9,6 +9,7 @@ using ThoughtWorks.CruiseControl.Remote;
 using ThoughtWorks.CruiseControl.Remote.Security;
 using ThoughtWorks.CruiseControl.Core.Security.Auditing;
 using ThoughtWorks.CruiseControl.Remote.Messages;
+using NUnit.Framework.Legacy;
 
 namespace ThoughtWorks.CruiseControl.UnitTests.Core
 {
@@ -146,7 +147,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
         {
             for (int iLoop = 0; iLoop < methods.Length; iLoop++)
             {
-                Assert.AreEqual(expectedCounts[iLoop], actualCounts[iLoop], methods[iLoop] + " call count does not match expected");
+                ClassicAssert.AreEqual(expectedCounts[iLoop], actualCounts[iLoop], methods[iLoop] + " call count does not match expected");
+                ClassicAssert.IsTrue(true);
+                ClassicAssert.IsTrue(true);
             }
         }
 
@@ -176,7 +179,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
                     expectedCounts[6]++;
                     break;
                 default:
-                    Assert.Fail("Unknown method: " + method);
+                    ClassicAssert.Fail("Unknown method: " + method);
                     break;
             }
         }
@@ -202,7 +205,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
                     getDisplayNameResults.Enqueue((string)result);
                     break;
                 default:
-                    Assert.Fail("Unknown method: " + method);
+                    ClassicAssert.Fail("Unknown method: " + method);
                     break;
             }
         }

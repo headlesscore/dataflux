@@ -6,6 +6,7 @@ using System.Xml;
 using System.Xml.XPath;
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core.Publishers.Statistics;
 
 namespace ThoughtWorks.CruiseControl.UnitTests.Core.Publishers.Statistics
@@ -189,8 +190,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Publishers.Statistics
 		public void ShouldThrowExceptionIfAskedToPlotUnavailableStatistics()
 		{
 			chartGenerator.RelevantStats = new string[]{"Unavailable"};
-            Assert.That(delegate { chartGenerator.Process(statistics, "dummy"); }, Throws.TypeOf<UnavailableStatisticsException>());
-			mockPlotter.VerifyNoOtherCalls();
+            ClassicAssert.That(delegate { chartGenerator.Process(statistics, "dummy"); }, Throws.TypeOf<UnavailableStatisticsException>());
+            ClassicAssert.IsTrue(true);
+            mockPlotter.VerifyNoOtherCalls();
 		}
 
 		[Test]
@@ -235,7 +237,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Publishers.Statistics
 	    public void ShouldFormatStatisticAsSpecified()
 	    {
 	        string value = "03:00:02";
-	        Assert.IsTrue(Regex.IsMatch(value, "[0-9]+:[0-9]+:[0-9]+"));
+	        ClassicAssert.IsTrue(Regex.IsMatch(value, "[0-9]+:[0-9]+:[0-9]+"));
 	    }
 	}
 }

@@ -2,6 +2,7 @@ using System;
 using Exortech.NetReflector;
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Sourcecontrol;
 using ThoughtWorks.CruiseControl.Core.Util;
@@ -16,10 +17,11 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
         public void VerifyDefaultValues()
         {
             ExternalSourceControl externalSC = new ExternalSourceControl();
-            Assert.AreEqual(string.Empty, externalSC.ArgString);
-            Assert.AreEqual(false, externalSC.AutoGetSource);
-            Assert.AreEqual(0, externalSC.EnvironmentVariables.Length);
-            Assert.AreEqual(false, externalSC.LabelOnSuccess);
+            ClassicAssert.AreEqual(string.Empty, externalSC.ArgString);
+            ClassicAssert.AreEqual(false, externalSC.AutoGetSource);
+            ClassicAssert.AreEqual(0, externalSC.EnvironmentVariables.Length);
+            ClassicAssert.AreEqual(false, externalSC.LabelOnSuccess);
+            ClassicAssert.IsTrue(true);
         }
 
 		[Test]
@@ -40,17 +42,17 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 
             ExternalSourceControl externalSC = new ExternalSourceControl();
             NetReflector.Read(xml, externalSC);
-            Assert.AreEqual(@"arg1 ""arg2 has blanks"" arg3", externalSC.ArgString);
-            Assert.AreEqual(true, externalSC.AutoGetSource);
-            Assert.AreEqual(3, externalSC.EnvironmentVariables.Length);
-            Assert.AreEqual("name1", externalSC.EnvironmentVariables[0].name);
-            Assert.AreEqual("value1", externalSC.EnvironmentVariables[0].value);
-            Assert.AreEqual("name2", externalSC.EnvironmentVariables[1].name);
-            Assert.AreEqual("", externalSC.EnvironmentVariables[1].value);
-            Assert.AreEqual("name3", externalSC.EnvironmentVariables[2].name);
-            Assert.AreEqual("value3", externalSC.EnvironmentVariables[2].value);
-            Assert.AreEqual("banana.bat", externalSC.Executable);
-            Assert.AreEqual(true, externalSC.LabelOnSuccess);
+            ClassicAssert.AreEqual(@"arg1 ""arg2 has blanks"" arg3", externalSC.ArgString);
+            ClassicAssert.AreEqual(true, externalSC.AutoGetSource);
+            ClassicAssert.AreEqual(3, externalSC.EnvironmentVariables.Length);
+            ClassicAssert.AreEqual("name1", externalSC.EnvironmentVariables[0].name);
+            ClassicAssert.AreEqual("value1", externalSC.EnvironmentVariables[0].value);
+            ClassicAssert.AreEqual("name2", externalSC.EnvironmentVariables[1].name);
+            ClassicAssert.AreEqual("", externalSC.EnvironmentVariables[1].value);
+            ClassicAssert.AreEqual("name3", externalSC.EnvironmentVariables[2].name);
+            ClassicAssert.AreEqual("value3", externalSC.EnvironmentVariables[2].value);
+            ClassicAssert.AreEqual("banana.bat", externalSC.Executable);
+            ClassicAssert.AreEqual(true, externalSC.LabelOnSuccess);
         }
 
         [Test]
@@ -62,11 +64,11 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 </sourceControl>";
             ExternalSourceControl externalSC = new ExternalSourceControl();
             NetReflector.Read(xml, externalSC);
-            Assert.AreEqual(string.Empty, externalSC.ArgString);
-            Assert.AreEqual(false, externalSC.AutoGetSource);
-            Assert.AreEqual(0, externalSC.EnvironmentVariables.Length);
-            Assert.AreEqual("banana.bat", externalSC.Executable);
-            Assert.AreEqual(false, externalSC.LabelOnSuccess);
+            ClassicAssert.AreEqual(string.Empty, externalSC.ArgString);
+            ClassicAssert.AreEqual(false, externalSC.AutoGetSource);
+            ClassicAssert.AreEqual(0, externalSC.EnvironmentVariables.Length);
+            ClassicAssert.AreEqual("banana.bat", externalSC.Executable);
+            ClassicAssert.AreEqual(false, externalSC.LabelOnSuccess);
         }
 
         [Test]
@@ -74,7 +76,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
         {
             const string xml = @"<sourceControl type=""external""></sourceControl>";
             ExternalSourceControl externalSC = new ExternalSourceControl();
-            Assert.That(delegate { NetReflector.Read(xml, externalSC); },
+            ClassicAssert.That(delegate { NetReflector.Read(xml, externalSC); },
                         Throws.TypeOf<NetReflectorException>());
         }
 

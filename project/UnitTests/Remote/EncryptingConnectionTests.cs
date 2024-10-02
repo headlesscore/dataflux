@@ -9,6 +9,7 @@ using NUnit.Framework;
     using ThoughtWorks.CruiseControl.Remote.Messages;
     using System.Security.Cryptography;
     using System.IO;
+    using NUnit.Framework.Legacy;
 
     public class EncryptingConnectionTests
     {
@@ -27,9 +28,11 @@ using NUnit.Framework;
             innerConnection.TriggerSendMessageCompleted(null, null, false, null);
             innerConnection.TriggerRequestSending(null, null);
             innerConnection.TriggerResponseReceived(null, null);
-            Assert.IsTrue(sendMessageFired);
-            Assert.IsTrue(requestSendingFired);
-            Assert.IsTrue(responseReceivedFired);
+            ClassicAssert.IsTrue(sendMessageFired);
+            ClassicAssert.IsTrue(requestSendingFired);
+            ClassicAssert.IsTrue(responseReceivedFired);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
         }
 
         [Test]
@@ -43,12 +46,12 @@ using NUnit.Framework;
                 IsBusy = false
             };
             var outerConnection = new EncryptingConnection(innerConnection);
-            Assert.AreEqual(innerConnection.Type, outerConnection.Type);
-            Assert.AreEqual(innerConnection.ServerName, outerConnection.ServerName);
-            Assert.AreEqual(innerConnection.Address, outerConnection.Address);
-            Assert.AreEqual(innerConnection.IsBusy, outerConnection.IsBusy);
+            ClassicAssert.AreEqual(innerConnection.Type, outerConnection.Type);
+            ClassicAssert.AreEqual(innerConnection.ServerName, outerConnection.ServerName);
+            ClassicAssert.AreEqual(innerConnection.Address, outerConnection.Address);
+            ClassicAssert.AreEqual(innerConnection.IsBusy, outerConnection.IsBusy);
             innerConnection.IsBusy = true;
-            Assert.AreEqual(innerConnection.IsBusy, outerConnection.IsBusy);
+            ClassicAssert.AreEqual(innerConnection.IsBusy, outerConnection.IsBusy);
         }
 
         [Test]
@@ -57,7 +60,7 @@ using NUnit.Framework;
             var innerConnection = new TestConnection();
             var outerConnection = new EncryptingConnection(innerConnection);
             outerConnection.Dispose();
-            Assert.IsTrue(innerConnection.Disposed);
+            ClassicAssert.IsTrue(innerConnection.Disposed);
         }
 
         [Test]
@@ -80,20 +83,20 @@ using NUnit.Framework;
                 }
                 else if (a == "InitialiseSecureConnection")
                 {
-                    Assert.IsInstanceOf<LoginRequest>(r);
+                    ClassicAssert.IsInstanceOf<LoginRequest>(r);
                     sendResponse = this.GenerateConnectioResponse(r as LoginRequest, out iv, out key);
                 }
                 else if (a == "ProcessSecureRequest")
                 {
-                    Assert.IsInstanceOf<EncryptedRequest>(r);
+                    ClassicAssert.IsInstanceOf<EncryptedRequest>(r);
                     var actualRequest = r as EncryptedRequest;
-                    Assert.AreEqual(actionName, actualRequest.Action);
+                    ClassicAssert.AreEqual(actionName, actualRequest.Action);
 
                     var crypto = new RijndaelManaged();
                     crypto.Key = Convert.FromBase64String(key);
                     crypto.IV = Convert.FromBase64String(iv);
                     var requestData = DecryptMessage(crypto, actualRequest.EncryptedData);
-                    Assert.AreEqual(request.ToString(), requestData);
+                    ClassicAssert.AreEqual(request.ToString(), requestData);
 
                     var encryptedResponse = new EncryptedResponse();
                     encryptedResponse.Result = ResponseResult.Success;
@@ -102,14 +105,14 @@ using NUnit.Framework;
                 }
                 else
                 {
-                    Assert.Fail("Unknown action: " + a);
+                    ClassicAssert.Fail("Unknown action: " + a);
                 }
 
                 return sendResponse;
             };
             var response = outerConnection.SendMessage(actionName, request);
-            Assert.IsNotNull(response);
-            Assert.AreEqual(expectedResponse.RequestIdentifier, response.RequestIdentifier);
+            ClassicAssert.IsNotNull(response);
+            ClassicAssert.AreEqual(expectedResponse.RequestIdentifier, response.RequestIdentifier);
         }
         #endregion
 

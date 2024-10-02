@@ -2,6 +2,7 @@
 using System.Collections;
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Queues;
 
@@ -27,7 +28,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Queues
             Mock.Get(listFactory).Setup(_listFactory => _listFactory.CreateProjectIntegrators(It.IsAny<IProjectList>(), It.IsAny<IntegrationQueueSet>())).Returns(list);
 
             object instance = IntegrationQueueManagerFactory.CreateManager(listFactory, configuration, null);
-            Assert.That(instance, Is.InstanceOf<IntegrationQueueManager>());
+            ClassicAssert.That(instance, Is.InstanceOf<IntegrationQueueManager>());
+            ClassicAssert.IsTrue(true);
         }
 
         [Test]
@@ -41,7 +43,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Queues
             try
             {
                 object instance = IntegrationQueueManagerFactory.CreateManager(null, null, null);
-                Assert.AreSame(newManager, instance);
+                ClassicAssert.AreSame(newManager, instance);
             }
             finally
             {

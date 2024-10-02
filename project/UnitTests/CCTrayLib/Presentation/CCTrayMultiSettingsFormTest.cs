@@ -1,6 +1,7 @@
 using System;
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.CCTrayLib.Configuration;
 using ThoughtWorks.CruiseControl.CCTrayLib.Presentation;
 
@@ -30,9 +31,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Presentation
 			// As we are using a Strict mock, incorrect calls to the existing configuration 
 			// will be caught by the verify.
 			existingConfiguration.Verify();
-			Assert.IsNull(nullReference,
+			ClassicAssert.IsNull(nullReference,
 				"There was a null reference exception not related to using existing configuration:\n{0}",
 				nullReference);
-		}
+        }
 	}
 }

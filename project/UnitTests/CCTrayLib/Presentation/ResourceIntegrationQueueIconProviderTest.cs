@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.CCTrayLib.Monitoring;
 using ThoughtWorks.CruiseControl.CCTrayLib.Presentation;
 
@@ -12,13 +13,14 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Presentation
 		{
 			ResourceIntegrationQueueIconProvider iconProvider = new ResourceIntegrationQueueIconProvider();
 
-			Assert.AreEqual(ResourceIntegrationQueueIconProvider.REMOTING_SERVER, iconProvider.GetStatusIconForNodeType(IntegrationQueueNodeType.RemotingServer));
-			Assert.AreEqual(ResourceIntegrationQueueIconProvider.HTTP_SERVER, iconProvider.GetStatusIconForNodeType(IntegrationQueueNodeType.HttpServer));
-            Assert.AreEqual(ResourceIntegrationQueueIconProvider.QUEUE_EMPTY, iconProvider.GetStatusIconForNodeType(IntegrationQueueNodeType.QueueEmpty));
-            Assert.AreEqual(ResourceIntegrationQueueIconProvider.QUEUE_POPULATED, iconProvider.GetStatusIconForNodeType(IntegrationQueueNodeType.QueuePopulated));
-            Assert.AreEqual(ResourceIntegrationQueueIconProvider.CHECKING_MODIFICATIONS, iconProvider.GetStatusIconForNodeType(IntegrationQueueNodeType.CheckingModifications));
-            Assert.AreEqual(ResourceIntegrationQueueIconProvider.BUILDING, iconProvider.GetStatusIconForNodeType(IntegrationQueueNodeType.Building));
-			Assert.AreEqual(ResourceIntegrationQueueIconProvider.PENDING, iconProvider.GetStatusIconForNodeType(IntegrationQueueNodeType.PendingInQueue));
+			ClassicAssert.AreEqual(ResourceIntegrationQueueIconProvider.REMOTING_SERVER, iconProvider.GetStatusIconForNodeType(IntegrationQueueNodeType.RemotingServer));
+            //ClassicAssert.AreEqual(ResourceIntegrationQueueIconProvider.REMOTING_SERVER, iconProvider.GetStatusIconForNodeType(IntegrationQueueNodeType.RemotingServer));
+            ClassicAssert.AreEqual(ResourceIntegrationQueueIconProvider.HTTP_SERVER, iconProvider.GetStatusIconForNodeType(IntegrationQueueNodeType.HttpServer));
+            ClassicAssert.AreEqual(ResourceIntegrationQueueIconProvider.QUEUE_EMPTY, iconProvider.GetStatusIconForNodeType(IntegrationQueueNodeType.QueueEmpty));
+            ClassicAssert.AreEqual(ResourceIntegrationQueueIconProvider.QUEUE_POPULATED, iconProvider.GetStatusIconForNodeType(IntegrationQueueNodeType.QueuePopulated));
+            ClassicAssert.AreEqual(ResourceIntegrationQueueIconProvider.CHECKING_MODIFICATIONS, iconProvider.GetStatusIconForNodeType(IntegrationQueueNodeType.CheckingModifications));
+            ClassicAssert.AreEqual(ResourceIntegrationQueueIconProvider.BUILDING, iconProvider.GetStatusIconForNodeType(IntegrationQueueNodeType.Building));
+			ClassicAssert.AreEqual(ResourceIntegrationQueueIconProvider.PENDING, iconProvider.GetStatusIconForNodeType(IntegrationQueueNodeType.PendingInQueue));
 		}
 	}
 

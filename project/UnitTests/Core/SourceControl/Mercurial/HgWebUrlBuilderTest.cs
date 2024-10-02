@@ -1,7 +1,8 @@
 namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol.Mercurial
 {
 	using NUnit.Framework;
-	using ThoughtWorks.CruiseControl.Core;
+    using NUnit.Framework.Legacy;
+    using ThoughtWorks.CruiseControl.Core;
 	using ThoughtWorks.CruiseControl.Core.Sourcecontrol.Mercurial;
 
 	/// <summary>
@@ -24,9 +25,12 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol.Mercurial
 			modifications[0].Version = "4a064e1977f8";
 			hgweb.SetupModification(modifications);
 
-			Assert.That(modifications[0].Url, Is.Not.Null);
-			Assert.That(modifications[0].Url, Is.EqualTo("http://selenic.com/hg/index.cgi/rev/4a064e1977f8"));
-		}
+			ClassicAssert.That(modifications[0].Url, Is.Not.Null);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.That(modifications[0].Url, Is.EqualTo("http://selenic.com/hg/index.cgi/rev/4a064e1977f8"));
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
+        }
 
 		#endregion
 	}

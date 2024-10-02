@@ -1,6 +1,7 @@
 using System;
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.CCTrayLib.Configuration;
 using ThoughtWorks.CruiseControl.CCTrayLib.Monitoring;
 using ThoughtWorks.CruiseControl.CCTrayLib.Presentation;
@@ -42,12 +43,13 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Presentation
 		[Test]
 		public void WhenTheSelectedProjectChangesTheIsProjectSelectedPropertyChangesAndEventFires()
 		{
-			Assert.IsFalse(controller.IsProjectSelected);
-			controller.IsProjectSelectedChanged += new EventHandler(Controller_IsProjectSelectedChanged);
+			ClassicAssert.IsFalse(controller.IsProjectSelected);
+            ClassicAssert.IsFalse(controller.IsProjectSelected);
+            controller.IsProjectSelectedChanged += new EventHandler(Controller_IsProjectSelectedChanged);
 			controller.SelectedProject = projectMonitor;
 
-			Assert.IsTrue(controller.IsProjectSelected);
-			Assert.AreEqual(1, eventCount);
+			ClassicAssert.IsTrue(controller.IsProjectSelected);
+			ClassicAssert.AreEqual(1, eventCount);
 
 		}
 
@@ -85,7 +87,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Presentation
 		[Test]
 		public void ForceBuildDoesNothingIfNoProjectSelected()
 		{
-			Assert.IsNull(controller.SelectedProject);
+			ClassicAssert.IsNull(controller.SelectedProject);
 			controller.ForceBuild();
 			mockProjectMonitor.Verify();
 		}
@@ -95,7 +97,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Presentation
 		{
 			mockProjectMonitor.SetupGet(_monitor => _monitor.ProjectState).Returns(ProjectState.Broken).Verifiable();
 			controller.SelectedProject = projectMonitor;
-			Assert.IsTrue(controller.CanFixBuild());
+			ClassicAssert.IsTrue(controller.CanFixBuild());
 			mockProjectMonitor.Verify();
 		}
 
@@ -104,7 +106,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Presentation
 		{
 			mockProjectMonitor.SetupGet(_monitor => _monitor.ProjectState).Returns(ProjectState.BrokenAndBuilding).Verifiable();
 			controller.SelectedProject = projectMonitor;
-			Assert.IsTrue(controller.CanFixBuild());
+			ClassicAssert.IsTrue(controller.CanFixBuild());
 			mockProjectMonitor.Verify();
 		}
 
@@ -113,15 +115,15 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Presentation
 		{
 			mockProjectMonitor.SetupGet(_monitor => _monitor.ProjectState).Returns(ProjectState.Success).Verifiable();
 			controller.SelectedProject = projectMonitor;
-			Assert.IsFalse(controller.CanFixBuild());
+			ClassicAssert.IsFalse(controller.CanFixBuild());
 			mockProjectMonitor.Verify();
 		}
 
 		[Test]
 		public void CannotFixBuildIfNoProjectIsSelected()
 		{
-			Assert.IsNull(controller.SelectedProject);
-			Assert.IsFalse(controller.CanFixBuild());
+			ClassicAssert.IsNull(controller.SelectedProject);
+			ClassicAssert.IsFalse(controller.CanFixBuild());
 			mockProjectMonitor.Verify();
 		}
 
@@ -137,7 +139,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Presentation
 		[Test]
 		public void VolunteeringToFixBuildShouldDoNothingIfNoProjectIsSelected()
 		{
-			Assert.IsNull(controller.SelectedProject);
+			ClassicAssert.IsNull(controller.SelectedProject);
 			controller.VolunteerToFixBuild();
 			mockProjectMonitor.Verify();
 		}
@@ -147,7 +149,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Presentation
 		{
 			mockProjectMonitor.SetupGet(_monitor => _monitor.IsPending).Returns(true).Verifiable();
 			controller.SelectedProject = projectMonitor;
-			Assert.IsTrue(controller.CanCancelPending());
+			ClassicAssert.IsTrue(controller.CanCancelPending());
 			mockProjectMonitor.Verify();
 		}
 
@@ -156,15 +158,15 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Presentation
 		{
 			mockProjectMonitor.SetupGet(_monitor => _monitor.IsPending).Returns(false).Verifiable();
 			controller.SelectedProject = projectMonitor;
-			Assert.IsFalse(controller.CanCancelPending());
+			ClassicAssert.IsFalse(controller.CanCancelPending());
 			mockProjectMonitor.Verify();
 		}
 
 		[Test]
 		public void CannotCancelPendingIfNoProjectIsSelected()
 		{
-			Assert.IsNull(controller.SelectedProject);
-			Assert.IsFalse(controller.CanCancelPending());
+			ClassicAssert.IsNull(controller.SelectedProject);
+			ClassicAssert.IsFalse(controller.CanCancelPending());
 			mockProjectMonitor.Verify();
 		}
 
@@ -180,7 +182,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Presentation
 		[Test]
 		public void CancelPendingShouldDoNothingIfNoProjectIsSelected()
 		{
-			Assert.IsNull(controller.SelectedProject);
+			ClassicAssert.IsNull(controller.SelectedProject);
 			controller.CancelPending();
 			mockProjectMonitor.Verify();
 		}

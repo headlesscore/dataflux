@@ -4,6 +4,7 @@ using System.Reflection;
 using System.Xml;
 using Exortech.NetReflector;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core.Config;
 using ThoughtWorks.CruiseControl.UnitTests.UnitTestUtils;
 
@@ -23,12 +24,13 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Config
 				{
 					"ccnet.config", "CVSAndNAntAndEmailPublisherCCNet.config", "VSSAndDevenvAndNUnitCCNet.config", "P4AndDevenv.config"
 				};
+            var currentPath = Environment.CurrentDirectory;
 			foreach (string f in configFiles)
 			{
 				filename = f;
 				XmlDocument xml = LoadConfigXml();
-				Assert.IsNotNull(reader.Read(xml, null));
-			}
+				ClassicAssert.IsNotNull(reader.Read(xml, null));
+            }
 		}
 		
 		[Test]

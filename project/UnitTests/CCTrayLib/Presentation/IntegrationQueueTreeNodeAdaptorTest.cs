@@ -1,5 +1,6 @@
 using System.Windows.Forms;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.CCTrayLib.Monitoring;
 using ThoughtWorks.CruiseControl.CCTrayLib.Presentation;
 using ThoughtWorks.CruiseControl.Remote;
@@ -19,8 +20,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Presentation
 			IntegrationQueueTreeNodeAdaptor adaptor = new IntegrationQueueTreeNodeAdaptor(serverMonitor);
 			TreeNode item = adaptor.Create();
 
-			Assert.AreEqual("blah:1000", item.Text);
-			Assert.AreEqual(IntegrationQueueNodeType.RemotingServer.ImageIndex, item.ImageIndex);
+			ClassicAssert.AreEqual("blah:1000", item.Text);
+            ClassicAssert.AreEqual("blah:1000", item.Text);
+            ClassicAssert.AreEqual(IntegrationQueueNodeType.RemotingServer.ImageIndex, item.ImageIndex);
 		}
 
 		[Test]
@@ -32,7 +34,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Presentation
 			IntegrationQueueTreeNodeAdaptor adaptor = new IntegrationQueueTreeNodeAdaptor(serverMonitor);
 			TreeNode item = adaptor.Create();
 
-			Assert.AreEqual(0, item.Nodes.Count);
+			ClassicAssert.AreEqual(0, item.Nodes.Count);
 		}
 
 		[Test]
@@ -44,16 +46,16 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Presentation
 			IntegrationQueueTreeNodeAdaptor adaptor = new IntegrationQueueTreeNodeAdaptor(serverMonitor);
 			TreeNode item = adaptor.Create();
 
-			Assert.AreEqual(2, item.Nodes.Count);
+			ClassicAssert.AreEqual(2, item.Nodes.Count);
 			TreeNode firstQueueNode = item.Nodes[0];
 			TreeNode secondQueueNode = item.Nodes[1];
 
-			Assert.AreEqual("Queue1", firstQueueNode.Text);
-			Assert.AreEqual("Queue2", secondQueueNode.Text);
+			ClassicAssert.AreEqual("Queue1", firstQueueNode.Text);
+			ClassicAssert.AreEqual("Queue2", secondQueueNode.Text);
 
-			Assert.AreEqual(0, firstQueueNode.Nodes.Count);
-			Assert.AreEqual(0, secondQueueNode.Nodes.Count);
-			Assert.AreEqual(IntegrationQueueNodeType.QueueEmpty.ImageIndex, firstQueueNode.ImageIndex);
+			ClassicAssert.AreEqual(0, firstQueueNode.Nodes.Count);
+			ClassicAssert.AreEqual(0, secondQueueNode.Nodes.Count);
+			ClassicAssert.AreEqual(IntegrationQueueNodeType.QueueEmpty.ImageIndex, firstQueueNode.ImageIndex);
 
 			// Now lets add something to a queue.
             serverMonitor.CruiseServerSnapshot = CreatePopulatedQueuesSnapshot();
@@ -62,15 +64,15 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Presentation
 
 			firstQueueNode = item.Nodes[0];
 			secondQueueNode = item.Nodes[1];
-			Assert.AreEqual(2, firstQueueNode.Nodes.Count);
-			Assert.AreEqual(0, secondQueueNode.Nodes.Count);
+			ClassicAssert.AreEqual(2, firstQueueNode.Nodes.Count);
+			ClassicAssert.AreEqual(0, secondQueueNode.Nodes.Count);
 
 			TreeNode firstQueuedItemNode = firstQueueNode.Nodes[0];
 			TreeNode secondQueuedItemNode = firstQueueNode.Nodes[1];
 
-            Assert.AreEqual(IntegrationQueueNodeType.QueuePopulated.ImageIndex, firstQueueNode.ImageIndex);
-			Assert.AreEqual(IntegrationQueueNodeType.CheckingModifications.ImageIndex, firstQueuedItemNode.ImageIndex);
-            Assert.AreEqual(IntegrationQueueNodeType.PendingInQueue.ImageIndex, secondQueuedItemNode.ImageIndex);
+            ClassicAssert.AreEqual(IntegrationQueueNodeType.QueuePopulated.ImageIndex, firstQueueNode.ImageIndex);
+			ClassicAssert.AreEqual(IntegrationQueueNodeType.CheckingModifications.ImageIndex, firstQueuedItemNode.ImageIndex);
+            ClassicAssert.AreEqual(IntegrationQueueNodeType.PendingInQueue.ImageIndex, secondQueuedItemNode.ImageIndex);
 		}
 
         private CruiseServerSnapshot CreateNoQueuesSnapshot()

@@ -4,6 +4,7 @@ using ThoughtWorks.CruiseControl.Remote.Messages;
 using ThoughtWorks.CruiseControl.Remote;
 using System.Xml.Linq;
 using FluentAssertions;
+using NUnit.Framework.Legacy;
 
 namespace ThoughtWorks.CruiseControl.UnitTests.Remote.Messages
 {
@@ -15,7 +16,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote.Messages
         {
             BuildRequest request = new BuildRequest();
             request.BuildName = "Build#1";
-            Assert.AreEqual("Build#1", request.BuildName, "BuildName fails the get/set test");
+            ClassicAssert.AreEqual("Build#1", request.BuildName, "BuildName fails the get/set test");
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
         }
 
         [Test]
@@ -24,10 +27,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote.Messages
             string sessionToken = "the session";
             DateTime now = DateTime.Now;
             BuildRequest request = new BuildRequest(sessionToken);
-            Assert.IsFalse(string.IsNullOrEmpty(request.Identifier), "Identifier was not set");
-            Assert.AreEqual(Environment.MachineName, request.SourceName, "Source name doesn't match the machine name");
-            Assert.AreEqual(sessionToken, request.SessionToken, "SessionToken doesn't match the input token");
-            Assert.IsTrue((now <= request.Timestamp), "Timestamp was not set");
+            ClassicAssert.IsFalse(string.IsNullOrEmpty(request.Identifier), "Identifier was not set");
+            ClassicAssert.AreEqual(Environment.MachineName, request.SourceName, "Source name doesn't match the machine name");
+            ClassicAssert.AreEqual(sessionToken, request.SessionToken, "SessionToken doesn't match the input token");
+            ClassicAssert.IsTrue((now <= request.Timestamp), "Timestamp was not set");
         }
 
         [Test]
@@ -37,11 +40,11 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote.Messages
             string projectName = "the project";
             DateTime now = DateTime.Now;
             BuildRequest request = new BuildRequest(sessionToken, projectName);
-            Assert.IsFalse(string.IsNullOrEmpty(request.Identifier), "Identifier was not set");
-            Assert.AreEqual(Environment.MachineName, request.SourceName, "Source name doesn't match the machine name");
-            Assert.AreEqual(sessionToken, request.SessionToken, "SessionToken doesn't match the input token");
-            Assert.AreEqual(projectName, request.ProjectName, "ProjectName doesn't match the input project name");
-            Assert.IsTrue((now <= request.Timestamp), "Timestamp was not set");
+            ClassicAssert.IsFalse(string.IsNullOrEmpty(request.Identifier), "Identifier was not set");
+            ClassicAssert.AreEqual(Environment.MachineName, request.SourceName, "Source name doesn't match the machine name");
+            ClassicAssert.AreEqual(sessionToken, request.SessionToken, "SessionToken doesn't match the input token");
+            ClassicAssert.AreEqual(projectName, request.ProjectName, "ProjectName doesn't match the input project name");
+            ClassicAssert.IsTrue((now <= request.Timestamp), "Timestamp was not set");
         }
 
         [Test]

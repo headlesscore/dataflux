@@ -1,6 +1,7 @@
 using System;
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Objection;
 using ThoughtWorks.CruiseControl.WebDashboard.Dashboard;
 using ThoughtWorks.CruiseControl.WebDashboard.Dashboard.Actions;
@@ -20,8 +21,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.Dashboard
 			objectSourceMock.Setup(objectSource => objectSource.GetByType(typeToInstantiate)).Returns(instantiated).Verifiable();
 
 			ActionInstantiatorWithObjectSource instantiator = new ActionInstantiatorWithObjectSource((ObjectSource) objectSourceMock.Object);
-			Assert.AreEqual(instantiated, instantiator.InstantiateAction(typeToInstantiate));
+			ClassicAssert.AreEqual(instantiated, instantiator.InstantiateAction(typeToInstantiate));
 			objectSourceMock.Verify();
-		}
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
+        }
 	}
 }

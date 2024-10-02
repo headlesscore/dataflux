@@ -1,8 +1,9 @@
 namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol.Mercurial
 {
 	using NUnit.Framework;
-	using System;
-	using System.IO;
+    using NUnit.Framework.Legacy;
+    using System;
+    using System.IO;
 	using ThoughtWorks.CruiseControl.Core;
 	using ThoughtWorks.CruiseControl.Core.Sourcecontrol.Mercurial;
 
@@ -115,36 +116,39 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol.Mercurial
 		public void ParsingEmptyLogProducesNoModifications()
 		{
 			Modification[] modifications = hg.Parse(new StringReader(EmptyLogXml), DateTime.Now, DateTime.Now);
-			Assert.That(modifications.Length, Is.EqualTo(0));
-		}
+			ClassicAssert.That(modifications.Length, Is.EqualTo(0));
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
+        }
 
 		[Test]
 		public void ParsingSingleLogMessageProducesOneModification()
 		{
 			var modifications = hg.Parse(new StringReader(OneEntryLogXml), DateTime.Now, DateTime.Now);
-			Assert.That(modifications.Length, Is.EqualTo(1));
+			ClassicAssert.That(modifications.Length, Is.EqualTo(1));
 
 			var mod = modifications[0];
-			Assert.That(mod.Version, Is.EqualTo("48365ef6a3ea"));
-			Assert.That(mod.ChangeNumber, Is.EqualTo("3"));
-			Assert.That(mod.EmailAddress, Is.EqualTo("bbarry@stellarfinancial.com"));
-			Assert.That(mod.UserName, Is.EqualTo("B Barry"));
+			ClassicAssert.That(mod.Version, Is.EqualTo("48365ef6a3ea"));
+			ClassicAssert.That(mod.ChangeNumber, Is.EqualTo("3"));
+			ClassicAssert.That(mod.EmailAddress, Is.EqualTo("bbarry@stellarfinancial.com"));
+			ClassicAssert.That(mod.UserName, Is.EqualTo("B Barry"));
 			var expectedModifiedTime = new DateTimeOffset(2008, 4, 24, 22, 14, 59, new TimeSpan(-6, 0, 0));
-			Assert.That(mod.ModifiedTime, Is.EqualTo(expectedModifiedTime.LocalDateTime));
-			Assert.That(mod.Comment, Is.EqualTo("asdf"));
-			Assert.That(mod.FolderName, Is.Empty);
-			Assert.That(mod.FileName, Is.EqualTo("New Text Document.txt"));
+			ClassicAssert.That(mod.ModifiedTime, Is.EqualTo(expectedModifiedTime.LocalDateTime));
+			ClassicAssert.That(mod.Comment, Is.EqualTo("asdf"));
+			ClassicAssert.That(mod.FolderName, Is.Empty);
+			ClassicAssert.That(mod.FileName, Is.EqualTo("New Text Document.txt"));
 		}
 
 		[Test]
 		public void ShouldSeparateFolderFromFileName()
 		{
 			var modifications = hg.Parse(new StringReader(LongPathEntryLogXml), DateTime.Now, DateTime.Now);
-			Assert.That(modifications.Length, Is.EqualTo(1));
+			ClassicAssert.That(modifications.Length, Is.EqualTo(1));
 
 			var mod = modifications[0];
-			Assert.That(mod.FolderName, Is.EqualTo(System.IO.Path.Combine(new string[] {"these", "are", "the", "parent", "folders", "to", "this"})));
-			Assert.That(mod.FileName, Is.EqualTo("file.txt"));
+			ClassicAssert.That(mod.FolderName, Is.EqualTo(System.IO.Path.Combine(new string[] {"these", "are", "the", "parent", "folders", "to", "this"})));
+			ClassicAssert.That(mod.FileName, Is.EqualTo("file.txt"));
 		}
 
 		[Test]
@@ -153,21 +157,21 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol.Mercurial
 			var modifications = hg.Parse(new StringReader(InvalidEmail), DateTime.Now, DateTime.Now);
 
 			var mod = modifications[0];
-			Assert.That(mod.EmailAddress, Is.EqualTo("example"));
-			Assert.That(mod.UserName, Is.EqualTo("example"));
+			ClassicAssert.That(mod.EmailAddress, Is.EqualTo("example"));
+			ClassicAssert.That(mod.UserName, Is.EqualTo("example"));
 		}
 
 		[Test]
 		public void ParsingLotsOfEntries()
 		{
 			Modification[] modifications = hg.Parse(new StringReader(FullLogXml), DateTime.Now, DateTime.Now);
-			Assert.That(modifications.Length, Is.EqualTo(8));
+			ClassicAssert.That(modifications.Length, Is.EqualTo(8));
 		}
 
 		[Test]
 		public void HandleInvalidXml()
 		{
-			Assert.That(delegate { hg.Parse(new StringReader("<foo/><bar/>"), DateTime.Now, DateTime.Now); },
+			ClassicAssert.That(delegate { hg.Parse(new StringReader("<foo/><bar/>"), DateTime.Now, DateTime.Now); },
 			            Throws.TypeOf<CruiseControlException>());
 		}
 

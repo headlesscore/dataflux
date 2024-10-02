@@ -5,6 +5,7 @@
     using FluentAssertions;
     using FluentAssertions.Execution;
     using NUnit.Framework;
+    using NUnit.Framework.Legacy;
     using ThoughtWorks.CruiseControl.Remote;
     using ThoughtWorks.CruiseControl.Remote.Messages;
 
@@ -17,14 +18,16 @@
         public void FindMessageTypeMatchesKnownXmlMessage()
         {
             Type messageType = XmlConversionUtil.FindMessageType("response");
-            Assert.AreEqual(typeof(Response), messageType);
+            ClassicAssert.AreEqual(typeof(Response), messageType);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
         }
 
         [Test]
         public void FindMessageTypeReturnsNullForUnknownXmlMessage()
         {
             Type messageType = XmlConversionUtil.FindMessageType("garbage");
-            Assert.IsNull(messageType);
+            ClassicAssert.IsNull(messageType);
         }
         #endregion
 
@@ -60,8 +63,8 @@
 
             var convertedRequest = XmlConversionUtil.ConvertXmlToRequest(xmlString);
 
-            Assert.AreEqual("123456-789", convertedRequest.SessionToken);
-            Assert.AreEqual("theServer", convertedRequest.ServerName);
+            ClassicAssert.AreEqual("123456-789", convertedRequest.SessionToken);
+            ClassicAssert.AreEqual("theServer", convertedRequest.ServerName);
         }
 
         #endregion

@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Sourcecontrol.BitKeeper;
 
@@ -14,14 +15,15 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol.Bitkeeper
 		{
 			BitKeeperHistoryParser parser = new BitKeeperHistoryParser();
 			Modification[] mods = parser.Parse(new StringReader(BitKeeperTestData.ChangeSetsBitKeeperOutput()), DateTime.Now, DateTime.Now);
-			Assert.AreEqual(2, mods.Length);
+			ClassicAssert.AreEqual(2, mods.Length);
+            ClassicAssert.IsTrue(true);
 
-			// Check specifics of the ChangeSet mod
-			Assert.AreEqual("user@host.(none)", mods[0].UserName);
-			Assert.AreEqual("  Remove file in subdir.", mods[0].Comment);
-			Assert.AreEqual("ChangeSet", mods[0].Type);
-			Assert.AreEqual("ChangeSet", mods[0].FileName);
-			Assert.AreEqual("", mods[0].FolderName);
+            // Check specifics of the ChangeSet mod
+            ClassicAssert.AreEqual("user@host.(none)", mods[0].UserName);
+			ClassicAssert.AreEqual("  Remove file in subdir.", mods[0].Comment);
+			ClassicAssert.AreEqual("ChangeSet", mods[0].Type);
+			ClassicAssert.AreEqual("ChangeSet", mods[0].FileName);
+			ClassicAssert.AreEqual("", mods[0].FolderName);
 		}
 
 		[Test]
@@ -29,14 +31,14 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol.Bitkeeper
 		{
 			BitKeeperHistoryParser parser = new BitKeeperHistoryParser();
 			Modification[] mods = parser.Parse(new StringReader(BitKeeperTestData.RenamedBitKeeperOutput()), DateTime.Now, DateTime.Now);
-			Assert.AreEqual(2, mods.Length);
+			ClassicAssert.AreEqual(2, mods.Length);
 
 			// Check specifics of the Renamed mod
-			Assert.AreEqual("user@host.(none)", mods[1].UserName);
-			Assert.AreEqual("    Rename: asubdir/baz.txt -> asubdir2/bazzz.txt", mods[1].Comment);
-			Assert.AreEqual("Renamed", mods[1].Type);
-			Assert.AreEqual("bazzz.txt", mods[1].FileName);
-			Assert.AreEqual("asubdir2", mods[1].FolderName);
+			ClassicAssert.AreEqual("user@host.(none)", mods[1].UserName);
+			ClassicAssert.AreEqual("    Rename: asubdir/baz.txt -> asubdir2/bazzz.txt", mods[1].Comment);
+			ClassicAssert.AreEqual("Renamed", mods[1].Type);
+			ClassicAssert.AreEqual("bazzz.txt", mods[1].FileName);
+			ClassicAssert.AreEqual("asubdir2", mods[1].FolderName);
 		}
 
 		[Test]
@@ -44,14 +46,14 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol.Bitkeeper
 		{
 			BitKeeperHistoryParser parser = new BitKeeperHistoryParser();
 			Modification[] mods = parser.Parse(new StringReader(BitKeeperTestData.DeletionsBitKeeperOutput()), DateTime.Now, DateTime.Now);
-			Assert.AreEqual(2, mods.Length);
+			ClassicAssert.AreEqual(2, mods.Length);
 
 			// Check specifics of the Deleted mod
-			Assert.AreEqual("user@host.(none)", mods[1].UserName);
-			Assert.AreEqual("    Delete: asubdir/baz.txt", mods[1].Comment);
-			Assert.AreEqual("Deleted", mods[1].Type);
-			Assert.AreEqual("baz.txt", mods[1].FileName);
-			Assert.AreEqual("asubdir", mods[1].FolderName);
+			ClassicAssert.AreEqual("user@host.(none)", mods[1].UserName);
+			ClassicAssert.AreEqual("    Delete: asubdir/baz.txt", mods[1].Comment);
+			ClassicAssert.AreEqual("Deleted", mods[1].Type);
+			ClassicAssert.AreEqual("baz.txt", mods[1].FileName);
+			ClassicAssert.AreEqual("asubdir", mods[1].FolderName);
 		}
 
 		[Test]
@@ -59,14 +61,14 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol.Bitkeeper
 		{
 			BitKeeperHistoryParser parser = new BitKeeperHistoryParser();
 			Modification[] mods = parser.Parse(new StringReader(BitKeeperTestData.AdditionsBitKeeperOutput()), DateTime.Now, DateTime.Now);
-			Assert.AreEqual(2, mods.Length);
+			ClassicAssert.AreEqual(2, mods.Length);
 
 			// Check specifics of the Added mod
-			Assert.AreEqual("user@host.(none)", mods[1].UserName);
-			Assert.AreEqual("    BitKeeper file /var/lib/bk/demo/dev-1.0/asubdir/baz.txt", mods[1].Comment);
-			Assert.AreEqual("Added", mods[1].Type);
-			Assert.AreEqual("baz.txt", mods[1].FileName);
-			Assert.AreEqual("asubdir", mods[1].FolderName);
+			ClassicAssert.AreEqual("user@host.(none)", mods[1].UserName);
+			ClassicAssert.AreEqual("    BitKeeper file /var/lib/bk/demo/dev-1.0/asubdir/baz.txt", mods[1].Comment);
+			ClassicAssert.AreEqual("Added", mods[1].Type);
+			ClassicAssert.AreEqual("baz.txt", mods[1].FileName);
+			ClassicAssert.AreEqual("asubdir", mods[1].FolderName);
 		}
 
 		[Test]
@@ -74,11 +76,11 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol.Bitkeeper
 		{
 			BitKeeperHistoryParser parser = new BitKeeperHistoryParser();
 			Modification[] mods = parser.Parse(new StringReader(BitKeeperTestData.VerboseBitKeeperOutput()), DateTime.Now, DateTime.Now);
-			Assert.AreEqual(21, mods.Length);
+			ClassicAssert.AreEqual(21, mods.Length);
 			foreach (Modification mod in mods)
 			{
-				Assert.AreEqual("user@host.(none)", mod.UserName);
-				Assert.IsNotNull("filename should not be null", mod.FileName);
+				ClassicAssert.AreEqual("user@host.(none)", mod.UserName);
+				ClassicAssert.IsNotNull("filename should not be null", mod.FileName);
 			}
 		}
 
@@ -87,11 +89,11 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol.Bitkeeper
         {
             BitKeeperHistoryParser parser = new BitKeeperHistoryParser();
             Modification[] mods = parser.Parse(new StringReader(BitKeeperTestData.VerboseBitKeeper40Output()), DateTime.Now, DateTime.Now);
-            Assert.AreEqual(10, mods.Length);
+            ClassicAssert.AreEqual(10, mods.Length);
             foreach (Modification mod in mods)
             {
-                Assert.AreEqual("user@host.(none)", mod.UserName);
-                Assert.IsNotNull("filename should not be null", mod.FileName);
+                ClassicAssert.AreEqual("user@host.(none)", mod.UserName);
+                ClassicAssert.IsNotNull("filename should not be null", mod.FileName);
             }
         }
 
@@ -100,12 +102,12 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol.Bitkeeper
 		{
 			BitKeeperHistoryParser parser = new BitKeeperHistoryParser();
 			Modification[] mods = parser.Parse(new StringReader(BitKeeperTestData.NonVerboseBitKeeperOutput()), DateTime.Now, DateTime.Now);
-			Assert.AreEqual(7, mods.Length);
+			ClassicAssert.AreEqual(7, mods.Length);
 			foreach (Modification mod in mods)
 			{
-				Assert.AreEqual("user@host.(none)", mod.UserName);
-				Assert.IsNotNull("filename should not be null", mod.FileName);
-				Assert.AreEqual("ChangeSet", mod.Type);
+				ClassicAssert.AreEqual("user@host.(none)", mod.UserName);
+				ClassicAssert.IsNotNull("filename should not be null", mod.FileName);
+				ClassicAssert.AreEqual("ChangeSet", mod.Type);
 			}
 		}
 

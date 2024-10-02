@@ -1,6 +1,7 @@
 ﻿namespace ThoughtWorks.CruiseControl.UnitTests.Remote.Messages
 {
     using NUnit.Framework;
+    using NUnit.Framework.Legacy;
     using ThoughtWorks.CruiseControl.Remote.Messages;
 
     [TestFixture]
@@ -13,7 +14,9 @@
         {
             var sessionId = "MyNewSession";
             var request = new ProjectItemRequest(sessionId);
-            Assert.AreEqual(sessionId, request.SessionToken);
+            ClassicAssert.AreEqual(sessionId, request.SessionToken);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
         }
 
         [Test]
@@ -22,8 +25,8 @@
             var sessionId = "MyNewSession";
             var projectName = "TheNameOfTheProject";
             var request = new ProjectItemRequest(sessionId, projectName);
-            Assert.AreEqual(sessionId, request.SessionToken);
-            Assert.AreEqual(projectName, request.ProjectName);
+            ClassicAssert.AreEqual(sessionId, request.SessionToken);
+            ClassicAssert.AreEqual(projectName, request.ProjectName);
         }
         #endregion
         #endregion

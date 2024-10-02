@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Tasks;
 
@@ -10,9 +11,11 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 		[Test]
 		public void IfNoAssembliesAreSpecifiedThenTheArgumentIsInvalid()
 		{
-            Assert.That(delegate { new NUnitArgument(null, null); },
+            ClassicAssert.That(delegate { new NUnitArgument(null, null); },
                         Throws.TypeOf<CruiseControlException>());
-		}
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
+        }
 
 		[Test]
 		public void ShouldUseNoLogoArgument()

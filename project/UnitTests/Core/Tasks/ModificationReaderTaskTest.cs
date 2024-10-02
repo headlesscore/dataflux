@@ -1,5 +1,6 @@
 using System;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Tasks;
 using ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol;
@@ -53,12 +54,13 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
             // new integration without modifications, 
             // modifications to be read from the saved file
             result = CreateSuccessful(DateTime.Now.AddHours(1));
-            Assert.AreEqual(0, result.Modifications.Length);
-
+            ClassicAssert.AreEqual(0, result.Modifications.Length);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
             // read the saved modifications into the current integration result
             readerTask.Run(result);
 
-            Assert.AreEqual(2, result.Modifications.Length);
+            ClassicAssert.AreEqual(2, result.Modifications.Length);
 
         }
 
@@ -81,11 +83,11 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
             // new integrationresult that should get the saved mods
             result = CreateSuccessful(DateTime.Now.AddHours(2));
 
-            Assert.AreEqual(0, result.Modifications.Length);
+            ClassicAssert.AreEqual(0, result.Modifications.Length);
 
             readerTask.Run(result);
 
-            Assert.AreEqual(4, result.Modifications.Length);
+            ClassicAssert.AreEqual(4, result.Modifications.Length);
         }
 
 
@@ -100,12 +102,12 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
             // new integration with modifications, 
             // modifications toread from the saved file should be added
             result = CreateSuccessfulWithModifications(DateTime.Now.AddHours(1));
-            Assert.AreEqual(2, result.Modifications.Length);
+            ClassicAssert.AreEqual(2, result.Modifications.Length);
 
             // read the saved modifications into the current integration result
             readerTask.Run(result);
 
-            Assert.AreEqual(4, result.Modifications.Length);
+            ClassicAssert.AreEqual(4, result.Modifications.Length);
 
         }
 

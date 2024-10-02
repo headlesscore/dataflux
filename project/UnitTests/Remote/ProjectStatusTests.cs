@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using System.Xml;
 using System.Xml.Serialization;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Remote;
 using ThoughtWorks.CruiseControl.Remote.Parameters;
 
@@ -21,7 +22,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote
         {
             ProjectStatus activity = new ProjectStatus();
             activity.BuildStage = "testing";
-            Assert.AreEqual("testing", activity.BuildStage);
+            ClassicAssert.AreEqual("testing", activity.BuildStage);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
         }
 
         [Test]
@@ -29,7 +32,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote
         {
             ProjectStatus activity = new ProjectStatus();
             activity.Status = ProjectIntegratorState.Running;
-            Assert.AreEqual(ProjectIntegratorState.Running, activity.Status);
+            ClassicAssert.AreEqual(ProjectIntegratorState.Running, activity.Status);
         }
 
         [Test]
@@ -37,7 +40,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote
         {
             ProjectStatus activity = new ProjectStatus();
             activity.BuildStatus = IntegrationStatus.Cancelled;
-            Assert.AreEqual(IntegrationStatus.Cancelled, activity.BuildStatus);
+            ClassicAssert.AreEqual(IntegrationStatus.Cancelled, activity.BuildStatus);
         }
 
         [Test]
@@ -45,7 +48,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote
         {
             ProjectStatus activity = new ProjectStatus();
             activity.Activity = ProjectActivity.Building;
-            Assert.AreEqual(ProjectActivity.Building, activity.Activity);
+            ClassicAssert.AreEqual(ProjectActivity.Building, activity.Activity);
         }
 
         [Test]
@@ -53,7 +56,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote
         {
             ProjectStatus activity = new ProjectStatus();
             activity.Name = "testing";
-            Assert.AreEqual("testing", activity.Name);
+            ClassicAssert.AreEqual("testing", activity.Name);
         }
 
         [Test]
@@ -61,7 +64,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote
         {
             ProjectStatus activity = new ProjectStatus();
             activity.Category = "testing";
-            Assert.AreEqual("testing", activity.Category);
+            ClassicAssert.AreEqual("testing", activity.Category);
         }
 
         [Test]
@@ -69,7 +72,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote
         {
             ProjectStatus activity = new ProjectStatus();
             activity.WebURL = "testing";
-            Assert.AreEqual("testing", activity.WebURL);
+            ClassicAssert.AreEqual("testing", activity.WebURL);
         }
 
         [Test]
@@ -77,7 +80,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote
         {
             ProjectStatus activity = new ProjectStatus();
             activity.LastBuildLabel = "testing";
-            Assert.AreEqual("testing", activity.LastBuildLabel);
+            ClassicAssert.AreEqual("testing", activity.LastBuildLabel);
         }
 
         [Test]
@@ -85,7 +88,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote
         {
             ProjectStatus activity = new ProjectStatus();
             activity.LastSuccessfulBuildLabel = "testing";
-            Assert.AreEqual("testing", activity.LastSuccessfulBuildLabel);
+            ClassicAssert.AreEqual("testing", activity.LastSuccessfulBuildLabel);
         }
 
         [Test]
@@ -94,7 +97,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote
             DateTime timeNow = DateTime.Now;
             ProjectStatus activity = new ProjectStatus();
             activity.LastBuildDate = timeNow;
-            Assert.AreEqual(timeNow, activity.LastBuildDate);
+            ClassicAssert.AreEqual(timeNow, activity.LastBuildDate);
         }
 
         [Test]
@@ -103,7 +106,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote
             DateTime timeNow = DateTime.Now;
             ProjectStatus activity = new ProjectStatus();
             activity.NextBuildTime = timeNow;
-            Assert.AreEqual(timeNow, activity.NextBuildTime);
+            ClassicAssert.AreEqual(timeNow, activity.NextBuildTime);
         }
 
         [Test]
@@ -118,7 +121,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote
 
             serializer.Serialize(writer, projectStatus, nmsp);
 
-            Assert.AreEqual("<?xml version=\"1.0\" encoding=\"utf-16\"?>" + Environment.NewLine +
+            ClassicAssert.AreEqual("<?xml version=\"1.0\" encoding=\"utf-16\"?>" + Environment.NewLine +
                             "<projectStatus " +
                             "showForceBuildButton=\"true\" " +
                             "showStartStopButton=\"true\" " +
@@ -150,7 +153,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote
 
             serializer.Serialize(writer, projectStatus, nmsp);
 
-            Assert.AreEqual("<?xml version=\"1.0\" encoding=\"utf-16\"?>" + Environment.NewLine +
+            ClassicAssert.AreEqual("<?xml version=\"1.0\" encoding=\"utf-16\"?>" + Environment.NewLine +
                             "<projectStatus " +
                             "showForceBuildButton=\"true\" " +
                             "showStartStopButton=\"true\" " +
@@ -198,7 +201,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote
 
             serializer.Serialize(writer, projectStatus, nmsp);
 
-            Assert.AreEqual("<?xml version=\"1.0\" encoding=\"utf-16\"?>" + Environment.NewLine +
+            ClassicAssert.AreEqual("<?xml version=\"1.0\" encoding=\"utf-16\"?>" + Environment.NewLine +
                             "<projectStatus " +
                             "stage=\"" + buildStage + "\" " +
                             "showForceBuildButton=\"true\" " +
@@ -274,7 +277,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote
 
             serializer.Serialize(writer, projectStatus, nmsp);
 
-            Assert.AreEqual("<?xml version=\"1.0\" encoding=\"utf-16\"?>" + Environment.NewLine +
+            ClassicAssert.AreEqual("<?xml version=\"1.0\" encoding=\"utf-16\"?>" + Environment.NewLine +
                             "<projectStatus " +
                             "stage=\"" + buildStage + "\" " +
                             "showForceBuildButton=\"true\" " +

@@ -6,6 +6,7 @@ using ThoughtWorks.CruiseControl.CCTrayLib.Monitoring;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Remote;
 using ThoughtWorks.CruiseControl.CCTrayLib;
+using NUnit.Framework.Legacy;
 
 namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Monitoring
 {
@@ -26,8 +27,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Monitoring
                 .Returns(client);
 
             var manager = factory.Create(server);
-			Assert.AreEqual(server.Url, manager.Configuration.Url);
-			Assert.AreEqual(typeof (CachingCruiseServerManager), manager.GetType());
+			ClassicAssert.AreEqual(server.Url, manager.Configuration.Url);
+            //ClassicAssert.AreEqual(server.Url, manager.Configuration.Url);
+            ClassicAssert.AreEqual(typeof (CachingCruiseServerManager), manager.GetType());
 
             mocks.VerifyAll();
 		}
@@ -45,8 +47,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Monitoring
                 .Returns(client);
 
             var manager = factory.Create(server);
-			Assert.AreEqual(server.Url, manager.Configuration.Url);
-			Assert.AreEqual(typeof (CachingCruiseServerManager), manager.GetType());
+			ClassicAssert.AreEqual(server.Url, manager.Configuration.Url);
+			ClassicAssert.AreEqual(typeof (CachingCruiseServerManager), manager.GetType());
 
             mocks.VerifyAll();
 		}
@@ -60,7 +62,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Monitoring
             var server = new BuildServer("http://somethingOrOther", BuildServerTransport.Extension,
                                          "Extension.Unknown,Extension", string.Empty);
 
-            Assert.That(delegate { factory.Create(server); }, Throws.TypeOf<CCTrayLibException>());
+            ClassicAssert.That(delegate { factory.Create(server); }, Throws.TypeOf<CCTrayLibException>());
         }
 
         [Test]
@@ -72,7 +74,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Monitoring
             var server = new BuildServer("http://somethingOrOther", BuildServerTransport.Extension, "New Extension", string.Empty);
             server.ExtensionName = null;
 
-            Assert.That(delegate { factory.Create(server); },
+            ClassicAssert.That(delegate { factory.Create(server); },
                         Throws.TypeOf<ArgumentOutOfRangeException>().With.Property("ParamName").EqualTo("name"));
         }
 
@@ -86,7 +88,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Monitoring
                                          "ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Monitoring.CruiseServerManagerFactoryTest,ThoughtWorks.CruiseControl.UnitTests",
                                          string.Empty);
 
-            Assert.That(delegate { factory.Create(server); }, Throws.TypeOf<CCTrayLibException>());
+            ClassicAssert.That(delegate { factory.Create(server); }, Throws.TypeOf<CCTrayLibException>());
         }
 
 	    [Test]
@@ -98,9 +100,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Monitoring
             var server = new BuildServer("http://somethingOrOther", BuildServerTransport.Extension, "ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Monitoring.ExtensionProtocolStub,ThoughtWorks.CruiseControl.UnitTests", "Some settings");
 
             var manager = factory.Create(server);
-            Assert.AreEqual(server.Url, manager.Configuration.Url);
-            Assert.AreEqual(server.ExtensionName, "ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Monitoring.ExtensionProtocolStub,ThoughtWorks.CruiseControl.UnitTests");
-            Assert.AreEqual(server.ExtensionSettings, "Some settings");
+            ClassicAssert.AreEqual(server.Url, manager.Configuration.Url);
+            ClassicAssert.AreEqual(server.ExtensionName, "ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Monitoring.ExtensionProtocolStub,ThoughtWorks.CruiseControl.UnitTests");
+            ClassicAssert.AreEqual(server.ExtensionSettings, "Some settings");
 
             mocks.VerifyAll();
         }

@@ -3,6 +3,7 @@ using System.IO;
 using Exortech.NetReflector;
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Tasks;
 using ThoughtWorks.CruiseControl.Core.Util;
@@ -50,17 +51,19 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
     </rake>";
 
 			NetReflector.Read(xml, builder);
-			Assert.AreEqual(@"C:\", builder.BaseDirectory);
-			Assert.AreEqual("Rakefile", builder.Rakefile);
-			Assert.AreEqual(@"C:\ruby\bin\rake.bat", builder.Executable);
-			Assert.AreEqual(2, builder.Targets.Length);
-			Assert.AreEqual("foo", builder.Targets[0]);
-			Assert.AreEqual("bar", builder.Targets[1]);
-			Assert.AreEqual(123, builder.BuildTimeoutSeconds);
-			Assert.AreEqual(true, builder.Quiet);
-			Assert.AreEqual(true, builder.Silent);
-			Assert.AreEqual(true, builder.Trace);
-		}
+			ClassicAssert.AreEqual(@"C:\", builder.BaseDirectory);
+			ClassicAssert.AreEqual("Rakefile", builder.Rakefile);
+			ClassicAssert.AreEqual(@"C:\ruby\bin\rake.bat", builder.Executable);
+			ClassicAssert.AreEqual(2, builder.Targets.Length);
+			ClassicAssert.AreEqual("foo", builder.Targets[0]);
+			ClassicAssert.AreEqual("bar", builder.Targets[1]);
+			ClassicAssert.AreEqual(123, builder.BuildTimeoutSeconds);
+			ClassicAssert.AreEqual(true, builder.Quiet);
+			ClassicAssert.AreEqual(true, builder.Silent);
+			ClassicAssert.AreEqual(true, builder.Trace);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
+        }
 
 		[Test]
 		public void PopulateFromConfigurationUsingOnlyRequiredElementsAndCheckDefaultValues()
@@ -68,10 +71,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 			const string xml = @"<rake />";
 
 			NetReflector.Read(xml, builder);
-			Assert.AreEqual("", builder.BaseDirectory);
-			Assert.AreEqual(RakeTask.DefaultExecutable, builder.Executable);
-			Assert.AreEqual(0, builder.Targets.Length);
-			Assert.AreEqual(RakeTask.DefaultBuildTimeout, builder.BuildTimeoutSeconds);
+			ClassicAssert.AreEqual("", builder.BaseDirectory);
+			ClassicAssert.AreEqual(RakeTask.DefaultExecutable, builder.Executable);
+			ClassicAssert.AreEqual(0, builder.Targets.Length);
+			ClassicAssert.AreEqual(RakeTask.DefaultBuildTimeout, builder.BuildTimeoutSeconds);
 		}
 
 		[Test]
@@ -81,9 +84,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 			
 			builder.Run(result);
 			
-			Assert.IsTrue(result.Succeeded);
-			Assert.AreEqual(IntegrationStatus.Success, result.Status);
-			Assert.AreEqual(StringUtil.MakeBuildResult(SuccessfulProcessResult().StandardOutput, ""), result.TaskOutput);
+			ClassicAssert.IsTrue(result.Succeeded);
+			ClassicAssert.AreEqual(IntegrationStatus.Success, result.Status);
+			ClassicAssert.AreEqual(StringUtil.MakeBuildResult(SuccessfulProcessResult().StandardOutput, ""), result.TaskOutput);
 		}
 
 		[Test]
@@ -93,9 +96,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 			
 			builder.Run(result);
 			
-			Assert.IsTrue(result.Failed);
-			Assert.AreEqual(IntegrationStatus.Failure, result.Status);
-			Assert.AreEqual(StringUtil.MakeBuildResult(FailedProcessResult().StandardOutput, ""), result.TaskOutput);
+			ClassicAssert.IsTrue(result.Failed);
+			ClassicAssert.AreEqual(IntegrationStatus.Failure, result.Status);
+			ClassicAssert.AreEqual(StringUtil.MakeBuildResult(FailedProcessResult().StandardOutput, ""), result.TaskOutput);
 		}
 
 		[Test]
@@ -104,15 +107,15 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 			ExpectToExecuteAndReturn(TimedOutProcessResult());
 			builder.Run(result);
 
-			Assert.That(result.Status, Is.EqualTo(IntegrationStatus.Failure));
-			Assert.That(result.TaskOutput, Does.Match("Command line '.*' timed out after \\d+ seconds"));
+			ClassicAssert.That(result.Status, Is.EqualTo(IntegrationStatus.Failure));
+			ClassicAssert.That(result.TaskOutput, Does.Match("Command line '.*' timed out after \\d+ seconds"));
 		}
 		
 		[Test]
 		public void ShouldThrowBuilderExceptionIfProcessThrowsException()
 		{
 			ExpectToExecuteAndThrow();
-            Assert.That(delegate { builder.Run(result); },
+            ClassicAssert.That(delegate { builder.Run(result); },
                         Throws.TypeOf<BuilderException>());
 		}
 
@@ -135,13 +138,13 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 			builder.BuildTimeoutSeconds = 222;
 			builder.Run(integrationResult);
 
-			Assert.AreEqual("rake", info.FileName);
-			Assert.AreEqual(222000, info.TimeOut);
-			Assert.AreEqual("myargs", info.Arguments);
-			Assert.AreEqual("1.0", info.EnvironmentVariables["CCNetLabel"]);
-			Assert.AreEqual("ForceBuild", info.EnvironmentVariables["CCNetBuildCondition"]);
-			Assert.AreEqual(DefaultWorkingDirectory, info.EnvironmentVariables["CCNetWorkingDirectory"]);
-			Assert.AreEqual(DefaultWorkingDirectory, info.EnvironmentVariables["CCNetArtifactDirectory"]);
+			ClassicAssert.AreEqual("rake", info.FileName);
+			ClassicAssert.AreEqual(222000, info.TimeOut);
+			ClassicAssert.AreEqual("myargs", info.Arguments);
+			ClassicAssert.AreEqual("1.0", info.EnvironmentVariables["CCNetLabel"]);
+			ClassicAssert.AreEqual("ForceBuild", info.EnvironmentVariables["CCNetBuildCondition"]);
+			ClassicAssert.AreEqual(DefaultWorkingDirectory, info.EnvironmentVariables["CCNetWorkingDirectory"]);
+			ClassicAssert.AreEqual(DefaultWorkingDirectory, info.EnvironmentVariables["CCNetArtifactDirectory"]);
 		}
 
 		[Test]
@@ -193,7 +196,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 			builder.Targets = new string[] { "targeta", "targetb", "targetc" };
 			builder.Run(result);
 			
-			Assert.AreEqual("targeta targetb targetc", info.Arguments);
+			ClassicAssert.AreEqual("targeta targetb targetc", info.Arguments);
 		}
 
 		[Test]
@@ -240,40 +243,40 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 			mockProcessExecutor.Setup(executor => executor.Execute(It.IsAny<ProcessInfo>())).
 				Callback<ProcessInfo>(processInfo => info = processInfo).Returns(SuccessfulProcessResult()).Verifiable();
 			builder.Run(integrationResult);
-			Assert.AreEqual(expectedBaseDirectory, info.WorkingDirectory);
+			ClassicAssert.AreEqual(expectedBaseDirectory, info.WorkingDirectory);
 		}
 
 		[Test]
 		public void ShouldGiveAPresentationValueForTargetsThatIsANewLineSeparatedEquivalentOfAllTargets()
 		{
 			builder.Targets = new string[] { "target1", "target2" };
-			Assert.AreEqual("target1" + Environment.NewLine + "target2", builder.TargetsForPresentation);
+			ClassicAssert.AreEqual("target1" + Environment.NewLine + "target2", builder.TargetsForPresentation);
 		}
 
 		[Test]
 		public void ShouldWorkForSingleTargetWhenSettingThroughPresentationValue()
 		{
 			builder.TargetsForPresentation = "target1";
-			Assert.AreEqual("target1", builder.Targets[0]);
-			Assert.AreEqual(1, builder.Targets.Length);
+			ClassicAssert.AreEqual("target1", builder.Targets[0]);
+			ClassicAssert.AreEqual(1, builder.Targets.Length);
 		}
 
 		[Test]
 		public void ShouldSplitAtNewLineWhenSettingThroughPresentationValue()
 		{
 			builder.TargetsForPresentation = "target1" + Environment.NewLine + "target2";
-			Assert.AreEqual("target1", builder.Targets[0]);
-			Assert.AreEqual("target2", builder.Targets[1]);
-			Assert.AreEqual(2, builder.Targets.Length);
+			ClassicAssert.AreEqual("target1", builder.Targets[0]);
+			ClassicAssert.AreEqual("target2", builder.Targets[1]);
+			ClassicAssert.AreEqual(2, builder.Targets.Length);
 		}
 
 		[Test]
 		public void ShouldWorkForEmptyAndNullStringsWhenSettingThroughPresentationValue()
 		{
 			builder.TargetsForPresentation = "";
-			Assert.AreEqual(0, builder.Targets.Length);
+			ClassicAssert.AreEqual(0, builder.Targets.Length);
 			builder.TargetsForPresentation = null;
-			Assert.AreEqual(0, builder.Targets.Length);
+			ClassicAssert.AreEqual(0, builder.Targets.Length);
 		}
 		
 		[Test]
@@ -284,7 +287,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 				Callback<ProcessInfo>(processInfo => info = processInfo).Returns(SuccessfulProcessResult()).Verifiable();
 			builder.Silent = true;
 			builder.Run(result);
-			Assert.AreEqual("--silent", info.Arguments);
+			ClassicAssert.AreEqual("--silent", info.Arguments);
 		}
 		
 		[Test]
@@ -296,7 +299,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 			builder.Silent = true;
 			builder.Trace = true;
 			builder.Run(result);
-			Assert.AreEqual("--silent --trace", info.Arguments);
+			ClassicAssert.AreEqual("--silent --trace", info.Arguments);
 		}
 		
 		[Test]
@@ -307,7 +310,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 				Callback<ProcessInfo>(processInfo => info = processInfo).Returns(SuccessfulProcessResult()).Verifiable();
 			builder.Quiet = true;
 			builder.Run(result);
-			Assert.AreEqual("--quiet", info.Arguments);
+			ClassicAssert.AreEqual("--quiet", info.Arguments);
 		}
 		
 		[Test]
@@ -319,7 +322,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 			builder.Quiet = true;
 			builder.Trace = true;
 			builder.Run(result);
-			Assert.AreEqual("--quiet --trace", info.Arguments);
+			ClassicAssert.AreEqual("--quiet --trace", info.Arguments);
 		}
 		
 		[Test]
@@ -330,7 +333,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 				Callback<ProcessInfo>(processInfo => info = processInfo).Returns(SuccessfulProcessResult()).Verifiable();
 			builder.Trace = true;
 			builder.Run(result);
-			Assert.AreEqual("--trace", info.Arguments);
+			ClassicAssert.AreEqual("--trace", info.Arguments);
 		}
 		
 		[Test]
@@ -342,7 +345,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 			builder.Silent = true;
 			builder.Quiet = true;
 			builder.Run(result);
-			Assert.AreEqual("--silent", info.Arguments);
+			ClassicAssert.AreEqual("--silent", info.Arguments);
 		}
 		
 		[Test]

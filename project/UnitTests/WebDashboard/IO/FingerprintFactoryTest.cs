@@ -1,6 +1,7 @@
 using System;
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.WebDashboard.IO;
 using ThoughtWorks.CruiseControl.WebDashboard.MVC;
 
@@ -25,19 +26,21 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.IO
             mockRequest.SetupGet(_request => _request.IfModifiedSince).Returns(() => null).Verifiable();
             mockRequest.SetupGet(_request => _request.IfNoneMatch).Returns(() => null).Verifiable();
             ConditionalGetFingerprint fingerprint = new FingerprintFactory(null, null).BuildFromRequest(request);
-            Assert.AreSame(ConditionalGetFingerprint.NOT_AVAILABLE, fingerprint);
+            ClassicAssert.AreSame(ConditionalGetFingerprint.NOT_AVAILABLE, fingerprint);
 
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
 
             mockRequest.SetupGet(_request => _request.IfModifiedSince).Returns(DateTime.Now.ToString("r")).Verifiable();
             mockRequest.SetupGet(_request => _request.IfNoneMatch).Returns(() => null).Verifiable();
             fingerprint = new FingerprintFactory(null, null).BuildFromRequest(request);
-            Assert.AreSame(ConditionalGetFingerprint.NOT_AVAILABLE, fingerprint);
+            ClassicAssert.AreSame(ConditionalGetFingerprint.NOT_AVAILABLE, fingerprint);
 
 
             mockRequest.SetupGet(_request => _request.IfModifiedSince).Returns(() => null).Verifiable();
             mockRequest.SetupGet(_request => _request.IfNoneMatch).Returns("\"opaque value in etag\"").Verifiable();
             fingerprint = new FingerprintFactory(null, null).BuildFromRequest(request);
-            Assert.AreSame(ConditionalGetFingerprint.NOT_AVAILABLE, fingerprint);
+            ClassicAssert.AreSame(ConditionalGetFingerprint.NOT_AVAILABLE, fingerprint);
         }
 
         [Test]
@@ -49,7 +52,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.IO
             mockRequest.SetupGet(_request => _request.IfModifiedSince).Returns(lastModifiedDate.ToString("r")).Verifiable();
             mockRequest.SetupGet(_request => _request.IfNoneMatch).Returns(etagValue).Verifiable();
             ConditionalGetFingerprint fingerprint = new FingerprintFactory(null, null).BuildFromRequest(request);
-            Assert.AreEqual(new ConditionalGetFingerprint(lastModifiedDate, etagValue), fingerprint);
+            ClassicAssert.AreEqual(new ConditionalGetFingerprint(lastModifiedDate, etagValue), fingerprint);
         }
 
         [Test]
@@ -62,7 +65,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.IO
             mockRequest.SetupGet(_request => _request.IfModifiedSince).Returns(lastModifiedDate.ToString()).Verifiable();
             mockRequest.SetupGet(_request => _request.IfNoneMatch).Returns(etagValue).Verifiable();
             ConditionalGetFingerprint fingerprint = new FingerprintFactory(null, null).BuildFromRequest(request);
-            Assert.AreNotEqual(new ConditionalGetFingerprint(lastModifiedDate, etagValue), fingerprint);
+            ClassicAssert.AreNotEqual(new ConditionalGetFingerprint(lastModifiedDate, etagValue), fingerprint);
         }
 
         [Test]
@@ -78,7 +81,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.IO
                 
 
             string expectedETag = "\"" + testETag + "\"";
-            Assert.AreEqual(expectedETag, testConditionalGetFingerprint.ETag);
+            ClassicAssert.AreEqual(expectedETag, testConditionalGetFingerprint.ETag);
         }
     }
 }

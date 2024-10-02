@@ -1,6 +1,7 @@
 using System.IO;	
 using Exortech.NetReflector;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Tasks;
 using ThoughtWorks.CruiseControl.Core.Util;
@@ -68,25 +69,27 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
     </gendarme>";
 
 			NetReflector.Read(xml, task);
-			Assert.AreEqual("gendarme.exe", task.Executable);
-			Assert.AreEqual(@"C:\", task.ConfiguredBaseDirectory);
-			Assert.AreEqual("rules.xml", task.ConfigFile);
-			Assert.AreEqual("*", task.RuleSet);
-			Assert.AreEqual(@"C:\gendarme.ignore.list.txt", task.IgnoreFile);
-			Assert.AreEqual(200, task.Limit);
-			Assert.AreEqual("medium+", task.Severity);
-			Assert.AreEqual("normal+", task.Confidence);
-			Assert.AreEqual(false, task.Quiet);
-			Assert.AreEqual(true, task.Verbose);
-			Assert.AreEqual(true, task.FailBuildOnFoundDefects);
-			Assert.AreEqual(600, task.VerifyTimeoutSeconds);
-			Assert.AreEqual("Test description", task.Description);
+			ClassicAssert.AreEqual("gendarme.exe", task.Executable);
+			ClassicAssert.AreEqual(@"C:\", task.ConfiguredBaseDirectory);
+			ClassicAssert.AreEqual("rules.xml", task.ConfigFile);
+			ClassicAssert.AreEqual("*", task.RuleSet);
+			ClassicAssert.AreEqual(@"C:\gendarme.ignore.list.txt", task.IgnoreFile);
+			ClassicAssert.AreEqual(200, task.Limit);
+			ClassicAssert.AreEqual("medium+", task.Severity);
+			ClassicAssert.AreEqual("normal+", task.Confidence);
+			ClassicAssert.AreEqual(false, task.Quiet);
+			ClassicAssert.AreEqual(true, task.Verbose);
+			ClassicAssert.AreEqual(true, task.FailBuildOnFoundDefects);
+			ClassicAssert.AreEqual(600, task.VerifyTimeoutSeconds);
+			ClassicAssert.AreEqual("Test description", task.Description);
 
-			Assert.AreEqual(2, task.Assemblies.Length);
-			Assert.AreEqual("*.dll", task.Assemblies[0].Expression);
-			Assert.AreEqual("*.exe", task.Assemblies[1].Expression);
-			Assert.AreEqual(@"C:\gendarme.assembly.list.txt", task.AssemblyListFile);
-		}
+			ClassicAssert.AreEqual(2, task.Assemblies.Length);
+			ClassicAssert.AreEqual("*.dll", task.Assemblies[0].Expression);
+			ClassicAssert.AreEqual("*.exe", task.Assemblies[1].Expression);
+			ClassicAssert.AreEqual(@"C:\gendarme.assembly.list.txt", task.AssemblyListFile);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
+        }
 
 		[Test]
 		public void PopulateFromConfigurationUsingOnlyRequiredElementsAndCheckDefaultValues()
@@ -94,21 +97,21 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 			const string xml = @"<gendarme />";
 
 			NetReflector.Read(xml, task);
-			Assert.AreEqual(GendarmeTask.defaultExecutable, task.Executable);
-			Assert.AreEqual(string.Empty, task.ConfiguredBaseDirectory);
-			Assert.AreEqual(string.Empty, task.ConfigFile);
-			Assert.AreEqual(string.Empty, task.RuleSet);
-			Assert.AreEqual(string.Empty, task.IgnoreFile);
-			Assert.AreEqual(GendarmeTask.defaultLimit, task.Limit);
-			Assert.AreEqual(string.Empty, task.Severity);
-			Assert.AreEqual(string.Empty, task.Confidence);
-			Assert.AreEqual(GendarmeTask.defaultQuiet, task.Quiet);
-			Assert.AreEqual(GendarmeTask.defaultVerbose, task.Verbose);
-			Assert.AreEqual(GendarmeTask.defaultFailBuildOnFoundDefects, task.FailBuildOnFoundDefects);
-			Assert.AreEqual(GendarmeTask.defaultVerifyTimeout, task.VerifyTimeoutSeconds);
-			Assert.AreEqual(null, task.Description);
-			Assert.AreEqual(0, task.Assemblies.Length);
-			Assert.AreEqual(string.Empty, task.AssemblyListFile);
+			ClassicAssert.AreEqual(GendarmeTask.defaultExecutable, task.Executable);
+			ClassicAssert.AreEqual(string.Empty, task.ConfiguredBaseDirectory);
+			ClassicAssert.AreEqual(string.Empty, task.ConfigFile);
+			ClassicAssert.AreEqual(string.Empty, task.RuleSet);
+			ClassicAssert.AreEqual(string.Empty, task.IgnoreFile);
+			ClassicAssert.AreEqual(GendarmeTask.defaultLimit, task.Limit);
+			ClassicAssert.AreEqual(string.Empty, task.Severity);
+			ClassicAssert.AreEqual(string.Empty, task.Confidence);
+			ClassicAssert.AreEqual(GendarmeTask.defaultQuiet, task.Quiet);
+			ClassicAssert.AreEqual(GendarmeTask.defaultVerbose, task.Verbose);
+			ClassicAssert.AreEqual(GendarmeTask.defaultFailBuildOnFoundDefects, task.FailBuildOnFoundDefects);
+			ClassicAssert.AreEqual(GendarmeTask.defaultVerifyTimeout, task.VerifyTimeoutSeconds);
+			ClassicAssert.AreEqual(null, task.Description);
+			ClassicAssert.AreEqual(0, task.Assemblies.Length);
+			ClassicAssert.AreEqual(string.Empty, task.AssemblyListFile);
 		}
 
 		[Test]
@@ -135,7 +138,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 		public void ShouldThrowConfigurationExceptionIfAssemblyListNotSet()
 		{
 			//DO NOT SET: AddDefaultAssemblyToCheck(task);
-            Assert.That(delegate { task.Run(result); },
+            ClassicAssert.That(delegate { task.Run(result); },
                         Throws.TypeOf<ThoughtWorks.CruiseControl.Core.Config.ConfigurationException>());
 		}
 
@@ -144,7 +147,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 		{
 			AddDefaultAssemblyToCheck(task);
 			ExpectToExecuteAndThrow();
-            Assert.That(delegate { task.Run(result); },
+            ClassicAssert.That(delegate { task.Run(result); },
                         Throws.TypeOf<BuilderException>());
 		}
 
@@ -194,8 +197,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 			ExpectToExecuteAndReturn(TimedOutProcessResult());
 			task.Run(result);
 
-			Assert.That(result.Status, Is.EqualTo(IntegrationStatus.Failure));
-			Assert.That(result.TaskOutput, Does.Match("Command line '.*' timed out after \\d+ seconds"));
+			ClassicAssert.That(result.Status, Is.EqualTo(IntegrationStatus.Failure));
+			ClassicAssert.That(result.TaskOutput, Does.Match("Command line '.*' timed out after \\d+ seconds"));
 		}
 
 		[Test]
@@ -205,9 +208,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 			TempFileUtil.CreateTempXmlFile(logfile, "<output/>");
 			ExpectToExecuteAndReturn(SuccessfulProcessResult());
 			task.Run(result);
-			Assert.AreEqual(1, result.TaskResults.Count);
-		    Assert.That(result.TaskOutput, Is.Empty);
-			Assert.IsTrue(result.Succeeded);
+			ClassicAssert.AreEqual(1, result.TaskResults.Count);
+		    ClassicAssert.That(result.TaskOutput, Is.Empty);
+			ClassicAssert.IsTrue(result.Succeeded);
 		}
 
 		[Test]
@@ -217,9 +220,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 			TempFileUtil.CreateTempXmlFile(logfile, "<output/>");
 			ExpectToExecuteAndReturn(FailedProcessResult());
 			task.Run(result);
-			Assert.AreEqual(1, result.TaskResults.Count);
-		    Assert.That(result.TaskOutput, Is.EqualTo(ProcessResultOutput));
-			Assert.IsTrue(result.Failed);
+			ClassicAssert.AreEqual(1, result.TaskResults.Count);
+		    ClassicAssert.That(result.TaskOutput, Is.EqualTo(ProcessResultOutput));
+			ClassicAssert.IsTrue(result.Failed);
 		}
 	}
 }

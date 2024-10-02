@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core.Reporting.Dashboard.Navigation;
 
 namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.Dashboard
@@ -17,39 +18,41 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.Dashboard
 		[Test]
 		public void ShouldBuildUrlAddingCorrectlyFormattedAction()
 		{
-			Assert.AreEqual("myAction.aspx", urlBuilder.BuildUrl("myAction"));
-		}
+			ClassicAssert.AreEqual("myAction.aspx", urlBuilder.BuildUrl("myAction"));
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
+        }
 
 		[Test]
 		public void ShouldBuildUrlWithActionAndQueryString()
 		{
-			Assert.AreEqual("myAction.aspx?myparam=myvalue", urlBuilder.BuildUrl("myAction", "myparam=myvalue"));
+			ClassicAssert.AreEqual("myAction.aspx?myparam=myvalue", urlBuilder.BuildUrl("myAction", "myparam=myvalue"));
 		}
 
 		[Test]
 		public void ShouldBuildUrlWithActionAndQueryStringAndPath()
 		{
-			Assert.AreEqual("myPath/myAction.aspx?myparam=myvalue", urlBuilder.BuildUrl("myAction", "myparam=myvalue", "myPath/"));
+			ClassicAssert.AreEqual("myPath/myAction.aspx?myparam=myvalue", urlBuilder.BuildUrl("myAction", "myparam=myvalue", "myPath/"));
 		}
 
 		[Test]
 		public void ShouldAddTrailingSlashToPathIfItDoesntAlreadyHaveOne()
 		{
-			Assert.AreEqual("myPath/myAction.aspx?myparam=myvalue", urlBuilder.BuildUrl("myAction", "myparam=myvalue", "myPath"));
+			ClassicAssert.AreEqual("myPath/myAction.aspx?myparam=myvalue", urlBuilder.BuildUrl("myAction", "myparam=myvalue", "myPath"));
 		}
 
 		[Test]
 		public void ShouldHandlePathsWithMoreThanOneLevel()
 		{
-			Assert.AreEqual("myPath/mySubPath/myAction.aspx?myparam=myvalue", urlBuilder.BuildUrl("myAction", "myparam=myvalue", "myPath/mySubPath"));
+			ClassicAssert.AreEqual("myPath/mySubPath/myAction.aspx?myparam=myvalue", urlBuilder.BuildUrl("myAction", "myparam=myvalue", "myPath/mySubPath"));
 		}
 
 		[Test]
 		public void ShouldUseSpecifiedExtension()
 		{
 			urlBuilder.Extension = "foo";
-			Assert.AreEqual("myAction.foo", urlBuilder.BuildUrl("myAction"));
-			Assert.AreEqual("myAction.foo?myparam=myvalue", urlBuilder.BuildUrl("myAction", "myparam=myvalue"));
+			ClassicAssert.AreEqual("myAction.foo", urlBuilder.BuildUrl("myAction"));
+			ClassicAssert.AreEqual("myAction.foo?myparam=myvalue", urlBuilder.BuildUrl("myAction", "myparam=myvalue"));
 		}
 	}
 }

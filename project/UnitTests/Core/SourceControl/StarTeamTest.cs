@@ -2,6 +2,7 @@ using System;
 using System.Globalization;
 using Exortech.NetReflector;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core.Sourcecontrol;
 using ThoughtWorks.CruiseControl.Core.Util;
 
@@ -40,29 +41,31 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 			string expectedExecutable = @"..\tools\starteam\stcmd.exe";
 			string expectedArgs = "hist -nologo -x -is -filter IO -p \"Admin:admin@10.1.1.64:49201/.NET LAB/CC.NET/starteam-ccnet\" \"*\"";
 
-			Assert.IsNotNull(actual);
-			Assert.AreEqual(expectedExecutable, actual.FileName);
-			Assert.AreEqual(expectedArgs, actual.Arguments);
-		}		
+			ClassicAssert.IsNotNull(actual);
+			ClassicAssert.AreEqual(expectedExecutable, actual.FileName);
+			ClassicAssert.AreEqual(expectedArgs, actual.Arguments);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
+        }		
 		
 		[Test]
 		public void VerifyFormatOfGetSourceProcessArguments()
 		{				
 			string args = starteam.GetSourceProcessArgs();			
-			Assert.AreEqual("co -nologo -ts -x -is -q -f NCO -p \"Admin:admin@10.1.1.64:49201/.NET LAB/CC.NET/starteam-ccnet\" \"*\"", args);
+			ClassicAssert.AreEqual("co -nologo -ts -x -is -q -f NCO -p \"Admin:admin@10.1.1.64:49201/.NET LAB/CC.NET/starteam-ccnet\" \"*\"", args);
 		}
 		
 		[Test]
 		public void VerifyValuesSetByNetReflector()
 		{			
-			Assert.AreEqual(@"..\tools\starteam\stcmd.exe", starteam.Executable);
-			Assert.AreEqual("Admin", starteam.Username);
-			Assert.AreEqual("admin", starteam.Password);
-			Assert.AreEqual("10.1.1.64", starteam.Host);
-			Assert.AreEqual(49201, starteam.Port);
-			Assert.AreEqual(".NET LAB", starteam.Project);
-			Assert.AreEqual("CC.NET/starteam-ccnet", starteam.Path);
-			Assert.AreEqual(true, starteam.AutoGetSource);
+			ClassicAssert.AreEqual(@"..\tools\starteam\stcmd.exe", starteam.Executable);
+			ClassicAssert.AreEqual("Admin", starteam.Username);
+			ClassicAssert.AreEqual("admin", starteam.Password);
+			ClassicAssert.AreEqual("10.1.1.64", starteam.Host);
+			ClassicAssert.AreEqual(49201, starteam.Port);
+			ClassicAssert.AreEqual(".NET LAB", starteam.Project);
+			ClassicAssert.AreEqual("CC.NET/starteam-ccnet", starteam.Path);
+			ClassicAssert.AreEqual(true, starteam.AutoGetSource);
 		}
 
 		[Test]
@@ -72,36 +75,36 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 			DateTime date = new DateTime(2002, 2, 22, 20, 0, 0);
 			string expected = "2/22/2002 8:00:00 PM";
 			string actual = starteam.FormatCommandDate(date);
-			Assert.AreEqual(expected, actual);
+			ClassicAssert.AreEqual(expected, actual);
 
 			date = new DateTime(2002, 2, 22, 12, 0, 0);
 			expected = "2/22/2002 12:00:00 PM";
 			actual = starteam.FormatCommandDate(date);
-			Assert.AreEqual(expected, actual);
+			ClassicAssert.AreEqual(expected, actual);
 		}
 
 		[Test]
 		public void VerifyDefaultExecutable()
 		{
-			Assert.AreEqual("stcmd.exe", new StarTeam().Executable);
+			ClassicAssert.AreEqual("stcmd.exe", new StarTeam().Executable);
 		}
 
 		[Test]
 		public void VerifyDefaultHost()
 		{
-			Assert.AreEqual("127.0.0.1", new StarTeam().Host);
+			ClassicAssert.AreEqual("127.0.0.1", new StarTeam().Host);
 		}
 
 		[Test]
 		public void VerifyDefaultPort()
 		{
-			Assert.AreEqual(49201, new StarTeam().Port);
+			ClassicAssert.AreEqual(49201, new StarTeam().Port);
 		}
 
 		[Test]
 		public void VerifyDefaultPath()
 		{
-			Assert.AreEqual(String.Empty, new StarTeam().Path);
+			ClassicAssert.AreEqual(String.Empty, new StarTeam().Path);
 		}
 		
 		private StarTeam CreateStarTeam()

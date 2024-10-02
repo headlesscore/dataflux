@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Sourcecontrol;
 
@@ -24,8 +25,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 		public void VerifyAllModificationsAreParsedSuccessfully()
 		{
 			Modification[] actual = parser.Parse(SurroundHistoryParserTest.ContentReader, OLDEST_ENTRY, NEWEST_ENTRY);
-			Assert.AreEqual(8, actual.Length);
-			AssertEqualArrays(ExpectedModifications(), actual);
+			ClassicAssert.AreEqual(8, actual.Length);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
+            AssertEqualArrays(ExpectedModifications(), actual);
 		}
 
 		public static String SampleSscmCCOutput

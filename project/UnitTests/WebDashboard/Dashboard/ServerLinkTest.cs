@@ -1,5 +1,6 @@
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core.Reporting.Dashboard.Navigation;
 using ThoughtWorks.CruiseControl.WebDashboard.Dashboard;
 
@@ -31,15 +32,17 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.Dashboard
 		[Test]
 		public void ShouldReturnGivenDescription()
 		{
-			Assert.AreEqual(description, serverLink.Text);
-			VerifyAll();
+			ClassicAssert.AreEqual(description, serverLink.Text);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
+            VerifyAll();
 		}
 
 		[Test]
 		public void ShouldReturnCalculatedAbsoluteUrl()
 		{
 			urlBuilderMock.Setup(builder => builder.BuildServerUrl(action, serverSpecifier)).Returns("my absolute url").Verifiable();
-			Assert.AreEqual("my absolute url", serverLink.Url);
+			ClassicAssert.AreEqual("my absolute url", serverLink.Url);
 			VerifyAll();
 		}
 	}

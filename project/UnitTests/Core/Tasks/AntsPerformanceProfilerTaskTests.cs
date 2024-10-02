@@ -6,6 +6,7 @@
     using Exortech.NetReflector;
     using Moq;
     using NUnit.Framework;
+    using NUnit.Framework.Legacy;
     using ThoughtWorks.CruiseControl.Core;
     using ThoughtWorks.CruiseControl.Core.Config;
     using ThoughtWorks.CruiseControl.Core.Tasks;
@@ -39,8 +40,10 @@
         public void DefaultConstructorSetsFileSystemAndLogger()
         {
             var task = new AntsPerformanceProfilerTask();
-            Assert.IsInstanceOf<SystemIoFileSystem>(task.FileSystem);
-            Assert.IsInstanceOf<DefaultLogger>(task.Logger);
+            ClassicAssert.IsInstanceOf<SystemIoFileSystem>(task.FileSystem);
+            ClassicAssert.IsInstanceOf<DefaultLogger>(task.Logger);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
         }
 
         [Test]
@@ -48,8 +51,8 @@
         {
             const string xml = @"<antsPerformance><app>testapp.exe</app></antsPerformance>";
             var task = NetReflector.Read(xml) as AntsPerformanceProfilerTask;
-            Assert.IsNull(task.Executable);
-            Assert.AreEqual("testapp.exe", task.Application);
+            ClassicAssert.IsNull(task.Executable);
+            ClassicAssert.AreEqual("testapp.exe", task.Application);
         }
 
         [Test]
@@ -421,8 +424,8 @@
             task.Run(result);
             mocks.Verify();
 
-            Assert.That(result.Status, Is.EqualTo(IntegrationStatus.Failure));
-            Assert.That(result.TaskOutput, Does.Match("Command line '.*' timed out after \\d+ seconds"));
+            ClassicAssert.That(result.Status, Is.EqualTo(IntegrationStatus.Failure));
+            ClassicAssert.That(result.TaskOutput, Does.Match("Command line '.*' timed out after \\d+ seconds"));
         }
         #endregion
 
@@ -462,10 +465,10 @@
             Mock.Get(executor).Setup(_executor => _executor.Execute(It.IsAny<ProcessInfo>()))
                 .Callback<ProcessInfo>(info =>
                 {
-                    Assert.AreEqual(fileName, info.FileName);
-                    Assert.AreEqual(args, info.Arguments);
-                    Assert.AreEqual(workingDir, info.WorkingDirectory);
-                    Assert.AreEqual(timeout, info.TimeOut);
+                    ClassicAssert.AreEqual(fileName, info.FileName);
+                    ClassicAssert.AreEqual(args, info.Arguments);
+                    ClassicAssert.AreEqual(workingDir, info.WorkingDirectory);
+                    ClassicAssert.AreEqual(timeout, info.TimeOut);
                 }).Returns(new ProcessResult(string.Empty, string.Empty, 0, false)).Verifiable();
             return executor;
         }

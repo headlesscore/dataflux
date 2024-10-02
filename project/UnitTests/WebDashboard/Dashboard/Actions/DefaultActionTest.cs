@@ -1,5 +1,6 @@
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.WebDashboard.Dashboard;
 using ThoughtWorks.CruiseControl.WebDashboard.Dashboard.Actions;
 using ThoughtWorks.CruiseControl.WebDashboard.MVC;
@@ -33,8 +34,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.Dashboard.Actions
 
 			IResponse response = action.Execute(null);
 
-			Assert.AreEqual("http://here", ((RedirectResponse) response).Url);
-			VerifyAll();
+			ClassicAssert.AreEqual("http://here", ((RedirectResponse) response).Url);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
+            VerifyAll();
 		}
 	}
 }

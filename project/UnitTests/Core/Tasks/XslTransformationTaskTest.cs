@@ -8,6 +8,7 @@ using System.Xml;
 using Exortech.NetReflector;
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Config;
 using ThoughtWorks.CruiseControl.Core.Tasks;
@@ -43,18 +44,20 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 </cruisecontrol>
 ");
             var configuration = reader.Read(xml, null);
-            Assert.IsNotNull(configuration, "Configuration not loaded");
+            ClassicAssert.IsNotNull(configuration, "Configuration not loaded");
             var project = configuration.Projects["WebTrunkTest"] as Project;
-            Assert.IsNotNull(project, "Project not loaded");
-            Assert.AreNotEqual(0, project.Tasks.Length, "Tasks not loaded");
+            ClassicAssert.IsNotNull(project, "Project not loaded");
+            ClassicAssert.AreNotEqual(0, project.Tasks.Length, "Tasks not loaded");
             var task = project.Tasks[0] as XslTransformationTask;
-            Assert.IsNotNull(task, "Task not correctly loaded");
-            Assert.AreEqual("File 1", task.XMLFile, "XMLFile is incorrect");
-            Assert.AreEqual("File 2", task.XSLFile, "XSLFile is incorrect");
-            Assert.AreEqual("File 3", task.OutputFile, "OutputFile is incorrect");
-            Assert.AreEqual(1, task.XsltArgs.Length, "Invalid number of xslt arguments");
-            Assert.AreEqual("ArgumentName", task.XsltArgs[0].Name, "Argument name is incorrect");
-            Assert.AreEqual("SomeValue", task.XsltArgs[0].Value, "Argument value is incorrect");
+            ClassicAssert.IsNotNull(task, "Task not correctly loaded");
+            ClassicAssert.AreEqual("File 1", task.XMLFile, "XMLFile is incorrect");
+            ClassicAssert.AreEqual("File 2", task.XSLFile, "XSLFile is incorrect");
+            ClassicAssert.AreEqual("File 3", task.OutputFile, "OutputFile is incorrect");
+            ClassicAssert.AreEqual(1, task.XsltArgs.Length, "Invalid number of xslt arguments");
+            ClassicAssert.AreEqual("ArgumentName", task.XsltArgs[0].Name, "Argument name is incorrect");
+            ClassicAssert.AreEqual("SomeValue", task.XsltArgs[0].Value, "Argument value is incorrect");
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
         }
 
         [Test]

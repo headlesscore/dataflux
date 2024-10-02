@@ -1,6 +1,7 @@
 using System;
 using Exortech.NetReflector;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Label;
 using ThoughtWorks.CruiseControl.UnitTests.Core;
@@ -14,9 +15,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Label
         public void VerifyDefaultValues()
         {
             FileLabeller labeller = new FileLabeller(new TestFileReader("001")); 
-            Assert.AreEqual(string.Empty, labeller.Prefix);
-            Assert.AreEqual(string.Empty, labeller.LabelFilePath);
-            Assert.AreEqual(true, labeller.AllowDuplicateSubsequentLabels);
+            ClassicAssert.AreEqual(string.Empty, labeller.Prefix);
+            ClassicAssert.AreEqual(string.Empty, labeller.LabelFilePath);
+            ClassicAssert.AreEqual(true, labeller.AllowDuplicateSubsequentLabels);
         }
 
         [Test]
@@ -25,9 +26,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Label
             FileLabeller labeller = new FileLabeller(new TestFileReader("001"));
             string xml = @"<fileLabeller prefix=""foo"" labelFilePath=""label.txt"" allowDuplicateSubsequentLabels=""false"" />";
             NetReflector.Read(xml, labeller);
-            Assert.AreEqual("foo", labeller.Prefix);
-            Assert.AreEqual("label.txt", labeller.LabelFilePath);
-            Assert.AreEqual(false, labeller.AllowDuplicateSubsequentLabels);
+            ClassicAssert.AreEqual("foo", labeller.Prefix);
+            ClassicAssert.AreEqual("foo", labeller.Prefix);
+            ClassicAssert.AreEqual("label.txt", labeller.LabelFilePath);
+            ClassicAssert.AreEqual(false, labeller.AllowDuplicateSubsequentLabels);
         }
 
         [Test]
@@ -36,9 +38,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Label
             FileLabeller labeller = new FileLabeller(new TestFileReader("001"));
             string xml = @"<fileLabeller labelFilePath=""label.txt"" />";
             NetReflector.Read(xml, labeller);
-            Assert.AreEqual("", labeller.Prefix);
-            Assert.AreEqual("label.txt", labeller.LabelFilePath);
-            Assert.AreEqual(true, labeller.AllowDuplicateSubsequentLabels);
+            ClassicAssert.AreEqual("", labeller.Prefix);
+            ClassicAssert.AreEqual("label.txt", labeller.LabelFilePath);
+            ClassicAssert.AreEqual(true, labeller.AllowDuplicateSubsequentLabels);
         }
 
         [Test]
@@ -46,7 +48,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Label
         {
             FileLabeller labeller = new FileLabeller(new TestFileReader("001"));
             string xml = @"<fileLabeller prefix=""foo"" allowDuplicateSubsequentLabels=""false"" />";
-            Assert.That(delegate { NetReflector.Read(xml, labeller); },
+            ClassicAssert.That(delegate { NetReflector.Read(xml, labeller); },
                         Throws.TypeOf<NetReflectorException>());
         }
 
@@ -56,7 +58,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Label
             FileLabeller labeller = new FileLabeller(new TestFileReader("001"));
             labeller.Prefix = "V0-";
             string label = labeller.Generate(InitialIntegrationResult());
-            Assert.AreEqual("V0-001", label);
+            ClassicAssert.AreEqual("V0-001", label);
         }
 
         [Test]
@@ -65,7 +67,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Label
             FileLabeller labeller = new FileLabeller(new TestFileReader("001"));
             labeller.AllowDuplicateSubsequentLabels = false;
             string label = labeller.Generate(InitialIntegrationResult());
-            Assert.AreEqual("001", label);
+            ClassicAssert.AreEqual("001", label);
         }
 
         [Test]
@@ -74,7 +76,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Label
             FileLabeller labeller = new FileLabeller(new TestFileReader("001"));
             string firstLabel = labeller.Generate(InitialIntegrationResult());
             string secondLabel = labeller.Generate(SuccessfulResult(firstLabel));
-            Assert.AreEqual("001", secondLabel);
+            ClassicAssert.AreEqual("001", secondLabel);
         }
 
         [Test]
@@ -85,10 +87,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Label
             string firstLabel = labeller.Generate(InitialIntegrationResult());
             IntegrationResult integrationResult = SuccessfulResult(firstLabel);
             string secondLabel = labeller.Generate(integrationResult);
-            Assert.AreEqual("001-1", secondLabel);
+            ClassicAssert.AreEqual("001-1", secondLabel);
             IntegrationResult integrationResult2 = SuccessfulResult(secondLabel);
             string thirdLabel = labeller.Generate(integrationResult2);
-            Assert.AreEqual("001-2", thirdLabel);
+            ClassicAssert.AreEqual("001-2", thirdLabel);
         }
 
         [Test]
@@ -96,7 +98,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Label
         {
             FileLabeller labeller = new FileLabeller(new TestFileReader("\r\n\t 001 \t\r\n"));
             string label = labeller.Generate(InitialIntegrationResult());
-            Assert.AreEqual("001", label);
+            ClassicAssert.AreEqual("001", label);
             
         }
         
@@ -105,7 +107,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Label
         {
             FileLabeller labeller = new FileLabeller(new TestFileReader("001 \r\n\t 002 \t\r\n 003"));
             string label = labeller.Generate(InitialIntegrationResult());
-            Assert.AreEqual("001     002     003", label);
+            ClassicAssert.AreEqual("001     002     003", label);
 
         }
 

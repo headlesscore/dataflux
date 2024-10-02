@@ -5,10 +5,11 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol.Mercurial
 	using System;
 	using ThoughtWorks.CruiseControl.Core;
 	using ThoughtWorks.CruiseControl.Core.Sourcecontrol.Mercurial;
+    using NUnit.Framework.Legacy;
 
-	/// <summary>
-	/// Test fixture for the <see cref="MercurialModification"/> class.
-	/// </summary>
+    /// <summary>
+    /// Test fixture for the <see cref="MercurialModification"/> class.
+    /// </summary>
 	[TestFixture]
 	public class MercurialModificationTest
 	{
@@ -31,14 +32,15 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol.Mercurial
 
 			var ccnetMod = (Modification) hgMod;
 
-			Assert.That(ccnetMod.ChangeNumber, Is.EqualTo(hgMod.ChangeNumber.ToString()));
-			Assert.That(ccnetMod.Comment, Is.EqualTo(hgMod.Comment));
-			Assert.That(ccnetMod.EmailAddress, Is.EqualTo(hgMod.EmailAddress));
-			Assert.That(ccnetMod.FileName, Is.EqualTo(hgMod.FileName));
-			Assert.That(ccnetMod.FolderName, Is.EqualTo(hgMod.FolderName));
-			Assert.That(ccnetMod.ModifiedTime, Is.EqualTo(hgMod.ModifiedTime));
-			Assert.That(ccnetMod.UserName, Is.EqualTo(hgMod.UserName));
-			Assert.That(ccnetMod.Version, Is.EqualTo(hgMod.Version));
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.That(ccnetMod.ChangeNumber, Is.EqualTo(hgMod.ChangeNumber.ToString()));
+			ClassicAssert.That(ccnetMod.Comment, Is.EqualTo(hgMod.Comment));
+			ClassicAssert.That(ccnetMod.EmailAddress, Is.EqualTo(hgMod.EmailAddress));
+			ClassicAssert.That(ccnetMod.FileName, Is.EqualTo(hgMod.FileName));
+			ClassicAssert.That(ccnetMod.FolderName, Is.EqualTo(hgMod.FolderName));
+			ClassicAssert.That(ccnetMod.ModifiedTime, Is.EqualTo(hgMod.ModifiedTime));
+			ClassicAssert.That(ccnetMod.UserName, Is.EqualTo(hgMod.UserName));
+			ClassicAssert.That(ccnetMod.Version, Is.EqualTo(hgMod.Version));
 		}
 
 		#endregion

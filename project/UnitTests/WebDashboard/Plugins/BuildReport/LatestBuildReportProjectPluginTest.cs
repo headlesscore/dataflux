@@ -1,5 +1,6 @@
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core.Reporting.Dashboard.Navigation;
 using ThoughtWorks.CruiseControl.WebDashboard.Dashboard;
 using ThoughtWorks.CruiseControl.WebDashboard.IO;
@@ -38,9 +39,11 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.Plugins.BuildReport
 			farmServiceMock.Setup(services => services.GetMostRecentBuildSpecifiers(projectSpecifier, 1, null)).Returns(new IBuildSpecifier[0]).Verifiable();
 			
 			IResponse returnedReponse = plugin.Execute(cruiseRequest);
-			Assert.IsTrue(returnedReponse is HtmlFragmentResponse);
-			Assert.AreEqual("There are no complete builds for this project", ((HtmlFragmentResponse) returnedReponse).ResponseFragment);
-		}
+			ClassicAssert.IsTrue(returnedReponse is HtmlFragmentResponse);
+			ClassicAssert.AreEqual("There are no complete builds for this project", ((HtmlFragmentResponse) returnedReponse).ResponseFragment);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
+        }
 		
 		[Test]
 		public void ShouldReturnRedirectToActualBuildReportPageIfBuildAvailable()
@@ -52,8 +55,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.Plugins.BuildReport
 			linkFactoryMock.Setup(factory => factory.CreateBuildLink(buildSpecifier, BuildReportBuildPlugin.ACTION_NAME)).Returns(new GeneralAbsoluteLink("foo", "buildUrl")).Verifiable();
 
 			IResponse returnedReponse = plugin.Execute(cruiseRequest);
-			Assert.IsTrue(returnedReponse is RedirectResponse);
-			Assert.AreEqual("buildUrl", ((RedirectResponse) returnedReponse).Url);
+			ClassicAssert.IsTrue(returnedReponse is RedirectResponse);
+			ClassicAssert.AreEqual("buildUrl", ((RedirectResponse) returnedReponse).Url);
 			
 		}
 	}

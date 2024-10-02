@@ -1,5 +1,6 @@
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core.Reporting.Dashboard.Navigation;
 
 namespace ThoughtWorks.CruiseControl.UnitTests.Core.Reporting.Dashboard.Navigation
@@ -21,11 +22,11 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Reporting.Dashboard.Navigati
 			decoratedBuilderMock.Setup(builder => builder.BuildUrl(actionName, "query", "myPath/")).Returns("myPath/myRelativeUrl3").Verifiable();
 
 			/// Execute & Verify
-			Assert.AreEqual(baseUrl + "/myRelativeUrl", decorator.BuildUrl(actionName));
-			Assert.AreEqual(baseUrl + "/myRelativeUrl2", decorator.BuildUrl(actionName, "query"));
-			Assert.AreEqual(baseUrl + "/myPath/myRelativeUrl3", decorator.BuildUrl(actionName, "query", "myPath/"));
-
-			decoratedBuilderMock.Verify();
+			ClassicAssert.AreEqual(baseUrl + "/myRelativeUrl", decorator.BuildUrl(actionName));
+			ClassicAssert.AreEqual(baseUrl + "/myRelativeUrl2", decorator.BuildUrl(actionName, "query"));
+			ClassicAssert.AreEqual(baseUrl + "/myPath/myRelativeUrl3", decorator.BuildUrl(actionName, "query", "myPath/"));
+            ClassicAssert.IsTrue(true);
+            decoratedBuilderMock.Verify();
 		}
 
 		[Test]
@@ -40,7 +41,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Reporting.Dashboard.Navigati
 			decoratedBuilderMock.Setup(builder => builder.BuildUrl(actionName)).Returns("myRelativeUrl").Verifiable();
 
 			/// Execute & Verify
-			Assert.AreEqual(baseUrl + "myRelativeUrl", decorator.BuildUrl(actionName));
+			ClassicAssert.AreEqual(baseUrl + "myRelativeUrl", decorator.BuildUrl(actionName));
 
 			decoratedBuilderMock.Verify();
 		}

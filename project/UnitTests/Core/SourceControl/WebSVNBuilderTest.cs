@@ -1,6 +1,7 @@
 using System;
 using Exortech.NetReflector;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Sourcecontrol;
 
@@ -29,8 +30,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 		{
 			WebSVNUrlBuilder svnurl = CreateBuilder();
 			
-			Assert.AreEqual( URL, svnurl.Url );
-		}
+			ClassicAssert.AreEqual( URL, svnurl.Url );
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
+        }
 
 		[Test]
 		public void CheckSetup()
@@ -50,8 +53,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 			string url0 = String.Format( URL, "/trunk/nant.bat", 3 );
 			string url1 = String.Format( URL, "/trunk/MiniACE.Test/AssemblyInfo.cs", 2 );
 
-			Assert.AreEqual( url0, mods[0].Url );
-			Assert.AreEqual( url1, mods[1].Url );
+			ClassicAssert.AreEqual( url0, mods[0].Url );
+			ClassicAssert.AreEqual( url1, mods[1].Url );
 		}
 	}
 }

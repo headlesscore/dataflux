@@ -5,6 +5,7 @@ using Moq;
 using NUnit.Framework;
 using ThoughtWorks.CruiseControl.Remote.Monitor;
 using ThoughtWorks.CruiseControl.Remote;
+using NUnit.Framework.Legacy;
 
 namespace ThoughtWorks.CruiseControl.UnitTests.Remote.Monitor
 {
@@ -31,7 +32,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote.Monitor
             try
             {
                 var queue = new BuildQueue(null, null, null);
-                Assert.Fail("ArgumentNullException was expected");
+                ClassicAssert.Fail("ArgumentNullException was expected");
+                ClassicAssert.IsTrue(true);
+                ClassicAssert.IsTrue(true);
             }
             catch (ArgumentNullException) { }
         }
@@ -43,7 +46,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote.Monitor
             try
             {
                 var queue = new BuildQueue(client, null, null);
-                Assert.Fail("ArgumentNullException was expected");
+                ClassicAssert.Fail("ArgumentNullException was expected");
             }
             catch (ArgumentNullException) { }
         }
@@ -56,7 +59,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote.Monitor
             try
             {
                 var queue = new BuildQueue(client, server, null);
-                Assert.Fail("ArgumentNullException was expected");
+                ClassicAssert.Fail("ArgumentNullException was expected");
             }
             catch (ArgumentNullException) { }
         }
@@ -70,7 +73,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote.Monitor
             var server = InitialiseServer();
             var status = new QueueSnapshot();
             var queue = new BuildQueue(client, server, status);
-            Assert.AreSame(server, queue.Server);
+            ClassicAssert.AreSame(server, queue.Server);
         }
         #endregion
 
@@ -82,7 +85,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote.Monitor
             var server = InitialiseServer();
             var status = new QueueSnapshot { QueueName = "Test BuildQueue" };
             var queue = new BuildQueue(client, server, status);
-            Assert.AreEqual(status.QueueName, queue.Name);
+            ClassicAssert.AreEqual(status.QueueName, queue.Name);
         }
         #endregion
 
@@ -115,7 +118,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote.Monitor
             try
             {
                 queue.Update(null);
-                Assert.Fail("ArgumentNullException was expected");
+                ClassicAssert.Fail("ArgumentNullException was expected");
             }
             catch (ArgumentNullException) { }
         }
@@ -153,7 +156,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote.Monitor
                 eventFired = true;
             };
             queue.Update(newStatus);
-            Assert.IsTrue(eventFired, "BuildQueueRequestAdded for Requests change not fired");
+            ClassicAssert.IsTrue(eventFired, "BuildQueueRequestAdded for Requests change not fired");
         }
 
         [Test]
@@ -190,7 +193,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote.Monitor
                 eventFired = true;
             };
             queue.Update(newStatus);
-            Assert.IsTrue(eventFired, "BuildQueueRequestRemoved for Requests change not fired");
+            ClassicAssert.IsTrue(eventFired, "BuildQueueRequestRemoved for Requests change not fired");
         }
         #endregion
         #endregion

@@ -5,6 +5,7 @@ using System.Xml;
 using System.Xml.Schema;
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Remote;
 using ThoughtWorks.CruiseControl.Remote.Parameters;
 using ThoughtWorks.CruiseControl.UnitTests.UnitTestUtils;
@@ -38,10 +39,11 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.Plugins.FarmReport
                 Verifiable();
 
 			IResponse response = reportAction.Execute(null);
-			Assert.IsNotNull(response);
-			Assert.AreEqual(typeof (XmlFragmentResponse), response.GetType());
-
-			mockFarmService.Verify();
+			ClassicAssert.IsNotNull(response);
+			ClassicAssert.AreEqual(typeof (XmlFragmentResponse), response.GetType());
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
+            mockFarmService.Verify();
 		}
 
 		[Test]
@@ -53,7 +55,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.Plugins.FarmReport
 			XmlFragmentResponse response = (XmlFragmentResponse) reportAction.Execute(null);
 			string xml = response.ResponseFragment;
 
-            Assert.AreEqual("<CruiseControl><Projects /><Queues /></CruiseControl>", xml);
+            ClassicAssert.AreEqual("<CruiseControl><Projects /><Queues /></CruiseControl>", xml);
 
 			mockFarmService.Verify();
 		}

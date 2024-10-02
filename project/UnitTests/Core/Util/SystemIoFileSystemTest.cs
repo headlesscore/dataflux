@@ -3,6 +3,7 @@ using System.IO;
 using NUnit.Framework;
 using ThoughtWorks.CruiseControl.Core.Util;
 using System;
+using NUnit.Framework.Legacy;
 
 namespace ThoughtWorks.CruiseControl.UnitTests.Core.Util
 {
@@ -33,7 +34,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Util
         {
             SystemPath file1 = tempRoot.CreateEmptyFile("File1");
             new SystemIoFileSystem().Copy(file1.ToString(), tempSubRoot.ToString());
-            Assert.IsTrue(tempSubRoot.Combine("File1").Exists());
+            ClassicAssert.IsTrue(tempSubRoot.Combine("File1").Exists());
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
         }
 
         [Test]
@@ -42,7 +45,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Util
             SystemPath sourceFile = tempRoot.CreateEmptyFile("File1");
             SystemPath targetFile = tempSubRoot.Combine("File2");
             new SystemIoFileSystem().Copy(sourceFile.ToString(), targetFile.ToString());
-            Assert.IsTrue(targetFile.Exists());
+            ClassicAssert.IsTrue(targetFile.Exists());
         }
 
         [Test]
@@ -51,7 +54,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Util
             SystemPath sourceFile = tempRoot.CreateEmptyFile("File1");
             SystemPath targetFile = tempSubRoot.CreateEmptyFile("File2");
             new SystemIoFileSystem().Copy(sourceFile.ToString(), targetFile.ToString());
-            Assert.IsTrue(targetFile.Exists());
+            ClassicAssert.IsTrue(targetFile.Exists());
         }
 
         [Test]
@@ -62,7 +65,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Util
             File.SetAttributes(targetFile.ToString(), FileAttributes.ReadOnly);
             new SystemIoFileSystem().Copy(sourceFile.ToString(), targetFile.ToString());
 
-            Assert.IsTrue(targetFile.Exists());
+            ClassicAssert.IsTrue(targetFile.Exists());
         }
 
         [Test]
@@ -72,20 +75,20 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Util
             tempSubRoot.CreateEmptyFile("File2");
             new SystemIoFileSystem().Copy(tempRoot.ToString(), tempOtherRoot.ToString());
 
-            Assert.IsTrue(tempOtherRoot.Combine("File1").Exists());
-            Assert.IsTrue(tempOtherRoot.Combine("subrepo").Combine("File2").Exists());
+            ClassicAssert.IsTrue(tempOtherRoot.Combine("File1").Exists());
+            ClassicAssert.IsTrue(tempOtherRoot.Combine("subrepo").Combine("File2").Exists());
         }
 
         [Test]
         public void ShouldSaveToFile()
         {
             SystemPath tempFile = tempRoot.Combine("foo.txt");
-            Assert.IsFalse(tempFile.Exists());
+            ClassicAssert.IsFalse(tempFile.Exists());
             new SystemIoFileSystem().Save(tempFile.ToString(), "bar");
-            Assert.IsTrue(tempFile.Exists());
+            ClassicAssert.IsTrue(tempFile.Exists());
             using (StreamReader reader = File.OpenText(tempFile.ToString()))
             {
-                Assert.AreEqual("bar", reader.ReadToEnd());
+                ClassicAssert.AreEqual("bar", reader.ReadToEnd());
             }
         }
 
@@ -93,12 +96,12 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Util
         public void ShouldSaveUnicodeToFile()
         {
             SystemPath tempFile = tempRoot.Combine("foo.txt");
-            Assert.IsFalse(tempFile.Exists());
+            ClassicAssert.IsFalse(tempFile.Exists());
             new SystemIoFileSystem().Save(tempFile.ToString(), "hi there? håkan! \u307b");
-            Assert.IsTrue(tempFile.Exists());
+            ClassicAssert.IsTrue(tempFile.Exists());
             using (StreamReader reader = File.OpenText(tempFile.ToString()))
             {
-                Assert.AreEqual("hi there? håkan! \u307b", reader.ReadToEnd());
+                ClassicAssert.AreEqual("hi there? håkan! \u307b", reader.ReadToEnd());
             }
         }
 
@@ -106,18 +109,18 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Util
         public void ShouldSaveToFileAtomically()
         {
             SystemPath tempFile = tempRoot.Combine("foo.txt");
-            Assert.IsFalse(tempFile.Exists());
+            ClassicAssert.IsFalse(tempFile.Exists());
             new SystemIoFileSystem().AtomicSave(tempFile.ToString(), "bar");
-            Assert.IsTrue(tempFile.Exists());
+            ClassicAssert.IsTrue(tempFile.Exists());
             using (StreamReader reader = File.OpenText(tempFile.ToString()))
             {
-                Assert.AreEqual("bar", reader.ReadToEnd());
+                ClassicAssert.AreEqual("bar", reader.ReadToEnd());
             }
             new SystemIoFileSystem().AtomicSave(tempFile.ToString(), "baz");
-            Assert.IsTrue(tempFile.Exists());
+            ClassicAssert.IsTrue(tempFile.Exists());
             using (StreamReader reader = File.OpenText(tempFile.ToString()))
             {
-                Assert.AreEqual("baz", reader.ReadToEnd());
+                ClassicAssert.AreEqual("baz", reader.ReadToEnd());
             }
         }
 
@@ -125,18 +128,18 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Util
         public void ShouldSaveUnicodeToFileAtomically()
         {
             SystemPath tempFile = tempRoot.Combine("foo.txt");
-            Assert.IsFalse(tempFile.Exists());
+            ClassicAssert.IsFalse(tempFile.Exists());
             new SystemIoFileSystem().AtomicSave(tempFile.ToString(), "hi there? håkan! \u307b");
-            Assert.IsTrue(tempFile.Exists());
+            ClassicAssert.IsTrue(tempFile.Exists());
             using (StreamReader reader = File.OpenText(tempFile.ToString()))
             {
-                Assert.AreEqual("hi there? håkan! \u307b", reader.ReadToEnd());
+                ClassicAssert.AreEqual("hi there? håkan! \u307b", reader.ReadToEnd());
             }
             new SystemIoFileSystem().AtomicSave(tempFile.ToString(), "hi there? håkan! \u307b sadfasdf");
-            Assert.IsTrue(tempFile.Exists());
+            ClassicAssert.IsTrue(tempFile.Exists());
             using (StreamReader reader = File.OpenText(tempFile.ToString()))
             {
-                Assert.AreEqual("hi there? håkan! \u307b sadfasdf", reader.ReadToEnd());
+                ClassicAssert.AreEqual("hi there? håkan! \u307b sadfasdf", reader.ReadToEnd());
             }
         }
 
@@ -144,7 +147,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Util
         public void LoadReadsFileContentCorrectly()
         {
             SystemPath tempFile = tempRoot.CreateTextFile("foo.txt", "bar");
-            Assert.AreEqual("bar", new SystemIoFileSystem().Load(tempFile.ToString()).ReadToEnd());
+            ClassicAssert.AreEqual("bar", new SystemIoFileSystem().Load(tempFile.ToString()).ReadToEnd());
         }
 
         [Test]

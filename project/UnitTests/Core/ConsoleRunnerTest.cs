@@ -40,8 +40,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
 			
 			// FIXME: should we care for the usage text and the logging implementation?
 			// If yes read it from the embedded resource
-			//Assert.AreEqual(1, listener.Traces.Count);
-			//Assert.IsTrue(listener.Traces[0].ToString().IndexOf(ConsoleRunnerArguments.Usage) > 0, "Wrong message was logged.");
+			//ClassicAssert.AreEqual(1, listener.Traces.Count);
+			//ClassicAssert.IsTrue(listener.Traces[0].ToString().IndexOf(ConsoleRunnerArguments.Usage) > 0, "Wrong message was logged.");
 
 			mockCruiseServerFactory.Verify();
 			mockCruiseServerFactory.VerifyNoOtherCalls();

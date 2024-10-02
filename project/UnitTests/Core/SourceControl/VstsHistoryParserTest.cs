@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Sourcecontrol;
 
@@ -514,7 +515,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
         public void ParsingEmptyLogProducesNoModifications()
         {
             Modification[] modifications = vsts.Parse(new StringReader(emptyLog), oldestEntry, newestEntry);
-            Assert.AreEqual(0, modifications.Length);
+            ClassicAssert.AreEqual(0, modifications.Length);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
         }
 
         [Test]
@@ -522,7 +525,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
         {
             Modification[] modifications = vsts.Parse(new StringReader(oneEntry), oldestEntry, newestEntry);
 
-            Assert.AreEqual(1, modifications.Length);
+            ClassicAssert.AreEqual(1, modifications.Length);
 
             Modification expected = modifications[0];
             expected.Type = "delete";
@@ -533,7 +536,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
             expected.UserName = "s.user";
             expected.Comment = "Delete unused directory";
 
-            Assert.AreEqual(expected, modifications[0]);
+            ClassicAssert.AreEqual(expected, modifications[0]);
         }
 
         [Test]
@@ -541,7 +544,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
         {
             Modification[] modifications = vsts.Parse(new StringReader(fullLog), oldestEntry, newestEntry);
 
-            Assert.AreEqual(59, modifications.Length);
+            ClassicAssert.AreEqual(59, modifications.Length);
 
             Modification mbrMod1 = new Modification();
             mbrMod1.Type = "edit";
@@ -552,7 +555,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
             mbrMod1.UserName = "s.user";
             mbrMod1.Comment = "Fix GDI leak";
 
-            Assert.AreEqual(mbrMod1, modifications[0]);
+            ClassicAssert.AreEqual(mbrMod1, modifications[0]);
 
             mbrMod1.Type = "delete";
             mbrMod1.FileName = "characterMapTests.cpp";
@@ -562,35 +565,35 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
             mbrMod1.UserName = "s.otheruser";
             mbrMod1.Comment = "Cleanup tests a little";
 
-            Assert.AreEqual(mbrMod1, modifications[1]);                   
+            ClassicAssert.AreEqual(mbrMod1, modifications[1]);                   
         }
 
         [Test]
         public void TwoEntriesOutsideOfRequestedTimeRangeAreIgnored()
         {
             Modification[] modifications = vsts.Parse(new StringReader(fullLogWithTooOld), oldestEntry, newestEntry);
-            Assert.AreEqual(57, modifications.Length);
+            ClassicAssert.AreEqual(57, modifications.Length);
         }
        
         [Test]
         public void ParseModificationWithAddAction()
         {
             Modification[] mods = vsts.Parse(new StringReader(singleAddLog), oldestEntry, newestEntry);
-            Assert.AreEqual("add", mods[0].Type);
+            ClassicAssert.AreEqual("add", mods[0].Type);
         }
 
         [Test]
         public void ParseModificationWithEditAction()
         {
             Modification[] mods = vsts.Parse(new StringReader(singleEditLog), oldestEntry, newestEntry);
-            Assert.AreEqual("edit", mods[0].Type);
+            ClassicAssert.AreEqual("edit", mods[0].Type);
         }
 
         [Test]
         public void ParseModificationWithDeleteAction()
         {
             Modification[] mods = vsts.Parse(new StringReader(singleRemoveLog), oldestEntry, newestEntry);
-            Assert.AreEqual("delete", mods[0].Type);
+            ClassicAssert.AreEqual("delete", mods[0].Type);
         }
 
         private DateTime CreateDate(string dateString)

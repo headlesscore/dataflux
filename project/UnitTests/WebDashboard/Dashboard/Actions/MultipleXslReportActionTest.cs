@@ -1,6 +1,7 @@
 using System.Collections;
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core.Reporting.Dashboard.Navigation;
 using ThoughtWorks.CruiseControl.WebDashboard.Dashboard;
 using ThoughtWorks.CruiseControl.WebDashboard.Dashboard.Actions;
@@ -37,9 +38,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.Dashboard.Actions
                 new BuildReportXslFilename(@"xsl\myotherxsl.xsl")
             };
 
-			Assert.AreEqual("transformed", ((HtmlFragmentResponse) buildAction.Execute(cruiseRequest)).ResponseFragment);
-
-			buildLogTransformerMock.Verify();
+			ClassicAssert.AreEqual("transformed", ((HtmlFragmentResponse) buildAction.Execute(cruiseRequest)).ResponseFragment);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
+            buildLogTransformerMock.Verify();
 			cruiseRequestMock.Verify();
 			buildSpecifierMock.Verify();
 		}

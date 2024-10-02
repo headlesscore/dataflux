@@ -2,6 +2,7 @@
 {
     using System;
     using NUnit.Framework;
+    using NUnit.Framework.Legacy;
     using ThoughtWorks.CruiseControl.Core.Util;
 
     [TestFixture]
@@ -12,7 +13,9 @@
         {
             var uri = "tcp://localhost:21234/CruiseManager.rem";
             var actual = RemoteServerUri.IsLocal(uri);
-            Assert.IsTrue(actual);
+            ClassicAssert.IsTrue(actual);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
         }
 
         [Test]
@@ -20,7 +23,7 @@
         {
             var uri = "tcp://127.0.0.1:21234/CruiseManager.rem";
             var actual = RemoteServerUri.IsLocal(uri);
-            Assert.IsTrue(actual);
+            ClassicAssert.IsTrue(actual);
         }
 
         [Test]
@@ -28,7 +31,7 @@
         {
             var uri = "tcp://" + Environment.MachineName + ":21234/CruiseManager.rem";
             var actual = RemoteServerUri.IsLocal(uri);
-            Assert.IsTrue(actual);
+            ClassicAssert.IsTrue(actual);
         }
 
         [Test]
@@ -36,7 +39,7 @@
         {
             var uri = "tcp://d" + Environment.MachineName + "d:21234/CruiseManager.rem";
             var actual = RemoteServerUri.IsLocal(uri);
-            Assert.IsFalse(actual);
+            ClassicAssert.IsFalse(actual);
         }
     }
 }

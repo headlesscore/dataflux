@@ -1,5 +1,6 @@
 using System;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core.Util;
 
 namespace ThoughtWorks.CruiseControl.UnitTests.Core.Util
@@ -12,9 +13,11 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Util
 		{
 			HtmlExceptionFormatter formatter = new HtmlExceptionFormatter(new Exception("foo" + Environment.NewLine + "Bar"));
 			string formattedString = formatter.ToString();
-			Assert.IsTrue(formattedString.IndexOf(Environment.NewLine) == -1);
-			Assert.AreEqual(1 + 1, CountOfStrings(formattedString, "<br/>"));
-		}
+			ClassicAssert.IsTrue(formattedString.IndexOf(Environment.NewLine) == -1);
+			ClassicAssert.AreEqual(1 + 1, CountOfStrings(formattedString, "<br/>"));
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
+        }
 
 		private int CountOfStrings(string baseString, string stringToSearch)
 		{

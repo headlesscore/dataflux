@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.IO;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Tasks;
 using ThoughtWorks.CruiseControl.Remote;
@@ -30,7 +31,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
             laterModification.ModifiedTime = new DateTime(1);
 
             result.Modifications = new Modification[] { earlierModification, laterModification };
-            Assert.AreEqual(laterModification.ModifiedTime, result.LastModificationDate);
+            ClassicAssert.AreEqual(laterModification.ModifiedTime, result.LastModificationDate);
         }
 
         [Test]
@@ -38,7 +39,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
         {
             // Project relies on this behavior, but is it really what we want?
             DateTime yesterday = DateTime.Now.AddDays(-1).Date;
-            Assert.AreEqual(yesterday, result.LastModificationDate.Date);
+            ClassicAssert.AreEqual(yesterday, result.LastModificationDate.Date);
         }
 
         [Test]
@@ -49,22 +50,23 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
 
             IntegrationResult initial = IntegrationResult.CreateInitialIntegrationResult("project", workingDir, artifactDir);
 
-            Assert.AreEqual("project", initial.ProjectName);
-            Assert.AreEqual(IntegrationStatus.Unknown, initial.LastIntegrationStatus, "last integration status is unknown because no previous integrations exist.");
-            Assert.AreEqual(IntegrationStatus.Unknown, initial.Status, "status should be unknown as integration has not run yet.");
-            Assert.AreEqual(DateTime.Now.AddDays(-1).Day, initial.StartTime.Day, "assume start date is yesterday in order to detect some modifications.");
-            Assert.AreEqual(DateTime.Now.Day, initial.EndTime.Day, "assume end date is today in order to detect some modifications.");
-            Assert.AreEqual(workingDir, initial.WorkingDirectory);
-            Assert.AreEqual(artifactDir, initial.ArtifactDirectory);
-            Assert.AreEqual(IntegrationResult.InitialLabel, initial.Label);
+            ClassicAssert.AreEqual("project", initial.ProjectName);
+            ClassicAssert.AreEqual(IntegrationStatus.Unknown, initial.LastIntegrationStatus, "last integration status is unknown because no previous integrations exist.");
+            ClassicAssert.AreEqual(IntegrationStatus.Unknown, initial.Status, "status should be unknown as integration has not run yet.");
+            ClassicAssert.AreEqual(DateTime.Now.AddDays(-1).Day, initial.StartTime.Day, "assume start date is yesterday in order to detect some modifications.");
+            ClassicAssert.AreEqual(DateTime.Now.Day, initial.EndTime.Day, "assume end date is today in order to detect some modifications.");
+            ClassicAssert.AreEqual(workingDir, initial.WorkingDirectory);
+            ClassicAssert.AreEqual(artifactDir, initial.ArtifactDirectory);
+            ClassicAssert.AreEqual(IntegrationResult.InitialLabel, initial.Label);
+            ClassicAssert.AreEqual(IntegrationResult.InitialLabel, initial.Label);
 
-            Assert.IsTrue(initial.IsInitial());
+            ClassicAssert.IsTrue(initial.IsInitial());
         }
 
         [Test]
         public void ShouldReturnNullAsLastChangeNumberIfNoModifications()
         {
-            Assert.AreEqual(null, result.LastChangeNumber);
+            ClassicAssert.AreEqual(null, result.LastChangeNumber);
         }
 
         [Test]
@@ -83,18 +85,18 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
             };
 
             result.Modifications = new Modification[] { mod1 };
-            Assert.AreEqual("10", result.LastChangeNumber);
+            ClassicAssert.AreEqual("10", result.LastChangeNumber);
             result.Modifications = new Modification[] { mod1, mod2 };
-            Assert.AreEqual("20", result.LastChangeNumber);
+            ClassicAssert.AreEqual("20", result.LastChangeNumber);
             result.Modifications = new Modification[] { mod2, mod1 };
-            Assert.AreEqual("20", result.LastChangeNumber);
+            ClassicAssert.AreEqual("20", result.LastChangeNumber);
         }
 
         [Test]
         public void ShouldNotRunBuildIfThereAreNoModifications()
         {
             result.Modifications = new Modification[0];
-            Assert.IsFalse(result.ShouldRunBuild());
+            ClassicAssert.IsFalse(result.ShouldRunBuild());
         }
 
         [Test]
@@ -102,14 +104,14 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
         {
             Modification modification = ModificationMother.CreateModification("foo", DateTime.Now.AddSeconds(-2));
             result.Modifications = new Modification[] { modification };
-            Assert.IsTrue(result.ShouldRunBuild());
+            ClassicAssert.IsTrue(result.ShouldRunBuild());
         }
 
         [Test]
         public void ShouldRunBuildIfInForcedCondition()
         {
             result.BuildCondition = BuildCondition.ForceBuild;
-            Assert.IsTrue(result.ShouldRunBuild());
+            ClassicAssert.IsTrue(result.ShouldRunBuild());
         }
 
         [Test]
@@ -117,7 +119,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
         {
             result.AddTaskResult("<foo/>");
             result.AddTaskResult("<bar/>");
-            Assert.AreEqual("<foo/><bar/>", result.TaskOutput);
+            ClassicAssert.AreEqual("<foo/><bar/>", result.TaskOutput);
         }
 
         [Test]
@@ -126,7 +128,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
             string artifactDir = Path.GetFullPath(Path.Combine(".", "artifacts"));
 
             result.ArtifactDirectory = artifactDir;
-            Assert.AreEqual(Path.Combine(artifactDir, "hello.bat"), result.BaseFromArtifactsDirectory("hello.bat"));
+            ClassicAssert.AreEqual(Path.Combine(artifactDir, "hello.bat"), result.BaseFromArtifactsDirectory("hello.bat"));
         }
 
         [Test]
@@ -135,7 +137,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
             string artifactDir = Path.GetFullPath(Path.Combine(".", "artifacts"));
 
             result.ArtifactDirectory = artifactDir;
-            Assert.AreEqual(Path.Combine(artifactDir, "hello.bat"), result.BaseFromArtifactsDirectory(Path.Combine(artifactDir, "hello.bat")));
+            ClassicAssert.AreEqual(Path.Combine(artifactDir, "hello.bat"), result.BaseFromArtifactsDirectory(Path.Combine(artifactDir, "hello.bat")));
         }
 
         [Test]
@@ -144,7 +146,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
             string workingDir = Path.GetFullPath(Path.Combine(".", "workingdir"));
 
             result.WorkingDirectory = workingDir;
-            Assert.AreEqual(Path.Combine(workingDir, "hello.bat"), result.BaseFromWorkingDirectory("hello.bat"));
+            ClassicAssert.AreEqual(Path.Combine(workingDir, "hello.bat"), result.BaseFromWorkingDirectory("hello.bat"));
         }
 
         [Test]
@@ -153,14 +155,14 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
             string workingDir = Path.GetFullPath(Path.Combine(".", "workingdir"));
 
             result.WorkingDirectory = workingDir;
-            Assert.AreEqual(Path.Combine(workingDir, "hello.bat"), result.BaseFromWorkingDirectory(Path.Combine(workingDir, "hello.bat")));
+            ClassicAssert.AreEqual(Path.Combine(workingDir, "hello.bat"), result.BaseFromWorkingDirectory(Path.Combine(workingDir, "hello.bat")));
         }
 
         [Test]
         public void ShouldSucceedIfContainsOnlySuccessfulTaskResults()
         {
             result.AddTaskResult(new ProcessTaskResult(ProcessResultFixture.CreateSuccessfulResult()));
-            Assert.IsTrue(result.Succeeded);
+            ClassicAssert.IsTrue(result.Succeeded);
         }
 
         [Test]
@@ -168,7 +170,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
         {
             result.AddTaskResult(new ProcessTaskResult(ProcessResultFixture.CreateNonZeroExitCodeResult()));
             result.AddTaskResult(new ProcessTaskResult(ProcessResultFixture.CreateSuccessfulResult()));
-            Assert.IsTrue(result.Failed);
+            ClassicAssert.IsTrue(result.Failed);
         }
 
         [Test]
@@ -176,7 +178,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
         {
             result.ExceptionResult = new Exception("build blew up");
             result.AddTaskResult(new ProcessTaskResult(ProcessResultFixture.CreateSuccessfulResult()));
-            Assert.AreEqual(IntegrationStatus.Exception, result.Status);
+            ClassicAssert.AreEqual(IntegrationStatus.Exception, result.Status);
         }
 
         [Test]
@@ -200,35 +202,35 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
 
             result.Modifications = new Modification[] { mods };
 
-            Assert.AreEqual(18, result.IntegrationProperties.Count);
-            Assert.AreEqual("project", result.IntegrationProperties[IntegrationPropertyNames.CCNetProject]);
-            Assert.AreEqual("http://localhost/ccnet2", result.IntegrationProperties[IntegrationPropertyNames.CCNetProjectUrl]);
-            Assert.AreEqual("label23", result.IntegrationProperties[IntegrationPropertyNames.CCNetLabel]);
-            Assert.AreEqual(23, result.IntegrationProperties[IntegrationPropertyNames.CCNetNumericLabel]);
-            Assert.AreEqual(artifactDir, result.IntegrationProperties[IntegrationPropertyNames.CCNetArtifactDirectory]);
-            Assert.AreEqual(workingDir, result.IntegrationProperties[IntegrationPropertyNames.CCNetWorkingDirectory]);
+            ClassicAssert.AreEqual(18, result.IntegrationProperties.Count);
+            ClassicAssert.AreEqual("project", result.IntegrationProperties[IntegrationPropertyNames.CCNetProject]);
+            ClassicAssert.AreEqual("http://localhost/ccnet2", result.IntegrationProperties[IntegrationPropertyNames.CCNetProjectUrl]);
+            ClassicAssert.AreEqual("label23", result.IntegrationProperties[IntegrationPropertyNames.CCNetLabel]);
+            ClassicAssert.AreEqual(23, result.IntegrationProperties[IntegrationPropertyNames.CCNetNumericLabel]);
+            ClassicAssert.AreEqual(artifactDir, result.IntegrationProperties[IntegrationPropertyNames.CCNetArtifactDirectory]);
+            ClassicAssert.AreEqual(workingDir, result.IntegrationProperties[IntegrationPropertyNames.CCNetWorkingDirectory]);
             // We purposefully use culture-independent string formats
-            Assert.AreEqual("2005-06-06", result.IntegrationProperties[IntegrationPropertyNames.CCNetBuildDate]);
-            Assert.AreEqual(IntegrationResultMother.DefaultBuildId, result.IntegrationProperties[IntegrationPropertyNames.CCNetBuildId]);
-            Assert.AreEqual("08:45:00", result.IntegrationProperties[IntegrationPropertyNames.CCNetBuildTime]);
-            Assert.AreEqual(BuildCondition.IfModificationExists, result.IntegrationProperties[IntegrationPropertyNames.CCNetBuildCondition]);
-            Assert.AreEqual(IntegrationStatus.Unknown, result.IntegrationProperties[IntegrationPropertyNames.CCNetIntegrationStatus]);
-            Assert.AreEqual(IntegrationStatus.Unknown, result.IntegrationProperties[IntegrationPropertyNames.CCNetLastIntegrationStatus]);
-            Assert.AreEqual("myTrigger", result.IntegrationProperties[IntegrationPropertyNames.CCNetRequestSource]);
-            Assert.AreEqual("John Doe", result.IntegrationProperties[IntegrationPropertyNames.CCNetUser]);
-            Assert.AreEqual(Path.Combine(artifactDir, "project_ListenFile.xml"), result.IntegrationProperties[IntegrationPropertyNames.CCNetListenerFile]);
+            ClassicAssert.AreEqual("2005-06-06", result.IntegrationProperties[IntegrationPropertyNames.CCNetBuildDate]);
+            ClassicAssert.AreEqual(IntegrationResultMother.DefaultBuildId, result.IntegrationProperties[IntegrationPropertyNames.CCNetBuildId]);
+            ClassicAssert.AreEqual("08:45:00", result.IntegrationProperties[IntegrationPropertyNames.CCNetBuildTime]);
+            ClassicAssert.AreEqual(BuildCondition.IfModificationExists, result.IntegrationProperties[IntegrationPropertyNames.CCNetBuildCondition]);
+            ClassicAssert.AreEqual(IntegrationStatus.Unknown, result.IntegrationProperties[IntegrationPropertyNames.CCNetIntegrationStatus]);
+            ClassicAssert.AreEqual(IntegrationStatus.Unknown, result.IntegrationProperties[IntegrationPropertyNames.CCNetLastIntegrationStatus]);
+            ClassicAssert.AreEqual("myTrigger", result.IntegrationProperties[IntegrationPropertyNames.CCNetRequestSource]);
+            ClassicAssert.AreEqual("John Doe", result.IntegrationProperties[IntegrationPropertyNames.CCNetUser]);
+            ClassicAssert.AreEqual(Path.Combine(artifactDir, "project_ListenFile.xml"), result.IntegrationProperties[IntegrationPropertyNames.CCNetListenerFile]);
             ArrayList failureUsers = result.IntegrationProperties[IntegrationPropertyNames.CCNetFailureUsers] as ArrayList;
-            Assert.IsNotNull(failureUsers);
-            Assert.AreEqual(1, failureUsers.Count);
-            Assert.AreEqual("user", failureUsers[0]);
+            ClassicAssert.IsNotNull(failureUsers);
+            ClassicAssert.AreEqual(1, failureUsers.Count);
+            ClassicAssert.AreEqual("user", failureUsers[0]);
             ArrayList failureTasks = result.IntegrationProperties[IntegrationPropertyNames.CCNetFailureTasks] as ArrayList;
-            Assert.IsNotNull(failureTasks);
-            Assert.AreEqual(1, failureTasks.Count);
-            Assert.AreEqual("task", failureTasks[0]);
+            ClassicAssert.IsNotNull(failureTasks);
+            ClassicAssert.AreEqual(1, failureTasks.Count);
+            ClassicAssert.AreEqual("task", failureTasks[0]);
             ArrayList Modifiers = result.IntegrationProperties[IntegrationPropertyNames.CCNetModifyingUsers] as ArrayList;
-            Assert.IsNotNull(Modifiers);
-            Assert.AreEqual(1, Modifiers.Count);
-            Assert.AreEqual("John", Modifiers[0]);
+            ClassicAssert.IsNotNull(Modifiers);
+            ClassicAssert.AreEqual(1, Modifiers.Count);
+            ClassicAssert.AreEqual("John", Modifiers[0]);
         }
 
 
@@ -257,42 +259,42 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
             var TheClone = result.Clone();
 
 
-            Assert.AreEqual(result.IntegrationProperties.Count, TheClone.IntegrationProperties.Count);
-            Assert.AreEqual(result.IntegrationProperties[IntegrationPropertyNames.CCNetProject], TheClone.IntegrationProperties[IntegrationPropertyNames.CCNetProject]);
-            Assert.AreEqual(result.IntegrationProperties[IntegrationPropertyNames.CCNetProjectUrl], TheClone.IntegrationProperties[IntegrationPropertyNames.CCNetProjectUrl]);
-            Assert.AreEqual(result.IntegrationProperties[IntegrationPropertyNames.CCNetLabel], TheClone.IntegrationProperties[IntegrationPropertyNames.CCNetLabel]);
-            Assert.AreEqual(result.IntegrationProperties[IntegrationPropertyNames.CCNetNumericLabel], TheClone.IntegrationProperties[IntegrationPropertyNames.CCNetNumericLabel]);
-            Assert.AreEqual(result.IntegrationProperties[IntegrationPropertyNames.CCNetArtifactDirectory], TheClone.IntegrationProperties[IntegrationPropertyNames.CCNetArtifactDirectory]);
-            Assert.AreEqual(result.IntegrationProperties[IntegrationPropertyNames.CCNetWorkingDirectory], TheClone.IntegrationProperties[IntegrationPropertyNames.CCNetWorkingDirectory]);
-            Assert.AreEqual(result.IntegrationProperties[IntegrationPropertyNames.CCNetBuildCondition], TheClone.IntegrationProperties[IntegrationPropertyNames.CCNetBuildCondition]);
-            Assert.AreEqual(result.IntegrationProperties[IntegrationPropertyNames.CCNetIntegrationStatus], TheClone.IntegrationProperties[IntegrationPropertyNames.CCNetIntegrationStatus]);
-            Assert.AreEqual(result.IntegrationProperties[IntegrationPropertyNames.CCNetLastIntegrationStatus], TheClone.IntegrationProperties[IntegrationPropertyNames.CCNetLastIntegrationStatus]);
-            Assert.AreEqual(result.IntegrationProperties[IntegrationPropertyNames.CCNetRequestSource], TheClone.IntegrationProperties[IntegrationPropertyNames.CCNetRequestSource]);
-            Assert.AreEqual(result.IntegrationProperties[IntegrationPropertyNames.CCNetUser], TheClone.IntegrationProperties[IntegrationPropertyNames.CCNetUser]);
-            Assert.AreEqual(result.IntegrationProperties[IntegrationPropertyNames.CCNetListenerFile], TheClone.IntegrationProperties[IntegrationPropertyNames.CCNetListenerFile]);
+            ClassicAssert.AreEqual(result.IntegrationProperties.Count, TheClone.IntegrationProperties.Count);
+            ClassicAssert.AreEqual(result.IntegrationProperties[IntegrationPropertyNames.CCNetProject], TheClone.IntegrationProperties[IntegrationPropertyNames.CCNetProject]);
+            ClassicAssert.AreEqual(result.IntegrationProperties[IntegrationPropertyNames.CCNetProjectUrl], TheClone.IntegrationProperties[IntegrationPropertyNames.CCNetProjectUrl]);
+            ClassicAssert.AreEqual(result.IntegrationProperties[IntegrationPropertyNames.CCNetLabel], TheClone.IntegrationProperties[IntegrationPropertyNames.CCNetLabel]);
+            ClassicAssert.AreEqual(result.IntegrationProperties[IntegrationPropertyNames.CCNetNumericLabel], TheClone.IntegrationProperties[IntegrationPropertyNames.CCNetNumericLabel]);
+            ClassicAssert.AreEqual(result.IntegrationProperties[IntegrationPropertyNames.CCNetArtifactDirectory], TheClone.IntegrationProperties[IntegrationPropertyNames.CCNetArtifactDirectory]);
+            ClassicAssert.AreEqual(result.IntegrationProperties[IntegrationPropertyNames.CCNetWorkingDirectory], TheClone.IntegrationProperties[IntegrationPropertyNames.CCNetWorkingDirectory]);
+            ClassicAssert.AreEqual(result.IntegrationProperties[IntegrationPropertyNames.CCNetBuildCondition], TheClone.IntegrationProperties[IntegrationPropertyNames.CCNetBuildCondition]);
+            ClassicAssert.AreEqual(result.IntegrationProperties[IntegrationPropertyNames.CCNetIntegrationStatus], TheClone.IntegrationProperties[IntegrationPropertyNames.CCNetIntegrationStatus]);
+            ClassicAssert.AreEqual(result.IntegrationProperties[IntegrationPropertyNames.CCNetLastIntegrationStatus], TheClone.IntegrationProperties[IntegrationPropertyNames.CCNetLastIntegrationStatus]);
+            ClassicAssert.AreEqual(result.IntegrationProperties[IntegrationPropertyNames.CCNetRequestSource], TheClone.IntegrationProperties[IntegrationPropertyNames.CCNetRequestSource]);
+            ClassicAssert.AreEqual(result.IntegrationProperties[IntegrationPropertyNames.CCNetUser], TheClone.IntegrationProperties[IntegrationPropertyNames.CCNetUser]);
+            ClassicAssert.AreEqual(result.IntegrationProperties[IntegrationPropertyNames.CCNetListenerFile], TheClone.IntegrationProperties[IntegrationPropertyNames.CCNetListenerFile]);
             
             ArrayList failureUsers = TheClone.IntegrationProperties[IntegrationPropertyNames.CCNetFailureUsers] as ArrayList;
-            Assert.IsNotNull(failureUsers);
+            ClassicAssert.IsNotNull(failureUsers);
             ArrayList failureTasks = TheClone.IntegrationProperties[IntegrationPropertyNames.CCNetFailureTasks] as ArrayList;
-            Assert.IsNotNull(failureTasks);
+            ClassicAssert.IsNotNull(failureTasks);
             ArrayList Modifiers = TheClone.IntegrationProperties[IntegrationPropertyNames.CCNetModifyingUsers] as ArrayList;
-            Assert.IsNotNull(Modifiers);
-            Assert.AreEqual(1, Modifiers.Count);
-            Assert.AreEqual("John", Modifiers[0]);
+            ClassicAssert.IsNotNull(Modifiers);
+            ClassicAssert.AreEqual(1, Modifiers.Count);
+            ClassicAssert.AreEqual("John", Modifiers[0]);
             
-            Assert.AreEqual(result.Status, TheClone.Status);
+            ClassicAssert.AreEqual(result.Status, TheClone.Status);
             
             //below are the ones that are not cloned, should these be cloned also, see bug 240
             //http://www.cruisecontrolnet.org/issues/240
 
             // We purposefully use culture-independent string formats
-            //Assert.AreEqual("2005-06-06", TheClone.IntegrationProperties[IntegrationPropertyNames.CCNetBuildDate]);
-            //Assert.AreEqual(IntegrationResultMother.DefaultBuildId, TheClone.IntegrationProperties[IntegrationPropertyNames.CCNetBuildId]);
-            //Assert.AreEqual("08:45:00", TheClone.IntegrationProperties[IntegrationPropertyNames.CCNetBuildTime]);
-            //Assert.AreEqual(1, failureUsers.Count);
-            //Assert.AreEqual("user", failureUsers[0]);
-            //Assert.AreEqual(1, failureTasks.Count);
-            //Assert.AreEqual("task", failureTasks[0]);
+            //ClassicAssert.AreEqual("2005-06-06", TheClone.IntegrationProperties[IntegrationPropertyNames.CCNetBuildDate]);
+            //ClassicAssert.AreEqual(IntegrationResultMother.DefaultBuildId, TheClone.IntegrationProperties[IntegrationPropertyNames.CCNetBuildId]);
+            //ClassicAssert.AreEqual("08:45:00", TheClone.IntegrationProperties[IntegrationPropertyNames.CCNetBuildTime]);
+            //ClassicAssert.AreEqual(1, failureUsers.Count);
+            //ClassicAssert.AreEqual("user", failureUsers[0]);
+            //ClassicAssert.AreEqual(1, failureTasks.Count);
+            //ClassicAssert.AreEqual("task", failureTasks[0]);
 
         
         }
@@ -307,7 +309,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
             result = new IntegrationResult();
             result.ArtifactDirectory = artifactDir;
             result.Label = "1.2.3.4";
-            Assert.AreEqual(Path.Combine(artifactDir, "1.2.3.4"), result.IntegrationArtifactDirectory);
+            ClassicAssert.AreEqual(Path.Combine(artifactDir, "1.2.3.4"), result.IntegrationArtifactDirectory);
         }
 
         [Test]
@@ -315,7 +317,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
         {
             result = new IntegrationResult();
             result.Label = "23";
-            Assert.AreEqual(23, result.NumericLabel);
+            ClassicAssert.AreEqual(23, result.NumericLabel);
         }
 
         [Test]
@@ -323,7 +325,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
         {
             result = new IntegrationResult();
             result.Label = "Prefix23";
-            Assert.AreEqual(23, result.NumericLabel);
+            ClassicAssert.AreEqual(23, result.NumericLabel);
         }
 
         [Test]
@@ -331,7 +333,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
         {
             result = new IntegrationResult();
             result.Label = "R3SX23";
-            Assert.AreEqual(23, result.NumericLabel);
+            ClassicAssert.AreEqual(23, result.NumericLabel);
         }
 
         [Test]
@@ -340,7 +342,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
             result = new IntegrationResult();
             result.Label = "foo";
             // Make sure we don't throw an exception
-            Assert.AreEqual(0, result.NumericLabel);
+            ClassicAssert.AreEqual(0, result.NumericLabel);
         }
 
         [Test]
@@ -351,7 +353,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
 
             IntegrationSummary expectedSummary = new IntegrationSummary(IntegrationStatus.Exception, "foo", "foo", DateTime.MinValue);
             result = new IntegrationResult("project", workingDir, artifactDir, IntegrationRequest.NullRequest, expectedSummary);
-            Assert.AreEqual(new IntegrationSummary(IntegrationStatus.Exception, "foo", "foo", DateTime.MinValue), result.LastIntegration);
+            ClassicAssert.AreEqual(new IntegrationSummary(IntegrationStatus.Exception, "foo", "foo", DateTime.MinValue), result.LastIntegration);
         }
 
         [Test]
@@ -360,7 +362,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
             result.AddTaskResult(new ProcessTaskResult(ProcessResultFixture.CreateNonZeroExitCodeResult()));
             result.LastSuccessfulIntegrationLabel = "1";
             result.Label = "2";
-            Assert.AreEqual("1", result.LastSuccessfulIntegrationLabel);
+            ClassicAssert.AreEqual("1", result.LastSuccessfulIntegrationLabel);
         }
 
         [Test]
@@ -369,7 +371,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
             result.AddTaskResult(new ProcessTaskResult(ProcessResultFixture.CreateSuccessfulResult()));
             result.LastSuccessfulIntegrationLabel = "1";
             result.Label = "2";
-            Assert.AreEqual("2", result.LastSuccessfulIntegrationLabel);
+            ClassicAssert.AreEqual("2", result.LastSuccessfulIntegrationLabel);
         }
     }
 }

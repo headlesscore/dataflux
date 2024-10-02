@@ -1,6 +1,7 @@
 using System;
 using Exortech.NetReflector;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Label;
 using ThoughtWorks.CruiseControl.Remote;
@@ -47,7 +48,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Label
 		{
 			IntegrationResult result = CreateIntegrationResult();
 			AddModifications(result);
-			Assert.AreEqual(new Version(0, 0, 1, 30).ToString(), labeller.Generate(result));
+			ClassicAssert.AreEqual(new Version(0, 0, 1, 30).ToString(), labeller.Generate(result));
 		}
 
 
@@ -61,7 +62,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Label
 
             IntegrationResult result = CreateIntegrationResult();
             AddModifications(result);
-            Assert.AreEqual("00.000.0001.00030", labeller.Generate(result));
+            ClassicAssert.AreEqual("00.000.0001.00030", labeller.Generate(result));
         }
 
 
@@ -70,7 +71,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Label
 		public void GenerateLabelFromNoMods()
 		{
 			IntegrationResult result = CreateIntegrationResult();
-			Assert.AreEqual(new Version(0, 0, 1, 0).ToString(), labeller.Generate(result));
+			ClassicAssert.AreEqual(new Version(0, 0, 1, 0).ToString(), labeller.Generate(result));
 		}
 
 		[Test]
@@ -86,11 +87,11 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Label
 				</labeller>";
 			
 			NetReflector.Read(xml, labeller);
-			Assert.AreEqual(1, labeller.Major);
-			Assert.AreEqual(2, labeller.Minor);
-			Assert.AreEqual(1234, labeller.Build);
-			Assert.AreEqual(123456, labeller.Revision);
-			Assert.AreEqual(false, labeller.IncrementOnFailure);
+			ClassicAssert.AreEqual(1, labeller.Major);
+			ClassicAssert.AreEqual(2, labeller.Minor);
+			ClassicAssert.AreEqual(1234, labeller.Build);
+			ClassicAssert.AreEqual(123456, labeller.Revision);
+			ClassicAssert.AreEqual(false, labeller.IncrementOnFailure);
 		}
 
 		[Test]
@@ -99,45 +100,46 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Label
 			string xml = @"<labeller type='assemblyVersionLabeller' />";
 
 			NetReflector.Read(xml, labeller);
-			Assert.AreEqual(0, labeller.Major);
-			Assert.AreEqual(0, labeller.Minor);
-			Assert.AreEqual(-1, labeller.Build);
-			Assert.AreEqual(-1, labeller.Revision);
-			Assert.AreEqual(false, labeller.IncrementOnFailure);
+			ClassicAssert.AreEqual(0, labeller.Major);
+			ClassicAssert.AreEqual(0, labeller.Minor);
+            ClassicAssert.AreEqual(0, labeller.Minor);
+            ClassicAssert.AreEqual(-1, labeller.Build);
+			ClassicAssert.AreEqual(-1, labeller.Revision);
+			ClassicAssert.AreEqual(false, labeller.IncrementOnFailure);
 		}
 
 		[Test]
 		public void GenerateLabelIterative()
 		{
-			Assert.AreEqual(new Version(0, 0, 1, 0).ToString(), labeller.Generate(SuccessfulResult("unknown")));
+			ClassicAssert.AreEqual(new Version(0, 0, 1, 0).ToString(), labeller.Generate(SuccessfulResult("unknown")));
 
 			IntegrationResult result = SuccessfulResult(new Version(0, 0, 1, 30).ToString());
 			AddModifications(result);
-			Assert.AreEqual(new Version(0, 0, 2, 30).ToString(), labeller.Generate(result));
+			ClassicAssert.AreEqual(new Version(0, 0, 2, 30).ToString(), labeller.Generate(result));
 
 			result.BuildCondition = BuildCondition.ForceBuild;
-			Assert.AreEqual(new Version(0, 0, 2, 30).ToString(), labeller.Generate(result));
+			ClassicAssert.AreEqual(new Version(0, 0, 2, 30).ToString(), labeller.Generate(result));
 
 			result = SuccessfulResult(new Version(0, 0, 2, 30).ToString());
 			AddModifications(result);
 			labeller.Major++;
-			Assert.AreEqual(new Version(1, 0, 3, 30).ToString(), labeller.Generate(result));
+			ClassicAssert.AreEqual(new Version(1, 0, 3, 30).ToString(), labeller.Generate(result));
 
 			result = SuccessfulResult(new Version(0, 0, 3, 30).ToString());
 			AddModifications(result);
 			labeller.Minor++;
-			Assert.AreEqual(new Version(1, 1, 4, 30).ToString(), labeller.Generate(result));
+			ClassicAssert.AreEqual(new Version(1, 1, 4, 30).ToString(), labeller.Generate(result));
 
 			result = SuccessfulResult(new Version(0, 0, 4, 30).ToString());
 			labeller.Revision = 40;
-			Assert.AreEqual(new Version(1, 1, 5, 40).ToString(), labeller.Generate(result));
+			ClassicAssert.AreEqual(new Version(1, 1, 5, 40).ToString(), labeller.Generate(result));
 
 			result = SuccessfulResult(new Version(0, 0, 1, 30).ToString());
 			AddModifications(result);
 			labeller.Major = 5;
 			labeller.Minor = 3;
 			labeller.Revision = 5467;
-			Assert.AreEqual(new Version(5, 3, 2, 5467).ToString(), labeller.Generate(result));
+			ClassicAssert.AreEqual(new Version(5, 3, 2, 5467).ToString(), labeller.Generate(result));
 
 			result = SuccessfulResult(new Version(5, 0, 1, 30).ToString());
 			AddModifications(result);
@@ -145,7 +147,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Label
 			labeller.Minor = 3;
 			labeller.Build = 1234;
 			labeller.Revision = 5467;
-			Assert.AreEqual(new Version(5, 3, 1234, 5467).ToString(), labeller.Generate(result));
+			ClassicAssert.AreEqual(new Version(5, 3, 1234, 5467).ToString(), labeller.Generate(result));
 		}
 	}
 }

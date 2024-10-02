@@ -1,5 +1,6 @@
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Config;
 using ThoughtWorks.CruiseControl.Core.State;
@@ -41,8 +42,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
                 configuration,
                 (IProjectStateManager)stateManagerMock.Object);
 			string[] queueNames = queueManager.GetQueueNames();
-			Assert.AreEqual(1, queueNames.Length);
-			Assert.AreEqual(project.Name, queueNames[0]);
+			ClassicAssert.AreEqual(1, queueNames.Length);
+			ClassicAssert.AreEqual(project.Name, queueNames[0]);
 		}
 
 		[Test]
@@ -52,12 +53,12 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
                 configuration,
                 (IProjectStateManager)stateManagerMock.Object);
 			string[] queueNames = queueManager.GetQueueNames();
-			Assert.AreEqual(1, queueNames.Length);
+			ClassicAssert.AreEqual(1, queueNames.Length);
 
 			queueManager.StopAllProjects(false);
 
 			queueNames = queueManager.GetQueueNames();
-			Assert.AreEqual(0, queueNames.Length);
+			ClassicAssert.AreEqual(0, queueNames.Length);
 		}
 
 		[Test]
@@ -74,9 +75,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
                 configuration,
                 (IProjectStateManager)stateManagerMock.Object);
 			string[] queueNames = queueManager.GetQueueNames();
-			Assert.AreEqual(TestQueueName, queueNames[0]);
-			Assert.AreEqual(TestQueueName3, queueNames[1]);
-			Assert.AreEqual(TestQueueName2, queueNames[2]);
+			ClassicAssert.AreEqual(TestQueueName, queueNames[0]);
+			ClassicAssert.AreEqual(TestQueueName3, queueNames[1]);
+			ClassicAssert.AreEqual(TestQueueName2, queueNames[2]);
 		}
 
 		[Test]
@@ -86,7 +87,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
                 new Configuration(),
                 (IProjectStateManager)stateManagerMock.Object);
 			string[] queueNames = queueManager.GetQueueNames();
-			Assert.AreEqual(0, queueNames.Length);
+			ClassicAssert.AreEqual(0, queueNames.Length);
 		}
 
         [Test]
@@ -99,10 +100,11 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
                 configuration,
                 (IProjectStateManager)stateManagerMock.Object);
             CruiseServerSnapshot cruiseServerSnapshot = queueManager.GetCruiseServerSnapshot();
-            Assert.IsNotNull(cruiseServerSnapshot);
-            Assert.AreEqual(0, cruiseServerSnapshot.ProjectStatuses.Length);
-            Assert.IsNotNull(cruiseServerSnapshot.QueueSetSnapshot);
-            Assert.AreEqual(0, cruiseServerSnapshot.QueueSetSnapshot.Queues.Count);
+            ClassicAssert.IsNotNull(cruiseServerSnapshot);
+            ClassicAssert.IsNotNull(cruiseServerSnapshot);
+            ClassicAssert.AreEqual(0, cruiseServerSnapshot.ProjectStatuses.Length);
+            ClassicAssert.IsNotNull(cruiseServerSnapshot.QueueSetSnapshot);
+            ClassicAssert.AreEqual(0, cruiseServerSnapshot.QueueSetSnapshot.Queues.Count);
         }
 
         [Test]
@@ -119,7 +121,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
                 configuration,
                 (IProjectStateManager)stateManagerMock.Object);
             CruiseServerSnapshot cruiseServerSnapshot = queueManager.GetCruiseServerSnapshot();
-            Assert.IsNotNull(cruiseServerSnapshot);
+            ClassicAssert.IsNotNull(cruiseServerSnapshot);
             bool found1 = false;
             bool found2 = false;
             bool found3 = false;
@@ -130,11 +132,11 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
                 found3 |= (status.Name == TestQueueName3);
             }
             if (!found1)
-                Assert.Fail("Could not find " + TestQueueName);
+                ClassicAssert.Fail("Could not find " + TestQueueName);
             if (!found2)
-                Assert.Fail("Could not find " + TestQueueName2);
+                ClassicAssert.Fail("Could not find " + TestQueueName2);
             if (!found3)
-                Assert.Fail("Could not find " + TestQueueName3);
+                ClassicAssert.Fail("Could not find " + TestQueueName3);
         }
     }
 }

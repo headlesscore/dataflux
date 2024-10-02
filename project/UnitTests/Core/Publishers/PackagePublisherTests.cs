@@ -6,6 +6,7 @@
     using Exortech.NetReflector;
     using Moq;
     using NUnit.Framework;
+    using NUnit.Framework.Legacy;
     using ThoughtWorks.CruiseControl.Core;
     using ThoughtWorks.CruiseControl.Core.Publishers;
     using ThoughtWorks.CruiseControl.Remote;
@@ -50,20 +51,21 @@
         {
             PackagePublisher publisher = new PackagePublisher();
             publisher.AlwaysPackage = true;
-            Assert.AreEqual(true, publisher.AlwaysPackage);
+            ClassicAssert.AreEqual(true, publisher.AlwaysPackage);
+            ClassicAssert.AreEqual(true, publisher.AlwaysPackage);
             publisher.CompressionLevel = 9;
-            Assert.AreEqual(9, publisher.CompressionLevel);
+            ClassicAssert.AreEqual(9, publisher.CompressionLevel);
             //publisher.Flatten = true;
-            //Assert.AreEqual(true, publisher.Flatten);
+            //ClassicAssert.AreEqual(true, publisher.Flatten);
             ManifestGenerator generator = new ManifestGenerator();
             publisher.ManifestGenerator = generator;
-            Assert.AreSame(generator, publisher.ManifestGenerator);
+            ClassicAssert.AreSame(generator, publisher.ManifestGenerator);
             publisher.PackageName = "Package name";
-            Assert.AreEqual("Package name", publisher.PackageName);
+            ClassicAssert.AreEqual("Package name", publisher.PackageName);
             publisher.PackageList = new IPackageItem[] {
                 new PackageFile()
             };
-            Assert.AreEqual(1, publisher.PackageList.Length);
+            ClassicAssert.AreEqual(1, publisher.PackageList.Length);
         }
         #endregion
 
@@ -84,7 +86,7 @@
             {
                 exceptionThrown = true;
             }
-            Assert.IsTrue(exceptionThrown, "CompressionLevel allowed a number less than zero");
+            ClassicAssert.IsTrue(exceptionThrown, "CompressionLevel allowed a number less than zero");
             exceptionThrown = false;
             try
             {
@@ -94,7 +96,7 @@
             {
                 exceptionThrown = true;
             }
-            Assert.IsTrue(exceptionThrown, "CompressionLevel allowed a number greater than nine");
+            ClassicAssert.IsTrue(exceptionThrown, "CompressionLevel allowed a number greater than nine");
             for (int loop = 0; loop <= 9; loop++)
             {
                 publisher.CompressionLevel = loop;
@@ -127,8 +129,8 @@
                 new PackageFile(dataFilePath) 
             };
             publisher.Run(result);
-            Assert.IsTrue(File.Exists(packageName), "Package not generated");
-            Assert.IsTrue(
+            ClassicAssert.IsTrue(File.Exists(packageName), "Package not generated");
+            ClassicAssert.IsTrue(
                 File.Exists(Path.Combine(Path.GetTempPath(), Path.Combine("A Label", "Test project-packages.xml"))), 
                 "Project package list not generated");
         }
@@ -160,8 +162,8 @@
                 new PackageFile(dataFilePath) 
             };
             publisher.Run(result);
-            Assert.IsTrue(File.Exists(packageName), "Package not generated");
-            Assert.IsTrue(
+            ClassicAssert.IsTrue(File.Exists(packageName), "Package not generated");
+            ClassicAssert.IsTrue(
                 File.Exists(Path.Combine(Path.GetTempPath(), Path.Combine("A Label", "Test project-packages.xml"))),
                 "Project package list not generated");
         }
@@ -192,8 +194,8 @@
                 new PackageFile(Path.GetTempFileName()) 
             };
             publisher.Run(result);
-            Assert.IsTrue(File.Exists(packageName), "Package not generated");
-            Assert.IsTrue(
+            ClassicAssert.IsTrue(File.Exists(packageName), "Package not generated");
+            ClassicAssert.IsTrue(
                 File.Exists(Path.Combine(Path.GetTempPath(), Path.Combine("A Label", "Test project-packages.xml"))),
                 "Project package list not generated");
         }
@@ -232,8 +234,8 @@
                 new PackageFile(Path.Combine(tempPath, "*.txt")) 
             };
             publisher.Run(result);
-            Assert.IsTrue(File.Exists(packageName), "Package not generated");
-            Assert.IsTrue(
+            ClassicAssert.IsTrue(File.Exists(packageName), "Package not generated");
+            ClassicAssert.IsTrue(
                 File.Exists(Path.Combine(Path.GetTempPath(), Path.Combine("A Label", "Test project-packages.xml"))),
                 "Project package list not generated");
         }
@@ -264,8 +266,8 @@
                 new PackageFile(Path.Combine(Path.GetTempPath(), "**\\datafile.txt"))
             };
             publisher.Run(result);
-            Assert.IsTrue(File.Exists(packageName), "Package not generated");
-            Assert.IsTrue(
+            ClassicAssert.IsTrue(File.Exists(packageName), "Package not generated");
+            ClassicAssert.IsTrue(
                 File.Exists(Path.Combine(Path.GetTempPath(), Path.Combine("A Label", "Test project-packages.xml"))),
                 "Project package list not generated");
         }
@@ -302,8 +304,8 @@
                 new PackageFile(dataFilePath) 
             };
             publisher.Run(result);
-            Assert.IsTrue(File.Exists(packageName), "Package not generated");
-            Assert.IsTrue(
+            ClassicAssert.IsTrue(File.Exists(packageName), "Package not generated");
+            ClassicAssert.IsTrue(
                 File.Exists(Path.Combine(Path.GetTempPath(), Path.Combine("A Label", "Test project-packages.xml"))),
                 "Project package list not generated");
             generatorMock.Verify();
@@ -322,11 +324,11 @@
                 "</files>" + 
                 "</package>";
             var publisher = NetReflector.Read(xml);
-            Assert.IsNotNull(publisher);
-            Assert.IsInstanceOf<PackagePublisher>(publisher);
+            ClassicAssert.IsNotNull(publisher);
+            ClassicAssert.IsInstanceOf<PackagePublisher>(publisher);
             var packagePublisher = publisher as PackagePublisher;
-            Assert.AreEqual("Test", packagePublisher.PackageName);
-            Assert.AreEqual(2, packagePublisher.PackageList.Length);
+            ClassicAssert.AreEqual("Test", packagePublisher.PackageName);
+            ClassicAssert.AreEqual(2, packagePublisher.PackageList.Length);
             this.AssertFilesAreTheSame(new PackageFile("fileToLoad.1"), packagePublisher.PackageList[0]);
             this.AssertFilesAreTheSame(new PackageFile("fileToLoad.2"), packagePublisher.PackageList[1]);
         }
@@ -343,11 +345,11 @@
                 "</packageList>" +
                 "</package>";
             var publisher = NetReflector.Read(xml);
-            Assert.IsNotNull(publisher);
-            Assert.IsInstanceOf<PackagePublisher>(publisher);
+            ClassicAssert.IsNotNull(publisher);
+            ClassicAssert.IsInstanceOf<PackagePublisher>(publisher);
             var packagePublisher = publisher as PackagePublisher;
-            Assert.AreEqual("Test", packagePublisher.PackageName);
-            Assert.AreEqual(2, packagePublisher.PackageList.Length);
+            ClassicAssert.AreEqual("Test", packagePublisher.PackageName);
+            ClassicAssert.AreEqual(2, packagePublisher.PackageList.Length);
             this.AssertFilesAreTheSame(new PackageFile("fileToLoad.1"), packagePublisher.PackageList[0]);
             this.AssertFilesAreTheSame(new PackageFile("fileToLoad.2"), packagePublisher.PackageList[1]);
         }
@@ -357,11 +359,11 @@
         #region Private methods
         private void AssertFilesAreTheSame(PackageFile expected, object actual)
         {
-            Assert.IsInstanceOf<PackageFile>(actual);
+            ClassicAssert.IsInstanceOf<PackageFile>(actual);
             var actualFile = actual as PackageFile;
-            Assert.AreEqual(expected.SourceFile, actualFile.SourceFile);
-            Assert.AreEqual(expected.TargetFileName, actualFile.TargetFileName);
-            Assert.AreEqual(expected.TargetFolder, actualFile.TargetFolder);
+            ClassicAssert.AreEqual(expected.SourceFile, actualFile.SourceFile);
+            ClassicAssert.AreEqual(expected.TargetFileName, actualFile.TargetFileName);
+            ClassicAssert.AreEqual(expected.TargetFolder, actualFile.TargetFolder);
         }
 
         #region GenerateModification()

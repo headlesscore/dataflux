@@ -3,6 +3,7 @@ using System.IO;
 using Exortech.NetReflector;
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Sourcecontrol;
 using ThoughtWorks.CruiseControl.Core.Util;
@@ -85,29 +86,31 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 			</vault>";
 
 			vault = CreateVault(ST_XML_SSL);
-			Assert.AreEqual(@"d:\program files\sourcegear\vault client\vault.exe", vault.Executable);
-			Assert.AreEqual("username", vault.Username);
-			Assert.AreEqual("password", vault.Password.PrivateValue);
-			Assert.AreEqual("localhost", vault.Host);
-			Assert.AreEqual("repository", vault.Repository);
-			Assert.AreEqual("$\\foo", vault.Folder);
-			Assert.AreEqual(true, vault.Ssl);
-			Assert.AreEqual(true, vault.AutoGetSource);
-			Assert.AreEqual(true, vault.ApplyLabel);
-			Assert.AreEqual(false, vault.UseVaultWorkingDirectory);
-			Assert.AreEqual("-blah test", vault.HistoryArgs);
-			Assert.AreEqual(2400000, vault.Timeout.Millis);
-			Assert.AreEqual(@"c:\source", vault.WorkingDirectory);
-			Assert.AreEqual(true, vault.CleanCopy);
-			Assert.AreEqual("current", vault.setFileTime);
-			Assert.AreEqual("proxyhost", vault.proxyServer);
-			Assert.AreEqual("12345", vault.proxyPort);
-			Assert.AreEqual("proxyuser", vault.proxyUser);
-			Assert.AreEqual("proxypassword", vault.proxyPassword);
-			Assert.AreEqual("proxydomain", vault.proxyDomain);
-			Assert.AreEqual(10, vault.pollRetryAttempts);
-			Assert.AreEqual(30, vault.pollRetryWait);
-		}
+			ClassicAssert.AreEqual(@"d:\program files\sourcegear\vault client\vault.exe", vault.Executable);
+			ClassicAssert.AreEqual("username", vault.Username);
+			ClassicAssert.AreEqual("password", vault.Password.PrivateValue);
+			ClassicAssert.AreEqual("localhost", vault.Host);
+			ClassicAssert.AreEqual("repository", vault.Repository);
+			ClassicAssert.AreEqual("$\\foo", vault.Folder);
+			ClassicAssert.AreEqual(true, vault.Ssl);
+			ClassicAssert.AreEqual(true, vault.AutoGetSource);
+			ClassicAssert.AreEqual(true, vault.ApplyLabel);
+			ClassicAssert.AreEqual(false, vault.UseVaultWorkingDirectory);
+			ClassicAssert.AreEqual("-blah test", vault.HistoryArgs);
+			ClassicAssert.AreEqual(2400000, vault.Timeout.Millis);
+			ClassicAssert.AreEqual(@"c:\source", vault.WorkingDirectory);
+			ClassicAssert.AreEqual(true, vault.CleanCopy);
+			ClassicAssert.AreEqual("current", vault.setFileTime);
+			ClassicAssert.AreEqual("proxyhost", vault.proxyServer);
+			ClassicAssert.AreEqual("12345", vault.proxyPort);
+			ClassicAssert.AreEqual("proxyuser", vault.proxyUser);
+			ClassicAssert.AreEqual("proxypassword", vault.proxyPassword);
+			ClassicAssert.AreEqual("proxydomain", vault.proxyDomain);
+			ClassicAssert.AreEqual(10, vault.pollRetryAttempts);
+			ClassicAssert.AreEqual(30, vault.pollRetryWait);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
+        }
 
 		[Test]
 		public virtual void ShouldBePopulatedWithDefaultValuesWhenLoadingFromMinimalXml()
@@ -121,28 +124,28 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 					<repository>repository</repository>
 				</vault>
 			");
-			Assert.AreEqual(VaultVersionChecker.DefaultExecutable, vault.Executable);
-			Assert.AreEqual("name", vault.Username);
-			Assert.AreEqual("password", vault.Password.PrivateValue);
-			Assert.AreEqual("localhost", vault.Host);
-			Assert.AreEqual("repository", vault.Repository);
-			Assert.AreEqual("$", vault.Folder);
-			Assert.AreEqual(false, vault.Ssl);
-			Assert.AreEqual(true, vault.AutoGetSource);
-			Assert.AreEqual(false, vault.ApplyLabel);
-			Assert.AreEqual(true, vault.UseVaultWorkingDirectory);
-			Assert.AreEqual(VaultVersionChecker.DefaultHistoryArgs, vault.HistoryArgs);
-			Assert.AreEqual(Timeout.DefaultTimeout, vault.Timeout);
-			Assert.IsNull(vault.WorkingDirectory);
-			Assert.AreEqual(false, vault.CleanCopy);
-			Assert.AreEqual("checkin", vault.setFileTime);
-			Assert.IsNull(vault.proxyServer);
-			Assert.IsNull(vault.proxyPort);
-			Assert.IsNull(vault.proxyUser);
-			Assert.IsNull(vault.proxyPassword);
-			Assert.IsNull(vault.proxyDomain);
-			Assert.AreEqual(VaultVersionChecker.DefaultPollRetryAttempts, vault.pollRetryAttempts);
-			Assert.AreEqual(VaultVersionChecker.DefaultPollRetryWait, vault.pollRetryWait);
+			ClassicAssert.AreEqual(VaultVersionChecker.DefaultExecutable, vault.Executable);
+			ClassicAssert.AreEqual("name", vault.Username);
+			ClassicAssert.AreEqual("password", vault.Password.PrivateValue);
+			ClassicAssert.AreEqual("localhost", vault.Host);
+			ClassicAssert.AreEqual("repository", vault.Repository);
+			ClassicAssert.AreEqual("$", vault.Folder);
+			ClassicAssert.AreEqual(false, vault.Ssl);
+			ClassicAssert.AreEqual(true, vault.AutoGetSource);
+			ClassicAssert.AreEqual(false, vault.ApplyLabel);
+			ClassicAssert.AreEqual(true, vault.UseVaultWorkingDirectory);
+			ClassicAssert.AreEqual(VaultVersionChecker.DefaultHistoryArgs, vault.HistoryArgs);
+			ClassicAssert.AreEqual(Timeout.DefaultTimeout, vault.Timeout);
+			ClassicAssert.IsNull(vault.WorkingDirectory);
+			ClassicAssert.AreEqual(false, vault.CleanCopy);
+			ClassicAssert.AreEqual("checkin", vault.setFileTime);
+			ClassicAssert.IsNull(vault.proxyServer);
+			ClassicAssert.IsNull(vault.proxyPort);
+			ClassicAssert.IsNull(vault.proxyUser);
+			ClassicAssert.IsNull(vault.proxyPassword);
+			ClassicAssert.IsNull(vault.proxyDomain);
+			ClassicAssert.AreEqual(VaultVersionChecker.DefaultPollRetryAttempts, vault.pollRetryAttempts);
+			ClassicAssert.AreEqual(VaultVersionChecker.DefaultPollRetryWait, vault.pollRetryWait);
 		}
 
 		[Test]
@@ -522,7 +525,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 				VaultExceptionThrown = true;
 			}
 			VerifyAll();
-			Assert.IsTrue(VaultExceptionThrown, "Vault class did not throw expected exception.");
+			ClassicAssert.IsTrue(VaultExceptionThrown, "Vault class did not throw expected exception.");
 		}
 
 		[Test, Ignore("Ignored until i get right of the problem.")]
@@ -545,7 +548,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 				VaultExceptionThrown = true;
 			}
 			VerifyAll();
-			Assert.IsTrue(VaultExceptionThrown, "Vault class did not throw expected exception.");
+			ClassicAssert.IsTrue(VaultExceptionThrown, "Vault class did not throw expected exception.");
 		}
 
 		[Test]
@@ -724,7 +727,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 			// can't test if we don't know the working folder ahead of time
 			if ( StringUtil.IsBlank(vault.WorkingDirectory) )
 			{
-				Assert.Fail("\"ExpectToCleanFolder\" can only be used when the working directory is specified.");
+				ClassicAssert.Fail("\"ExpectToCleanFolder\" can only be used when the working directory is specified.");
 			}
 			CreateTempFileForCleanFolderTest();
 			this.expectCleanCopy = true;
@@ -741,7 +744,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 			// can't test if we don't know the working folder ahead of time
 			if ( StringUtil.IsBlank(vault.WorkingDirectory) )
 			{
-				Assert.Fail("\"ExpectNotToCleanFolder\" can only be used when the working directory is specified.");
+				ClassicAssert.Fail("\"ExpectNotToCleanFolder\" can only be used when the working directory is specified.");
 			}
 			CreateTempFileForCleanFolderTest();
 			this.expectCleanCopy = false;
@@ -758,9 +761,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 			if ( !StringUtil.IsBlank(tempFileToTestCleanCopy) )
 			{
 				if ( this.expectCleanCopy )
-					Assert.IsFalse( File.Exists(tempFileToTestCleanCopy), "The working directory should have been cleaned, but was not." );
+					ClassicAssert.IsFalse( File.Exists(tempFileToTestCleanCopy), "The working directory should have been cleaned, but was not." );
 				else
-					Assert.IsTrue( File.Exists(tempFileToTestCleanCopy), "The working directory should not have been cleaned, but it was." );
+					ClassicAssert.IsTrue( File.Exists(tempFileToTestCleanCopy), "The working directory should not have been cleaned, but it was." );
 				File.Delete(tempFileToTestCleanCopy);
 				tempFileToTestCleanCopy = null;
 			}

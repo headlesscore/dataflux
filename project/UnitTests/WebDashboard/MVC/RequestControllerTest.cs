@@ -1,6 +1,7 @@
 using System;
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.WebDashboard.IO;
 using ThoughtWorks.CruiseControl.WebDashboard.MVC;
 
@@ -59,8 +60,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.MVC
             mockFingerprintFactory.Setup(factory => factory.BuildFromRequest(It.IsAny<IRequest>())).Returns(ConditionalGetFingerprint.NOT_AVAILABLE).Verifiable();
 
 			/// Execute & Verify
-			Assert.AreEqual(response, controller.Do());
-			VerifyAll();
+			ClassicAssert.AreEqual(response, controller.Do());
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
+            VerifyAll();
 		}
 
         [Test]
@@ -73,8 +76,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.MVC
 
             IResponse actualResponse = controller.Do();
 
-            Assert.IsAssignableFrom(typeof(HtmlFragmentResponse), actualResponse);
-            Assert.AreSame(ConditionalGetFingerprint.NOT_AVAILABLE, actualResponse.ServerFingerprint);
+            ClassicAssert.IsAssignableFrom(typeof(HtmlFragmentResponse), actualResponse);
+            ClassicAssert.AreSame(ConditionalGetFingerprint.NOT_AVAILABLE, actualResponse.ServerFingerprint);
         }
 
         [Test]
@@ -90,8 +93,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.MVC
 
             IResponse actualResponse = controller.Do();
 
-            Assert.IsAssignableFrom(typeof(HtmlFragmentResponse), actualResponse);
-            Assert.AreEqual(fingerprint, actualResponse.ServerFingerprint);
+            ClassicAssert.IsAssignableFrom(typeof(HtmlFragmentResponse), actualResponse);
+            ClassicAssert.AreEqual(fingerprint, actualResponse.ServerFingerprint);
         }
 
 	    [Test]
@@ -108,8 +111,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.MVC
 
             IResponse actualResponse = controller.Do();
 
-            Assert.IsAssignableFrom(typeof(NotModifiedResponse), actualResponse);
-            Assert.AreEqual(sharedFingerprint, actualResponse.ServerFingerprint);
+            ClassicAssert.IsAssignableFrom(typeof(NotModifiedResponse), actualResponse);
+            ClassicAssert.AreEqual(sharedFingerprint, actualResponse.ServerFingerprint);
 	    }
 	}
 }

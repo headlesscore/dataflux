@@ -7,6 +7,7 @@ using System.Xml;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Remote;
 using System.Xml.Serialization;
+using NUnit.Framework.Legacy;
 
 namespace ThoughtWorks.CruiseControl.UnitTests.Core.Publishers
 {
@@ -31,7 +32,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Publishers
             List<string> files = new List<string>();
             files.Add("first file");
             XmlDocument manifest = generator.Generate(result, files.ToArray());
-            Assert.IsNotNull(manifest);
+            ClassicAssert.IsNotNull(manifest);
+            ClassicAssert.IsNotNull(manifest);
             string actualManifest = manifest.OuterXml;
             string expectedManifest = "<manifest>"  +
                     "<header project=\"Test project\" label=\"A Label\" build=\"ForceBuild\" status=\"Unknown\">" +
@@ -43,7 +45,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Publishers
                     "</header>" +
                     "<file name=\"first file\" />" +
                 "</manifest>";
-            Assert.AreEqual(expectedManifest, actualManifest);
+            ClassicAssert.AreEqual(expectedManifest, actualManifest);
         }
         #endregion
         #endregion

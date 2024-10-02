@@ -7,6 +7,7 @@ using ThoughtWorks.CruiseControl.Remote;
 using ThoughtWorks.CruiseControl.Core;
 using System.Xml;
 using System.IO;
+using NUnit.Framework.Legacy;
 
 namespace ThoughtWorks.CruiseControl.UnitTests.Core.Publishers
 {
@@ -23,7 +24,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Publishers
         {
             ManifestImporter generator = new ManifestImporter();
             generator.FileName = "File name";
-            Assert.AreEqual("File name", generator.FileName);
+            ClassicAssert.AreEqual("File name", generator.FileName);
+            ClassicAssert.AreEqual("File name", generator.FileName);
         }
         #endregion
 
@@ -49,9 +51,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Publishers
             List<string> files = new List<string>();
             XmlDocument manifest = generator.Generate(result, files.ToArray());
 
-            Assert.IsNotNull(manifest);
+            ClassicAssert.IsNotNull(manifest);
             string actualManifest = manifest.OuterXml;
-            Assert.AreEqual(expectedManifest, actualManifest);
+            ClassicAssert.AreEqual(expectedManifest, actualManifest);
         }
         #endregion
 
@@ -78,9 +80,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Publishers
             result.WorkingDirectory = Path.GetTempPath();
             XmlDocument manifest = generator.Generate(result, files.ToArray());
 
-            Assert.IsNotNull(manifest);
+            ClassicAssert.IsNotNull(manifest);
             string actualManifest = manifest.OuterXml;
-            Assert.AreEqual(expectedManifest, actualManifest);
+            ClassicAssert.AreEqual(expectedManifest, actualManifest);
         }
         #endregion
 
@@ -92,7 +94,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Publishers
         public void ImportWithoutAFilename()
         {
             ManifestImporter generator = new ManifestImporter();
-            Assert.That(delegate { generator.Generate(null, null); },
+            ClassicAssert.That(delegate { generator.Generate(null, null); },
                         Throws.TypeOf<ArgumentOutOfRangeException>().With.Property("ParamName").EqualTo("FileName"));
         }
         #endregion

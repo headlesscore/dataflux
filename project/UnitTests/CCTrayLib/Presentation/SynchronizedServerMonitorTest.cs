@@ -1,6 +1,7 @@
 using System.ComponentModel;
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.CCTrayLib.Monitoring;
 using ThoughtWorks.CruiseControl.CCTrayLib.Presentation;
 
@@ -18,10 +19,11 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Presentation
 				(ISingleServerMonitor) mockServerMonitor.Object, null);
 
 			mockServerMonitor.SetupGet(_monitor => _monitor.ServerUrl).Returns(@"tcp://blah/").Verifiable();
-			Assert.AreEqual(@"tcp://blah/", monitor.ServerUrl);
+			ClassicAssert.AreEqual(@"tcp://blah/", monitor.ServerUrl);
+            ClassicAssert.AreEqual(@"tcp://blah/", monitor.ServerUrl);
 
-			mockServerMonitor.SetupGet(_monitor => _monitor.IsConnected).Returns(true).Verifiable();
-			Assert.AreEqual(true, monitor.IsConnected);
+            mockServerMonitor.SetupGet(_monitor => _monitor.IsConnected).Returns(true).Verifiable();
+			ClassicAssert.AreEqual(true, monitor.IsConnected);
 
 			mockServerMonitor.Setup(_monitor => _monitor.Poll()).Verifiable();
 			monitor.Poll();
@@ -69,12 +71,12 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Presentation
 
 		private void Monitor_Polled(object sender, MonitorServerPolledEventArgs args)
 		{
-			Assert.Fail("Do not expect this method to actually get called as using mocked synchronised invoke");
+			ClassicAssert.Fail("Do not expect this method to actually get called as using mocked synchronised invoke");
 		}
 
 		private void Monitor_QueueChanged(object sender, MonitorServerQueueChangedEventArgs e)
 		{
-			Assert.Fail("Do not expect this method to actually get called as using mocked synchronised invoke");
+			ClassicAssert.Fail("Do not expect this method to actually get called as using mocked synchronised invoke");
 		}
 	}
 }

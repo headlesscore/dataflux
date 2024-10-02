@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using System;
 using ThoughtWorks.CruiseControl.Remote;
 
@@ -15,8 +16,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote
         {
             TestHelpers.EnsureLanguageIsValid();
             NoSuchProjectException exception = new NoSuchProjectException();
-            Assert.AreEqual("The project '' does not exist on the CCNet server.", exception.Message);
-            Assert.IsNull(exception.RequestedProject);
+            ClassicAssert.AreEqual("The project '' does not exist on the CCNet server.", exception.Message);
+            ClassicAssert.IsNull(exception.RequestedProject);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
         }
 
         [Test]
@@ -25,8 +28,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote
             TestHelpers.EnsureLanguageIsValid();
             string requestedProject = "Something";
             NoSuchProjectException exception = new NoSuchProjectException(requestedProject);
-            Assert.AreEqual("The project 'Something' does not exist on the CCNet server.", exception.Message);
-            Assert.AreEqual(requestedProject, exception.RequestedProject);
+            ClassicAssert.AreEqual("The project 'Something' does not exist on the CCNet server.", exception.Message);
+            ClassicAssert.AreEqual(requestedProject, exception.RequestedProject);
         }
 
         [Test]
@@ -36,9 +39,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote
             string requestedProject = "Something";
             Exception innerException = new Exception("An inner exception");
             NoSuchProjectException exception = new NoSuchProjectException(requestedProject, innerException);
-            Assert.AreEqual("The project 'Something' does not exist on the CCNet server.", exception.Message);
-            Assert.AreEqual(requestedProject, exception.RequestedProject);
-            Assert.AreEqual(innerException, exception.InnerException);
+            ClassicAssert.AreEqual("The project 'Something' does not exist on the CCNet server.", exception.Message);
+            ClassicAssert.AreEqual(requestedProject, exception.RequestedProject);
+            ClassicAssert.AreEqual(innerException, exception.InnerException);
         }
 
         [Test]
@@ -48,10 +51,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote
             string requestedProject = "Something";
             NoSuchProjectException exception = new NoSuchProjectException(requestedProject);
             object result = TestHelpers.RunSerialisationTest(exception);
-            Assert.IsNotNull(result);
-            Assert.That(result, Is.InstanceOf<NoSuchProjectException>());
-            Assert.AreEqual("The project 'Something' does not exist on the CCNet server.", (result as NoSuchProjectException).Message);
-            Assert.AreEqual(requestedProject, (result as NoSuchProjectException).RequestedProject);
+            ClassicAssert.IsNotNull(result);
+            ClassicAssert.That(result, Is.InstanceOf<NoSuchProjectException>());
+            ClassicAssert.AreEqual("The project 'Something' does not exist on the CCNet server.", (result as NoSuchProjectException).Message);
+            ClassicAssert.AreEqual(requestedProject, (result as NoSuchProjectException).RequestedProject);
         }
     }
 }

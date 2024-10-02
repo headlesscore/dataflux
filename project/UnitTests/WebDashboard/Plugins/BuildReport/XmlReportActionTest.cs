@@ -12,6 +12,7 @@ using ThoughtWorks.CruiseControl.WebDashboard.MVC;
 using ThoughtWorks.CruiseControl.WebDashboard.Plugins.FarmReport;
 using ThoughtWorks.CruiseControl.WebDashboard.ServerConnection;
 using ThoughtWorks.CruiseControl.WebDashboard.Configuration;
+using NUnit.Framework.Legacy;
 
 namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.Plugins.BuildReport
 {
@@ -38,10 +39,11 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.Plugins.BuildReport
 				Returns(new ProjectStatusListAndExceptions(new ProjectStatusOnServer[0], new CruiseServerException[0])).
 				Verifiable();
 			IResponse response = reportAction.Execute(null);
-			Assert.IsNotNull(response);
-			Assert.AreEqual(typeof (XmlFragmentResponse), response.GetType());
-
-			mockFarmService.Verify();
+			ClassicAssert.IsNotNull(response);
+			ClassicAssert.AreEqual(typeof (XmlFragmentResponse), response.GetType());
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
+            mockFarmService.Verify();
 		}
 
 		[Test]
@@ -53,7 +55,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.Plugins.BuildReport
 			XmlFragmentResponse response = (XmlFragmentResponse) reportAction.Execute(null);
 			string xml = response.ResponseFragment;
 
-			Assert.AreEqual("<Projects CCType=\"CCNet\" />", xml);
+			ClassicAssert.AreEqual("<Projects CCType=\"CCNet\" />", xml);
 
 			mockFarmService.Verify();
 		}

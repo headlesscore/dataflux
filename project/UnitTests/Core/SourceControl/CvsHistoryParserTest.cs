@@ -3,6 +3,7 @@ using System.Collections;
 using System.Globalization;
 using System.IO;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Sourcecontrol;
 
@@ -19,9 +20,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 			TextReader input = new StringReader(CvsMother.CVS_LOGFILE_CONTENT);
 			Modification[] modifications = cvs.Parse(input, CvsMother.OLDEST_ENTRY, CvsMother.NEWEST_ENTRY);
 			
-			Assert.AreEqual(6, modifications.Length);
-
-			Modification mod1 = new Modification();
+			ClassicAssert.AreEqual(6, modifications.Length);
+            ClassicAssert.IsTrue(true);
+            Modification mod1 = new Modification();
 			mod1.Type = "modified";
 			mod1.FileName = "log4j.properties";
 			mod1.FolderName = "/cvsroot/cruisecontrol/cruisecontrol/main";
@@ -76,12 +77,12 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 			mod6.Version = "1.11";
 
 			ArrayList.Adapter(modifications).Sort();
-			Assert.AreEqual(mod5, modifications[0]);
-			Assert.AreEqual(mod4, modifications[1]);
-			Assert.AreEqual(mod1, modifications[2]);
-			Assert.AreEqual(mod2, modifications[3]);
-			Assert.AreEqual(mod3, modifications[4]);
-			Assert.AreEqual(mod6, modifications[5]);
+			ClassicAssert.AreEqual(mod5, modifications[0]);
+			ClassicAssert.AreEqual(mod4, modifications[1]);
+			ClassicAssert.AreEqual(mod1, modifications[2]);
+			ClassicAssert.AreEqual(mod2, modifications[3]);
+			ClassicAssert.AreEqual(mod3, modifications[4]);
+			ClassicAssert.AreEqual(mod6, modifications[5]);
 		}
 
 		[Test]
@@ -89,7 +90,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 		{
 			TextReader input = new StringReader(CvsMother.Cvs112Examples());
 			Modification[] mods = cvs.Parse(input, CvsMother.OLDEST_ENTRY, CvsMother.NEWEST_ENTRY);
-			Assert.AreEqual(2, mods.Length);
+			ClassicAssert.AreEqual(2, mods.Length);
 		}
 
 		[Test]
@@ -97,7 +98,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 		{
 			TextReader input = new StringReader(CvsMother.CvsNTExamples());
 			Modification[] mods = cvs.Parse(input, CvsMother.OLDEST_ENTRY, CvsMother.NEWEST_ENTRY);
-			Assert.AreEqual(2, mods.Length);
+			ClassicAssert.AreEqual(2, mods.Length);
 		}
 
 		[Test]
@@ -105,7 +106,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 		{
 			TextReader input = new StringReader(CvsMother.ExampleOfFileAddedOnBranch());
 			Modification[] mods = cvs.Parse(input, CvsMother.OLDEST_ENTRY, CvsMother.NEWEST_ENTRY);
-			Assert.AreEqual(0, mods.Length);			
+			ClassicAssert.AreEqual(0, mods.Length);			
 		}
 
 		[Test]
@@ -113,8 +114,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 		{
 			TextReader input = new StringReader(CvsMother.CvsModifiedFileExample());
 			Modification[] mods = cvs.Parse(input, CvsMother.OLDEST_ENTRY, CvsMother.NEWEST_ENTRY);
-			Assert.AreEqual(1, mods.Length);
-			Assert.AreEqual("modified", mods[0].Type);
+			ClassicAssert.AreEqual(1, mods.Length);
+			ClassicAssert.AreEqual("modified", mods[0].Type);
 		}
 
 		[Test]
@@ -138,12 +139,12 @@ date: 2006/12/10 06:07:25;  author: owen;  state: Exp;  lines: +0 -2;  kopt: kv;
 foo
 =============================================================================";
 			Modification[] mods = cvs.Parse(new StringReader(output), new DateTime(2006, 12, 10), new DateTime(2006, 12, 11));
-			Assert.AreEqual(2, mods.Length);
-			Assert.AreEqual("1.5", mods[0].Version);
-			Assert.AreEqual("owen", mods[0].UserName);
-			Assert.AreEqual("Run.cs", mods[0].FileName);
-			Assert.AreEqual("modified", mods[0].Type);
-			Assert.AreEqual(@"C:\dev\CVSRoot/fitwebservice/src/fitwebservice/src", mods[0].FolderName);
+			ClassicAssert.AreEqual(2, mods.Length);
+			ClassicAssert.AreEqual("1.5", mods[0].Version);
+			ClassicAssert.AreEqual("owen", mods[0].UserName);
+			ClassicAssert.AreEqual("Run.cs", mods[0].FileName);
+			ClassicAssert.AreEqual("modified", mods[0].Type);
+			ClassicAssert.AreEqual(@"C:\dev\CVSRoot/fitwebservice/src/fitwebservice/src", mods[0].FolderName);
 		}
 
 		[Test]
@@ -163,12 +164,12 @@ date: 2006/12/10 06:09:42;  author: owen;  state: Exp;  lines: +2 -0;  kopt: kv;
 asdf
 =============================================================================";
 			Modification[] mods = cvs.Parse(new StringReader(output), new DateTime(2006, 12, 10), new DateTime(2006, 12, 11));
-			Assert.AreEqual(1, mods.Length);
-			Assert.AreEqual("1.5", mods[0].Version);
-			Assert.AreEqual("owen", mods[0].UserName);
-			Assert.AreEqual("modified", mods[0].Type);
-			Assert.AreEqual(@"C:\dev\CVSRoot/fitwebservice/src/fit webservice/src", mods[0].FolderName);
-			Assert.AreEqual("Run File.cs", mods[0].FileName);
+			ClassicAssert.AreEqual(1, mods.Length);
+			ClassicAssert.AreEqual("1.5", mods[0].Version);
+			ClassicAssert.AreEqual("owen", mods[0].UserName);
+			ClassicAssert.AreEqual("modified", mods[0].Type);
+			ClassicAssert.AreEqual(@"C:\dev\CVSRoot/fitwebservice/src/fit webservice/src", mods[0].FolderName);
+			ClassicAssert.AreEqual("Run File.cs", mods[0].FileName);
 		}
 		
 		private DateTime CreateDate(string dateString) 

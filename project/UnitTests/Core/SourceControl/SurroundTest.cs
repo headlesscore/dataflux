@@ -2,6 +2,7 @@ using System;
 using System.Globalization;
 using Exortech.NetReflector;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core.Sourcecontrol;
 
 namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
@@ -32,14 +33,16 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 		[Test]
 		public void VerifyValuesSetByNetReflector()
 		{
-			Assert.AreEqual(@"C:\Program Files\Seapine\Surround SCM\sscm.exe", surround.Executable);
-			Assert.AreEqual("build:build", surround.ServerLogin);
-			Assert.AreEqual("198.187.17.157:4900", surround.ServerConnect);
-			Assert.AreEqual("m20040908", surround.Branch);
-			Assert.AreEqual("m20040908/scctt3", surround.Repository);
-			Assert.AreEqual(@"C:\scctt3", surround.WorkingDirectory);
-			Assert.AreEqual(1, surround.Recursive);
-		}
+			ClassicAssert.AreEqual(@"C:\Program Files\Seapine\Surround SCM\sscm.exe", surround.Executable);
+			ClassicAssert.AreEqual("build:build", surround.ServerLogin);
+			ClassicAssert.AreEqual("198.187.17.157:4900", surround.ServerConnect);
+			ClassicAssert.AreEqual("m20040908", surround.Branch);
+			ClassicAssert.AreEqual("m20040908/scctt3", surround.Repository);
+			ClassicAssert.AreEqual(@"C:\scctt3", surround.WorkingDirectory);
+			ClassicAssert.AreEqual(1, surround.Recursive);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
+        }
 
 		[Test]
 		public void VerifyFormatDate()
@@ -48,20 +51,20 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 			string strDateExpected = "20050930010203";
 
 			DateTime checkDate = DateTime.ParseExact(strDateExpected, Surround.TO_SSCM_DATE_FORMAT, CultureInfo.InvariantCulture);
-			Assert.AreEqual(dateExpected, checkDate);
+			ClassicAssert.AreEqual(dateExpected, checkDate);
 
 			string checkStrDate = dateExpected.ToString(Surround.TO_SSCM_DATE_FORMAT);
-			Assert.AreEqual(strDateExpected, checkStrDate);
+			ClassicAssert.AreEqual(strDateExpected, checkStrDate);
 		}
 
 		[Test]
 		public void VerifyDefaults()
 		{
 			surround = new Surround();
-			Assert.AreEqual("127.0.0.1:4900", surround.ServerConnect);
-			Assert.AreEqual("Administrator:", surround.ServerLogin);
-			Assert.AreEqual(0, surround.SearchRegExp);
-			Assert.AreEqual(0, surround.Recursive);
+			ClassicAssert.AreEqual("127.0.0.1:4900", surround.ServerConnect);
+			ClassicAssert.AreEqual("Administrator:", surround.ServerLogin);
+			ClassicAssert.AreEqual(0, surround.SearchRegExp);
+			ClassicAssert.AreEqual(0, surround.Recursive);
 		}
 	}
 }

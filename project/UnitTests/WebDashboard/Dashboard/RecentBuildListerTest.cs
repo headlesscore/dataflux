@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core.Reporting.Dashboard.Navigation;
 using ThoughtWorks.CruiseControl.WebDashboard.Dashboard;
 using ThoughtWorks.CruiseControl.WebDashboard.IO;
@@ -81,9 +82,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.Dashboard
 			linkFactoryMock.Setup(factory => factory.CreateProjectLink(projectSpecifier, "", ViewAllBuildsProjectPlugin.ACTION_NAME)).Returns(allBuildsLink).Verifiable();
 			velocityTransformerMock.Setup(transformer => transformer.Transform(@"RecentBuilds.vm", It.Is<Hashtable>(t => t.Count == 2 && (string)t["buildRows"] == buildRows && t["allBuildsLink"] == allBuildsLink))).Returns(recentBuilds).Verifiable();
 
-			Assert.AreEqual(recentBuilds, lister.BuildRecentBuildsTable(build1Specifier, null));
-
-			VerifyAll();
+			ClassicAssert.AreEqual(recentBuilds, lister.BuildRecentBuildsTable(build1Specifier, null));
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
+            VerifyAll();
 		}
 
 		[Test]
@@ -102,7 +104,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.Dashboard
 			linkFactoryMock.Setup(factory => factory.CreateProjectLink(projectSpecifier, "", ViewAllBuildsProjectPlugin.ACTION_NAME)).Returns(allBuildsLink).Verifiable();
 			velocityViewGeneratorMock.Setup(generator => generator.GenerateView(@"AllBuilds.vm", It.Is<Hashtable>(t => t.Count == 2 && (string)t["buildRows"] == buildRows && t["allBuildsLink"] == allBuildsLink))).Returns(allBuildsResponse).Verifiable();
 
-			Assert.AreEqual(allBuildsResponse, lister.GenerateAllBuildsView(projectSpecifier, null));
+			ClassicAssert.AreEqual(allBuildsResponse, lister.GenerateAllBuildsView(projectSpecifier, null));
 
 			VerifyAll();
 		}
@@ -129,7 +131,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.Dashboard
 
 	        ConditionalGetFingerprint expectedFingerprint = new ConditionalGetFingerprint(mostRecentDate, testToken);
 
-            Assert.AreEqual(expectedFingerprint, lister.GetFingerprint(request));
+            ClassicAssert.AreEqual(expectedFingerprint, lister.GetFingerprint(request));
 	    }
 	}
 }

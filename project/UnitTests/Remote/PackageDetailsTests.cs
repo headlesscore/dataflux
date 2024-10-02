@@ -5,6 +5,7 @@
     using System.Linq;
     using System.Text;
 using NUnit.Framework;
+    using NUnit.Framework.Legacy;
     using ThoughtWorks.CruiseControl.Remote;
 
     [TestFixture]
@@ -15,7 +16,9 @@ using NUnit.Framework;
         public void ConstructorSetsName()
         {
             var package = new PackageDetails("The name");
-            Assert.AreEqual("The name", package.FileName);
+            ClassicAssert.AreEqual("The name", package.FileName);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
         }
 
         [Test]
@@ -36,12 +39,12 @@ using NUnit.Framework;
             package.NumberOfFiles = theCount;
             package.FileName = theFile;
 
-            Assert.AreEqual(theName, package.Name);
-            Assert.AreEqual(theBuild, package.BuildLabel);
-            Assert.AreEqual(theDate, package.DateTime);
-            Assert.AreEqual(theSize, package.Size);
-            Assert.AreEqual(theCount, package.NumberOfFiles);
-            Assert.AreEqual(theFile, package.FileName);
+            ClassicAssert.AreEqual(theName, package.Name);
+            ClassicAssert.AreEqual(theBuild, package.BuildLabel);
+            ClassicAssert.AreEqual(theDate, package.DateTime);
+            ClassicAssert.AreEqual(theSize, package.Size);
+            ClassicAssert.AreEqual(theCount, package.NumberOfFiles);
+            ClassicAssert.AreEqual(theFile, package.FileName);
         }
 
         [Test]
@@ -64,15 +67,15 @@ using NUnit.Framework;
             package.FileName = theFile;
             var result = TestHelpers.RunSerialisationTest(package);
 
-            Assert.IsNotNull(result);
-            Assert.IsInstanceOf<PackageDetails>(result);
+            ClassicAssert.IsNotNull(result);
+            ClassicAssert.IsInstanceOf<PackageDetails>(result);
             var actualPackage = result as PackageDetails;
-            Assert.AreEqual(theName, actualPackage.Name);
-            Assert.AreEqual(theBuild, actualPackage.BuildLabel);
-            Assert.AreEqual(theDate, actualPackage.DateTime);
-            Assert.AreEqual(theSize, actualPackage.Size);
-            Assert.AreEqual(theCount, actualPackage.NumberOfFiles);
-            Assert.AreEqual(theFile, actualPackage.FileName);
+            ClassicAssert.AreEqual(theName, actualPackage.Name);
+            ClassicAssert.AreEqual(theBuild, actualPackage.BuildLabel);
+            ClassicAssert.AreEqual(theDate, actualPackage.DateTime);
+            ClassicAssert.AreEqual(theSize, actualPackage.Size);
+            ClassicAssert.AreEqual(theCount, actualPackage.NumberOfFiles);
+            ClassicAssert.AreEqual(theFile, actualPackage.FileName);
         }
         #endregion
     }

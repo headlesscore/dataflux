@@ -1,6 +1,7 @@
 using System;
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.CCTrayLib;
 using ThoughtWorks.CruiseControl.CCTrayLib.Monitoring;
 using ThoughtWorks.CruiseControl.CCTrayLib.Presentation;
@@ -34,9 +35,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Presentation
 			mockIconProvider.Setup(_iconProvider => _iconProvider.GetStatusIconForState(ProjectState.Building)).Returns(icon).Verifiable();
 
 			ProjectStateIconAdaptor adaptor = new ProjectStateIconAdaptor( monitor, iconProvider );
-			Assert.AreSame( icon, adaptor.StatusIcon );
+			ClassicAssert.AreSame( icon, adaptor.StatusIcon );
+            ClassicAssert.AreSame(icon, adaptor.StatusIcon);
 
-			mockIconProvider.Verify();
+            mockIconProvider.Verify();
 		}
 
 		[Test]
@@ -46,7 +48,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Presentation
 			mockIconProvider.Setup(_iconProvider => _iconProvider.GetStatusIconForState(ProjectState.Building)).Returns(icon).Verifiable();
 
 			ProjectStateIconAdaptor adaptor = new ProjectStateIconAdaptor( monitor, iconProvider );
-			Assert.AreSame( icon, adaptor.StatusIcon );
+			ClassicAssert.AreSame( icon, adaptor.StatusIcon );
 
 			monitor.ProjectState = ProjectState.Broken;
 
@@ -55,7 +57,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Presentation
 
 			monitor.Poll();
 
-			Assert.AreSame( icon2, adaptor.StatusIcon );
+			ClassicAssert.AreSame( icon2, adaptor.StatusIcon );
 			mockIconProvider.Verify();
 		}
 
@@ -72,14 +74,14 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Presentation
 			ProjectStateIconAdaptor adaptor = new ProjectStateIconAdaptor( monitor, iconProvider );
 			adaptor.IconChanged += new EventHandler(IconChanged);
 
-			Assert.AreEqual(0,iconChangedCount);
+			ClassicAssert.AreEqual(0,iconChangedCount);
 
 			StatusIcon icon2 = new StatusIcon();
 			adaptor.StatusIcon = icon2;
-			Assert.AreEqual(1,iconChangedCount);
+			ClassicAssert.AreEqual(1,iconChangedCount);
 
 			adaptor.StatusIcon = icon2;
-			Assert.AreEqual(1,iconChangedCount);
+			ClassicAssert.AreEqual(1,iconChangedCount);
 
 		}
 

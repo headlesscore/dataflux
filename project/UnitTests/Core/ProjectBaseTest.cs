@@ -3,6 +3,7 @@ using NUnit.Framework;
 using ThoughtWorks.CruiseControl.Core;
 using System;
 using ThoughtWorks.CruiseControl.Core.Util;
+using NUnit.Framework.Legacy;
 
 namespace ThoughtWorks.CruiseControl.UnitTests.Core
 {
@@ -30,8 +31,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
 			project.ConfiguredWorkingDirectory = workingDir;
 
 			// Execute & Verify
-			Assert.AreEqual(workingDir, project.WorkingDirectory);
-		}
+			ClassicAssert.AreEqual(workingDir, project.WorkingDirectory);
+            ClassicAssert.AreEqual(workingDir, project.WorkingDirectory);
+        }
 
 		[Test]
 		public void ShouldReturnCalculatedWorkingDirectoryIfOneIsNotSet()
@@ -40,7 +42,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
 			project.Name = "myProject";
 
 			// Execute & Verify
-			Assert.AreEqual(
+			ClassicAssert.AreEqual(
 				Path.Combine(executionEnvironment.GetDefaultProgramDataFolder(ApplicationType.Server),
                     Path.Combine("myProject", "WorkingDirectory")), 
                 project.WorkingDirectory);
@@ -55,7 +57,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
 			project.ConfiguredArtifactDirectory = artifactDir;
 
 			// Execute & Verify
-			Assert.AreEqual(artifactDir, project.ArtifactDirectory);
+			ClassicAssert.AreEqual(artifactDir, project.ArtifactDirectory);
 		}
 
 		[Test]
@@ -65,7 +67,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
 			project.Name = "myProject";
 
 			// Execute & Verify
-			Assert.AreEqual(
+			ClassicAssert.AreEqual(
 				Path.Combine(executionEnvironment.GetDefaultProgramDataFolder(ApplicationType.Server), 
                     Path.Combine("myProject", "Artifacts")), 
                 project.ArtifactDirectory);

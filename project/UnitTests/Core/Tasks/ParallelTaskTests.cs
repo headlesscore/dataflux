@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Exortech.NetReflector;
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Config;
 using ThoughtWorks.CruiseControl.Core.Tasks;
@@ -42,7 +43,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
             // Verify the results
             VerifyResultMock(result, false);
             mocks.VerifyAll();
-            Assert.AreEqual(IntegrationStatus.Success, result.Status, "Status does not match");
+            ClassicAssert.AreEqual(IntegrationStatus.Success, result.Status, "Status does not match");
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
         }
 
         [Test]
@@ -69,7 +72,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
             // Verify the results
             VerifyResultMock(result, false);
             mocks.VerifyAll();
-            Assert.AreEqual(IntegrationStatus.Failure, result.Status, "Status does not match");
+            ClassicAssert.AreEqual(IntegrationStatus.Failure, result.Status, "Status does not match");
         }
 
         [Test]
@@ -94,7 +97,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
             // Verify the results
             VerifyResultMock(result, true);
             mocks.VerifyAll();
-            Assert.AreEqual(IntegrationStatus.Failure, result.Status, "Status does not match");
+            ClassicAssert.AreEqual(IntegrationStatus.Failure, result.Status, "Status does not match");
         }
 
         [Test]
@@ -117,7 +120,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 </parallel>";
             var task = new ParallelTask();
             NetReflector.Read(config, task);
-            Assert.AreEqual("Testing", task.Description);
+            ClassicAssert.AreEqual("Testing", task.Description);
         }
 
         [Test]

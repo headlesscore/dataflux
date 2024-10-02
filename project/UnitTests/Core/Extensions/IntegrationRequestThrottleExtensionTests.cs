@@ -7,6 +7,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Extensions
     using CruiseControl.Core.Extensions;
     using CruiseControl.Remote;
     using CruiseControl.Remote.Events;
+    using NUnit.Framework.Legacy;
 
     [TestFixture]
     public class IntegrationRequestThrottleExtensionTests
@@ -35,7 +36,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Extensions
             extension.Initialise(serverMock, config);
 
             mocks.VerifyAll();
-            Assert.AreEqual(10, extension.NumberOfRequestsAllowed);
+            ClassicAssert.AreEqual(10, extension.NumberOfRequestsAllowed);
+            ClassicAssert.AreEqual(10, extension.NumberOfRequestsAllowed);
         }
 
         [Test]
@@ -52,7 +54,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Extensions
             Mock.Get(serverMock).Raise(_serverMock => _serverMock.IntegrationStarted += null, eventArgs);
 
             mocks.VerifyAll();
-            Assert.AreEqual(IntegrationStartedEventArgs.EventResult.Continue, eventArgs.Result);
+            ClassicAssert.AreEqual(IntegrationStartedEventArgs.EventResult.Continue, eventArgs.Result);
         }
 
         [Test]
@@ -71,7 +73,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Extensions
             Mock.Get(serverMock).Raise(_serverMock => _serverMock.IntegrationStarted += null, eventArgs);
 
             mocks.VerifyAll();
-            Assert.AreEqual(IntegrationStartedEventArgs.EventResult.Delay, eventArgs.Result);
+            ClassicAssert.AreEqual(IntegrationStartedEventArgs.EventResult.Delay, eventArgs.Result);
         }
 
         [Test]
@@ -93,7 +95,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Extensions
             Mock.Get(serverMock).Raise(_serverMock => _serverMock.IntegrationStarted += null, eventArgs);
 
             mocks.VerifyAll();
-            Assert.AreEqual(IntegrationStartedEventArgs.EventResult.Continue, eventArgs.Result);
+            ClassicAssert.AreEqual(IntegrationStartedEventArgs.EventResult.Continue, eventArgs.Result);
         }
 
         [Test]
@@ -114,7 +116,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Extensions
             Mock.Get(serverMock).Raise(_serverMock => _serverMock.IntegrationStarted += null, eventArgs);
 
             mocks.VerifyAll();
-            Assert.AreEqual(IntegrationStartedEventArgs.EventResult.Continue, eventArgs.Result);
+            ClassicAssert.AreEqual(IntegrationStartedEventArgs.EventResult.Continue, eventArgs.Result);
         }
 
         [Test]

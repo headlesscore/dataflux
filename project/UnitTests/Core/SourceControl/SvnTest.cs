@@ -4,6 +4,7 @@ using System.Text;
 using Exortech.NetReflector;
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Config;
 using ThoughtWorks.CruiseControl.Core.Sourcecontrol;
@@ -52,7 +53,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 
             Modification[] modifications = svn.GetModifications(IntegrationResult(from), IntegrationResult(to));
 
-            Assert.AreEqual(new Modification[0], modifications);
+            ClassicAssert.AreEqual(new Modification[0], modifications);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
         }
 
         [Test]
@@ -76,19 +79,19 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 </svn>";
 
             svn = (Svn)NetReflector.Read(xml);
-            Assert.AreEqual(@"c:\svn\svn.exe", svn.Executable);
-            Assert.AreEqual("svn://myserver/mypath", svn.TrunkUrl);
-            Assert.AreEqual(new Timeout(5), svn.Timeout);
-            Assert.AreEqual(@"c:\dev\src", svn.WorkingDirectory);
-            Assert.AreEqual("user", svn.Username);
-            Assert.AreEqual("password", svn.Password.PrivateValue);
-            Assert.AreEqual(true, svn.TagOnSuccess);
-            Assert.AreEqual("MyTagMessage", svn.TagCommitMessage);
-            Assert.AreEqual("MyTagNameFormat", svn.TagNameFormat);
-            Assert.AreEqual(true, svn.TagWorkingCopy);
-            Assert.AreEqual(true, svn.AutoGetSource);
-            Assert.AreEqual(true, svn.CheckExternals);
-            Assert.AreEqual("svn://myserver/mypath/tags", svn.TagBaseUrl);
+            ClassicAssert.AreEqual(@"c:\svn\svn.exe", svn.Executable);
+            ClassicAssert.AreEqual("svn://myserver/mypath", svn.TrunkUrl);
+            ClassicAssert.AreEqual(new Timeout(5), svn.Timeout);
+            ClassicAssert.AreEqual(@"c:\dev\src", svn.WorkingDirectory);
+            ClassicAssert.AreEqual("user", svn.Username);
+            ClassicAssert.AreEqual("password", svn.Password.PrivateValue);
+            ClassicAssert.AreEqual(true, svn.TagOnSuccess);
+            ClassicAssert.AreEqual("MyTagMessage", svn.TagCommitMessage);
+            ClassicAssert.AreEqual("MyTagNameFormat", svn.TagNameFormat);
+            ClassicAssert.AreEqual(true, svn.TagWorkingCopy);
+            ClassicAssert.AreEqual(true, svn.AutoGetSource);
+            ClassicAssert.AreEqual(true, svn.CheckExternals);
+            ClassicAssert.AreEqual("svn://myserver/mypath/tags", svn.TagBaseUrl);
         }
 
         [Test]
@@ -96,8 +99,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
         {
             string xml = @"<svn/>";
             svn = (Svn)NetReflector.Read(xml);
-            Assert.AreEqual("svn", svn.Executable);
-            Assert.AreEqual(false, svn.TagWorkingCopy);
+            ClassicAssert.AreEqual("svn", svn.Executable);
+            ClassicAssert.AreEqual(false, svn.TagWorkingCopy);
         }
 
         [Test]
@@ -355,7 +358,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
             svn.TrunkUrl = string.Empty;
             svn.AutoGetSource = true;
             svn.WorkingDirectory = DefaultWorkingDirectory;
-            Assert.That(delegate { svn.GetSource(IntegrationResult()); },
+            ClassicAssert.That(delegate { svn.GetSource(IntegrationResult()); },
                         Throws.TypeOf<ConfigurationException>());
         }
 

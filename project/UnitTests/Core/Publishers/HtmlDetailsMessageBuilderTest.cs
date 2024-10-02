@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core.Publishers;
 
 namespace ThoughtWorks.CruiseControl.UnitTests.Core.Publishers
@@ -14,9 +15,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Publishers
 	        int styleBegin = message.IndexOf("<style>");
 	        int styleEnd = message.IndexOf("</style>");
 
-	        Assert.IsTrue(styleBegin != -1);
-			Assert.IsTrue(styleEnd != -1);
-			Assert.IsTrue(styleEnd - styleBegin > 8, "There must be some styles from the loaded file");
+	        ClassicAssert.IsTrue(styleBegin != -1);
+            ClassicAssert.IsTrue(styleBegin != -1);
+            ClassicAssert.IsTrue(styleEnd != -1);
+			ClassicAssert.IsTrue(styleEnd - styleBegin > 8, "There must be some styles from the loaded file");
 	    }
 	}
 }

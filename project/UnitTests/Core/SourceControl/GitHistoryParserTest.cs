@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Sourcecontrol;
 
@@ -18,28 +19,29 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 		public void ParsingEmptyLogProducesNoModifications()
 		{
 			Modification[] modifications = git.Parse(new StringReader(string.Empty), DateTime.Now, DateTime.Now);
-			Assert.AreEqual(0, modifications.Length, "#A1");
-		}
+			ClassicAssert.AreEqual(0, modifications.Length, "#A1");
+            ClassicAssert.IsTrue(true);
+        }
 
 		[Test]
 		public void ParsingSingleLogMessageProducesOneModification()
 		{
 			Modification[] modifications = git.Parse(new StringReader(oneEntryLog), new DateTime(2009, 06, 13, 10, 00, 00, DateTimeKind.Utc).ToLocalTime(), DateTime.Now);
-			Assert.AreEqual(1, modifications.Length, "#B1");
+			ClassicAssert.AreEqual(1, modifications.Length, "#B1");
 
 			Modification mod = modifications[0];
-			Assert.AreEqual("24024978a9823df37a23afe533ad1c81f62467ed", mod.ChangeNumber, "#B2");
-			Assert.IsTrue(mod.Comment.StartsWith("Expanded the tests"), "#B2");
-			Assert.IsTrue(mod.Comment.Contains("git-svn-id"), "#B3");
-			Assert.AreEqual("cj_sutherland@8a0e9b86-a613-0410-befa-817088176213", mod.EmailAddress, "#B4");
-			Assert.AreEqual("ReplacementDynamicValueTests.cs", mod.FileName, "#B5");
-			Assert.AreEqual("project/UnitTests/Core/Tasks", mod.FolderName, "#B6");
-			Assert.IsNull(mod.IssueUrl, "#B7");
-			Assert.AreEqual(new DateTime(2009, 6, 13, 10, 37, 42, DateTimeKind.Utc), mod.ModifiedTime.ToUniversalTime(), "#B8");
-			Assert.AreEqual("Modified", mod.Type, "#B9");
-			Assert.IsNull(mod.Url, "#B9");
-			Assert.AreEqual("cj_sutherland", mod.UserName, "#B10");
-			Assert.IsEmpty(mod.Version, "#B11");
+			ClassicAssert.AreEqual("24024978a9823df37a23afe533ad1c81f62467ed", mod.ChangeNumber, "#B2");
+			ClassicAssert.IsTrue(mod.Comment.StartsWith("Expanded the tests"), "#B2");
+			ClassicAssert.IsTrue(mod.Comment.Contains("git-svn-id"), "#B3");
+			ClassicAssert.AreEqual("cj_sutherland@8a0e9b86-a613-0410-befa-817088176213", mod.EmailAddress, "#B4");
+			ClassicAssert.AreEqual("ReplacementDynamicValueTests.cs", mod.FileName, "#B5");
+			ClassicAssert.AreEqual("project/UnitTests/Core/Tasks", mod.FolderName, "#B6");
+			ClassicAssert.IsNull(mod.IssueUrl, "#B7");
+			ClassicAssert.AreEqual(new DateTime(2009, 6, 13, 10, 37, 42, DateTimeKind.Utc), mod.ModifiedTime.ToUniversalTime(), "#B8");
+			ClassicAssert.AreEqual("Modified", mod.Type, "#B9");
+			ClassicAssert.IsNull(mod.Url, "#B9");
+			ClassicAssert.AreEqual("cj_sutherland", mod.UserName, "#B10");
+			ClassicAssert.IsEmpty(mod.Version, "#B11");
 		}
 
 		[Test]
@@ -47,34 +49,34 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 		public void ParsingLogWithLF()
 		{
 			Modification[] modifications = git.Parse(File.OpenText("CCNet.git.log.txt"), new DateTime(2009, 01, 01, 10, 00, 00, DateTimeKind.Utc), new DateTime(2009, 01, 31, 10, 00, 00, DateTimeKind.Utc));
-			Assert.AreEqual(85, modifications.Length, "#C1");
-			Assert.AreEqual("dec91e2a00ce14c091330f41ed5055627272022e", Modification.GetLastChangeNumber(modifications), "C2");
+			ClassicAssert.AreEqual(85, modifications.Length, "#C1");
+			ClassicAssert.AreEqual("dec91e2a00ce14c091330f41ed5055627272022e", Modification.GetLastChangeNumber(modifications), "C2");
 
 			Modification mod = modifications[0];
-			Assert.AreEqual("dec91e2a00ce14c091330f41ed5055627272022e", mod.ChangeNumber, "#C3");
-			Assert.IsTrue(mod.Comment.StartsWith("CCNet-748 Provide better trigger exception logging"), "#C4");
-			Assert.AreEqual("willemsruben@8a0e9b86-a613-0410-befa-817088176213", mod.EmailAddress, "#C5");
-			Assert.AreEqual("Project.cs", mod.FileName, "#C6");
-			Assert.AreEqual("project/core", mod.FolderName, "#C7");
-			Assert.IsNull(mod.IssueUrl, "#C8");
-			Assert.AreEqual(new DateTime(2009, 1, 30, 13, 39, 57, DateTimeKind.Utc), mod.ModifiedTime.ToUniversalTime(), "#C9");
-			Assert.AreEqual("Modified", mod.Type, "#C10");
-			Assert.IsNull(mod.Url, "#C11");
-			Assert.AreEqual("willemsruben", mod.UserName, "#C12");
-			Assert.IsEmpty(mod.Version, "#C13");
+			ClassicAssert.AreEqual("dec91e2a00ce14c091330f41ed5055627272022e", mod.ChangeNumber, "#C3");
+			ClassicAssert.IsTrue(mod.Comment.StartsWith("CCNet-748 Provide better trigger exception logging"), "#C4");
+			ClassicAssert.AreEqual("willemsruben@8a0e9b86-a613-0410-befa-817088176213", mod.EmailAddress, "#C5");
+			ClassicAssert.AreEqual("Project.cs", mod.FileName, "#C6");
+			ClassicAssert.AreEqual("project/core", mod.FolderName, "#C7");
+			ClassicAssert.IsNull(mod.IssueUrl, "#C8");
+			ClassicAssert.AreEqual(new DateTime(2009, 1, 30, 13, 39, 57, DateTimeKind.Utc), mod.ModifiedTime.ToUniversalTime(), "#C9");
+			ClassicAssert.AreEqual("Modified", mod.Type, "#C10");
+			ClassicAssert.IsNull(mod.Url, "#C11");
+			ClassicAssert.AreEqual("willemsruben", mod.UserName, "#C12");
+			ClassicAssert.IsEmpty(mod.Version, "#C13");
 
 			mod = modifications[55];
-			Assert.AreEqual("f8f963749bb64d3867599eb660fafbfc18a8ea0a", mod.ChangeNumber, "#C14");
-			Assert.AreEqual("Added the validator to the installer.\n\ngit-svn-id: https://ccnet.svn.sourceforge.net/svnroot/ccnet/trunk@4533 8a0e9b86-a613-0410-befa-817088176213", mod.Comment, "#C15");
-			Assert.AreEqual("cj_sutherland@8a0e9b86-a613-0410-befa-817088176213", mod.EmailAddress, "#C16");
-			Assert.AreEqual("ccnet.sln", mod.FileName, "#C17");
-			Assert.AreEqual("project", mod.FolderName, "#C18");
-			Assert.IsNull(mod.IssueUrl, "#C19");
-			Assert.AreEqual(new DateTime(2009, 1, 8, 20, 52, 37, DateTimeKind.Utc), mod.ModifiedTime.ToUniversalTime(), "#C20");
-			Assert.AreEqual("Modified", mod.Type, "#C21");
-			Assert.IsNull(mod.Url, "#C22");
-			Assert.AreEqual("cj_sutherland", mod.UserName, "#C23");
-			Assert.IsEmpty(mod.Version, "#C24");
+			ClassicAssert.AreEqual("f8f963749bb64d3867599eb660fafbfc18a8ea0a", mod.ChangeNumber, "#C14");
+			ClassicAssert.AreEqual("Added the validator to the installer.\n\ngit-svn-id: https://ccnet.svn.sourceforge.net/svnroot/ccnet/trunk@4533 8a0e9b86-a613-0410-befa-817088176213", mod.Comment, "#C15");
+			ClassicAssert.AreEqual("cj_sutherland@8a0e9b86-a613-0410-befa-817088176213", mod.EmailAddress, "#C16");
+			ClassicAssert.AreEqual("ccnet.sln", mod.FileName, "#C17");
+			ClassicAssert.AreEqual("project", mod.FolderName, "#C18");
+			ClassicAssert.IsNull(mod.IssueUrl, "#C19");
+			ClassicAssert.AreEqual(new DateTime(2009, 1, 8, 20, 52, 37, DateTimeKind.Utc), mod.ModifiedTime.ToUniversalTime(), "#C20");
+			ClassicAssert.AreEqual("Modified", mod.Type, "#C21");
+			ClassicAssert.IsNull(mod.Url, "#C22");
+			ClassicAssert.AreEqual("cj_sutherland", mod.UserName, "#C23");
+			ClassicAssert.IsEmpty(mod.Version, "#C24");
 		}
 
 		[Test]
@@ -82,78 +84,78 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 		public void ParsingLargeGitLog()
 		{
 			Modification[] modifications = git.Parse(File.OpenText("CCNet.git.log.txt"), DateTime.MinValue, DateTime.MaxValue);
-			Assert.AreEqual(22212, modifications.Length, "#D1");
-			Assert.AreEqual("dcbc5553fbc7e18905c47ae0eb10d15072e55cae", Modification.GetLastChangeNumber(modifications), "D2");
+			ClassicAssert.AreEqual(22212, modifications.Length, "#D1");
+			ClassicAssert.AreEqual("dcbc5553fbc7e18905c47ae0eb10d15072e55cae", Modification.GetLastChangeNumber(modifications), "D2");
 
 			Modification mod = modifications[0];
-			Assert.AreEqual("dcbc5553fbc7e18905c47ae0eb10d15072e55cae", mod.ChangeNumber, "#D3");
-			Assert.IsTrue(mod.Comment.StartsWith("Updated PowerShellTaskTest and NDepend"), "#D4");
-			Assert.AreEqual("cj_sutherland@8a0e9b86-a613-0410-befa-817088176213", mod.EmailAddress, "#D5");
-			Assert.AreEqual("NDependTaskTests.cs", mod.FileName, "#D6");
-			Assert.AreEqual("project/UnitTests/Core/Tasks", mod.FolderName, "#D7");
-			Assert.IsNull(mod.IssueUrl, "#D8");
-			Assert.AreEqual(new DateTime(2009, 6, 14, 11, 02, 31, DateTimeKind.Utc), mod.ModifiedTime.ToUniversalTime(), "#D9");
-			Assert.AreEqual("Modified", mod.Type, "#D10");
-			Assert.IsNull(mod.Url, "#D11");
-			Assert.AreEqual("cj_sutherland", mod.UserName, "#D12");
-			Assert.IsEmpty(mod.Version, "#D13");
+			ClassicAssert.AreEqual("dcbc5553fbc7e18905c47ae0eb10d15072e55cae", mod.ChangeNumber, "#D3");
+			ClassicAssert.IsTrue(mod.Comment.StartsWith("Updated PowerShellTaskTest and NDepend"), "#D4");
+			ClassicAssert.AreEqual("cj_sutherland@8a0e9b86-a613-0410-befa-817088176213", mod.EmailAddress, "#D5");
+			ClassicAssert.AreEqual("NDependTaskTests.cs", mod.FileName, "#D6");
+			ClassicAssert.AreEqual("project/UnitTests/Core/Tasks", mod.FolderName, "#D7");
+			ClassicAssert.IsNull(mod.IssueUrl, "#D8");
+			ClassicAssert.AreEqual(new DateTime(2009, 6, 14, 11, 02, 31, DateTimeKind.Utc), mod.ModifiedTime.ToUniversalTime(), "#D9");
+			ClassicAssert.AreEqual("Modified", mod.Type, "#D10");
+			ClassicAssert.IsNull(mod.Url, "#D11");
+			ClassicAssert.AreEqual("cj_sutherland", mod.UserName, "#D12");
+			ClassicAssert.IsEmpty(mod.Version, "#D13");
 
 			mod = modifications[22211];
-			Assert.AreEqual("0653fe2541cde05dc6098fe8afac79d1b4e0a62f", mod.ChangeNumber, "#D14");
-			Assert.AreEqual("first checkin\n\ngit-svn-id: https://ccnet.svn.sourceforge.net/svnroot/ccnet/trunk@2 8a0e9b86-a613-0410-befa-817088176213", mod.Comment, "#D15");
-			Assert.AreEqual("mikeroberts@8a0e9b86-a613-0410-befa-817088176213", mod.EmailAddress, "#D16");
-			Assert.AreEqual("updateConfig.bat", mod.FileName, "#D17");
-			Assert.IsEmpty(mod.FolderName, "#D18");
-			Assert.IsNull(mod.IssueUrl, "#D19");
-			Assert.AreEqual(new DateTime(2003, 4, 22, 16, 49, 49, DateTimeKind.Utc), mod.ModifiedTime.ToUniversalTime(), "#D20");
-			Assert.AreEqual("Added", mod.Type, "#D21");
-			Assert.IsNull(mod.Url, "#D22");
-			Assert.AreEqual("mikeroberts", mod.UserName, "#D23");
-			Assert.IsEmpty(mod.Version, "#D24");
+			ClassicAssert.AreEqual("0653fe2541cde05dc6098fe8afac79d1b4e0a62f", mod.ChangeNumber, "#D14");
+			ClassicAssert.AreEqual("first checkin\n\ngit-svn-id: https://ccnet.svn.sourceforge.net/svnroot/ccnet/trunk@2 8a0e9b86-a613-0410-befa-817088176213", mod.Comment, "#D15");
+			ClassicAssert.AreEqual("mikeroberts@8a0e9b86-a613-0410-befa-817088176213", mod.EmailAddress, "#D16");
+			ClassicAssert.AreEqual("updateConfig.bat", mod.FileName, "#D17");
+			ClassicAssert.IsEmpty(mod.FolderName, "#D18");
+			ClassicAssert.IsNull(mod.IssueUrl, "#D19");
+			ClassicAssert.AreEqual(new DateTime(2003, 4, 22, 16, 49, 49, DateTimeKind.Utc), mod.ModifiedTime.ToUniversalTime(), "#D20");
+			ClassicAssert.AreEqual("Added", mod.Type, "#D21");
+			ClassicAssert.IsNull(mod.Url, "#D22");
+			ClassicAssert.AreEqual("mikeroberts", mod.UserName, "#D23");
+			ClassicAssert.IsEmpty(mod.Version, "#D24");
 		}
 
 		[Test]
 		public void ParsingLogWithCRLF()
 		{
 			Modification[] modifications = git.Parse(new StringReader(rubyOnRailsLog), new DateTime(2009, 06, 13, 10, 00, 00, DateTimeKind.Utc), DateTime.Now);
-			Assert.AreEqual(129, modifications.Length, "#E1");
+			ClassicAssert.AreEqual(129, modifications.Length, "#E1");
 
 			Modification mod = modifications[0];
-			Assert.AreEqual("1fbfa3e705c37656c308436f21d42b09591ba60e", mod.ChangeNumber, "#E2");
-			Assert.AreEqual("More _write_layout_method removal", mod.Comment, "#E3");
-			Assert.AreEqual("ykatz+clerche@engineyard.com", mod.EmailAddress, "#E4");
-			Assert.AreEqual("layout_test.rb", mod.FileName, "#E5");
-			Assert.AreEqual("actionpack/test/controller", mod.FolderName, "#E6");
-			Assert.IsNull(mod.IssueUrl, "#E7");
-			Assert.AreEqual(new DateTime(2009, 6, 16, 0, 33, 25, DateTimeKind.Utc), mod.ModifiedTime.ToUniversalTime(), "#E8");
-			Assert.AreEqual("Modified", mod.Type, "#E9");
-			Assert.IsNull(mod.Url, "#E10");
-			Assert.AreEqual("Yehuda Katz + Carl Lerche", mod.UserName, "#E11");
-			Assert.IsEmpty(mod.Version, "#E12");
+			ClassicAssert.AreEqual("1fbfa3e705c37656c308436f21d42b09591ba60e", mod.ChangeNumber, "#E2");
+			ClassicAssert.AreEqual("More _write_layout_method removal", mod.Comment, "#E3");
+			ClassicAssert.AreEqual("ykatz+clerche@engineyard.com", mod.EmailAddress, "#E4");
+			ClassicAssert.AreEqual("layout_test.rb", mod.FileName, "#E5");
+			ClassicAssert.AreEqual("actionpack/test/controller", mod.FolderName, "#E6");
+			ClassicAssert.IsNull(mod.IssueUrl, "#E7");
+			ClassicAssert.AreEqual(new DateTime(2009, 6, 16, 0, 33, 25, DateTimeKind.Utc), mod.ModifiedTime.ToUniversalTime(), "#E8");
+			ClassicAssert.AreEqual("Modified", mod.Type, "#E9");
+			ClassicAssert.IsNull(mod.Url, "#E10");
+			ClassicAssert.AreEqual("Yehuda Katz + Carl Lerche", mod.UserName, "#E11");
+			ClassicAssert.IsEmpty(mod.Version, "#E12");
 
 			mod = modifications[34];
-			Assert.AreEqual("19c3495a671c364e0dc76c276efbcd9dc6914c74", mod.ChangeNumber, "#E13");
-			Assert.AreEqual("rm -r controller/base!", mod.Comment, "#E14");
-			Assert.AreEqual("ykatz+clerche@engineyard.com", mod.EmailAddress, "#E15");
-			Assert.AreEqual("responder.rb", mod.FileName, "#E16");
-			Assert.AreEqual("actionpack/lib/action_controller/old_base", mod.FolderName, "#E17");
-			Assert.IsNull(mod.IssueUrl, "#E18");
-			Assert.AreEqual(new DateTime(2009, 6, 15, 23, 29, 45, DateTimeKind.Utc), mod.ModifiedTime.ToUniversalTime(), "#E19");
-			Assert.AreEqual("Deleted", mod.Type, "#E20");
-			Assert.IsNull(mod.Url, "#E21");
-			Assert.AreEqual("Yehuda Katz + Carl Lerche", mod.UserName, "#E22");
-			Assert.IsEmpty(mod.Version, "#E23");
+			ClassicAssert.AreEqual("19c3495a671c364e0dc76c276efbcd9dc6914c74", mod.ChangeNumber, "#E13");
+			ClassicAssert.AreEqual("rm -r controller/base!", mod.Comment, "#E14");
+			ClassicAssert.AreEqual("ykatz+clerche@engineyard.com", mod.EmailAddress, "#E15");
+			ClassicAssert.AreEqual("responder.rb", mod.FileName, "#E16");
+			ClassicAssert.AreEqual("actionpack/lib/action_controller/old_base", mod.FolderName, "#E17");
+			ClassicAssert.IsNull(mod.IssueUrl, "#E18");
+			ClassicAssert.AreEqual(new DateTime(2009, 6, 15, 23, 29, 45, DateTimeKind.Utc), mod.ModifiedTime.ToUniversalTime(), "#E19");
+			ClassicAssert.AreEqual("Deleted", mod.Type, "#E20");
+			ClassicAssert.IsNull(mod.Url, "#E21");
+			ClassicAssert.AreEqual("Yehuda Katz + Carl Lerche", mod.UserName, "#E22");
+			ClassicAssert.IsEmpty(mod.Version, "#E23");
 		}
 
 		[Test]
 		public void ParsingLogWithUnicodeFilePath()
 		{
 			var modifications = git.Parse(new StringReader(unicodeFileNameLog), new DateTime(2009, 06, 13, 10, 00, 00, DateTimeKind.Utc).ToLocalTime(), DateTime.Now);
-			Assert.That(modifications, Has.Length.EqualTo(4));
+			ClassicAssert.That(modifications, Has.Length.EqualTo(4));
 
 			var mod = modifications[0];
 			var combinedPath = Path.Combine(mod.FolderName, mod.FileName);
-			Assert.That(combinedPath, Is.EqualTo(Path.Combine("/site/assets/pdfs", "BWMF Politique de gestion des conflits d'int\\303\\203\\302\\251r\\303\\203\\302\\252ts.pdf")));
+			ClassicAssert.That(combinedPath, Is.EqualTo(Path.Combine("/site/assets/pdfs", "BWMF Politique de gestion des conflits d'int\\303\\203\\302\\251r\\303\\203\\302\\252ts.pdf")));
 		}
 	}
 }

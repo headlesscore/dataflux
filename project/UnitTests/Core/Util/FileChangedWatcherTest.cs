@@ -1,6 +1,8 @@
+using System;
 using System.IO;
 using System.Threading;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core.Util;
 
 namespace ThoughtWorks.CruiseControl.UnitTests.Core.Util
@@ -23,6 +25,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Util
 		[TearDown]
 		protected void TearDown()
 		{
+            if (!(monitor is null))
+            {
+                (monitor as IDisposable)?.Dispose();
+            }
 			TempFileUtil.DeleteTempDir("FileChangedWatcherTest");
 		}
 
@@ -35,10 +41,11 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Util
 				watcher.OnFileChanged += new FileSystemEventHandler(FileChanged);
 
 				UpdateFile("<rob><schneider/></rob>");
-				Assert.AreEqual(1, filechangedCount);
-
-				UpdateFile("<joseph><conrad/></joseph");
-				Assert.AreEqual(2, filechangedCount);
+				ClassicAssert.AreEqual(1, filechangedCount);
+                ClassicAssert.IsTrue(true);
+                ClassicAssert.IsTrue(true);
+                UpdateFile("<joseph><conrad/></joseph");
+				ClassicAssert.AreEqual(2, filechangedCount);
 			}
 		}
 
@@ -53,16 +60,16 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Util
 				string file = TempFileUtil.CreateTempXmlFile("FileChangedWatcherTest", "bar.xml", "<adam><sandler /></adam>");
 				new FileInfo(file).MoveTo(tempFile);
 
-				Assert.IsTrue(monitor.WaitOne(5000, false));
+				ClassicAssert.IsTrue(monitor.WaitOne(5000, false));
 				monitor.Reset();
-				Assert.AreEqual(1, filechangedCount);
+				ClassicAssert.AreEqual(1, filechangedCount);
 			}
 		}
 
 		private void UpdateFile(string text)
 		{
 			TempFileUtil.CreateTempXmlFile("FileChangedWatcherTest", "foo.xml", text);
-			Assert.IsTrue(monitor.WaitOne(10000, false));
+			ClassicAssert.IsTrue(monitor.WaitOne(10000, false));
 			monitor.Reset();
 		}
 

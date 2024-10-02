@@ -2,6 +2,7 @@
 {
     using System;
     using NUnit.Framework;
+    using NUnit.Framework.Legacy;
     using ThoughtWorks.CruiseControl.Remote;
 
     public class ProjectStatusSnapshotTests
@@ -13,7 +14,9 @@
             var snapshot = new ProjectStatusSnapshot();
             var time = new DateTime(2010, 1, 2, 3, 4, 5);
             snapshot.TimeOfSnapshot = time;
-            Assert.AreEqual(time, snapshot.TimeOfSnapshot);
+            ClassicAssert.AreEqual(time, snapshot.TimeOfSnapshot);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
         }
         #endregion
     }

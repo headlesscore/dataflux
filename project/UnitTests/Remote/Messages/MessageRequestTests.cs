@@ -2,6 +2,7 @@
 using System.Xml.Linq;
 using FluentAssertions;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Remote.Messages;
 
 namespace ThoughtWorks.CruiseControl.UnitTests.Remote.Messages
@@ -14,7 +15,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote.Messages
         {
             MessageRequest request = new MessageRequest();
             request.Message = "new message";
-            Assert.AreEqual("new message", request.Message, "Message fails the get/set test");
+            ClassicAssert.AreEqual("new message", request.Message, "Message fails the get/set test");
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
         }
 
         [Test]

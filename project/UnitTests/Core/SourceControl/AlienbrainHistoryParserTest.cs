@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Sourcecontrol;
 
@@ -44,14 +45,15 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 		{
 			Modification tokens = parser.ParseModification(SAMPLE_PARAMS);
 
-			Assert.AreEqual(CHECKINCOMMENT, tokens.Comment);
-			Assert.AreEqual(NAME, tokens.FileName);
-			Assert.AreEqual(DBPATH_NOFILENAME, tokens.FolderName);
-			Assert.AreEqual(DateTime.FromFileTime(SCIT), tokens.ModifiedTime);
-			Assert.AreEqual(MIME_TYPE, tokens.Type);
-			Assert.AreEqual(LOCALPATH, tokens.Url);
-			Assert.AreEqual(CHANGED_BY, tokens.UserName);
-			Assert.AreEqual(NXN_VERSIONNUMBER, tokens.Version);
+			ClassicAssert.AreEqual(CHECKINCOMMENT, tokens.Comment);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.AreEqual(NAME, tokens.FileName);
+			ClassicAssert.AreEqual(DBPATH_NOFILENAME, tokens.FolderName);
+			ClassicAssert.AreEqual(DateTime.FromFileTime(SCIT), tokens.ModifiedTime);
+			ClassicAssert.AreEqual(MIME_TYPE, tokens.Type);
+			ClassicAssert.AreEqual(LOCALPATH, tokens.Url);
+			ClassicAssert.AreEqual(CHANGED_BY, tokens.UserName);
+			ClassicAssert.AreEqual(NXN_VERSIONNUMBER, tokens.Version);
 		}
 
 		[Test]
@@ -59,15 +61,15 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 		{
 			string[] tokens = parser.AllModificationParams(SAMPLE_ONE_LINES);
 
-			Assert.AreEqual(8, tokens.Length);
-			Assert.AreEqual(CHECKINCOMMENT, tokens[0]);
-			Assert.AreEqual(NAME, tokens[1]);
-			Assert.AreEqual(DBPATH, tokens[2]);
-			Assert.AreEqual(SCIT.ToString(), tokens[3]);
-			Assert.AreEqual(MIME_TYPE, tokens[4]);
-			Assert.AreEqual(LOCALPATH, tokens[5]);
-			Assert.AreEqual(CHANGED_BY, tokens[6]);
-			Assert.AreEqual(NXN_VERSIONNUMBER, tokens[7]);
+			ClassicAssert.AreEqual(8, tokens.Length);
+			ClassicAssert.AreEqual(CHECKINCOMMENT, tokens[0]);
+			ClassicAssert.AreEqual(NAME, tokens[1]);
+			ClassicAssert.AreEqual(DBPATH, tokens[2]);
+			ClassicAssert.AreEqual(SCIT.ToString(), tokens[3]);
+			ClassicAssert.AreEqual(MIME_TYPE, tokens[4]);
+			ClassicAssert.AreEqual(LOCALPATH, tokens[5]);
+			ClassicAssert.AreEqual(CHANGED_BY, tokens[6]);
+			ClassicAssert.AreEqual(NXN_VERSIONNUMBER, tokens[7]);
 		}
 
 		[Test]
@@ -75,21 +77,21 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 		{
 			Modification modification = parser.Parse(new StringReader(SAMPLE_TWO_LINES), DateTime.Now, DateTime.Now)[0];
 
-			Assert.AreEqual(CHECKINCOMMENT, modification.Comment);
-			Assert.AreEqual(NAME, modification.FileName);
-			Assert.AreEqual(DBPATH_NOFILENAME, modification.FolderName);
-			Assert.AreEqual(DateTime.FromFileTime(SCIT), modification.ModifiedTime);
-			Assert.AreEqual(MIME_TYPE, modification.Type);
-			Assert.AreEqual(LOCALPATH, modification.Url);
-			Assert.AreEqual(CHANGED_BY, modification.UserName);
-			Assert.AreEqual(NXN_VERSIONNUMBER, modification.Version);
+			ClassicAssert.AreEqual(CHECKINCOMMENT, modification.Comment);
+			ClassicAssert.AreEqual(NAME, modification.FileName);
+			ClassicAssert.AreEqual(DBPATH_NOFILENAME, modification.FolderName);
+			ClassicAssert.AreEqual(DateTime.FromFileTime(SCIT), modification.ModifiedTime);
+			ClassicAssert.AreEqual(MIME_TYPE, modification.Type);
+			ClassicAssert.AreEqual(LOCALPATH, modification.Url);
+			ClassicAssert.AreEqual(CHANGED_BY, modification.UserName);
+			ClassicAssert.AreEqual(NXN_VERSIONNUMBER, modification.Version);
 		}
 
 		[Test]
 		public void MustReturnNoModificationIfNoChange()
 		{
 			Modification[] modification = parser.Parse(new StringReader(SAMPLE_NO_CHANGES), DateTime.Now, DateTime.Now);
-			Assert.AreEqual(new Modification[0], modification);
+			ClassicAssert.AreEqual(new Modification[0], modification);
 		}
 	}
 }

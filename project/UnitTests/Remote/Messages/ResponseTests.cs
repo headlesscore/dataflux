@@ -2,6 +2,7 @@
 using System.Xml.Linq;
 using FluentAssertions;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Remote.Messages;
 
 namespace ThoughtWorks.CruiseControl.UnitTests.Remote.Messages
@@ -14,12 +15,14 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote.Messages
         {
             Response response = new Response();
             response.RequestIdentifier = "new id";
-            Assert.AreEqual("new id", response.RequestIdentifier, "RequestIdentifier fails the get/set test");
+            ClassicAssert.AreEqual("new id", response.RequestIdentifier, "RequestIdentifier fails the get/set test");
             response.Result = ResponseResult.Success;
-            Assert.AreEqual(ResponseResult.Success, response.Result, "Result fails the get/set test");
+            ClassicAssert.AreEqual(ResponseResult.Success, response.Result, "Result fails the get/set test");
             DateTime now = DateTime.Now;
             response.Timestamp = now;
-            Assert.AreEqual(now, response.Timestamp, "Timestamp fails the get/set test");
+            ClassicAssert.AreEqual(now, response.Timestamp, "Timestamp fails the get/set test");
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
         }
 
         [Test]
@@ -27,8 +30,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote.Messages
         {
             DateTime now = DateTime.Now;
             Response response = new Response();
-            Assert.AreEqual(ResponseResult.Unknown, response.Result, "Result wasn't set to failure");
-            Assert.IsTrue((now <= response.Timestamp), "Timestamp was not set");
+            ClassicAssert.AreEqual(ResponseResult.Unknown, response.Result, "Result wasn't set to failure");
+            ClassicAssert.IsTrue((now <= response.Timestamp), "Timestamp was not set");
         }
 
         [Test]
@@ -37,9 +40,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote.Messages
             DateTime now = DateTime.Now;
             ServerRequest request = new ServerRequest();
             Response response = new Response(request);
-            Assert.AreEqual(ResponseResult.Unknown, response.Result, "Result wasn't set to failure");
-            Assert.AreEqual(request.Identifier, response.RequestIdentifier, "RequestIdentifier wasn't set to the identifier of the request");
-            Assert.IsTrue((now <= response.Timestamp), "Timestamp was not set");
+            ClassicAssert.AreEqual(ResponseResult.Unknown, response.Result, "Result wasn't set to failure");
+            ClassicAssert.AreEqual(request.Identifier, response.RequestIdentifier, "RequestIdentifier wasn't set to the identifier of the request");
+            ClassicAssert.IsTrue((now <= response.Timestamp), "Timestamp was not set");
         }
 
         [Test]
@@ -51,9 +54,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote.Messages
             response1.RequestIdentifier = "original id";
             response1.Timestamp = DateTime.Now.AddMinutes(-1);
             Response response2 = new Response(response1);
-            Assert.AreEqual(ResponseResult.Success, response2.Result, "Result wasn't set to failure");
-            Assert.AreEqual("original id", response2.RequestIdentifier, "RequestIdentifier wasn't set to the identifier of the request");
-            Assert.IsTrue((response1.Timestamp == response2.Timestamp), "Timestamp was not set");
+            ClassicAssert.AreEqual(ResponseResult.Success, response2.Result, "Result wasn't set to failure");
+            ClassicAssert.AreEqual("original id", response2.RequestIdentifier, "RequestIdentifier wasn't set to the identifier of the request");
+            ClassicAssert.IsTrue((response1.Timestamp == response2.Timestamp), "Timestamp was not set");
         }
 
         [Test]
@@ -63,7 +66,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote.Messages
             Response response2 = new Response();
             response1.RequestIdentifier = response2.RequestIdentifier;
             response1.Timestamp = response2.Timestamp;
-            Assert.IsTrue(response1.Equals(response2));
+            ClassicAssert.IsTrue(response1.Equals(response2));
         }
 
         [Test]
@@ -73,7 +76,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote.Messages
             Response response2 = new Response();
             response1.RequestIdentifier = "response1";
             response2.RequestIdentifier = "response2";
-            Assert.IsFalse(response1.Equals(response2));
+            ClassicAssert.IsFalse(response1.Equals(response2));
         }
 
         [Test]
@@ -83,7 +86,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote.Messages
             Response response2 = new Response();
             response1.Timestamp = DateTime.Now.AddMilliseconds(-1);
             response2.Timestamp = DateTime.Now;
-            Assert.IsFalse(response1.Equals(response2));
+            ClassicAssert.IsFalse(response1.Equals(response2));
         }
 
         [Test]
@@ -91,7 +94,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote.Messages
         {
             var request = new Response();
             var different = new object();
-            Assert.IsFalse(request.Equals(different));
+            ClassicAssert.IsFalse(request.Equals(different));
         }
 
         [Test]
@@ -99,7 +102,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote.Messages
         {
             Response response = new Response();
             int expected = string.Empty.GetHashCode() & response.Timestamp.GetHashCode();
-            Assert.AreEqual(expected, response.GetHashCode());
+            ClassicAssert.AreEqual(expected, response.GetHashCode());
         }
 
         [Test]

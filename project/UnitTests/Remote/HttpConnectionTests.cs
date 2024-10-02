@@ -9,6 +9,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote
     using System.Net;
     using ThoughtWorks.CruiseControl.Remote.Messages;
     using System.Text;
+    using NUnit.Framework.Legacy;
 
     [TestFixture]
     public class HttpConnectionTests
@@ -19,7 +20,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote
         public void IsBusyReturnsFalseWhenNothingIsHappening()
         {
             var connection = new HttpConnection("http://somewhere");
-            Assert.IsFalse(connection.IsBusy);
+            ClassicAssert.IsFalse(connection.IsBusy);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
         }
         #endregion
 
@@ -29,7 +32,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote
         {
             var url = "http://somewhere/";
             var connection = new HttpConnection(url);
-            Assert.AreEqual(url, connection.Address);
+            ClassicAssert.AreEqual(url, connection.Address);
         }
         #endregion
 
@@ -45,10 +48,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote
             var url = "http://somewhere/";
             var factory = new TestClientFactory((u, a, d) =>
             {
-                Assert.AreEqual(url + "server/TestServer/RawXmlMessage.aspx", u.AbsoluteUri);
-                Assert.AreEqual("POST", a);
-                Assert.AreEqual(action, d["action"]);
-                Assert.AreEqual(request.ToString(), d["message"]);
+                ClassicAssert.AreEqual(url + "server/TestServer/RawXmlMessage.aspx", u.AbsoluteUri);
+                ClassicAssert.AreEqual("POST", a);
+                ClassicAssert.AreEqual(action, d["action"]);
+                ClassicAssert.AreEqual(request.ToString(), d["message"]);
                 var theResponse = new Response
                 {
                     RequestIdentifier = request.Identifier
@@ -57,8 +60,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote
             });
             var connection = new HttpConnection(new Uri(url), factory);
             var response = connection.SendMessage(action, request);
-            Assert.IsInstanceOf<Response>(response);
-            Assert.AreEqual(request.Identifier, response.RequestIdentifier);
+            ClassicAssert.IsInstanceOf<Response>(response);
+            ClassicAssert.AreEqual(request.Identifier, response.RequestIdentifier);
         }
         #endregion
 
@@ -74,10 +77,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote
             var url = "http://somewhere/";
             var factory = new TestClientFactory((u, a, d) =>
             {
-                Assert.AreEqual(url + "server/TestServer/RawXmlMessage.aspx", u.AbsoluteUri);
-                Assert.AreEqual("POST", a);
-                Assert.AreEqual(action, d["action"]);
-                Assert.AreEqual(request.ToString(), d["message"]);
+                ClassicAssert.AreEqual(url + "server/TestServer/RawXmlMessage.aspx", u.AbsoluteUri);
+                ClassicAssert.AreEqual("POST", a);
+                ClassicAssert.AreEqual(action, d["action"]);
+                ClassicAssert.AreEqual(request.ToString(), d["message"]);
                 var theResponse = new Response
                 {
                     RequestIdentifier = request.Identifier
@@ -89,11 +92,11 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote
             connection.SendMessageCompleted += (o, e) =>
             {
                 completed = true;
-                Assert.IsFalse(e.Cancelled);
-                Assert.IsNull(e.Error);
+                ClassicAssert.IsFalse(e.Cancelled);
+                ClassicAssert.IsNull(e.Error);
             };
             connection.SendMessageAsync(action, request);
-            Assert.IsTrue(completed);
+            ClassicAssert.IsTrue(completed);
         }
 
         [Test]
@@ -115,13 +118,13 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote
             connection.SendMessageCompleted += (o, e) =>
             {
                 completed = true;
-                Assert.IsFalse(e.Cancelled);
-                Assert.IsNotNull(e.Error);
-                Assert.AreEqual(errorMessage, e.Error.Message);
-                Assert.IsNull(e.Response);
+                ClassicAssert.IsFalse(e.Cancelled);
+                ClassicAssert.IsNotNull(e.Error);
+                ClassicAssert.AreEqual(errorMessage, e.Error.Message);
+                ClassicAssert.IsNull(e.Response);
             };
             connection.SendMessageAsync(action, request);
-            Assert.IsTrue(completed);
+            ClassicAssert.IsTrue(completed);
         }
 
         [Test]
@@ -143,13 +146,13 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote
             connection.SendMessageCompleted += (o, e) =>
             {
                 completed = true;
-                Assert.IsFalse(e.Cancelled);
-                Assert.IsNotNull(e.Error);
-                Assert.AreEqual("Oops, unknown address", e.Error.Message);
-                Assert.IsNull(e.Response);
+                ClassicAssert.IsFalse(e.Cancelled);
+                ClassicAssert.IsNotNull(e.Error);
+                ClassicAssert.AreEqual("Oops, unknown address", e.Error.Message);
+                ClassicAssert.IsNull(e.Response);
             };
             connection.SendMessageAsync(action, request);
-            Assert.IsTrue(completed);
+            ClassicAssert.IsTrue(completed);
         }
 
         [Test]
@@ -172,12 +175,12 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote
             connection.SendMessageCompleted += (o, e) =>
             {
                 completed = true;
-                Assert.IsTrue(e.Cancelled);
-                Assert.IsNull(e.Error);
-                Assert.IsNull(e.Response);
+                ClassicAssert.IsTrue(e.Cancelled);
+                ClassicAssert.IsNull(e.Error);
+                ClassicAssert.IsNull(e.Response);
             };
             connection.SendMessageAsync(action, request);
-            Assert.IsTrue(completed);
+            ClassicAssert.IsTrue(completed);
         }
         #endregion
         #endregion

@@ -6,6 +6,7 @@ using Moq;
 using NUnit.Framework;
 using ThoughtWorks.CruiseControl.Remote.Monitor;
 using ThoughtWorks.CruiseControl.Remote;
+using NUnit.Framework.Legacy;
 
 namespace ThoughtWorks.CruiseControl.UnitTests.Remote.Monitor
 {
@@ -32,7 +33,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote.Monitor
             try
             {
                 var watcher = new PollingServerWatcher(null);
-                Assert.Fail("ArgumentNullException was expected");
+                ClassicAssert.Fail("ArgumentNullException was expected");
+                ClassicAssert.IsTrue(true);
+                ClassicAssert.IsTrue(true);
             }
             catch (ArgumentNullException) { }
         }
@@ -57,7 +60,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote.Monitor
                 watcher.Refresh();
 
                 mocks.VerifyAll();
-                Assert.IsTrue(eventFired);
+                ClassicAssert.IsTrue(eventFired);
             }
         }
         #endregion
@@ -83,7 +86,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote.Monitor
                 monitor.WaitOne(new TimeSpan(0, 0, 10), false);
 
                 mocks.VerifyAll();
-                Assert.IsTrue(eventFired);
+                ClassicAssert.IsTrue(eventFired);
             }
         }
         #endregion

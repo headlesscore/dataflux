@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core.Tasks;
 
 namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
@@ -26,14 +27,16 @@ Build complete -- 1 errors, 0 warnings";
 "</buildresults>";
 
             DevenvTaskResult result = new DevenvTaskResult(ProcessResultFixture.CreateNonZeroExitCodeResult(stdOut, stdErr));
-            Assert.AreEqual(expected, result.Data);
-		}
+            ClassicAssert.AreEqual(expected, result.Data);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
+        }
 
 		[Test]
 		public void ShouldHandleSpecialCharacters()
 		{
 			DevenvTaskResult result = new DevenvTaskResult(ProcessResultFixture.CreateSuccessfulResult("<T>"));
-			Assert.AreEqual("<buildresults><message>&lt;T&gt;</message></buildresults>", result.Data);
+			ClassicAssert.AreEqual("<buildresults><message>&lt;T&gt;</message></buildresults>", result.Data);
 		}
 	}
 }

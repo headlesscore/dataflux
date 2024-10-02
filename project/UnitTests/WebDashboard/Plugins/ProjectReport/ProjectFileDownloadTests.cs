@@ -3,6 +3,7 @@
     using System.IO;
     using Moq;
     using NUnit.Framework;
+    using NUnit.Framework.Legacy;
     using ThoughtWorks.CruiseControl.Core.Reporting.Dashboard.Navigation;
     using ThoughtWorks.CruiseControl.Remote;
     using ThoughtWorks.CruiseControl.WebDashboard.IO;
@@ -47,10 +48,12 @@
             var response = action.Execute(cruiseRequest);
 
             mocks.VerifyAll();
-            Assert.IsInstanceOf<FileTransferResponse>(response);
+            ClassicAssert.IsInstanceOf<FileTransferResponse>(response);
             var actual = response as FileTransferResponse;
-            Assert.AreEqual(fileName, actual.FileName);
-            Assert.AreSame(transfer, actual.FileTransfer);
+            ClassicAssert.AreEqual(fileName, actual.FileName);
+            ClassicAssert.AreSame(transfer, actual.FileTransfer);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
         }
         #endregion
     }

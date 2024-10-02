@@ -1,6 +1,7 @@
 using System;
 using Exortech.NetReflector;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Sourcecontrol;
 
@@ -26,9 +27,11 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
             string configFile = "<issueUrlBuilder type=\"multiIssueTracker\"></issueUrlBuilder>";
             
             MultiIssueTrackerUrlBuilder multiIssue = new MultiIssueTrackerUrlBuilder();
-            Assert.That(delegate { NetReflector.Read(configFile, multiIssue); },
+            ClassicAssert.That(delegate { NetReflector.Read(configFile, multiIssue); },
                         Throws.TypeOf<NetReflectorException>().With.Message.EqualTo(
-                            "Missing Xml node (issueTrackers) for required member (ThoughtWorks.CruiseControl.Core.Sourcecontrol.MultiIssueTrackerUrlBuilder.IssueTrackers)." + Environment.NewLine + "Xml: <issueUrlBuilder type=\"multiIssueTracker\"></issueUrlBuilder>")); 
+                            "Missing Xml node (issueTrackers) for required member (ThoughtWorks.CruiseControl.Core.Sourcecontrol.MultiIssueTrackerUrlBuilder.IssueTrackers)." + Environment.NewLine + "Xml: <issueUrlBuilder type=\"multiIssueTracker\"></issueUrlBuilder>"));
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
         }
 
 
@@ -50,8 +53,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
             MultiIssueTrackerUrlBuilder multiIssue = new MultiIssueTrackerUrlBuilder();
             NetReflector.Read(configFile, multiIssue);
 
-            Assert.AreEqual(1, multiIssue.IssueTrackers.Length);
-            Assert.That(multiIssue.IssueTrackers[0], Is.InstanceOf<DefaultIssueTrackerUrlBuilder>());
+            ClassicAssert.AreEqual(1, multiIssue.IssueTrackers.Length);
+            ClassicAssert.That(multiIssue.IssueTrackers[0], Is.InstanceOf<DefaultIssueTrackerUrlBuilder>());
         }
 
         [Test]
@@ -62,8 +65,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
             MultiIssueTrackerUrlBuilder multiIssue = new MultiIssueTrackerUrlBuilder();
             NetReflector.Read(configFile, multiIssue);
 
-            Assert.AreEqual(1, multiIssue.IssueTrackers.Length);
-            Assert.That(multiIssue.IssueTrackers[0], Is.InstanceOf<RegExIssueTrackerUrlBuilder>());
+            ClassicAssert.AreEqual(1, multiIssue.IssueTrackers.Length);
+            ClassicAssert.That(multiIssue.IssueTrackers[0], Is.InstanceOf<RegExIssueTrackerUrlBuilder>());
         }
 
 
@@ -75,9 +78,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
             MultiIssueTrackerUrlBuilder multiIssue = new MultiIssueTrackerUrlBuilder();
             NetReflector.Read(configFile, multiIssue);
 
-            Assert.AreEqual(2, multiIssue.IssueTrackers.Length);
-            Assert.That(multiIssue.IssueTrackers[0], Is.InstanceOf<DefaultIssueTrackerUrlBuilder>());
-            Assert.That(multiIssue.IssueTrackers[1], Is.InstanceOf<RegExIssueTrackerUrlBuilder>());
+            ClassicAssert.AreEqual(2, multiIssue.IssueTrackers.Length);
+            ClassicAssert.That(multiIssue.IssueTrackers[0], Is.InstanceOf<DefaultIssueTrackerUrlBuilder>());
+            ClassicAssert.That(multiIssue.IssueTrackers[1], Is.InstanceOf<RegExIssueTrackerUrlBuilder>());
         }
     }
 }

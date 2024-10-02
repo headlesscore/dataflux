@@ -1,5 +1,6 @@
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.WebDashboard.IO;
 using ThoughtWorks.CruiseControl.WebDashboard.MVC;
 using ThoughtWorks.CruiseControl.WebDashboard.MVC.Cruise;
@@ -48,8 +49,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.MVC.Cruise
 			IResponse returnedResponse = checkingAction.Execute(cruiseRequest);
 
 			// Verify
-			Assert.AreEqual(response, returnedResponse);
-			VerifyAll();
+			ClassicAssert.AreEqual(response, returnedResponse);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
+            VerifyAll();
 			errorViewBuilderMock.VerifyNoOtherCalls();
 		}
 
@@ -65,7 +68,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.MVC.Cruise
 			IResponse returnedResponse = checkingAction.Execute(cruiseRequest);
 
 			// Verify
-			Assert.AreEqual(response, returnedResponse);
+			ClassicAssert.AreEqual(response, returnedResponse);
 			VerifyAll();
 			proxiedActionMock.VerifyNoOtherCalls();
 		}

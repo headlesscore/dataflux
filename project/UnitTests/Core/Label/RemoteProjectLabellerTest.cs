@@ -1,5 +1,6 @@
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Label;
 using ThoughtWorks.CruiseControl.Remote;
@@ -29,14 +30,15 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Label
 		public void ShouldConnectToRemoteServerAndRetrieveLabel()
 		{
 			labeller.ProjectName = "foo";
-			Assert.AreEqual("1", labeller.Generate(IntegrationResultMother.CreateSuccessful()));
-		}
+			ClassicAssert.AreEqual("1", labeller.Generate(IntegrationResultMother.CreateSuccessful()));
+            ClassicAssert.AreEqual("1", labeller.Generate(IntegrationResultMother.CreateSuccessful()));
+        }
 
 		[Test]
 		public void ShouldThrowExceptionIfProjectNameIsInvalid()
 		{
 			labeller.ProjectName = "invalid";
-            Assert.That(delegate { labeller.Generate(IntegrationResultMother.CreateSuccessful()); },
+            ClassicAssert.That(delegate { labeller.Generate(IntegrationResultMother.CreateSuccessful()); },
                         Throws.TypeOf<NoSuchProjectException>());
 		}
 

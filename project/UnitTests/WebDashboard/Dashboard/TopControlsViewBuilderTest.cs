@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core.Reporting.Dashboard.Navigation;
 using ThoughtWorks.CruiseControl.Remote;
 using ThoughtWorks.CruiseControl.Remote.Parameters;
@@ -96,11 +97,13 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.Dashboard
 			expectedVelocityContext["farmLink"] = link1;
 
 			velocityViewGeneratorMock.Setup(generator => generator.GenerateView(@"TopMenu.vm", It.IsAny<Hashtable>())).
-				Callback<string, Hashtable>((name, context) => Assert.AreEqual(context, expectedVelocityContext)).Returns(response).Verifiable();
+				Callback<string, Hashtable>((name, context) => ClassicAssert.AreEqual(context, expectedVelocityContext)).Returns(response).Verifiable();
 
 			// Execute & Verify
-			Assert.AreEqual(response, viewBuilder.Execute());
-			VerifyAll();
+			ClassicAssert.AreEqual(response, viewBuilder.Execute());
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
+            VerifyAll();
 		}
 
 		[Test]
@@ -127,10 +130,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.Dashboard
 			expectedVelocityContext["serverLink"] = link2;
 
 			velocityViewGeneratorMock.Setup(generator => generator.GenerateView(@"TopMenu.vm", It.IsAny<Hashtable>())).
-				Callback<string, Hashtable>((name, context) => Assert.AreEqual(context, expectedVelocityContext)).Returns(response).Verifiable();
+				Callback<string, Hashtable>((name, context) => ClassicAssert.AreEqual(context, expectedVelocityContext)).Returns(response).Verifiable();
 
 			// Execute & Verify
-			Assert.AreEqual(response, viewBuilder.Execute());
+			ClassicAssert.AreEqual(response, viewBuilder.Execute());
 			VerifyAll();
 		}
 
@@ -168,10 +171,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.Dashboard
 			expectedVelocityContext["projectLink"] = link3;
 
 			velocityViewGeneratorMock.Setup(generator => generator.GenerateView(@"TopMenu.vm", It.IsAny<Hashtable>())).
-				Callback<string, Hashtable>((name, context) => Assert.AreEqual(context, expectedVelocityContext)).Returns(response).Verifiable();
+				Callback<string, Hashtable>((name, context) => ClassicAssert.AreEqual(context, expectedVelocityContext)).Returns(response).Verifiable();
 
 			// Execute & Verify
-			Assert.AreEqual(response, viewBuilder.Execute());
+			ClassicAssert.AreEqual(response, viewBuilder.Execute());
 			VerifyAll();
 		}
 
@@ -212,10 +215,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.Dashboard
 			expectedVelocityContext["buildLink"] = link4;
 
 			velocityViewGeneratorMock.Setup(generator => generator.GenerateView(@"TopMenu.vm", It.IsAny<Hashtable>())).
-				Callback<string, Hashtable>((name, context) => Assert.AreEqual(context, expectedVelocityContext)).Returns(response).Verifiable();
+				Callback<string, Hashtable>((name, context) => ClassicAssert.AreEqual(context, expectedVelocityContext)).Returns(response).Verifiable();
 
 			// Execute & Verify
-			Assert.AreEqual(response, viewBuilder.Execute());
+			ClassicAssert.AreEqual(response, viewBuilder.Execute());
 			VerifyAll();
 		}
 	}

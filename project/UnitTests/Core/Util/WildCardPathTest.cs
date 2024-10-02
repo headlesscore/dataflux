@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.IO;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core.Util;
 
 namespace ThoughtWorks.CruiseControl.UnitTests.Core.Util
@@ -44,7 +45,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Util
         {
             WildCardPath wildCard = new WildCardPath("foo.xml");
             IList files = wildCard.GetFiles();
-            Assert.AreEqual(1, files.Count);
+            ClassicAssert.AreEqual(1, files.Count);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
         }
 
         [Test]
@@ -52,7 +55,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Util
         {
             WildCardPath wildCard = new WildCardPath(Path.Combine("nonexistantfolder", "*"));
             IList files = wildCard.GetFiles();
-            Assert.AreEqual(0, files.Count);
+            ClassicAssert.AreEqual(0, files.Count);
         }
 
         [Test]
@@ -60,8 +63,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Util
         {
             WildCardPath wildCard = new WildCardPath("fooo.xml    ");
             FileInfo[] files = wildCard.GetFiles();
-            Assert.AreEqual(1, files.Length);
-            Assert.AreEqual("fooo.xml", files[0].Name);
+            ClassicAssert.AreEqual(1, files.Length);
+            ClassicAssert.AreEqual("fooo.xml", files[0].Name);
         }
 
         [Test]
@@ -71,7 +74,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Util
             string tempFile2Path = TempFileUtil.CreateTempFile(TEMP_FOLDER, "bar.txt", "barbar");
             WildCardPath wildCard = new WildCardPath(Path.Combine(tempFolderFullPath, "*.txt"));
             IList files = wildCard.GetFiles();
-            Assert.AreEqual(2, files.Count);
+            ClassicAssert.AreEqual(2, files.Count);
             AssertListContainsPath(files, tempFile2Path);
             AssertListContainsPath(files, tempFile1Path);
         }
@@ -83,7 +86,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Util
             string tempFile2Path = TempFileUtil.CreateTempFile(TEMP_FOLDER, "prefix-bar.txt", "barbar");
             WildCardPath wildCard = new WildCardPath(Path.Combine(tempFolderFullPath, "prefix-*.txt"));
             IList files = wildCard.GetFiles();
-            Assert.AreEqual(2, files.Count);
+            ClassicAssert.AreEqual(2, files.Count);
             AssertListContainsPath(files, tempFile2Path);
             AssertListContainsPath(files, tempFile1Path);
         }
@@ -95,7 +98,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Util
                 if (info.FullName == s)
                     return;
             }
-            Assert.Fail(string.Format(System.Globalization.CultureInfo.CurrentCulture,"Element {0} not found in the list", s));
+            ClassicAssert.Fail(string.Format(System.Globalization.CultureInfo.CurrentCulture,"Element {0} not found in the list", s));
         }
 
         [Test]
@@ -105,7 +108,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Util
 
             FileInfo[] fileMatches = wildCard.GetFiles();
 
-            Assert.AreEqual(5, fileMatches.Length);
+            ClassicAssert.AreEqual(5, fileMatches.Length);
         }
 
         [Test]
@@ -115,7 +118,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Util
 
             FileInfo[] fileMatches = wildCard.GetFiles();
 
-            Assert.AreEqual(9, fileMatches.Length);
+            ClassicAssert.AreEqual(9, fileMatches.Length);
         }
 
         [Test]
@@ -124,7 +127,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Util
             WildCardPath wildCard = new WildCardPath(Path.Combine(new string [] {tempFolderFullPath, "RootLevel", "**", "ThirdLevelA", "*.txt"}));
             FileInfo[] fileMatches = wildCard.GetFiles();
 
-            Assert.AreEqual(3, fileMatches.Length);
+            ClassicAssert.AreEqual(3, fileMatches.Length);
         }
 
         [Test]
@@ -134,7 +137,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Util
 
             FileInfo[] fileMatches = wildCard.GetFiles();
 
-            Assert.AreEqual(5, fileMatches.Length);
+            ClassicAssert.AreEqual(5, fileMatches.Length);
         }
 
         [Test]
@@ -144,7 +147,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Util
 
             FileInfo[] fileMatches = wildCard.GetFiles();
 
-            Assert.AreEqual(3, fileMatches.Length);
+            ClassicAssert.AreEqual(3, fileMatches.Length);
         }
 
         [TearDown]

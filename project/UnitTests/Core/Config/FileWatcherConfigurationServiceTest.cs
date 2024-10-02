@@ -1,5 +1,7 @@
+using System;
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core.Config;
 using ThoughtWorks.CruiseControl.UnitTests.Core.Util;
 
@@ -10,6 +12,13 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Config
 	{
 		private FileWatcherConfigurationService fileService;
 		private MockFileWatcher fileWatcher;
+
+        [TearDown]
+        public void TearDown()
+        {
+            (fileWatcher as IDisposable)?.Dispose();
+            fileService = null;
+        }
 
 		[SetUp]
 		public void Setup()
@@ -30,8 +39,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Config
 			fileWatcher.RaiseEvent();
 
 			// Verify
-			Assert.IsTrue(updateCalled);
-		}
+			ClassicAssert.IsTrue(updateCalled);
+            ClassicAssert.IsTrue(updateCalled);
+        }
 
 		private bool updateCalled = false;
 

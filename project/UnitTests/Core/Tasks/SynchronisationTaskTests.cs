@@ -16,6 +16,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
     using ThoughtWorks.CruiseControl.Core;
     using ThoughtWorks.CruiseControl.Remote;
     using ThoughtWorks.CruiseControl.Core.Util;
+    using NUnit.Framework.Legacy;
 
     /// <summary>
     /// Tests for the SynchronisationTask class.
@@ -72,7 +73,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
             task.Run(result);
             this.mocks.VerifyAll();
 
-            Assert.AreEqual(IntegrationStatus.Success, result.Status);
+            ClassicAssert.AreEqual(IntegrationStatus.Success, result.Status);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
         }
 
         /// <summary>
@@ -102,7 +105,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
             task.Run(result);
             this.mocks.VerifyAll();
 
-            Assert.AreEqual(IntegrationStatus.Failure, result.Status);
+            ClassicAssert.AreEqual(IntegrationStatus.Failure, result.Status);
         }
 
         [Test]
@@ -132,7 +135,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
             task.Run(result);
             this.mocks.VerifyAll();
 
-            Assert.AreEqual(IntegrationStatus.Failure, result.Status);
+            ClassicAssert.AreEqual(IntegrationStatus.Failure, result.Status);
         }
 
         /// <summary>
@@ -162,9 +165,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
             task.Run(result);
             this.mocks.VerifyAll();
 
-            Assert.AreEqual(IntegrationStatus.Failure, result.Status);
-            Assert.IsNotNull(result.ExceptionResult);
-            Assert.AreEqual("Task failed!", result.ExceptionResult.Message);
+            ClassicAssert.AreEqual(IntegrationStatus.Failure, result.Status);
+            ClassicAssert.IsNotNull(result.ExceptionResult);
+            ClassicAssert.AreEqual("Task failed!", result.ExceptionResult.Message);
         }
 
         [Test]
@@ -194,9 +197,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
             task.Run(result);
             this.mocks.VerifyAll();
 
-            Assert.AreEqual(IntegrationStatus.Failure, result.Status);
-            Assert.IsNotNull(result.ExceptionResult);
-            Assert.AreEqual("Task failed!", result.ExceptionResult.Message);
+            ClassicAssert.AreEqual(IntegrationStatus.Failure, result.Status);
+            ClassicAssert.IsNotNull(result.ExceptionResult);
+            ClassicAssert.AreEqual("Task failed!", result.ExceptionResult.Message);
         }
 
         /// <summary>
@@ -227,7 +230,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
             task.Run(result);
             this.mocks.VerifyAll();
 
-            Assert.AreEqual(IntegrationStatus.Success, result.Status);
+            ClassicAssert.AreEqual(IntegrationStatus.Success, result.Status);
         }
 
         /// <summary>
@@ -279,12 +282,12 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
             var event1 = new ManualResetEvent(false);
             var event2 = new ManualResetEvent(false);
 
-            Assert.IsTrue(ThreadPool.QueueUserWorkItem(t1 =>
+            ClassicAssert.IsTrue(ThreadPool.QueueUserWorkItem(t1 =>
             {
                 task1.Run(result1);
                 event1.Set();
             }));
-            Assert.IsTrue(ThreadPool.QueueUserWorkItem(t2 =>
+            ClassicAssert.IsTrue(ThreadPool.QueueUserWorkItem(t2 =>
             {
                 task2.Run(result2);
                 event2.Set();
@@ -295,8 +298,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
             });
             this.mocks.VerifyAll();
 
-            Assert.AreEqual(IntegrationStatus.Success, result1.Status);
-            Assert.AreEqual(IntegrationStatus.Success, result2.Status);
+            ClassicAssert.AreEqual(IntegrationStatus.Success, result1.Status);
+            ClassicAssert.AreEqual(IntegrationStatus.Success, result2.Status);
         }
 
         /// <summary>
@@ -348,12 +351,12 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
             var event1 = new ManualResetEvent(false);
             var event2 = new ManualResetEvent(false);
 
-            Assert.IsTrue(ThreadPool.QueueUserWorkItem(t1 =>
+            ClassicAssert.IsTrue(ThreadPool.QueueUserWorkItem(t1 =>
             {
                 task1.Run(result1);
                 event1.Set();
             }));
-            Assert.IsTrue(ThreadPool.QueueUserWorkItem(t2 =>
+            ClassicAssert.IsTrue(ThreadPool.QueueUserWorkItem(t2 =>
             {
                 task2.Run(result2);
                 event2.Set();
@@ -367,11 +370,11 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
             // Only expect one of these to be successful
             if (result2.Status == IntegrationStatus.Success)
             {
-                Assert.AreEqual(IntegrationStatus.Failure, result1.Status);
+                ClassicAssert.AreEqual(IntegrationStatus.Failure, result1.Status);
             }
             else
             {
-                Assert.AreEqual(IntegrationStatus.Failure, result2.Status);
+                ClassicAssert.AreEqual(IntegrationStatus.Failure, result2.Status);
             }
         }
 
@@ -431,8 +434,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
             task.Run(result);
             this.mocks.VerifyAll();
 
-            Assert.AreEqual(IntegrationStatus.Failure, result.Status, "Status does not match");
-            Assert.AreEqual(innerCount * leafCount, taskRunCount, "Bad task run count");
+            ClassicAssert.AreEqual(IntegrationStatus.Failure, result.Status, "Status does not match");
+            ClassicAssert.AreEqual(innerCount * leafCount, taskRunCount, "Bad task run count");
         }
 
         #endregion

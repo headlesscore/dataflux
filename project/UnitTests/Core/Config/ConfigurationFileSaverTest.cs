@@ -1,6 +1,7 @@
 using System.IO;
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Config;
 using ThoughtWorks.CruiseControl.Core.Sourcecontrol;
@@ -49,8 +50,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Config
 			IConfiguration configuration2 = loader.Load(configFile);
 
 			// Verify
-			Assert.IsNotNull (configuration2.Projects["Project One"]);
-			Assert.IsNotNull (configuration2.Projects["Project Two"]);
+			ClassicAssert.IsNotNull (configuration2.Projects["Project One"]);
+            ClassicAssert.IsNotNull(configuration2.Projects["Project One"]);
+            ClassicAssert.IsNotNull (configuration2.Projects["Project Two"]);
 			mockConfiguration.Verify();
 		}
 	}

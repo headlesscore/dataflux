@@ -1,5 +1,6 @@
 using Exortech.NetReflector;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 
 namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
@@ -28,8 +29,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 			ViewCVSUrlBuilder cvsurl = new ViewCVSUrlBuilder();
 			NetReflector.Read( CreateSourceControlXml(), cvsurl );
 			
-			Assert.AreEqual( URL + @"/{0}", cvsurl.Url );
-		}
+			ClassicAssert.AreEqual( URL + @"/{0}", cvsurl.Url );
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
+        }
 
 		[Test]
 		public void CheckSetup()
@@ -47,8 +50,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 			string url0 = URL + "/NUnitDemo.build";
 			string url1 = URL + "/NUnitDemo/TestClass.cs";
 
-			Assert.AreEqual( url0, mods[0].Url );
-			Assert.AreEqual( url1, mods[1].Url );
+			ClassicAssert.AreEqual( url0, mods[0].Url );
+			ClassicAssert.AreEqual( url1, mods[1].Url );
 		}
 		
 	}

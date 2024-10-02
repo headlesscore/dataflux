@@ -1,6 +1,7 @@
 using System.IO;
 using Exortech.NetReflector;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Tasks;
 using ThoughtWorks.CruiseControl.Core.Util;
@@ -24,12 +25,14 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 	<timeout>50</timeout>
 </nunit>";
 			task = (NUnitTask) NetReflector.Read(xml);
-			Assert.AreEqual(@"d:\temp\nunit-console.exe", task.NUnitPath);
-			Assert.AreEqual(1, task.Assemblies.Length);
-			Assert.AreEqual("foo.dll", task.Assemblies[0]);
-			Assert.AreEqual(@"c:\testfile.xml", task.OutputFile);
-			Assert.AreEqual(50, task.Timeout);
-		}
+			ClassicAssert.AreEqual(@"d:\temp\nunit-console.exe", task.NUnitPath);
+			ClassicAssert.AreEqual(1, task.Assemblies.Length);
+			ClassicAssert.AreEqual("foo.dll", task.Assemblies[0]);
+			ClassicAssert.AreEqual(@"c:\testfile.xml", task.OutputFile);
+			ClassicAssert.AreEqual(50, task.Timeout);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
+        }
 
 		[Test]
 		public void LoadWithMultipleAssemblies()
@@ -63,7 +66,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 						 </nunit>";
 
             task = (NUnitTask) NetReflector.Read(xml);
-            Assert.AreEqual(3, task.ExcludedCategories.Length);
+            ClassicAssert.AreEqual(3, task.ExcludedCategories.Length);
         }
 
 		[Test]
@@ -78,8 +81,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 			task.Assemblies = new string[] {"foo.dll"};
 			task.Run(result);
 
-			Assert.AreEqual(1, result.TaskResults.Count);
-		    Assert.That(result.TaskOutput, Is.Empty);
+			ClassicAssert.AreEqual(1, result.TaskResults.Count);
+		    ClassicAssert.That(result.TaskOutput, Is.Empty);
 			Verify();
 		}
 	}

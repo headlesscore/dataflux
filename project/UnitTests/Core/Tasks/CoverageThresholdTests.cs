@@ -1,6 +1,7 @@
 ﻿namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 {
     using NUnit.Framework;
+    using NUnit.Framework.Legacy;
     using ThoughtWorks.CruiseControl.Core.Tasks;
 
     [TestFixture]
@@ -12,7 +13,9 @@
             var threshold = new CoverageThreshold();
             var expected = "SymbolCoverage:0";
             var actual = threshold.ToParamString();
-            Assert.AreEqual(expected, actual);
+            ClassicAssert.AreEqual(expected, actual);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
         }
 
         [Test]
@@ -25,7 +28,7 @@
                 };
             var expected = "BranchCoverage:95";
             var actual = threshold.ToParamString();
-            Assert.AreEqual(expected, actual);
+            ClassicAssert.AreEqual(expected, actual);
         }
 
         [Test]
@@ -40,7 +43,7 @@
             };
             var expected = "CyclomaticComplexity:95:Class:Test";
             var actual = threshold.ToParamString();
-            Assert.AreEqual(expected, actual);
+            ClassicAssert.AreEqual(expected, actual);
         }
     }
 }

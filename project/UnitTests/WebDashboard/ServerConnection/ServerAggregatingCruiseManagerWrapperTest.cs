@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core.Reporting.Dashboard.Navigation;
 using ThoughtWorks.CruiseControl.Remote;
 using ThoughtWorks.CruiseControl.Remote.Messages;
@@ -64,22 +65,24 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.ServerConnection
 			try
 			{
 				managerWrapper.GetLog(buildSpecifierForUnknownServer, null);
-				Assert.Fail("Should throw exception");
-			}
+				ClassicAssert.Fail("Should throw exception");
+                ClassicAssert.IsTrue(true);
+                ClassicAssert.IsTrue(true);
+            }
 			catch (UnknownServerException e)
 			{
-				Assert.AreEqual("unknownServer", e.RequestedServer);
+				ClassicAssert.AreEqual("unknownServer", e.RequestedServer);
 			}
 
 			configurationMock.SetupGet(_configuration => _configuration.Servers).Returns(new ServerLocation[] {serverLocation}).Verifiable();
 			try
 			{
 				managerWrapper.GetLatestBuildSpecifier(buildSpecifierForUnknownServer.ProjectSpecifier, null);
-				Assert.Fail("Should throw exception");
+				ClassicAssert.Fail("Should throw exception");
 			}
 			catch (UnknownServerException e)
 			{
-				Assert.AreEqual("unknownServer", e.RequestedServer);
+				ClassicAssert.AreEqual("unknownServer", e.RequestedServer);
 			}
 
 			VerifyAll();
@@ -98,7 +101,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.ServerConnection
                 });
 
 			DefaultProjectSpecifier myProjectMyServer = new DefaultProjectSpecifier(new DefaultServerSpecifier("myserver"), "myproject");
-            Assert.AreEqual(new DefaultBuildSpecifier(myProjectMyServer, buildName),
+            ClassicAssert.AreEqual(new DefaultBuildSpecifier(myProjectMyServer, buildName),
                 serverWrapper.GetLatestBuildSpecifier(myProjectMyServer, null));
 		}
 
@@ -113,7 +116,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.ServerConnection
                     Mock.Get(manager).Setup(_manager => _manager.GetLog(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>()))
                         .Returns(buildLog);
                 });
-            Assert.AreEqual(buildLog, serverWrapper.GetLog(new DefaultBuildSpecifier(projectSpecifier, "test"), null));
+            ClassicAssert.AreEqual(buildLog, serverWrapper.GetLog(new DefaultBuildSpecifier(projectSpecifier, "test"), null));
 		}
 
 		[Test]
@@ -127,9 +130,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.ServerConnection
                     Mock.Get(manager).Setup(_manager => _manager.GetBuildNames(It.IsAny<string>()))
                         .Returns(buildNames);
                 });
-            Assert.AreEqual(new DefaultBuildSpecifier(projectSpecifier, "log1"),
+            ClassicAssert.AreEqual(new DefaultBuildSpecifier(projectSpecifier, "log1"),
                 serverWrapper.GetBuildSpecifiers(projectSpecifier, null)[0]);
-            Assert.AreEqual(new DefaultBuildSpecifier(projectSpecifier, "log2"),
+            ClassicAssert.AreEqual(new DefaultBuildSpecifier(projectSpecifier, "log2"),
                 serverWrapper.GetBuildSpecifiers(projectSpecifier, null)[1]);
 		}
 
@@ -144,7 +147,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.ServerConnection
                     Mock.Get(manager).Setup(_manager => _manager.GetArtifactDirectory(It.IsAny<string>()))
                         .Returns(artifactDirectory);
                 });
-            Assert.AreEqual(artifactDirectory, serverWrapper.GetArtifactDirectory(projectSpecifier, null));
+            ClassicAssert.AreEqual(artifactDirectory, serverWrapper.GetArtifactDirectory(projectSpecifier, null));
 		}
 
 		[Test]
@@ -158,9 +161,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.ServerConnection
                     Mock.Get(manager).Setup(_manager => _manager.GetMostRecentBuildNames(It.IsAny<string>(), It.IsAny<int>()))
                         .Returns(buildNames);
                 });
-            Assert.AreEqual(new DefaultBuildSpecifier(projectSpecifier, "log1"),
+            ClassicAssert.AreEqual(new DefaultBuildSpecifier(projectSpecifier, "log1"),
                 serverWrapper.GetMostRecentBuildSpecifiers(projectSpecifier, 2, null)[0]);
-            Assert.AreEqual(new DefaultBuildSpecifier(projectSpecifier, "log2"),
+            ClassicAssert.AreEqual(new DefaultBuildSpecifier(projectSpecifier, "log2"),
                 serverWrapper.GetMostRecentBuildSpecifiers(projectSpecifier, 2, null)[1]);
 		}
 
@@ -201,7 +204,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.ServerConnection
             string returnedProject = serverWrapper.GetProject(projectSpecifier, null);
 
 			// Verify
-			Assert.AreEqual(serializedProject, returnedProject);
+			ClassicAssert.AreEqual(serializedProject, returnedProject);
 		}
 
 		[Test]
@@ -226,7 +229,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.ServerConnection
                     Mock.Get(manager).Setup(_manager => _manager.GetServerLog())
                         .Returns(serverLog);
                 });
-            Assert.AreEqual(serverLog, serverWrapper.GetServerLog(serverSpecifier, null));
+            ClassicAssert.AreEqual(serverLog, serverWrapper.GetServerLog(serverSpecifier, null));
 		}
 
 		[Test]
@@ -240,7 +243,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.ServerConnection
                     Mock.Get(manager).Setup(_manager => _manager.GetServerLog(It.IsAny<string>()))
                         .Returns(serverLog);
                 });
-            Assert.AreEqual("a server log", serverWrapper.GetServerLog(projectSpecifier, null));
+            ClassicAssert.AreEqual("a server log", serverWrapper.GetServerLog(projectSpecifier, null));
 		}
 
 		[Test]
@@ -250,9 +253,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.ServerConnection
 
 			configurationMock.SetupGet(_configuration => _configuration.Servers).Returns(servers).Verifiable();
 			IServerSpecifier[] serverSpecifiers = managerWrapper.GetServerSpecifiers();
-			Assert.AreEqual(2, serverSpecifiers.Length);
-			Assert.AreEqual("myserver", serverSpecifiers[0].ServerName);
-			Assert.AreEqual("myotherserver", serverSpecifiers[1].ServerName);
+			ClassicAssert.AreEqual(2, serverSpecifiers.Length);
+			ClassicAssert.AreEqual("myserver", serverSpecifiers[0].ServerName);
+			ClassicAssert.AreEqual("myotherserver", serverSpecifiers[1].ServerName);
 
 			VerifyAll();
 		}
@@ -283,7 +286,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.ServerConnection
                         .Returns(links);
                 });
 
-            Assert.AreEqual(links, serverWrapper.GetExternalLinks(projectSpecifier, null));
+            ClassicAssert.AreEqual(links, serverWrapper.GetExternalLinks(projectSpecifier, null));
 		}
 
         private ServerAggregatingCruiseManagerWrapper InitialiseServerWrapper(MockRepository mocks,
@@ -316,7 +319,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.ServerConnection
 			configurationMock.SetupGet(_configuration => _configuration.Servers).Returns(servers).Verifiable();
 
 			IServerSpecifier specifier = managerWrapper.GetServerConfiguration("myserver");
-			Assert.AreEqual(true, specifier.AllowForceBuild);
+			ClassicAssert.AreEqual(true, specifier.AllowForceBuild);
 
 			VerifyAll();
 		}

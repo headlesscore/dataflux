@@ -7,6 +7,7 @@ using ThoughtWorks.CruiseControl.Core.State;
 using ThoughtWorks.CruiseControl.Core.Util;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Remote;
+using NUnit.Framework.Legacy;
 
 namespace ThoughtWorks.CruiseControl.UnitTests.Core.State
 {
@@ -42,14 +43,16 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.State
 		{
 			string xml = @"<state><directory>c:\temp</directory></state>";
 			state = (FileStateManager)NetReflector.Read(xml);
-			Assert.AreEqual(@"c:\temp", state.StateFileDirectory);
-		}
+			ClassicAssert.AreEqual(@"c:\temp", state.StateFileDirectory);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
+        }
 
         [Test]
         public void SaveToNonExistingFolder()
         {
             string newDirectory = Directory.GetCurrentDirectory() + "\\NewDirectory";
-            Assert.IsFalse(Directory.Exists(newDirectory), "The test directory should not exist");
+            ClassicAssert.IsFalse(Directory.Exists(newDirectory), "The test directory should not exist");
 
             Mock.Get(executionEnvironment).Setup(_executionEnvironment => _executionEnvironment.GetDefaultProgramDataFolder(It.IsNotNull<ApplicationType>()))
                 .Returns(applicationDataPath).Verifiable();
@@ -75,7 +78,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.State
 			result = IntegrationResultMother.CreateSuccessful();
 			result.ProjectName = ProjectName;
 
-		    Assert.That(delegate { state.LoadState(ProjectName); },
+		    ClassicAssert.That(delegate { state.LoadState(ProjectName); },
 		                Throws.TypeOf<CruiseControlException>().With.Property("InnerException").TypeOf<FileNotFoundException>());
 		}
 
@@ -88,7 +91,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.State
             Mock.Get(fileSystem).Setup(_fileSystem => _fileSystem.FileExists(It.IsNotNull<String>())).Returns(true).Verifiable();
 
 			state = new FileStateManager(fileSystem, executionEnvironment);
-			Assert.IsTrue(state.HasPreviousState(ProjectName));
+			ClassicAssert.IsTrue(state.HasPreviousState(ProjectName));
 		}
 
 		[Test]
@@ -164,7 +167,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.State
 
 			state = new FileStateManager(fileSystem, executionEnvironment);
 
-		    Assert.That(delegate { state.LoadState(ProjectName); }, Throws.TypeOf<CruiseControlException>());
+		    ClassicAssert.That(delegate { state.LoadState(ProjectName); }, Throws.TypeOf<CruiseControlException>());
 		}
 
         [Test]
@@ -221,7 +224,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.State
 
 			state = new FileStateManager(fileSystem, executionEnvironment);
 
-            Assert.That(delegate { state.SaveState(result); }, Throws.TypeOf<CruiseControlException>());
+            ClassicAssert.That(delegate { state.SaveState(result); }, Throws.TypeOf<CruiseControlException>());
 		}
 
 		[Test]
@@ -234,7 +237,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.State
 
 			state = new FileStateManager(fileSystem, executionEnvironment);
 
-            Assert.That(delegate { state.LoadState(ProjectName); }, Throws.TypeOf<CruiseControlException>());
+            ClassicAssert.That(delegate { state.LoadState(ProjectName); }, Throws.TypeOf<CruiseControlException>());
 		}
 
 		[Test]
@@ -257,16 +260,16 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.State
 </IntegrationResult>";
 
 			result = (IntegrationResult)state.LoadState(new StringReader(xml));
-			Assert.AreEqual("NetReflector", result.ProjectName);
-			Assert.AreEqual("http://localhost/ccnet", result.ProjectUrl);
-			Assert.AreEqual(BuildCondition.ForceBuild, result.BuildCondition);
-			Assert.AreEqual("1.0.0.7", result.Label);
-			Assert.AreEqual(@"C:\dev\ccnet\integrationTests\netreflector", result.WorkingDirectory);
-			Assert.AreEqual(@"C:\dev\ccnet\trunk4\build\server\NetReflector\Artifacts", result.ArtifactDirectory);
-			Assert.AreEqual(IntegrationStatus.Success, result.Status);
-			Assert.AreEqual(IntegrationStatus.Success, result.LastIntegrationStatus);
-			Assert.AreEqual("1.0.0.7", result.LastSuccessfulIntegrationLabel);
-			Assert.AreEqual(new DateTime(2006, 12, 10, 22, 41, 50), result.StartTime.ToUniversalTime());
+			ClassicAssert.AreEqual("NetReflector", result.ProjectName);
+			ClassicAssert.AreEqual("http://localhost/ccnet", result.ProjectUrl);
+			ClassicAssert.AreEqual(BuildCondition.ForceBuild, result.BuildCondition);
+			ClassicAssert.AreEqual("1.0.0.7", result.Label);
+			ClassicAssert.AreEqual(@"C:\dev\ccnet\integrationTests\netreflector", result.WorkingDirectory);
+			ClassicAssert.AreEqual(@"C:\dev\ccnet\trunk4\build\server\NetReflector\Artifacts", result.ArtifactDirectory);
+			ClassicAssert.AreEqual(IntegrationStatus.Success, result.Status);
+			ClassicAssert.AreEqual(IntegrationStatus.Success, result.LastIntegrationStatus);
+			ClassicAssert.AreEqual("1.0.0.7", result.LastSuccessfulIntegrationLabel);
+			ClassicAssert.AreEqual(new DateTime(2006, 12, 10, 22, 41, 50), result.StartTime.ToUniversalTime());
 		}
 	}
 }

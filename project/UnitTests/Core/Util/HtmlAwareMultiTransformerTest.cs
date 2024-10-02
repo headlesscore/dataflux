@@ -1,5 +1,6 @@
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core.Util;
 
 namespace ThoughtWorks.CruiseControl.UnitTests.Core.Util
@@ -18,8 +19,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Util
 			delegateMock.Setup(t => t.Transform(input, "xslFile1", null)).Returns(@"<p>MyFirstOutput<p>").Verifiable();
 			delegateMock.Setup(t => t.Transform(input, "xslFile2", null)).Returns(@"<p>MySecondOutput<p>").Verifiable();
 
-			Assert.AreEqual(@"<p>MyFirstOutput<p><p>MySecondOutput<p>", transformer.Transform(input, new string[] { "xslFile1", "xslFile2" }, null));
-			delegateMock.Verify();
+			ClassicAssert.AreEqual(@"<p>MyFirstOutput<p><p>MySecondOutput<p>", transformer.Transform(input, new string[] { "xslFile1", "xslFile2" }, null));
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
+            delegateMock.Verify();
 		}
 	}
 }

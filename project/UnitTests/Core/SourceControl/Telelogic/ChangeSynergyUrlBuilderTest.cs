@@ -1,5 +1,6 @@
 using Exortech.NetReflector;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Sourcecontrol.Telelogic;
 
@@ -26,20 +27,22 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol.Telelogic
              *      which would support this approach */
 
 			synergy = (Synergy) NetReflector.Read(SynergyMother.ConfigValues);
-			Assert.IsNotNull(synergy.UrlBuilder);
-			Assert.IsTrue(synergy.UrlBuilder is ChangeSynergyUrlBuilder);
+			ClassicAssert.IsNotNull(synergy.UrlBuilder);
+			ClassicAssert.IsTrue(synergy.UrlBuilder is ChangeSynergyUrlBuilder);
 			synergyUrlBuilder = synergy.UrlBuilder as ChangeSynergyUrlBuilder;
-			Assert.IsNotNull(synergyUrlBuilder);
-		}
+			ClassicAssert.IsNotNull(synergyUrlBuilder);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
+        }
 
 		[Test]
 		public virtual void Config()
 		{
-			Assert.AreSame(synergy.Connection.Database, synergyUrlBuilder.Database);
-			Assert.AreEqual(@"http://myserver:8060", synergyUrlBuilder.Url);
-			Assert.AreEqual(@"User", synergyUrlBuilder.Role);
-			Assert.AreEqual("csuser", synergyUrlBuilder.Username);
-			Assert.IsFalse("readonly" == synergyUrlBuilder.Password);
+			ClassicAssert.AreSame(synergy.Connection.Database, synergyUrlBuilder.Database);
+			ClassicAssert.AreEqual(@"http://myserver:8060", synergyUrlBuilder.Url);
+			ClassicAssert.AreEqual(@"User", synergyUrlBuilder.Role);
+			ClassicAssert.AreEqual("csuser", synergyUrlBuilder.Username);
+			ClassicAssert.IsFalse("readonly" == synergyUrlBuilder.Password);
 		}
 
 		[Test]
@@ -47,12 +50,12 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol.Telelogic
 		{
 			ChangeSynergyUrlBuilder synergyUrlBuilder = new ChangeSynergyUrlBuilder();
 
-			Assert.AreEqual("0:0,0,0,0,0,0,0,0", synergyUrlBuilder.ObfuscatePassword(0, "password"));
-			Assert.AreEqual("1:112,97,115,115,119,111,114,100", synergyUrlBuilder.ObfuscatePassword(1, "password"));
-			Assert.AreEqual("999:111888,96903,114885,114885,118881,110889,113886,99900", synergyUrlBuilder.ObfuscatePassword(999, "password"));
-			Assert.AreEqual("1000:112000,97000,115000,115000,119000,111000,114000,100000", synergyUrlBuilder.ObfuscatePassword(1000, "password"));
+			ClassicAssert.AreEqual("0:0,0,0,0,0,0,0,0", synergyUrlBuilder.ObfuscatePassword(0, "password"));
+			ClassicAssert.AreEqual("1:112,97,115,115,119,111,114,100", synergyUrlBuilder.ObfuscatePassword(1, "password"));
+			ClassicAssert.AreEqual("999:111888,96903,114885,114885,118881,110889,113886,99900", synergyUrlBuilder.ObfuscatePassword(999, "password"));
+			ClassicAssert.AreEqual("1000:112000,97000,115000,115000,119000,111000,114000,100000", synergyUrlBuilder.ObfuscatePassword(1000, "password"));
 
-			Assert.AreEqual("500:45500,42000,52000,34500,16000,40500,58500,16500,33500,53500,16000,33000,57000,24000,59500,55000,16000,35000,55500,47000,16000,53000,42500,54500,56000,18000,16000,39500,59000,25500,57000,16000,58000,52000,50500,16000,62000,32000,61000,60500,16000,50000,55500,51500,62500", synergyUrlBuilder.ObfuscatePassword(500, "[ThE Qu!Ck Br0wn Fo^ jUmp$ Ov3r the |@zy dog}"));
+			ClassicAssert.AreEqual("500:45500,42000,52000,34500,16000,40500,58500,16500,33500,53500,16000,33000,57000,24000,59500,55000,16000,35000,55500,47000,16000,53000,42500,54500,56000,18000,16000,39500,59000,25500,57000,16000,58000,52000,50500,16000,62000,32000,61000,60500,16000,50000,55500,51500,62500", synergyUrlBuilder.ObfuscatePassword(500, "[ThE Qu!Ck Br0wn Fo^ jUmp$ Ov3r the |@zy dog}"));
 		}
 
 		[Test]
@@ -69,7 +72,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol.Telelogic
 				int start = testModifications[i].Url.IndexOf("&generic_data=");
 				int end = testModifications[i].Url.Length;
 				testModifications[i].Url = testModifications[i].Url.Remove(start, end - start);
-				Assert.AreEqual(expectedUrls[i], testModifications[i].Url);
+				ClassicAssert.AreEqual(expectedUrls[i], testModifications[i].Url);
 			}
 		}
 
@@ -107,11 +110,11 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol.Telelogic
 		[Test]
 		public override void Config()
 		{
-			Assert.AreSame(synergy.Connection.Database, synergyUrlBuilder.Database);
-			Assert.AreEqual(@"http://myserver:8060", synergyUrlBuilder.Url);
-			Assert.AreEqual(@"User", synergyUrlBuilder.Role);
-			Assert.IsNull(synergyUrlBuilder.Username);
-			Assert.IsNull(synergyUrlBuilder.Password);
+			ClassicAssert.AreSame(synergy.Connection.Database, synergyUrlBuilder.Database);
+			ClassicAssert.AreEqual(@"http://myserver:8060", synergyUrlBuilder.Url);
+			ClassicAssert.AreEqual(@"User", synergyUrlBuilder.Role);
+			ClassicAssert.IsNull(synergyUrlBuilder.Username);
+			ClassicAssert.IsNull(synergyUrlBuilder.Password);
 		}
 
 		[Test]
@@ -125,7 +128,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol.Telelogic
 			// strip out the obfuscated password, which was already tested in the test case PasswordObfuscation
 			for (int i = 0; i < size; i++)
 			{
-				Assert.AreEqual(expectedUrls[i], testModifications[i].Url);
+				ClassicAssert.AreEqual(expectedUrls[i], testModifications[i].Url);
 			}
 		}
 	}

@@ -1,6 +1,7 @@
 ﻿namespace ThoughtWorks.CruiseControl.UnitTests.Core.Util
 {
     using NUnit.Framework;
+    using NUnit.Framework.Legacy;
     using ThoughtWorks.CruiseControl.Core.Util;
 
     [TestFixture]
@@ -10,7 +11,9 @@
         public void ImplicitConvertsFromString()
         {
             PrivateString theString = "testing";
-            Assert.AreEqual("testing", theString.PrivateValue);
+            ClassicAssert.AreEqual("testing", theString.PrivateValue);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
         }
 
         [Test]
@@ -21,8 +24,8 @@
             {
                 PrivateValue = testValue
             };
-            Assert.AreEqual(testValue, theString.PrivateValue);
-            Assert.AreNotEqual(testValue, theString.PublicValue);
+            ClassicAssert.AreEqual(testValue, theString.PrivateValue);
+            ClassicAssert.AreNotEqual(testValue, theString.PublicValue);
         }
 
         [Test]
@@ -32,7 +35,7 @@
             {
                 PrivateValue = "hidden"
             };
-            Assert.AreEqual(testString.PublicValue, testString.ToString());
+            ClassicAssert.AreEqual(testString.PublicValue, testString.ToString());
         }
 
         [Test]
@@ -42,7 +45,7 @@
             {
                 PrivateValue = "hidden"
             };
-            Assert.AreEqual(testString.PublicValue, testString.ToString(SecureDataMode.Public));
+            ClassicAssert.AreEqual(testString.PublicValue, testString.ToString(SecureDataMode.Public));
         }
 
         [Test]
@@ -52,7 +55,7 @@
             {
                 PrivateValue = "hidden"
             };
-            Assert.AreEqual(testString.PrivateValue, testString.ToString(SecureDataMode.Private));
+            ClassicAssert.AreEqual(testString.PrivateValue, testString.ToString(SecureDataMode.Private));
         }
     }
 }

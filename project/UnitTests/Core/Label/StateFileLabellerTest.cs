@@ -1,5 +1,6 @@
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Label;
 using ThoughtWorks.CruiseControl.Core.State;
@@ -25,8 +26,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Label
 			mockStateManager.Setup(_manager => _manager.LoadState("Project1")).Returns(SuccessfulResult("success")).Verifiable();
 			labeller.Project = "Project1";
 
-			Assert.AreEqual("success", labeller.Generate(new IntegrationResult()));
-			mockStateManager.Verify();
+			ClassicAssert.AreEqual("success", labeller.Generate(new IntegrationResult()));
+            ClassicAssert.AreEqual("success", labeller.Generate(new IntegrationResult()));
+            mockStateManager.Verify();
 		}
 	}
 }

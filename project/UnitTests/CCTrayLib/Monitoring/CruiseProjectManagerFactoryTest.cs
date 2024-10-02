@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.CCTrayLib.Configuration;
 using ThoughtWorks.CruiseControl.CCTrayLib.Monitoring;
 using ThoughtWorks.CruiseControl.Remote;
@@ -37,8 +38,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Monitoring
 			serverManagers[server] = new HttpCruiseServerManager(client, server);
 
 			var manager = factory.Create(new CCTrayProject(server, ProjectName), serverManagers);
-			Assert.AreEqual(ProjectName, manager.ProjectName);
-
+			ClassicAssert.AreEqual(ProjectName, manager.ProjectName);
+            //ClassicAssert.AreEqual(ProjectName, manager.ProjectName);
             mocks.VerifyAll();
 		}
 
@@ -58,8 +59,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Monitoring
 			serverManagers[server] = new HttpCruiseServerManager(client, server);
 
 			var manager = factory.Create(new CCTrayProject(server, ProjectName), serverManagers);
-			Assert.AreEqual(ProjectName, manager.ProjectName);
-			Assert.AreEqual(typeof(HttpCruiseProjectManager), manager.GetType());
+			ClassicAssert.AreEqual(ProjectName, manager.ProjectName);
+			ClassicAssert.AreEqual(typeof(HttpCruiseProjectManager), manager.GetType());
 
             mocks.VerifyAll();
 		}
@@ -73,7 +74,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Monitoring
             var serverManagers = new Dictionary<BuildServer, ICruiseServerManager>();
 
             var manager = factory.Create(new CCTrayProject(server, ProjectName), serverManagers);
-            Assert.AreEqual(ProjectName, manager.ProjectName);
+            ClassicAssert.AreEqual(ProjectName, manager.ProjectName);
 
             mocks.VerifyAll();
         }
@@ -86,7 +87,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Monitoring
             var factory = new CruiseProjectManagerFactory(mockCruiseManagerFactory);
 
             CCTrayProject[] projectList = factory.GetProjectList(server, false);
-            Assert.AreNotEqual(0, projectList.Length);
+            ClassicAssert.AreNotEqual(0, projectList.Length);
 
             mocks.VerifyAll();
         }

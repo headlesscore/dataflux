@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Text.RegularExpressions;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core.Logging;
 using ThoughtWorks.CruiseControl.Core.Util;
 
@@ -30,8 +31,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Logging
 			string content = @"SampleLine";
 			SystemPath filename = tempDir.CreateTextFile("ReadSingleLineFromLogFile.log", content);
 			ServerLogFileReader reader = new ServerLogFileReader(filename.ToString(), 10);
-			Assert.AreEqual(content, reader.Read());
-		}
+			ClassicAssert.AreEqual(content, reader.Read());
+            ClassicAssert.AreEqual(content, reader.Read());
+        }
 
 		[Test]
 		public void ReadLessThanInFile()
@@ -44,10 +46,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Logging
 			ServerLogFileReader reader = new ServerLogFileReader(filename.ToString(), numReadLines);
 			String[] readLines = StringToLines(reader.Read());
 
-			Assert.AreEqual(numReadLines, readLines.Length);
+			ClassicAssert.AreEqual(numReadLines, readLines.Length);
 			for (int i = 0; i < readLines.Length; i++)
 			{
-				Assert.AreEqual(contentLines[numFileLines - numReadLines + i], readLines[i]);
+				ClassicAssert.AreEqual(contentLines[numFileLines - numReadLines + i], readLines[i]);
 			}
 		}
 
@@ -63,10 +65,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Logging
 			String[] readLines = StringToLines(reader.Read());
 
 			// All of file should be read
-			Assert.AreEqual(numFileLines, readLines.Length);
+			ClassicAssert.AreEqual(numFileLines, readLines.Length);
 			for (int i = 0; i < readLines.Length; i++)
 			{
-				Assert.AreEqual(contentLines[i], readLines[i]);
+				ClassicAssert.AreEqual(contentLines[i], readLines[i]);
 			}
 		}
 
@@ -81,10 +83,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Logging
 			String[] readLines = StringToLines(reader.Read());
 
 			// All of file should be read
-			Assert.AreEqual(numLines, readLines.Length);
+			ClassicAssert.AreEqual(numLines, readLines.Length);
 			for (int i = 0; i < readLines.Length; i++)
 			{
-				Assert.AreEqual(contentLines[i], readLines[i]);
+				ClassicAssert.AreEqual(contentLines[i], readLines[i]);
 			}
 		}
 
@@ -93,14 +95,14 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Logging
 		{
 			SystemPath filename = tempDir.CreateEmptyFile("ReadEmptyFile.log");
 			ServerLogFileReader reader = new ServerLogFileReader(filename.ToString(), 10);
-			Assert.AreEqual("", reader.Read(), "Error reading empty log file");
+			ClassicAssert.AreEqual("", reader.Read(), "Error reading empty log file");
 		}
 
 //		[Test]
 //		public void ReadNullFile()
 //		{
 //			ServerLogFileReader reader = new ServerLogFileReader(null, 10);
-//			Assert.AreEqual("Error reading file with null name", "", reader.Read());
+//			ClassicAssert.AreEqual("Error reading file with null name", "", reader.Read());
 //		}
 //
 		[Test]
@@ -110,14 +112,14 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Logging
 			ServerLogFileReader reader = new ServerLogFileReader(filename.ToString(), 10);
 			String first = reader.Read();
 			String second = reader.Read();
-			Assert.AreEqual(first, second, "Error reading file twice with same reader");
+			ClassicAssert.AreEqual(first, second, "Error reading file twice with same reader");
 		}
 
 		[Test]
 		public void ReadUnknownFile()
 		{
 			ServerLogFileReader reader = new ServerLogFileReader("BogusFileName", 10);
-			Assert.That(delegate { reader.Read(); },
+			ClassicAssert.That(delegate { reader.Read(); },
                         Throws.TypeOf<FileNotFoundException>());
 		}
 
@@ -132,7 +134,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Logging
 				stream.Flush();
 
 				ServerLogFileReader reader = new ServerLogFileReader(tempFile.ToString(), 10);
-				Assert.AreEqual("foobar", reader.Read());
+				ClassicAssert.AreEqual("foobar", reader.Read());
 			}
 		}
 
@@ -147,8 +149,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Logging
 			SystemPath tempFile = tempDir.CreateTextFile("MultiProject.log", content);
 			
 			ServerLogFileReader reader = new ServerLogFileReader(tempFile.ToString(), 10);
-			Assert.AreEqual(@"2006-11-24 20:09:53,000 [foo:INFO] Starting integrator for project: foo" + Environment.NewLine + "2006-11-24 20:09:55,000 [foo:INFO] No modifications detected", reader.Read("foo"));
-			Assert.AreEqual(@"2006-11-24 20:09:54,000 [bar:INFO] Starting integrator for project: bar" + Environment.NewLine + "2006-11-24 20:09:56,000 [bar:INFO] No modifications detected.", reader.Read("bar"));
+			ClassicAssert.AreEqual(@"2006-11-24 20:09:53,000 [foo:INFO] Starting integrator for project: foo" + Environment.NewLine + "2006-11-24 20:09:55,000 [foo:INFO] No modifications detected", reader.Read("foo"));
+			ClassicAssert.AreEqual(@"2006-11-24 20:09:54,000 [bar:INFO] Starting integrator for project: bar" + Environment.NewLine + "2006-11-24 20:09:56,000 [bar:INFO] No modifications detected.", reader.Read("bar"));
 		}
 		
 		private static string[] GenerateContentLines(int lines)

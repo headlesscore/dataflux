@@ -1,5 +1,6 @@
 using System;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.CCTrayLib.Monitoring;
 
 namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Monitoring
@@ -20,18 +21,19 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Monitoring
 		[Test]
 		public void WhenNoBuildsHaveOccurredPropertiesReturnValuesThatIndicateThis()
 		{
-			Assert.AreEqual(TimeSpan.MaxValue, tracker.LastBuildDuration);
-			Assert.AreEqual(TimeSpan.MaxValue, tracker.EstimatedTimeRemainingOnCurrentBuild);
-			Assert.AreEqual(false, tracker.IsBuildInProgress);
+            //ClassicAssert.AreEqual(TimeSpan.MaxValue, tracker.LastBuildDuration);
+            ClassicAssert.AreEqual(TimeSpan.MaxValue, tracker.LastBuildDuration);
+			ClassicAssert.AreEqual(TimeSpan.MaxValue, tracker.EstimatedTimeRemainingOnCurrentBuild);
+			ClassicAssert.AreEqual(false, tracker.IsBuildInProgress);
 		}
 
 		[Test]
 		public void WhenABuildStartsWithNoHistoryTheDurationAndEstimatedTimeAreStillNotCalculated()
 		{
 			tracker.OnBuildStart();
-			Assert.AreEqual(TimeSpan.MaxValue, tracker.LastBuildDuration);
-			Assert.AreEqual(TimeSpan.MaxValue, tracker.EstimatedTimeRemainingOnCurrentBuild);
-			Assert.AreEqual(true, tracker.IsBuildInProgress);
+			ClassicAssert.AreEqual(TimeSpan.MaxValue, tracker.LastBuildDuration);
+			ClassicAssert.AreEqual(TimeSpan.MaxValue, tracker.EstimatedTimeRemainingOnCurrentBuild);
+			ClassicAssert.AreEqual(true, tracker.IsBuildInProgress);
 		}
 
 		[Test]
@@ -40,9 +42,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Monitoring
 			tracker.OnBuildStart();
 
 			tracker.OnBuildStart();
-			Assert.AreEqual(TimeSpan.MaxValue, tracker.LastBuildDuration);
-			Assert.AreEqual(TimeSpan.MaxValue, tracker.EstimatedTimeRemainingOnCurrentBuild);
-			Assert.AreEqual(true, tracker.IsBuildInProgress);
+			ClassicAssert.AreEqual(TimeSpan.MaxValue, tracker.LastBuildDuration);
+			ClassicAssert.AreEqual(TimeSpan.MaxValue, tracker.EstimatedTimeRemainingOnCurrentBuild);
+			ClassicAssert.AreEqual(true, tracker.IsBuildInProgress);
 		}
 
 		[Test]
@@ -55,16 +57,16 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Monitoring
 			currentTimeProvider.SetNow(startTime.AddHours(2));
 			tracker.OnSuccessfulBuild();
 
-			Assert.AreEqual(TimeSpan.FromHours(2), tracker.LastBuildDuration);
+			ClassicAssert.AreEqual(TimeSpan.FromHours(2), tracker.LastBuildDuration);
 
 			currentTimeProvider.SetNow(startTime);
 			tracker.OnBuildStart();
 			currentTimeProvider.SetNow(startTime.AddMinutes(4));
 
-			Assert.AreEqual(TimeSpan.FromHours(2), tracker.LastBuildDuration);
+			ClassicAssert.AreEqual(TimeSpan.FromHours(2), tracker.LastBuildDuration);
 			tracker.OnSuccessfulBuild();
 
-			Assert.AreEqual(TimeSpan.FromMinutes(4), tracker.LastBuildDuration);
+			ClassicAssert.AreEqual(TimeSpan.FromMinutes(4), tracker.LastBuildDuration);
 
 		}
 		
@@ -78,7 +80,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Monitoring
 			currentTimeProvider.SetNow(startTime.AddHours(3));
 			tracker.OnSuccessfulBuild();
 
-			Assert.AreEqual(TimeSpan.FromHours(3), tracker.LastBuildDuration);
+			ClassicAssert.AreEqual(TimeSpan.FromHours(3), tracker.LastBuildDuration);
 
 			startTime = startTime.AddHours(5);
 			currentTimeProvider.SetNow(startTime);
@@ -86,7 +88,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Monitoring
 			tracker.OnBuildStart();
 			currentTimeProvider.SetNow(startTime.AddHours(1));
 
-			Assert.AreEqual(TimeSpan.FromHours(2), tracker.EstimatedTimeRemainingOnCurrentBuild);
+			ClassicAssert.AreEqual(TimeSpan.FromHours(2), tracker.EstimatedTimeRemainingOnCurrentBuild);
 			tracker.OnSuccessfulBuild();			
 		}
 
@@ -100,7 +102,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Monitoring
 			currentTimeProvider.SetNow(startTime.AddHours(3));
 			tracker.OnSuccessfulBuild();
 
-			Assert.AreEqual(TimeSpan.FromHours(3), tracker.LastBuildDuration);
+			ClassicAssert.AreEqual(TimeSpan.FromHours(3), tracker.LastBuildDuration);
 
 			startTime = startTime.AddHours(5);
 			currentTimeProvider.SetNow(startTime);
@@ -108,7 +110,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Monitoring
 			tracker.OnBuildStart();
 			currentTimeProvider.SetNow(startTime.AddHours(4));
 
-			Assert.AreEqual(TimeSpan.FromHours(-1), tracker.EstimatedTimeRemainingOnCurrentBuild);
+			ClassicAssert.AreEqual(TimeSpan.FromHours(-1), tracker.EstimatedTimeRemainingOnCurrentBuild);
 			tracker.OnSuccessfulBuild();			
 		}
 

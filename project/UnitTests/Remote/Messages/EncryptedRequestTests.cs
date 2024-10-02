@@ -1,6 +1,7 @@
 ﻿namespace ThoughtWorks.CruiseControl.UnitTests.Remote.Messages
 {
     using NUnit.Framework;
+    using NUnit.Framework.Legacy;
     using ThoughtWorks.CruiseControl.Remote.Messages;
 
     [TestFixture]
@@ -13,7 +14,9 @@
         {
             var sessionId = "MyNewSession";
             var request = new EncryptedRequest(sessionId);
-            Assert.AreEqual(sessionId, request.SessionToken);
+            ClassicAssert.AreEqual(sessionId, request.SessionToken);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
         }
 
         [Test]
@@ -22,8 +25,8 @@
             var sessionId = "MyNewSession";
             var data = "SomeEncryptedData";
             var request = new EncryptedRequest(sessionId, data);
-            Assert.AreEqual(sessionId, request.SessionToken);
-            Assert.AreEqual(data, request.EncryptedData);
+            ClassicAssert.AreEqual(sessionId, request.SessionToken);
+            ClassicAssert.AreEqual(data, request.EncryptedData);
         }
         #endregion
 
@@ -34,7 +37,7 @@
             var request = new EncryptedRequest();
             var data = "SomeEncryptedData";
             request.EncryptedData = data;
-            Assert.AreEqual(data, request.EncryptedData);
+            ClassicAssert.AreEqual(data, request.EncryptedData);
         }
         #endregion
         #endregion

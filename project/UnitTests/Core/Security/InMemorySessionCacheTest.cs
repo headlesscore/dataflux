@@ -1,5 +1,6 @@
 ﻿using Exortech.NetReflector;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using System;
 using ThoughtWorks.CruiseControl.Core.Security;
 
@@ -22,7 +23,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security
             string sessionToken = cache.AddToCache("johndoe");
             string userName = cache.RetrieveFromCache(sessionToken);
             Guid sessionGuid = new Guid(sessionToken);
-            Assert.AreEqual("johndoe", userName);
+            ClassicAssert.AreEqual("johndoe", userName);
         }
 
         [Test]
@@ -32,7 +33,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security
             string sessionToken = cache.AddToCache("johndoe");
             cache.RemoveFromCache(sessionToken);
             string userName = cache.RetrieveFromCache(sessionToken);
-            Assert.IsNull(userName);
+            ClassicAssert.IsNull(userName);
+            
         }
 
         [Test]
@@ -45,7 +47,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security
             string sessionToken = cache.AddToCache("johndoe");
             clock.TimePasses(TimeSpan.FromSeconds(61));
             string userName = cache.RetrieveFromCache(sessionToken);
-            Assert.IsNull(userName);
+            ClassicAssert.IsNull(userName);
         }
 
         [Test]
@@ -58,10 +60,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security
             string sessionToken = cache.AddToCache("johndoe");
             clock.TimePasses(TimeSpan.FromSeconds(31));
             string userName = cache.RetrieveFromCache(sessionToken);
-            Assert.AreEqual("johndoe", userName);
+            ClassicAssert.AreEqual("johndoe", userName);
             clock.TimePasses(TimeSpan.FromSeconds(31));
             userName = cache.RetrieveFromCache(sessionToken);
-            Assert.AreEqual("johndoe", userName);
+            ClassicAssert.AreEqual("johndoe", userName);
         }
 
         [Test]
@@ -72,10 +74,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security
             NetReflectorReader reader = new NetReflectorReader(typeTable);
 
             object result = reader.Read("<inMemoryCache duration=\"5\" mode=\"Fixed\"/>");
-            Assert.That(result, Is.InstanceOf<InMemorySessionCache>());
+            ClassicAssert.That(result, Is.InstanceOf<InMemorySessionCache>());
             InMemorySessionCache cache = result as InMemorySessionCache;
-            Assert.AreEqual(5, cache.Duration);
-            Assert.AreEqual(SessionExpiryMode.Fixed, cache.ExpiryMode);
+            ClassicAssert.AreEqual(5, cache.Duration);
+            ClassicAssert.AreEqual(SessionExpiryMode.Fixed, cache.ExpiryMode);
         }
 
         [Test]
@@ -88,7 +90,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security
 
             cache.StoreSessionValue(sessionToken, key, value);
             object result = cache.RetrieveSessionValue(sessionToken, key);
-            Assert.AreEqual(value, result);
+            ClassicAssert.AreEqual(value, result);
         }
 
         [Test]
@@ -99,7 +101,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security
             string key = "An item";
 
             object result = cache.RetrieveSessionValue(sessionToken, key);
-            Assert.IsNull(result);
+            ClassicAssert.IsNull(result);
         }
 
         [Test]
@@ -110,7 +112,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security
             string key = "An item";
 
             object result = cache.RetrieveSessionValue(sessionToken, key);
-            Assert.IsNull(result);
+            ClassicAssert.IsNull(result);
         }
     }
 }

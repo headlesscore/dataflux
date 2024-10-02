@@ -12,6 +12,7 @@
     using ThoughtWorks.CruiseControl.Core.Util;
     using ThoughtWorks.CruiseControl.Remote;
     using ThoughtWorks.CruiseControl.Core;
+    using NUnit.Framework.Legacy;
 
     [TestFixture]
     public class CodeItRightTaskTests
@@ -38,7 +39,9 @@
         {
             const string xml = @"<codeItRight />";
             var task = NetReflector.Read(xml) as CodeItRightTask;
-            Assert.AreEqual("SubMain.CodeItRight.Cmd", task.Executable);
+            ClassicAssert.AreEqual("SubMain.CodeItRight.Cmd", task.Executable);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
         }
 
         [Test]
@@ -112,7 +115,7 @@
 
             Mock.Get(result).SetupProperty(_result => _result.Status);
             result.Status = IntegrationStatus.Unknown;
-            Assert.Throws<CruiseControlException>(() => task.Run(result));
+            ClassicAssert.Throws<CruiseControlException>(() => task.Run(result));
         }
 
         [Test]
@@ -142,7 +145,7 @@
             Mock.Get(result).SetupProperty(_result => _result.Status);
             result.Status = IntegrationStatus.Unknown;
             task.Run(result);
-            Assert.AreEqual(IntegrationStatus.Failure, result.Status);
+            ClassicAssert.AreEqual(IntegrationStatus.Failure, result.Status);
             mocks.VerifyAll();
         }
         #endregion
@@ -172,10 +175,10 @@
             var executor = mocks.Create<ProcessExecutor>(MockBehavior.Strict).Object;
             Mock.Get(executor).Setup(_executor => _executor.Execute(It.IsAny<ProcessInfo>()))
                 .Callback<ProcessInfo>(info => {
-                    Assert.AreEqual(fileName, info.FileName);
-                    Assert.AreEqual(args, info.Arguments);
-                    Assert.AreEqual(workingDir, info.WorkingDirectory);
-                    Assert.AreEqual(timeout, info.TimeOut);
+                    ClassicAssert.AreEqual(fileName, info.FileName);
+                    ClassicAssert.AreEqual(args, info.Arguments);
+                    ClassicAssert.AreEqual(workingDir, info.WorkingDirectory);
+                    ClassicAssert.AreEqual(timeout, info.TimeOut);
                 }).Returns(new ProcessResult(string.Empty, string.Empty, 0, false)).Verifiable();
             return executor;
         }

@@ -8,6 +8,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Extensions
     using CruiseControl.Core.Util;
     using CruiseControl.Remote;
     using CruiseControl.Remote.Events;
+    using NUnit.Framework.Legacy;
 
     /// <summary>
     /// Test the disk space monitor.
@@ -33,7 +34,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Extensions
                 CreateSizeElement("Gb", 100, "C:\\")
             };
             extension.Initialise(server, configuration);
-            Assert.AreEqual(107374182400, extension.RetrieveMinimumSpaceRequired("C:\\"));
+            ClassicAssert.AreEqual(107374182400, extension.RetrieveMinimumSpaceRequired("C:\\"));
+            ClassicAssert.AreEqual(107374182400, extension.RetrieveMinimumSpaceRequired("C:\\"));
         }
 
         [Test]
@@ -46,7 +48,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Extensions
                 CreateSizeElement("Mb", 100, "C:\\")
             };
             extension.Initialise(server, configuration);
-            Assert.AreEqual(104857600, extension.RetrieveMinimumSpaceRequired("C:\\"));
+            ClassicAssert.AreEqual(104857600, extension.RetrieveMinimumSpaceRequired("C:\\"));
         }
 
         [Test]
@@ -59,7 +61,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Extensions
                 CreateSizeElement("Kb", 100, "C:\\")
             };
             extension.Initialise(server, configuration);
-            Assert.AreEqual(102400, extension.RetrieveMinimumSpaceRequired("C:\\"));
+            ClassicAssert.AreEqual(102400, extension.RetrieveMinimumSpaceRequired("C:\\"));
         }
 
         [Test]
@@ -72,7 +74,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Extensions
                 CreateSizeElement("b", 100, "C:\\")
             };
             extension.Initialise(server, configuration);
-            Assert.AreEqual(100, extension.RetrieveMinimumSpaceRequired("C:\\"));
+            ClassicAssert.AreEqual(100, extension.RetrieveMinimumSpaceRequired("C:\\"));
         }
 
         [Test]
@@ -85,7 +87,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Extensions
                 CreateSizeElement(null, 100, "C:\\")
             };
             extension.Initialise(server, configuration);
-            Assert.AreEqual(104857600, extension.RetrieveMinimumSpaceRequired("C:\\"));
+            ClassicAssert.AreEqual(104857600, extension.RetrieveMinimumSpaceRequired("C:\\"));
         }
 
         [Test]
@@ -97,7 +99,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Extensions
             configuration.Items = new XmlElement[] {
                 CreateSizeElement("garbage", 100, "C:\\")
             };
-            Assert.That(delegate { extension.Initialise(server, configuration); },
+            ClassicAssert.That(delegate { extension.Initialise(server, configuration); },
                         Throws.TypeOf<ArgumentOutOfRangeException>());
         }
 
@@ -111,7 +113,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Extensions
             configuration.Items = new XmlElement[] {
                 document.CreateElement("garbage")
             };
-            Assert.That(delegate { extension.Initialise(server, configuration); },
+            ClassicAssert.That(delegate { extension.Initialise(server, configuration); },
                         Throws.TypeOf<ArgumentOutOfRangeException>());
         }
 
@@ -123,7 +125,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Extensions
             var configuration = new ExtensionConfiguration();
             configuration.Items = new XmlElement[] {
             };
-            Assert.That(delegate { extension.Initialise(server, configuration); },
+            ClassicAssert.That(delegate { extension.Initialise(server, configuration); },
                         Throws.TypeOf<ArgumentOutOfRangeException>());
         }
 
@@ -137,8 +139,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Extensions
                 CreateSizeElement("Mb", 100, "C:\\"), CreateSizeElement("Kb", 100, "D:\\")
             };
             extension.Initialise(server, configuration);
-            Assert.AreEqual(104857600, extension.RetrieveMinimumSpaceRequired("C:\\"));
-            Assert.AreEqual(102400, extension.RetrieveMinimumSpaceRequired("D:\\"));
+            ClassicAssert.AreEqual(104857600, extension.RetrieveMinimumSpaceRequired("C:\\"));
+            ClassicAssert.AreEqual(102400, extension.RetrieveMinimumSpaceRequired("D:\\"));
         }
 
         [Test]
@@ -167,7 +169,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Extensions
             extension.Initialise(server, configuration);
             var args = new IntegrationStartedEventArgs(null, "Project 1");
             Mock.Get(server).Raise(_server => _server.IntegrationStarted += null, args);
-            Assert.AreEqual(IntegrationStartedEventArgs.EventResult.Continue, args.Result);
+            ClassicAssert.AreEqual(IntegrationStartedEventArgs.EventResult.Continue, args.Result);
         }
 
         [Test]
@@ -196,7 +198,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Extensions
             extension.Initialise(server, configuration);
             var args = new IntegrationStartedEventArgs(null, "Project 1");
             Mock.Get(server).Raise(_server => _server.IntegrationStarted += null, args);
-            Assert.AreEqual(IntegrationStartedEventArgs.EventResult.Cancel, args.Result);
+            ClassicAssert.AreEqual(IntegrationStartedEventArgs.EventResult.Cancel, args.Result);
         }
 
         [Test]

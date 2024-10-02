@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -20,7 +21,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security.Auditing
             FileXmlReader logger = new FileXmlReader();
             string fileName = "LogFile.xml";
             logger.AuditFileLocation = fileName;
-            Assert.AreEqual(fileName, logger.AuditFileLocation, "AuditFileLocation not correctly set");
+            ClassicAssert.AreEqual(fileName, logger.AuditFileLocation, "AuditFileLocation not correctly set");
+            ClassicAssert.IsTrue(true);
         }
 
         [Test]
@@ -29,7 +31,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security.Auditing
             FileXmlReader reader = new FileXmlReader();
             reader.AuditFileLocation = GenerateAuditFile();
             List<AuditRecord> records = reader.Read(0, 100);
-            Assert.AreEqual(4, records.Count, "Incorrect number of records returned");
+            ClassicAssert.AreEqual(4, records.Count, "Incorrect number of records returned");
         }
 
         [Test]
@@ -38,7 +40,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security.Auditing
             FileXmlReader reader = new FileXmlReader();
             reader.AuditFileLocation = GenerateAuditFile();
             List<AuditRecord> records = reader.Read(0, 2);
-            Assert.AreEqual(2, records.Count, "Incorrect number of records returned");
+            ClassicAssert.AreEqual(2, records.Count, "Incorrect number of records returned");
         }
 
         [Test]
@@ -47,7 +49,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security.Auditing
             FileXmlReader reader = new FileXmlReader();
             reader.AuditFileLocation = GenerateAuditFile();
             List<AuditRecord> records = reader.Read(0, 100, AuditFilters.ByUser("User #1"));
-            Assert.AreEqual(2, records.Count, "Incorrect number of records returned");
+            ClassicAssert.AreEqual(2, records.Count, "Incorrect number of records returned");
         }
 
         [Test]
@@ -56,7 +58,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security.Auditing
             FileXmlReader reader = new FileXmlReader();
             reader.AuditFileLocation = GenerateAuditFile();
             List<AuditRecord> records = reader.Read(0, 1, AuditFilters.ByUser("User #1"));
-            Assert.AreEqual(1, records.Count, "Incorrect number of records returned");
+            ClassicAssert.AreEqual(1, records.Count, "Incorrect number of records returned");
         }
 
         private string GenerateAuditFile()

@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -18,7 +19,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security
             LoginRequest credentials = new LoginRequest("johndoe");
             credentials.AddCredential(LoginRequest.PasswordCredential, "iknowyou");
             bool isValid = authentication.Authenticate(credentials);
-            Assert.IsTrue(isValid);
+            ClassicAssert.IsTrue(isValid);
+            ClassicAssert.IsTrue(true);
         }
 
         [Test]
@@ -27,7 +29,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security
             UserPasswordAuthentication authentication = new UserPasswordAuthentication("johndoe", "iknowyou");
             LoginRequest credentials = new LoginRequest("johndoe");
             bool isValid = authentication.Authenticate(credentials);
-            Assert.IsFalse(isValid);
+            ClassicAssert.IsFalse(isValid);
         }
 
         [Test]
@@ -36,7 +38,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security
             UserPasswordAuthentication authentication = new UserPasswordAuthentication("johndoe", "iknowyou");
             LoginRequest credentials = new LoginRequest();
             bool isValid = authentication.Authenticate(credentials);
-            Assert.IsFalse(isValid);
+            ClassicAssert.IsFalse(isValid);
         }
 
         [Test]
@@ -46,7 +48,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security
             LoginRequest credentials = new LoginRequest("johndoe");
             credentials.AddCredential(LoginRequest.PasswordCredential, "idontknowyou");
             bool isValid = authentication.Authenticate(credentials);
-            Assert.IsFalse(isValid);
+            ClassicAssert.IsFalse(isValid);
         }
 
         [Test]
@@ -56,7 +58,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security
             LoginRequest credentials = new LoginRequest("janedoe");
             credentials.AddCredential(LoginRequest.PasswordCredential, "iknowyou");
             bool isValid = authentication.Authenticate(credentials);
-            Assert.IsFalse(isValid);
+            ClassicAssert.IsFalse(isValid);
         }
 
         [Test]
@@ -67,12 +69,12 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security
             string password = "whoareyou";
             UserPasswordAuthentication authentication = new UserPasswordAuthentication();
             authentication.UserName = userName;
-            Assert.AreEqual(userName, authentication.UserName, "UserName not correctly set");
-            Assert.AreEqual(userName, authentication.Identifier, "Identifier not correctly set");
+            ClassicAssert.AreEqual(userName, authentication.UserName, "UserName not correctly set");
+            ClassicAssert.AreEqual(userName, authentication.Identifier, "Identifier not correctly set");
             authentication.Password = password;
-            Assert.AreEqual(password, authentication.Password, "Password not correctly set");
+            ClassicAssert.AreEqual(password, authentication.Password, "Password not correctly set");
             authentication.DisplayName = displayName;
-            Assert.AreEqual(displayName, authentication.DisplayName, "DisplayName not correctly set");
+            ClassicAssert.AreEqual(displayName, authentication.DisplayName, "DisplayName not correctly set");
         }
 
         [Test]
@@ -82,7 +84,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security
             LoginRequest credentials = new LoginRequest(userName);
             UserPasswordAuthentication authentication = new UserPasswordAuthentication();
             string result = authentication.GetUserName(credentials);
-            Assert.AreEqual(userName, result);
+            ClassicAssert.AreEqual(userName, result);
         }
 
         [Test]
@@ -94,7 +96,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security
             UserPasswordAuthentication authentication = new UserPasswordAuthentication();
             authentication.DisplayName = "John Doe";
             string result = authentication.GetDisplayName(credentials);
-            Assert.AreEqual(displayName, result);
+            ClassicAssert.AreEqual(displayName, result);
         }
 
         [Test]
@@ -104,7 +106,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security
             LoginRequest credentials = new LoginRequest(userName);
             UserPasswordAuthentication authentication = new UserPasswordAuthentication();
             string result = authentication.GetDisplayName(credentials);
-            Assert.AreEqual(userName, result);
+            ClassicAssert.AreEqual(userName, result);
         }
     }
 }

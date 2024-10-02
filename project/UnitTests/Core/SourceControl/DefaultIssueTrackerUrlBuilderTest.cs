@@ -1,6 +1,7 @@
 using System;
 using Exortech.NetReflector;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Sourcecontrol;
 
@@ -31,7 +32,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
         {
             DefaultIssueTrackerUrlBuilder defaultIssue = CreateBuilder();
 
-            Assert.AreEqual(UrlFromConfigFile, defaultIssue.Url);
+            ClassicAssert.AreEqual(UrlFromConfigFile, defaultIssue.Url);
+            ClassicAssert.IsTrue(true);
         }
 
 
@@ -49,7 +51,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
             defaultIssue.SetupModification(mods);
 
             string url = String.Format(UrlFromConfigFile, 5000);
-            Assert.AreEqual(url, mods[0].IssueUrl);
+            ClassicAssert.AreEqual(url, mods[0].IssueUrl);
         }
 
 
@@ -67,7 +69,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
             defaultIssue.SetupModification(mods);
 
             string url = String.Format(UrlFromConfigFile, 5000);
-            Assert.AreEqual(url, mods[0].IssueUrl);
+            ClassicAssert.AreEqual(url, mods[0].IssueUrl);
         }
 
 
@@ -85,7 +87,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
             defaultIssue.SetupModification(mods);
 
             string url = String.Format(UrlFromConfigFile, 5000);
-            Assert.AreEqual(url, mods[0].IssueUrl);
+            ClassicAssert.AreEqual(url, mods[0].IssueUrl);
         }
 
         [Test]
@@ -102,7 +104,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
             defaultIssue.SetupModification(mods);
 
             string url = String.Format(UrlFromConfigFile, 5000);
-            Assert.AreEqual(url, mods[0].IssueUrl);
+            ClassicAssert.AreEqual(url, mods[0].IssueUrl);
         }
 
 
@@ -119,7 +121,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
             DefaultIssueTrackerUrlBuilder defaultIssue = CreateBuilder();
             defaultIssue.SetupModification(mods);
 
-            Assert.IsNull( mods[0].IssueUrl);
+            ClassicAssert.IsNull( mods[0].IssueUrl);
         }
 
 
@@ -136,7 +138,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
             DefaultIssueTrackerUrlBuilder defaultIssue = CreateBuilder();
             defaultIssue.SetupModification(mods);
 
-            Assert.IsNull(mods[0].IssueUrl);
+            ClassicAssert.IsNull(mods[0].IssueUrl);
         }
 
 
@@ -153,7 +155,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
             DefaultIssueTrackerUrlBuilder defaultIssue = CreateBuilder();
             defaultIssue.SetupModification(mods);
 
-            Assert.IsNull(mods[0].IssueUrl);
+            ClassicAssert.IsNull(mods[0].IssueUrl);
         }
 
     }

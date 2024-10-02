@@ -3,6 +3,7 @@ using System.IO;
 using Exortech.NetReflector;
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Tasks;
 using ThoughtWorks.CruiseControl.Core.Util;
@@ -55,10 +56,12 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 			_task.Timeout = 600;
 			_task.Run(_result);
 
-			Assert.AreEqual(1, _result.TaskResults.Count);
-			Assert.AreEqual(IntegrationStatus.Success, _result.Status);
-			Assert.AreEqual(ProcessResultOutput, _result.TaskOutput);
-		}
+			ClassicAssert.AreEqual(1, _result.TaskResults.Count);
+			ClassicAssert.AreEqual(IntegrationStatus.Success, _result.Status);
+			ClassicAssert.AreEqual(ProcessResultOutput, _result.TaskOutput);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
+        }
 
 
         [Test]
@@ -79,9 +82,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
             _task.Timeout = 600;
             _task.Run(_result);
 
-            Assert.AreEqual(1, _result.TaskResults.Count);
-            Assert.AreEqual(IntegrationStatus.Success, _result.Status);
-            Assert.AreEqual(ProcessResultOutput, _result.TaskOutput);
+            ClassicAssert.AreEqual(1, _result.TaskResults.Count);
+            ClassicAssert.AreEqual(IntegrationStatus.Success, _result.Status);
+            ClassicAssert.AreEqual(ProcessResultOutput, _result.TaskOutput);
         }
 
 
@@ -98,9 +101,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 			_task.Timeout = 600;
 			_task.Run(_result);			
 
-			Assert.AreEqual(1, _result.TaskResults.Count);
-			Assert.AreEqual(IntegrationStatus.Success, _result.Status);
-			Assert.AreEqual(ProcessResultOutput, _result.TaskOutput);		
+			ClassicAssert.AreEqual(1, _result.TaskResults.Count);
+			ClassicAssert.AreEqual(IntegrationStatus.Success, _result.Status);
+			ClassicAssert.AreEqual(ProcessResultOutput, _result.TaskOutput);		
 		}
 
 		[Test]
@@ -119,14 +122,14 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 				</FinalBuilder>";
 			
 			NetReflector.Read(xmlConfig, _task);
-			Assert.AreEqual(@"C:\Dummy\Project.fbz3", _task.ProjectFile);
-			Assert.AreEqual(false, _task.ShowBanner);
-			Assert.AreEqual(1, _task.FBVariables.Length);
-			Assert.AreEqual("MyVariable", _task.FBVariables[0].Name);
-			Assert.AreEqual("SomeValue", _task.FBVariables[0].Value);
-			Assert.AreEqual(3, _task.FBVersion);
-			Assert.AreEqual(@"C:\Program Files\MyFinalBuilderPath\FBCMD.EXE", _task.FBCMDPath);
-			Assert.AreEqual(100, _task.Timeout);		
+			ClassicAssert.AreEqual(@"C:\Dummy\Project.fbz3", _task.ProjectFile);
+			ClassicAssert.AreEqual(false, _task.ShowBanner);
+			ClassicAssert.AreEqual(1, _task.FBVariables.Length);
+			ClassicAssert.AreEqual("MyVariable", _task.FBVariables[0].Name);
+			ClassicAssert.AreEqual("SomeValue", _task.FBVariables[0].Value);
+			ClassicAssert.AreEqual(3, _task.FBVersion);
+			ClassicAssert.AreEqual(@"C:\Program Files\MyFinalBuilderPath\FBCMD.EXE", _task.FBCMDPath);
+			ClassicAssert.AreEqual(100, _task.Timeout);		
 		}
 
 		[Test]
@@ -141,9 +144,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 					
 			NetReflector.Read(xmlConfig, _task);
 
-			Assert.AreEqual(@"C:\Dummy\Project.fbz5", _task.ProjectFile);
-			Assert.AreEqual(5, _task.GetFBVersion());
-			Assert.AreEqual(fbExecutable, _task.GetFBPath());
+			ClassicAssert.AreEqual(@"C:\Dummy\Project.fbz5", _task.ProjectFile);
+			ClassicAssert.AreEqual(5, _task.GetFBVersion());
+			ClassicAssert.AreEqual(fbExecutable, _task.GetFBPath());
 		}
 
 		[Test]
@@ -151,8 +154,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 		{
 			_mockRegistry.Setup(registry => registry.GetLocalMachineSubKeyValue(@"SOFTWARE\VSoft\FinalBuilder\5.0", "Location")).Returns(Path.Combine(DefaultWorkingDirectory, "FinalBuilder5.exe")).Verifiable();
 			_task.ProjectFile = @"C:\Dummy\Project.fbz5";
-			Assert.AreEqual(5, _task.GetFBVersion());
-            Assert.AreEqual(fbExecutable, _task.GetFBPath());
+			ClassicAssert.AreEqual(5, _task.GetFBVersion());
+            ClassicAssert.AreEqual(fbExecutable, _task.GetFBPath());
 		}
 
 		[Test]
@@ -160,8 +163,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 		{
 			_mockRegistry.Setup(registry => registry.GetLocalMachineSubKeyValue(@"SOFTWARE\VSoft\FinalBuilder\4.0", "Location")).Returns(Path.Combine(DefaultWorkingDirectory, "FinalBuilder4.exe")).Verifiable();
 			_task.ProjectFile = @"C:\Dummy\Project.fbz4";
-			Assert.AreEqual(4, _task.GetFBVersion());
-            Assert.AreEqual(fbExecutable, _task.GetFBPath());
+			ClassicAssert.AreEqual(4, _task.GetFBVersion());
+            ClassicAssert.AreEqual(fbExecutable, _task.GetFBPath());
 		}
 
 		[Test]
@@ -169,8 +172,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 		{
 			_mockRegistry.Setup(registry => registry.GetLocalMachineSubKeyValue(@"SOFTWARE\VSoft\FinalBuilder\3.0", "Location")).Returns(Path.Combine(DefaultWorkingDirectory, "FinalBuilder4.exe")).Verifiable();
 			_task.ProjectFile = @"C:\Dummy\Project.fbz3";
-			Assert.AreEqual(3, _task.GetFBVersion());
-            Assert.AreEqual(Path.Combine(DefaultWorkingDirectory, "FB3Cmd.exe"), _task.GetFBPath());
+			ClassicAssert.AreEqual(3, _task.GetFBVersion());
+            ClassicAssert.AreEqual(Path.Combine(DefaultWorkingDirectory, "FB3Cmd.exe"), _task.GetFBPath());
 		}
 
         [Test]
@@ -179,7 +182,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
             NetReflector.Read(@"<FinalBuilder>
 				<ProjectFile>C:\Dummy\Project.txt</ProjectFile>
 			</FinalBuilder>", _task);
-            Assert.That(delegate { _task.Run(_result); },
+            ClassicAssert.That(delegate { _task.Run(_result); },
                         Throws.TypeOf<BuilderException>().With.Message.EqualTo("Finalbuilder version could not be autodetected from project file name."));
             mockProcessExecutor.VerifyNoOtherCalls();
            _mockRegistry.VerifyNoOtherCalls();
@@ -192,7 +195,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
             _mockRegistry.Setup(registry => registry.GetLocalMachineSubKeyValue(@"SOFTWARE\Wow6432Node\VSoft\FinalBuilder\5.0", "Location")).Returns(() => null).Verifiable();
 
             _task.ProjectFile = @"C:\Dummy\Project.fbz5";
-            Assert.That(delegate { _task.Run(_result); },
+            ClassicAssert.That(delegate { _task.Run(_result); },
                         Throws.TypeOf<BuilderException>().With.Message.EqualTo("Path to Finalbuilder 5 command line executable could not be found."));
             mockProcessExecutor.VerifyNoOtherCalls();
         }
@@ -200,7 +203,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 		[Test]
 		public void RequiredPropertiesNotProvided()
 		{
-            Assert.That(delegate { NetReflector.Read(@"<FinalBuilder />", _task); },
+            ClassicAssert.That(delegate { NetReflector.Read(@"<FinalBuilder />", _task); },
                         Throws.TypeOf<NetReflectorException>());
 		}
 
@@ -217,9 +220,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
             _task.Timeout = 600;
             _task.Run(_result);
 
-            Assert.AreEqual(1, _result.TaskResults.Count);
-            Assert.AreEqual(IntegrationStatus.Success, _result.Status);
-            Assert.AreEqual(ProcessResultOutput, _result.TaskOutput);
+            ClassicAssert.AreEqual(1, _result.TaskResults.Count);
+            ClassicAssert.AreEqual(IntegrationStatus.Success, _result.Status);
+            ClassicAssert.AreEqual(ProcessResultOutput, _result.TaskOutput);
         }
 
         [Test]
@@ -236,9 +239,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
             _task.Timeout = 600;
             _task.Run(_result);
 
-            Assert.AreEqual(1, _result.TaskResults.Count);
-            Assert.AreEqual(IntegrationStatus.Success, _result.Status);
-            Assert.AreEqual(ProcessResultOutput, _result.TaskOutput);
+            ClassicAssert.AreEqual(1, _result.TaskResults.Count);
+            ClassicAssert.AreEqual(IntegrationStatus.Success, _result.Status);
+            ClassicAssert.AreEqual(ProcessResultOutput, _result.TaskOutput);
         }
 
 	}

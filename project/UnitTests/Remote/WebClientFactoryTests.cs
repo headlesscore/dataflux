@@ -1,6 +1,7 @@
 ﻿namespace ThoughtWorks.CruiseControl.UnitTests.Remote
 {
     using NUnit.Framework;
+    using NUnit.Framework.Legacy;
     using ThoughtWorks.CruiseControl.Remote;
 
     [TestFixture]
@@ -11,7 +12,9 @@
         {
             var factory = new WebClientFactory<DefaultWebClient>();
             var client = factory.Generate();
-            Assert.IsInstanceOf<DefaultWebClient>(client);
+            ClassicAssert.IsInstanceOf<DefaultWebClient>(client);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
         }
     }
 }

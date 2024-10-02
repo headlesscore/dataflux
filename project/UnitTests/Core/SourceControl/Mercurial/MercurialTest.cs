@@ -5,7 +5,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol.Mercurial
 	using Exortech.NetReflector;
 	using Moq;
 	using NUnit.Framework;
-	using ThoughtWorks.CruiseControl.Core;
+    using NUnit.Framework.Legacy;
+    using ThoughtWorks.CruiseControl.Core;
 	using ThoughtWorks.CruiseControl.Core.Sourcecontrol;
 	using ThoughtWorks.CruiseControl.Core.Sourcecontrol.Mercurial;
 	using ThoughtWorks.CruiseControl.Core.Util;
@@ -96,41 +97,43 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol.Mercurial
 		[Test]
 		public void DefaultConfigurationTest()
 		{
-			Assert.That(hg.AutoGetSource, Is.True);
-			Assert.That(hg.Branch, Is.Null.Or.Empty);
-			Assert.That(hg.CommitModifications, Is.False);
-			Assert.That(hg.CommitterName, Is.EqualTo("CruiseControl.NET"));
-			Assert.That(hg.CommitUntracked, Is.False);
-			Assert.That(hg.Executable, Is.EqualTo("hg"));
-			Assert.That(hg.MultipleHeadsFail, Is.False);
-			Assert.That(hg.ModificationsCommitMessage, Is.EqualTo("Modifications of CC.NET build {0}"));
-			Assert.That(hg.PurgeModifications, Is.False);
-			Assert.That(hg.PushModifications, Is.False);
-			Assert.That(hg.Repository, Is.Null.Or.Empty);
-			Assert.That(hg.TagCommitMessage, Is.EqualTo("Tagging CC.NET build {0}"));
-			Assert.That(hg.TagNameFormat, Is.EqualTo("ccnet_build_{0}"));
-			Assert.That(hg.TagOnSuccess, Is.False);
-		}
+
+            ClassicAssert.That(hg.AutoGetSource, Is.True);
+			ClassicAssert.That(hg.Branch, Is.Null.Or.Empty);
+			ClassicAssert.That(hg.CommitModifications, Is.False);
+			ClassicAssert.That(hg.CommitterName, Is.EqualTo("CruiseControl.NET"));
+			ClassicAssert.That(hg.CommitUntracked, Is.False);
+			ClassicAssert.That(hg.Executable, Is.EqualTo("hg"));
+			ClassicAssert.That(hg.MultipleHeadsFail, Is.False);
+			ClassicAssert.That(hg.ModificationsCommitMessage, Is.EqualTo("Modifications of CC.NET build {0}"));
+			ClassicAssert.That(hg.PurgeModifications, Is.False);
+			ClassicAssert.That(hg.PushModifications, Is.False);
+			ClassicAssert.That(hg.Repository, Is.Null.Or.Empty);
+			ClassicAssert.That(hg.TagCommitMessage, Is.EqualTo("Tagging CC.NET build {0}"));
+			ClassicAssert.That(hg.TagNameFormat, Is.EqualTo("ccnet_build_{0}"));
+			ClassicAssert.That(hg.TagOnSuccess, Is.False);
+            ClassicAssert.IsTrue(true);
+        }
 
 		[Test]
 		public void PopulateFromFullySpecifiedXml()
 		{
 			hg = (CruiseControl.Core.Sourcecontrol.Mercurial.Mercurial) NetReflector.Read(ConfigFull);
 
-			Assert.That(hg.AutoGetSource, Is.True);
-			Assert.That(hg.Branch, Is.EqualTo("trunk"));
-			Assert.That(hg.CommitModifications, Is.True);
-			Assert.That(hg.CommitterName, Is.EqualTo("CCNet"));
-			Assert.That(hg.CommitUntracked, Is.True);
-			Assert.That(hg.Executable, Is.EqualTo(@"c:\Python25\Scripts\hg.bat"));
-			Assert.That(hg.MultipleHeadsFail, Is.False);
-			Assert.That(hg.ModificationsCommitMessage, Is.EqualTo("Modifications for build {0}"));
-			Assert.That(hg.PurgeModifications, Is.True);
-			Assert.That(hg.PushModifications, Is.True);
-			Assert.That(hg.Repository, Is.EqualTo(@"c:\hg\ccnet\myhgrepo"));
-			Assert.That(hg.TagCommitMessage, Is.EqualTo("Tag for build {0}"));
-			Assert.That(hg.TagNameFormat, Is.EqualTo("tag_{0}"));
-			Assert.That(hg.TagOnSuccess, Is.True);
+			ClassicAssert.That(hg.AutoGetSource, Is.True);
+			ClassicAssert.That(hg.Branch, Is.EqualTo("trunk"));
+			ClassicAssert.That(hg.CommitModifications, Is.True);
+			ClassicAssert.That(hg.CommitterName, Is.EqualTo("CCNet"));
+			ClassicAssert.That(hg.CommitUntracked, Is.True);
+			ClassicAssert.That(hg.Executable, Is.EqualTo(@"c:\Python25\Scripts\hg.bat"));
+			ClassicAssert.That(hg.MultipleHeadsFail, Is.False);
+			ClassicAssert.That(hg.ModificationsCommitMessage, Is.EqualTo("Modifications for build {0}"));
+			ClassicAssert.That(hg.PurgeModifications, Is.True);
+			ClassicAssert.That(hg.PushModifications, Is.True);
+			ClassicAssert.That(hg.Repository, Is.EqualTo(@"c:\hg\ccnet\myhgrepo"));
+			ClassicAssert.That(hg.TagCommitMessage, Is.EqualTo("Tag for build {0}"));
+			ClassicAssert.That(hg.TagNameFormat, Is.EqualTo("tag_{0}"));
+			ClassicAssert.That(hg.TagOnSuccess, Is.True);
 		}
 
 		[Test]
@@ -138,20 +141,20 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol.Mercurial
 		{
 			hg = (CruiseControl.Core.Sourcecontrol.Mercurial.Mercurial) NetReflector.Read(ConfigMin);
 
-			Assert.That(hg.AutoGetSource, Is.True);
-			Assert.That(hg.Branch, Is.Null.Or.Empty);
-			Assert.That(hg.CommitModifications, Is.False);
-			Assert.That(hg.CommitterName, Is.EqualTo("CruiseControl.NET"));
-			Assert.That(hg.CommitUntracked, Is.False);
-			Assert.That(hg.Executable, Is.EqualTo("hg"));
-			Assert.That(hg.MultipleHeadsFail, Is.False);
-			Assert.That(hg.ModificationsCommitMessage, Is.EqualTo("Modifications of CC.NET build {0}"));
-			Assert.That(hg.PurgeModifications, Is.False);
-			Assert.That(hg.PushModifications, Is.False);
-			Assert.That(hg.Repository, Is.Null.Or.Empty);
-			Assert.That(hg.TagCommitMessage, Is.EqualTo("Tagging CC.NET build {0}"));
-			Assert.That(hg.TagNameFormat, Is.EqualTo("ccnet_build_{0}"));
-			Assert.That(hg.TagOnSuccess, Is.False);
+			ClassicAssert.That(hg.AutoGetSource, Is.True);
+			ClassicAssert.That(hg.Branch, Is.Null.Or.Empty);
+			ClassicAssert.That(hg.CommitModifications, Is.False);
+			ClassicAssert.That(hg.CommitterName, Is.EqualTo("CruiseControl.NET"));
+			ClassicAssert.That(hg.CommitUntracked, Is.False);
+			ClassicAssert.That(hg.Executable, Is.EqualTo("hg"));
+			ClassicAssert.That(hg.MultipleHeadsFail, Is.False);
+			ClassicAssert.That(hg.ModificationsCommitMessage, Is.EqualTo("Modifications of CC.NET build {0}"));
+			ClassicAssert.That(hg.PurgeModifications, Is.False);
+			ClassicAssert.That(hg.PushModifications, Is.False);
+			ClassicAssert.That(hg.Repository, Is.Null.Or.Empty);
+			ClassicAssert.That(hg.TagCommitMessage, Is.EqualTo("Tagging CC.NET build {0}"));
+			ClassicAssert.That(hg.TagNameFormat, Is.EqualTo("ccnet_build_{0}"));
+			ClassicAssert.That(hg.TagOnSuccess, Is.False);
 		}
 
 		#endregion
@@ -172,7 +175,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol.Mercurial
 			mockUrlBuilder.Setup(builder => builder.SetupModification(modifications)).Verifiable();
 
 			Modification[] result = hg.GetModifications(IntegrationResult(from), IntegrationResult(to));
-			Assert.That(result, Is.EqualTo(modifications));
+			ClassicAssert.That(result, Is.EqualTo(modifications));
 			mockUrlBuilder.Verify();
 		}
 
@@ -222,7 +225,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol.Mercurial
 			mockHistoryParser.Setup(parser => parser.Parse(It.IsAny<TextReader>(), It.IsAny<DateTime>(), It.IsAny<DateTime>())).Returns(modifications).Verifiable();
 
 			Modification[] result = hg.GetModifications(IntegrationResult(from), IntegrationResult(to));
-			Assert.That(result, Is.EqualTo(modifications));
+			ClassicAssert.That(result, Is.EqualTo(modifications));
 		}
 
 		[Test]
@@ -269,7 +272,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol.Mercurial
 			ExpectToExecuteWithArgumentsAndReturn("log -r tip --template {rev}", new ProcessResult("1", "", 0, false));
 
 			Modification[] result = hg.GetModifications(IntegrationResult(from), IntegrationResult(to));
-			Assert.That(result, Is.EqualTo(new Modification[0]));
+			ClassicAssert.That(result, Is.EqualTo(new Modification[0]));
 		}
 
 		#endregion
@@ -335,7 +338,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol.Mercurial
 
 			ExpectToExecuteWithArgumentsAndReturn("heads --template {rev}:", new ProcessResult("1:2:", "", 0, false));
 
-			Assert.That(delegate { hg.GetSource(IntegrationResult()); },
+			ClassicAssert.That(delegate { hg.GetSource(IntegrationResult()); },
 			            Throws.TypeOf<MultipleHeadsFoundException>());
 		}
 

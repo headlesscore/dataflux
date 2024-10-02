@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Remote;
 
 namespace ThoughtWorks.CruiseControl.UnitTests.Remote
@@ -13,7 +14,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote
         {
             ProjectActivity activity = new ProjectActivity();
             activity.Type = "testing";
-            Assert.AreEqual("testing", activity.Type);
+            ClassicAssert.AreEqual("testing", activity.Type);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
         }
         #endregion
 
@@ -22,14 +25,14 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote
         public void IsPendingReturnsTrueForPendingType()
         {
             ProjectActivity activity = ProjectActivity.Pending;
-            Assert.IsTrue(activity.IsPending());
+            ClassicAssert.IsTrue(activity.IsPending());
         }
 
         [Test]
         public void IsPendingReturnsFalseForNonPendingType()
         {
             ProjectActivity activity = ProjectActivity.CheckingModifications;
-            Assert.IsFalse(activity.IsPending());
+            ClassicAssert.IsFalse(activity.IsPending());
         }
         #endregion
 
@@ -37,15 +40,15 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote
         [Test]
         public void IsCheckingModificationsReturnsTrueWhenCheckingModifications()
         {
-            Assert.IsTrue(ProjectActivity.CheckingModifications.IsCheckingModifications());
+            ClassicAssert.IsTrue(ProjectActivity.CheckingModifications.IsCheckingModifications());
         }
 
         [Test]
         public void IsCheckingModificationsReturnsFalseForAllOtherStates()
         {
-            Assert.IsFalse(ProjectActivity.Building.IsCheckingModifications());
-            Assert.IsFalse(ProjectActivity.Pending.IsCheckingModifications());
-            Assert.IsFalse(ProjectActivity.Sleeping.IsCheckingModifications());
+            ClassicAssert.IsFalse(ProjectActivity.Building.IsCheckingModifications());
+            ClassicAssert.IsFalse(ProjectActivity.Pending.IsCheckingModifications());
+            ClassicAssert.IsFalse(ProjectActivity.Sleeping.IsCheckingModifications());
         }
         #endregion
         #endregion

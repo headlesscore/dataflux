@@ -7,6 +7,7 @@ using System.IO;
 using System.Reflection;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using NUnit.Framework.Legacy;
 
 namespace ThoughtWorks.CruiseControl.UnitTests.Core.Publishers
 {
@@ -31,7 +32,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Publishers
             IntegrationResult result = GenerateResult(0);
 
             publisher.Run(result);
-            Assert.IsTrue(File.Exists(dataFile));
+            ClassicAssert.IsTrue(File.Exists(dataFile));
+            ClassicAssert.IsTrue(true);
             CheckAgainstExpected("NewFeed");
         }
         #endregion
@@ -50,7 +52,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Publishers
 
             publisher.Run(result);
             publisher.Run(result);
-            Assert.IsTrue(File.Exists(dataFile));
+            ClassicAssert.IsTrue(File.Exists(dataFile));
             CheckAgainstExpected("WithinLimits");
         }
         #endregion
@@ -71,7 +73,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Publishers
 
             publisher.Run(result);
             publisher.Run(result);
-            Assert.IsTrue(File.Exists(dataFile));
+            ClassicAssert.IsTrue(File.Exists(dataFile));
             CheckAgainstExpected("BeyondLimits");
         }
         #endregion
@@ -125,7 +127,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Publishers
             }
 
             string actual = File.ReadAllText(dataFile);
-            Assert.AreEqual(RemoveDynamicValues(expected), RemoveDynamicValues(actual));
+            ClassicAssert.AreEqual(RemoveDynamicValues(expected), RemoveDynamicValues(actual));
         }
         #endregion
 

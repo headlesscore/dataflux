@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Remote;
 
 namespace ThoughtWorks.CruiseControl.UnitTests.Remote
@@ -16,7 +17,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote
         {
             QueuedRequestSnapshot activity = new QueuedRequestSnapshot();
             activity.ProjectName = "testing";
-            Assert.AreEqual("testing", activity.ProjectName);
+            ClassicAssert.AreEqual("testing", activity.ProjectName);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
         }
 
         [Test]
@@ -24,7 +27,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote
         {
             QueuedRequestSnapshot activity = new QueuedRequestSnapshot();
             activity.Activity = ProjectActivity.Building;
-            Assert.AreEqual(ProjectActivity.Building, activity.Activity);
+            ClassicAssert.AreEqual(ProjectActivity.Building, activity.Activity);
         }
 
         [Test]
@@ -33,7 +36,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote
             DateTime timeNow = DateTime.Now;
             QueuedRequestSnapshot activity = new QueuedRequestSnapshot();
             activity.RequestTime = timeNow;
-            Assert.AreEqual(timeNow, activity.RequestTime);
+            ClassicAssert.AreEqual(timeNow, activity.RequestTime);
         }
         #endregion
         #endregion

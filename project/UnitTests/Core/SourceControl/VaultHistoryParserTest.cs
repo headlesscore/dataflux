@@ -2,6 +2,7 @@ using System;
 using System.Globalization;
 using System.IO;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Sourcecontrol;
 
@@ -72,8 +73,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 			StringReader reader = GetReader(XML);
 			Modification[] modifications = parser.Parse(reader, new DateTime(2003, 5, 12), DateTime.Now);
 			reader.Close();
-			Assert.AreEqual(1, modifications.Length);
-		}
+			ClassicAssert.AreEqual(1, modifications.Length);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
+        }
 
 		[Test]
 		public void NumberOfModificationsWithInvalidDate()
@@ -81,7 +84,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 			StringReader reader = GetReader(XML);
 			Modification[] modifications = parser.Parse(reader, DateTime.Now.AddMinutes(-1), DateTime.Now);
 			reader.Close();
-			Assert.AreEqual(0, modifications.Length);
+			ClassicAssert.AreEqual(0, modifications.Length);
 		}
 
 		[Test]
@@ -91,12 +94,12 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 			Modification[] modifications = parser.Parse(reader, new DateTime(2003, 5, 12), DateTime.Now);
 			reader.Close();
 			Modification mod = modifications[0];
-			Assert.AreEqual("$", mod.FolderName);
-			Assert.AreEqual(null, mod.FileName);
-			Assert.AreEqual(new DateTime(2003, 5, 13, 22, 41, 30), mod.ModifiedTime);
-			Assert.AreEqual("Created", mod.Type);
-			Assert.AreEqual("admin", mod.UserName);
-			Assert.AreEqual("2", mod.ChangeNumber);
+			ClassicAssert.AreEqual("$", mod.FolderName);
+			ClassicAssert.AreEqual(null, mod.FileName);
+			ClassicAssert.AreEqual(new DateTime(2003, 5, 13, 22, 41, 30), mod.ModifiedTime);
+			ClassicAssert.AreEqual("Created", mod.Type);
+			ClassicAssert.AreEqual("admin", mod.UserName);
+			ClassicAssert.AreEqual("2", mod.ChangeNumber);
 		}
 
 		[Test]
@@ -104,7 +107,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 		{
 			StringReader reader = GetReader(XML_PADDED_WITH_EXTRA_CHARACTERS);
 			Modification[] modifications = parser.Parse(reader, new DateTime(2003, 5, 12), DateTime.Now);			
-			Assert.AreEqual(1, modifications.Length);
+			ClassicAssert.AreEqual(1, modifications.Length);
 		}
 
 		/// <summary>
@@ -126,11 +129,11 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 		{
 			StringReader reader = GetReader(ADD_AND_DELETE_FILES_XML);
 			Modification[] modifications = parser.Parse(reader, new DateTime(2003, 5, 12), DateTime.Now);			
-			Assert.AreEqual(2, modifications.Length);
-			Assert.AreEqual("1.tmp", modifications[0].FileName);
-			Assert.AreEqual("$/1", modifications[0].FolderName);
-			Assert.AreEqual("2.tmp", modifications[1].FileName);
-			Assert.AreEqual("$/2", modifications[1].FolderName);
+			ClassicAssert.AreEqual(2, modifications.Length);
+			ClassicAssert.AreEqual("1.tmp", modifications[0].FileName);
+			ClassicAssert.AreEqual("$/1", modifications[0].FolderName);
+			ClassicAssert.AreEqual("2.tmp", modifications[1].FileName);
+			ClassicAssert.AreEqual("$/2", modifications[1].FolderName);
 		}
 
         /// <summary>
@@ -142,63 +145,63 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
             StringReader reader = GetReader(ACTUAL_VAULT_OUTPUT);
             Modification[] modifications = parser.Parse(reader, new DateTime(2003, 5, 12), DateTime.Now);
             reader.Close();
-            Assert.AreEqual(7, modifications.Length);
+            ClassicAssert.AreEqual(7, modifications.Length);
 
-            Assert.AreEqual("43754", modifications[0].ChangeNumber);
-            Assert.AreEqual("update length", modifications[0].Comment);
-            Assert.AreEqual("Message.cs", modifications[0].FileName);
-            Assert.AreEqual("MyProductName.Enterprise/MyProductName.BusinessLayer", modifications[0].FolderName);
-            Assert.AreEqual(new DateTime(2007,8,21,10,34,07), modifications[0].ModifiedTime);
-            Assert.AreEqual("Checked in", modifications[0].Type);
-            Assert.AreEqual("joe_coder", modifications[0].UserName);
+            ClassicAssert.AreEqual("43754", modifications[0].ChangeNumber);
+            ClassicAssert.AreEqual("update length", modifications[0].Comment);
+            ClassicAssert.AreEqual("Message.cs", modifications[0].FileName);
+            ClassicAssert.AreEqual("MyProductName.Enterprise/MyProductName.BusinessLayer", modifications[0].FolderName);
+            ClassicAssert.AreEqual(new DateTime(2007,8,21,10,34,07), modifications[0].ModifiedTime);
+            ClassicAssert.AreEqual("Checked in", modifications[0].Type);
+            ClassicAssert.AreEqual("joe_coder", modifications[0].UserName);
 
-            Assert.AreEqual("43753", modifications[1].ChangeNumber);
-            Assert.AreEqual("Updated Version to 1.0.4", modifications[1].Comment);
-            Assert.AreEqual("AssemblyInfo.cs", modifications[1].FileName);
-            Assert.AreEqual("MyProductName.Enterprise/DataWorkbenchMessageCenter/Properties", modifications[1].FolderName);
-            Assert.AreEqual(new DateTime(2007,8,21,10, 33, 46), modifications[1].ModifiedTime);
-            Assert.AreEqual("Checked in", modifications[1].Type);
-            Assert.AreEqual("admin", modifications[1].UserName);
+            ClassicAssert.AreEqual("43753", modifications[1].ChangeNumber);
+            ClassicAssert.AreEqual("Updated Version to 1.0.4", modifications[1].Comment);
+            ClassicAssert.AreEqual("AssemblyInfo.cs", modifications[1].FileName);
+            ClassicAssert.AreEqual("MyProductName.Enterprise/DataWorkbenchMessageCenter/Properties", modifications[1].FolderName);
+            ClassicAssert.AreEqual(new DateTime(2007,8,21,10, 33, 46), modifications[1].ModifiedTime);
+            ClassicAssert.AreEqual("Checked in", modifications[1].Type);
+            ClassicAssert.AreEqual("admin", modifications[1].UserName);
 
-            Assert.AreEqual("43752", modifications[2].ChangeNumber);
-            Assert.AreEqual("Updated Version to 1.0.4", modifications[2].Comment);
-            Assert.AreEqual("AssemblyInfo.cs", modifications[2].FileName);
-            Assert.AreEqual("MyProductName.Enterprise/MPSAdministrator/Properties", modifications[2].FolderName);
-            Assert.AreEqual(new DateTime(2007,8,21,10, 33, 41), modifications[2].ModifiedTime);
-            Assert.AreEqual("Checked in", modifications[2].Type);
-            Assert.AreEqual("admin", modifications[2].UserName);
+            ClassicAssert.AreEqual("43752", modifications[2].ChangeNumber);
+            ClassicAssert.AreEqual("Updated Version to 1.0.4", modifications[2].Comment);
+            ClassicAssert.AreEqual("AssemblyInfo.cs", modifications[2].FileName);
+            ClassicAssert.AreEqual("MyProductName.Enterprise/MPSAdministrator/Properties", modifications[2].FolderName);
+            ClassicAssert.AreEqual(new DateTime(2007,8,21,10, 33, 41), modifications[2].ModifiedTime);
+            ClassicAssert.AreEqual("Checked in", modifications[2].Type);
+            ClassicAssert.AreEqual("admin", modifications[2].UserName);
 
-            Assert.AreEqual("43751", modifications[3].ChangeNumber);
-            Assert.AreEqual("Updated Version to 1.0.4", modifications[3].Comment);
-            Assert.AreEqual("AssemblyInfo.cs", modifications[3].FileName);
-            Assert.AreEqual("MyProductName.Enterprise/MyProductName.Tester/Properties", modifications[3].FolderName);
-            Assert.AreEqual(new DateTime(2007,8,21,10, 33, 36), modifications[3].ModifiedTime);
-            Assert.AreEqual("Checked in", modifications[3].Type);
-            Assert.AreEqual("admin", modifications[3].UserName);
+            ClassicAssert.AreEqual("43751", modifications[3].ChangeNumber);
+            ClassicAssert.AreEqual("Updated Version to 1.0.4", modifications[3].Comment);
+            ClassicAssert.AreEqual("AssemblyInfo.cs", modifications[3].FileName);
+            ClassicAssert.AreEqual("MyProductName.Enterprise/MyProductName.Tester/Properties", modifications[3].FolderName);
+            ClassicAssert.AreEqual(new DateTime(2007,8,21,10, 33, 36), modifications[3].ModifiedTime);
+            ClassicAssert.AreEqual("Checked in", modifications[3].Type);
+            ClassicAssert.AreEqual("admin", modifications[3].UserName);
 
-            Assert.AreEqual("43750", modifications[4].ChangeNumber);
-            Assert.AreEqual("Updated Version to 1.0.4", modifications[4].Comment);
-            Assert.AreEqual("AssemblyInfo.cs", modifications[4].FileName);
-            Assert.AreEqual("MyProductName.Enterprise/MyProductName.WebService/Properties", modifications[4].FolderName);
-            Assert.AreEqual(new DateTime(2007,8,21,10, 33, 30), modifications[4].ModifiedTime);
-            Assert.AreEqual("Checked in", modifications[4].Type);
-            Assert.AreEqual("admin", modifications[4].UserName);
+            ClassicAssert.AreEqual("43750", modifications[4].ChangeNumber);
+            ClassicAssert.AreEqual("Updated Version to 1.0.4", modifications[4].Comment);
+            ClassicAssert.AreEqual("AssemblyInfo.cs", modifications[4].FileName);
+            ClassicAssert.AreEqual("MyProductName.Enterprise/MyProductName.WebService/Properties", modifications[4].FolderName);
+            ClassicAssert.AreEqual(new DateTime(2007,8,21,10, 33, 30), modifications[4].ModifiedTime);
+            ClassicAssert.AreEqual("Checked in", modifications[4].Type);
+            ClassicAssert.AreEqual("admin", modifications[4].UserName);
 
-            Assert.AreEqual("43749", modifications[5].ChangeNumber); 
-            Assert.AreEqual("Updated Version to 1.0.4", modifications[5].Comment);
-            Assert.AreEqual("AssemblyInfo.cs", modifications[5].FileName);
-            Assert.AreEqual("MyProductName.Enterprise/MyProductName.DataLayer/Properties", modifications[5].FolderName);
-            Assert.AreEqual(new DateTime(2007,8,21,10, 33, 25), modifications[5].ModifiedTime);
-            Assert.AreEqual("Checked in", modifications[5].Type);
-            Assert.AreEqual("admin", modifications[5].UserName);
+            ClassicAssert.AreEqual("43749", modifications[5].ChangeNumber); 
+            ClassicAssert.AreEqual("Updated Version to 1.0.4", modifications[5].Comment);
+            ClassicAssert.AreEqual("AssemblyInfo.cs", modifications[5].FileName);
+            ClassicAssert.AreEqual("MyProductName.Enterprise/MyProductName.DataLayer/Properties", modifications[5].FolderName);
+            ClassicAssert.AreEqual(new DateTime(2007,8,21,10, 33, 25), modifications[5].ModifiedTime);
+            ClassicAssert.AreEqual("Checked in", modifications[5].Type);
+            ClassicAssert.AreEqual("admin", modifications[5].UserName);
 
-            Assert.AreEqual("43748", modifications[6].ChangeNumber);
-            Assert.AreEqual("Updated Version to 1.0.4", modifications[6].Comment);
-            Assert.AreEqual("AssemblyInfo.cs", modifications[6].FileName);
-            Assert.AreEqual("MyProductName.Enterprise/MyProductName.BusinessLayer/Properties", modifications[6].FolderName);
-            Assert.AreEqual(new DateTime(2007,8,21,10, 33, 18), modifications[6].ModifiedTime);
-            Assert.AreEqual("Checked in", modifications[6].Type);
-            Assert.AreEqual("admin", modifications[6].UserName);
+            ClassicAssert.AreEqual("43748", modifications[6].ChangeNumber);
+            ClassicAssert.AreEqual("Updated Version to 1.0.4", modifications[6].Comment);
+            ClassicAssert.AreEqual("AssemblyInfo.cs", modifications[6].FileName);
+            ClassicAssert.AreEqual("MyProductName.Enterprise/MyProductName.BusinessLayer/Properties", modifications[6].FolderName);
+            ClassicAssert.AreEqual(new DateTime(2007,8,21,10, 33, 18), modifications[6].ModifiedTime);
+            ClassicAssert.AreEqual("Checked in", modifications[6].Type);
+            ClassicAssert.AreEqual("admin", modifications[6].UserName);
         }
 
 	}

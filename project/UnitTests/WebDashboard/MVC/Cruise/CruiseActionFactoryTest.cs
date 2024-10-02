@@ -1,5 +1,6 @@
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Objection;
 using ThoughtWorks.CruiseControl.WebDashboard.Dashboard.Actions;
 using ThoughtWorks.CruiseControl.WebDashboard.MVC;
@@ -31,8 +32,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.MVC.Cruise
 			Mock.Get(objectSource).Setup(_objectSource => _objectSource.GetByName("thisaintnoaction"))
                 .Returns(null).Verifiable();
 
-			Assert.IsTrue(actionFactory.Create(request) is UnknownActionAction);
-
+			ClassicAssert.IsTrue(actionFactory.Create(request) is UnknownActionAction);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
             mocks.VerifyAll();
 		}
 
@@ -46,7 +48,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.MVC.Cruise
 			Mock.Get(objectSource).Setup(_objectSource => _objectSource.GetByType(typeof(DefaultAction)))
                 .Returns(stubAction).Verifiable();
 
-			Assert.AreEqual(stubAction, actionFactory.Create(request));
+			ClassicAssert.AreEqual(stubAction, actionFactory.Create(request));
 
             mocks.VerifyAll();
 		}
@@ -61,7 +63,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.MVC.Cruise
 			Mock.Get(objectSource).Setup(_objectSource => _objectSource.GetByType(typeof(DefaultAction)))
                 .Returns(stubAction).Verifiable();
 
-			Assert.AreEqual(stubAction, actionFactory.Create(request));
+			ClassicAssert.AreEqual(stubAction, actionFactory.Create(request));
 
             mocks.VerifyAll();
 		}
@@ -76,7 +78,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.MVC.Cruise
 			Mock.Get(objectSource).Setup(_objectSource => _objectSource.GetByName("myaction"))
                 .Returns(stubAction).Verifiable();
 
-			Assert.AreSame(stubAction, actionFactory.Create(request));
+			ClassicAssert.AreSame(stubAction, actionFactory.Create(request));
 
             mocks.VerifyAll();
 		}

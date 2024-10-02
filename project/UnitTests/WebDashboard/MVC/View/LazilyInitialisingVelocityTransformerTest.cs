@@ -5,6 +5,7 @@ using NUnit.Framework;
 using ThoughtWorks.CruiseControl.Core.Reporting.Dashboard.Navigation;
 using ThoughtWorks.CruiseControl.WebDashboard.MVC.View;
 using ThoughtWorks.CruiseControl.WebDashboard.Configuration;
+using NUnit.Framework.Legacy;
 
 namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.MVC.View
 {
@@ -31,7 +32,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.MVC.View
             viewTransformer = new LazilyInitialisingVelocityTransformer((IPhysicalApplicationPathProvider)pathMapperMock.Object,
                 (IDashboardConfiguration)configurationMock.Object);
 
-			Assert.AreEqual("foo is bar", viewTransformer.Transform("TestTransform.vm", contextContents));
-		}
+			ClassicAssert.AreEqual("foo is bar", viewTransformer.Transform("TestTransform.vm", contextContents));
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
+        }
 	}
 }

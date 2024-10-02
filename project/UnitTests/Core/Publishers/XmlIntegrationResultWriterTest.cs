@@ -4,6 +4,7 @@ using System.IO;
 using System.Reflection;
 using System.Xml.XPath;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Publishers;
 using ThoughtWorks.CruiseControl.Core.Util;
@@ -18,6 +19,19 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Publishers
 		private StringWriter buffer;
 		private XmlIntegrationResultWriter writer;
 		private IntegrationResult result;
+
+        [TearDown]
+        protected void TearDown()
+        {
+            if (!(buffer is null))
+            {
+                (buffer as IDisposable).Dispose();
+            }
+            if (!(writer is null))
+            {
+                (writer as IDisposable).Dispose();
+            }
+        }
 
 		[SetUp]
 		protected void SetUp()
@@ -42,8 +56,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Publishers
 			string expected = string.Format(System.Globalization.CultureInfo.CurrentCulture,"<modifications>{0}</modifications>", mods[0].ToXml());
 
 			writer.WriteModifications(mods);
-			Assert.AreEqual(expected, buffer.ToString());
-		}
+			ClassicAssert.AreEqual(expected, buffer.ToString());
+            ClassicAssert.IsTrue(true);
+        }
 
 		[Test]
 		public void WriteRequest()
@@ -53,7 +68,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Publishers
 			AssertXPathExists(xml, string.Format(System.Globalization.CultureInfo.CurrentCulture,"//request[@source='{0}' and @buildCondition='{1}']", 
 			                                                   result.IntegrationRequest.Source, result.IntegrationRequest.BuildCondition));
 
-            Assert.AreEqual("Build (IfModificationExists) triggered from foo", result.IntegrationRequest.ToString(), "request section is wrong");
+            ClassicAssert.AreEqual("Build (IfModificationExists) triggered from foo", result.IntegrationRequest.ToString(), "request section is wrong");
             
             AssertXPathExists(xml, "cruisecontrol/integrationProperties");
 
@@ -92,8 +107,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Publishers
 			writer.Write(result);
 			string actual = buffer.ToString();
 
-			Assert.IsTrue(actual.IndexOf(exceptionMessage) > 0);
-			Assert.IsTrue(actual.IndexOf(exception.GetType().Name) > 0);
+			ClassicAssert.IsTrue(actual.IndexOf(exceptionMessage) > 0);
+			ClassicAssert.IsTrue(actual.IndexOf(exception.GetType().Name) > 0);
 
 			XmlUtil.VerifyXmlIsWellFormed(actual);
 		}
@@ -108,7 +123,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Publishers
 		public void WriteIntegrationResult()
 		{
 			string output = GenerateBuildOutput(result);
-			Assert.AreEqual(CreateExpectedBuildXml(result), output);
+			ClassicAssert.AreEqual(CreateExpectedBuildXml(result), output);
 			XmlUtil.VerifyXmlIsWellFormed(output);
 		}
 
@@ -125,7 +140,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Publishers
 		{
 			result.AddTaskResult("<tag></tag>");
 			string output = GenerateBuildOutput(result);
-			Assert.AreEqual(CreateExpectedBuildXml(result, "<tag></tag>"), output);
+			ClassicAssert.AreEqual(CreateExpectedBuildXml(result, "<tag></tag>"), output);
 			XmlUtil.VerifyXmlIsWellFormed(output);
 		}
 
@@ -134,7 +149,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Publishers
 		{
 			result.AddTaskResult("<tag><![CDATA[a b <c>]]></tag>");
 			string output = GenerateBuildOutput(result);
-			Assert.AreEqual(CreateExpectedBuildXml(result, "<tag><![CDATA[a b <c>]]></tag>"), output);
+			ClassicAssert.AreEqual(CreateExpectedBuildXml(result, "<tag><![CDATA[a b <c>]]></tag>"), output);
 			XmlUtil.VerifyXmlIsWellFormed(output);
 		}
 
@@ -161,7 +176,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Publishers
 			result.AddTaskResult(swWithNull.ToString());
 
 			string expectedResult = CreateExpectedBuildXml(result, swWithNull.ToString());
-			Assert.AreEqual(expectedResult.Replace("\0", string.Empty).Replace("\r", string.Empty), GenerateBuildOutput(result));
+			ClassicAssert.AreEqual(expectedResult.Replace("\0", string.Empty).Replace("\r", string.Empty), GenerateBuildOutput(result));
 		}
 
 		[Test]
@@ -169,7 +184,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Publishers
 		{
 			result.AddTaskResult("<tag><c></tag>");
 			string output = GenerateBuildOutput(result);
-			Assert.AreEqual(CreateExpectedBuildXml(result, @"<![CDATA[<tag><c></tag>]]>"), output);
+			ClassicAssert.AreEqual(CreateExpectedBuildXml(result, @"<![CDATA[<tag><c></tag>]]>"), output);
 			XmlUtil.VerifyXmlIsWellFormed(output);
 		}
 
@@ -188,7 +203,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Publishers
 		{
 			result.Status = IntegrationStatus.Failure;
 			string output = GenerateBuildOutput(result);
-			Assert.AreEqual(CreateExpectedBuildXml(result), output);
+			ClassicAssert.AreEqual(CreateExpectedBuildXml(result), output);
 			XmlUtil.VerifyXmlIsWellFormed(output);
 		}
 
@@ -204,7 +219,7 @@ http://nant.sourceforge.net
 			result = CreateIntegrationResult(IntegrationStatus.Success, false);
 			result.AddTaskResult(nantOut);
 
-			Assert.AreEqual(CreateExpectedBuildXml(result, nantOut), GenerateBuildOutput(result));
+			ClassicAssert.AreEqual(CreateExpectedBuildXml(result, nantOut), GenerateBuildOutput(result));
 		}
 
 		[Test]

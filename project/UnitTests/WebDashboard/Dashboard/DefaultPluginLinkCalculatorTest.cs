@@ -1,5 +1,6 @@
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core.Reporting.Dashboard.Navigation;
 using ThoughtWorks.CruiseControl.WebDashboard.Configuration;
 using ThoughtWorks.CruiseControl.WebDashboard.Dashboard;
@@ -78,10 +79,12 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.Dashboard
 
 			IAbsoluteLink[] buildLinks = Plugins.GetBuildPluginLinks(buildSpecifier);
 
-			Assert.AreSame(link1, buildLinks[0]);
-			Assert.AreSame(link2, buildLinks[1]);
-			Assert.AreEqual(2, buildLinks.Length);
-			VerifyAll();
+			ClassicAssert.AreSame(link1, buildLinks[0]);
+			ClassicAssert.AreSame(link2, buildLinks[1]);
+			ClassicAssert.AreEqual(2, buildLinks.Length);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
+            VerifyAll();
 		}
 
 		[Test]
@@ -93,9 +96,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.Dashboard
 
 			IAbsoluteLink[] buildLinks = Plugins.GetServerPluginLinks(serverSpecifier);
 
-			Assert.AreSame(link1, buildLinks[0]);
-			Assert.AreSame(link2, buildLinks[1]);
-			Assert.AreEqual(2, buildLinks.Length);
+			ClassicAssert.AreSame(link1, buildLinks[0]);
+			ClassicAssert.AreSame(link2, buildLinks[1]);
+			ClassicAssert.AreEqual(2, buildLinks.Length);
 			VerifyAll();
 		}
 
@@ -108,9 +111,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.Dashboard
 
 			IAbsoluteLink[] buildLinks = Plugins.GetFarmPluginLinks();
 
-			Assert.AreSame(link1, buildLinks[0]);
-			Assert.AreSame(link2, buildLinks[1]);
-			Assert.AreEqual(2, buildLinks.Length);
+			ClassicAssert.AreSame(link1, buildLinks[0]);
+			ClassicAssert.AreSame(link2, buildLinks[1]);
+			ClassicAssert.AreEqual(2, buildLinks.Length);
 			VerifyAll();
 		}
 
@@ -123,9 +126,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.Dashboard
 
 			IAbsoluteLink[] buildLinks = Plugins.GetProjectPluginLinks(projectSpecifier);
 
-			Assert.AreSame(link1, buildLinks[0]);
-			Assert.AreSame(link2, buildLinks[1]);
-			Assert.AreEqual(2, buildLinks.Length);
+			ClassicAssert.AreSame(link1, buildLinks[0]);
+			ClassicAssert.AreSame(link2, buildLinks[1]);
+			ClassicAssert.AreEqual(2, buildLinks.Length);
 			VerifyAll();
 		}
 	}

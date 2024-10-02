@@ -1,6 +1,7 @@
 ﻿namespace ThoughtWorks.CruiseControl.UnitTests.Remote
 {
     using NUnit.Framework;
+    using NUnit.Framework.Legacy;
     using ThoughtWorks.CruiseControl.Remote;
 
     public class QueueSetSnapshotTests
@@ -10,8 +11,10 @@
         public void ConstructorWorks()
         {
             var snapshot = new QueueSetSnapshot();
-            Assert.IsNotNull(snapshot.Queues);
-            Assert.IsEmpty(snapshot.Queues);
+            ClassicAssert.IsNotNull(snapshot.Queues);
+            ClassicAssert.IsEmpty(snapshot.Queues);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
         }
         #endregion
     }

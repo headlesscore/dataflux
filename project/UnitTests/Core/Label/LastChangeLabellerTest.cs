@@ -1,6 +1,7 @@
 using System;
 using Exortech.NetReflector;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Label;
 using ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol;
@@ -26,14 +27,14 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Label
         {
             IntegrationResult result = CreateSucessfullIntegrationResult();
             AddModifications(result);
-            Assert.AreEqual("30", labeller.Generate(result));
+            ClassicAssert.AreEqual("30", labeller.Generate(result));
         }
 
         [Test]
         public void GenerateLabelFromNoMods()
         {
             IntegrationResult result = CreateSucessfullIntegrationResult();
-            Assert.AreEqual("unknown", labeller.Generate(result));
+            ClassicAssert.AreEqual("unknown", labeller.Generate(result));
         }
 
         [Test]
@@ -42,7 +43,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Label
             IntegrationResult result = CreateSucessfullIntegrationResult();
             AddModifications(result);
             labeller.LabelPrefix = "Sample";
-            Assert.AreEqual("Sample30", labeller.Generate(result));
+            ClassicAssert.AreEqual("Sample30", labeller.Generate(result));
         }
 
         [Test]
@@ -52,7 +53,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Label
             AddModifications(result);
             labeller.LabelPrefix = "Sample";
             result.LastSuccessfulIntegrationLabel = "SomethingElse23";
-            Assert.AreEqual("Sample30", labeller.Generate(result));
+            ClassicAssert.AreEqual("Sample30", labeller.Generate(result));
+            ClassicAssert.AreEqual("Sample30", labeller.Generate(result));
         }
 
         [Test]
@@ -62,7 +64,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Label
             AddModifications(result);
             labeller.LabelPrefix = "R3SX";
             result.LastSuccessfulIntegrationLabel = "R3SX23";
-            Assert.AreEqual("R3SX30", labeller.Generate(result));
+            ClassicAssert.AreEqual("R3SX30", labeller.Generate(result));
         }
 
 
@@ -72,7 +74,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Label
             IntegrationResult result = CreateSucessfullIntegrationResult();
             AddModifications(result);
             labeller.LabelPrefix = "1.2.";
-            Assert.AreEqual("1.2.30", labeller.Generate(result));
+            ClassicAssert.AreEqual("1.2.30", labeller.Generate(result));
         }
 
         [Test]
@@ -81,7 +83,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Label
             IntegrationResult result = CreateSucessfullIntegrationResult();
             AddModifications(result);
             labeller.LabelPrefix = "2.2.0.";
-            Assert.AreEqual("2.2.0.30", labeller.Generate(result));
+            ClassicAssert.AreEqual("2.2.0.30", labeller.Generate(result));
         }
 
 
@@ -91,8 +93,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Label
         {
             string xml = "<LastChangeLabeller prefix=\"foo\" allowDuplicateSubsequentLabels=\"false\" />";
             NetReflector.Read(xml, labeller);
-            Assert.AreEqual("foo", labeller.LabelPrefix);
-            Assert.AreEqual(false, labeller.AllowDuplicateSubsequentLabels);
+            ClassicAssert.AreEqual("foo", labeller.LabelPrefix);
+            ClassicAssert.AreEqual(false, labeller.AllowDuplicateSubsequentLabels);
         }
 
         [Test]
@@ -100,15 +102,15 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Label
         {
             string xml = "<LastChangeLabeller/>";
             NetReflector.Read(xml, labeller);
-            Assert.AreEqual(string.Empty, labeller.LabelPrefix);
-            Assert.AreEqual(true, labeller.AllowDuplicateSubsequentLabels);
+            ClassicAssert.AreEqual(string.Empty, labeller.LabelPrefix);
+            ClassicAssert.AreEqual(true, labeller.AllowDuplicateSubsequentLabels);
         }
 
         [Test]
         public void VerifyDefaultValues()
         {
-            Assert.AreEqual(string.Empty, labeller.LabelPrefix);
-            Assert.AreEqual(true, labeller.AllowDuplicateSubsequentLabels);
+            ClassicAssert.AreEqual(string.Empty, labeller.LabelPrefix);
+            ClassicAssert.AreEqual(true, labeller.AllowDuplicateSubsequentLabels);
         }
 
         private static IntegrationResult CreateSucessfullIntegrationResult()
@@ -139,11 +141,11 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Label
         public void GenerateLabelFromNoModsIterative()
         {
             labeller.LabelPrefix = "DoesNotMatterForNoMods";
-            Assert.AreEqual("unknown", labeller.Generate(SuccessfulResult("unknown")));
-            Assert.AreEqual("30", labeller.Generate(SuccessfulResult("30")));
-            Assert.AreEqual("30.1", labeller.Generate(SuccessfulResult("30.1")));
-            Assert.AreEqual("Sample.30", labeller.Generate(SuccessfulResult("Sample.30")));
-            Assert.AreEqual("Sample.30.1", labeller.Generate(SuccessfulResult("Sample.30.1")));
+            ClassicAssert.AreEqual("unknown", labeller.Generate(SuccessfulResult("unknown")));
+            ClassicAssert.AreEqual("30", labeller.Generate(SuccessfulResult("30")));
+            ClassicAssert.AreEqual("30.1", labeller.Generate(SuccessfulResult("30.1")));
+            ClassicAssert.AreEqual("Sample.30", labeller.Generate(SuccessfulResult("Sample.30")));
+            ClassicAssert.AreEqual("Sample.30.1", labeller.Generate(SuccessfulResult("Sample.30.1")));
         }
 
         [Test]
@@ -151,11 +153,11 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Label
         {
             labeller.LabelPrefix = "DoesNotMatterForNoMods";
             labeller.AllowDuplicateSubsequentLabels = false;
-            Assert.AreEqual("unknown.1", labeller.Generate(SuccessfulResult("unknown")));
-            Assert.AreEqual("30.1", labeller.Generate(SuccessfulResult("30")));
-            Assert.AreEqual("30.2", labeller.Generate(SuccessfulResult("30.1")));
-            Assert.AreEqual("Sample.30.1", labeller.Generate(SuccessfulResult("Sample.30")));
-            Assert.AreEqual("Sample.30.2", labeller.Generate(SuccessfulResult("Sample.30.1")));
+            ClassicAssert.AreEqual("unknown.1", labeller.Generate(SuccessfulResult("unknown")));
+            ClassicAssert.AreEqual("30.1", labeller.Generate(SuccessfulResult("30")));
+            ClassicAssert.AreEqual("30.2", labeller.Generate(SuccessfulResult("30.1")));
+            ClassicAssert.AreEqual("Sample.30.1", labeller.Generate(SuccessfulResult("Sample.30")));
+            ClassicAssert.AreEqual("Sample.30.2", labeller.Generate(SuccessfulResult("Sample.30.1")));
         }
 
         [Test]
@@ -165,7 +167,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Label
             AddModifications(result);
             labeller.LabelPrefix = "Sample";
             labeller.AllowDuplicateSubsequentLabels = false;
-            Assert.AreEqual("Sample30.1", labeller.Generate(result));
+            ClassicAssert.AreEqual("Sample30.1", labeller.Generate(result));
         }
     }
 }

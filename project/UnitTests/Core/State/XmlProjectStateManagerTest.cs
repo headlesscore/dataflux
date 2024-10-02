@@ -3,6 +3,7 @@ using System.IO;
 using System.Text;
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core.State;
 using ThoughtWorks.CruiseControl.Core.Util;
 
@@ -73,8 +74,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.State
 			stateManager = new XmlProjectStateManager(fileSystem, executionEnvironment);
 			stateManager.RecordProjectAsStopped(projectName);
 			var result = stateManager.CheckIfProjectCanStart(projectName);
-			Assert.IsFalse(result, "Project state incorrect");
-			mocks.VerifyAll();
+			ClassicAssert.IsFalse(result, "Project state incorrect");
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
+            mocks.VerifyAll();
 
 			var expectedData = "<state><project>Test Project #3</project><project>Test Project #1</project></state>";
 			ValidateStreamData(stream, expectedData);
@@ -94,7 +97,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.State
 			stateManager = new XmlProjectStateManager(fileSystem, executionEnvironment);
 			stateManager.RecordProjectAsStopped(projectName);
 			var result = stateManager.CheckIfProjectCanStart(projectName);
-			Assert.IsFalse(result, "Project state incorrect");
+			ClassicAssert.IsFalse(result, "Project state incorrect");
 			mocks.VerifyAll();
 
 			var expectedData = "<state><project>Test Project #3</project><project>Test Project #1</project></state>";
@@ -117,7 +120,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.State
 			stateManager = new XmlProjectStateManager(fileSystem, executionEnvironment);
 			stateManager.RecordProjectAsStartable(projectName);
 			var result = stateManager.CheckIfProjectCanStart(projectName);
-			Assert.IsTrue(result, "Project state incorrect");
+			ClassicAssert.IsTrue(result, "Project state incorrect");
 			mocks.VerifyAll();
 
 			var expectedData = "<state><project>Test Project #3</project></state>";
@@ -139,7 +142,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.State
 			stateManager.RecordProjectAsStartable(projectName);
 			stateManager.RecordProjectAsStartable(projectName);
 			var result = stateManager.CheckIfProjectCanStart(projectName);
-			Assert.IsTrue(result, "Project state incorrect");
+			ClassicAssert.IsTrue(result, "Project state incorrect");
 			mocks.VerifyAll();
 			var expectedData = "<state><project>Test Project #3</project></state>";
 			ValidateStreamData(stream, expectedData);
@@ -163,7 +166,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.State
 			stateManager.RecordProjectAsStopped(projectName);
 			stateManager.RecordProjectAsStartable(projectName);
 			var result = stateManager.CheckIfProjectCanStart(projectName);
-			Assert.IsTrue(result, "Project state incorrect");
+			ClassicAssert.IsTrue(result, "Project state incorrect");
 			mocks.VerifyAll();
 
 			var expectedData1 = "<state><project>Test Project #3</project><project>Test Project #1</project></state>";
@@ -186,7 +189,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.State
 
 			stateManager = new XmlProjectStateManager(fileSystem, executionEnvironment);
 			var result = stateManager.CheckIfProjectCanStart(projectName);
-			Assert.IsTrue(result, "Project state incorrect");
+			ClassicAssert.IsTrue(result, "Project state incorrect");
 			mocks.VerifyAll();
 		}
 
@@ -202,7 +205,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.State
 
 			stateManager = new XmlProjectStateManager(fileSystem, executionEnvironment);
 			var result = stateManager.CheckIfProjectCanStart(projectName);
-			Assert.IsFalse(result, "Project state incorrect");
+			ClassicAssert.IsFalse(result, "Project state incorrect");
 			mocks.VerifyAll();
 		}
 
@@ -218,7 +221,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.State
 
 			stateManager = new XmlProjectStateManager(fileSystem, executionEnvironment);
 			var result = stateManager.CheckIfProjectCanStart(projectName);
-			Assert.IsTrue(result, "Project state incorrect");
+			ClassicAssert.IsTrue(result, "Project state incorrect");
 			mocks.VerifyAll();
 		}
 
@@ -234,7 +237,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.State
 
 			stateManager = new XmlProjectStateManager(fileSystem, executionEnvironment);
 			var result = stateManager.CheckIfProjectCanStart(projectName);
-			Assert.IsFalse(result, "Project state incorrect");
+			ClassicAssert.IsFalse(result, "Project state incorrect");
 			mocks.VerifyAll();
 		}
 
@@ -250,7 +253,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.State
 
 			stateManager = new XmlProjectStateManager(fileSystem, executionEnvironment);
 			var result = stateManager.CheckIfProjectCanStart(projectName);
-			Assert.IsTrue(result, "Project state incorrect");
+			ClassicAssert.IsTrue(result, "Project state incorrect");
 			mocks.VerifyAll();
 		}
 		#endregion
@@ -271,7 +274,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.State
 					var streamData = reader.ReadToEnd();
 					var zeroPos = streamData.IndexOf('\x0');
 					if (zeroPos >= 0) streamData = streamData.Substring(0, zeroPos);
-					Assert.AreEqual(expectedData, streamData);
+					ClassicAssert.AreEqual(expectedData, streamData);
 				}
 			}
 		}

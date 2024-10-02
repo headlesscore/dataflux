@@ -8,6 +8,7 @@ using ThoughtWorks.CruiseControl.Core.Security.Auditing;
 using ThoughtWorks.CruiseControl.Remote;
 using ThoughtWorks.CruiseControl.Remote.Security;
 using ThoughtWorks.CruiseControl.Remote.Messages;
+using NUnit.Framework.Legacy;
 
 namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security
 {
@@ -47,7 +48,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security
             manager.Initialise();
 
             string sessionToken = manager.Login(credentials);
-            Assert.AreEqual(testSessionToken, sessionToken);
+            ClassicAssert.AreEqual(testSessionToken, sessionToken);
         }
 
         [Test]
@@ -69,7 +70,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security
             manager.Initialise();
 
             string sessionToken = manager.Login(credentials);
-            Assert.AreEqual(testSessionToken, sessionToken);
+            ClassicAssert.AreEqual(testSessionToken, sessionToken);
+            
         }
 
         [Test]
@@ -82,7 +84,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security
             manager.Initialise();
 
             string sessionToken = manager.Login(credentials);
-            Assert.IsNull(sessionToken);
+            ClassicAssert.IsNull(sessionToken);
         }
 
         [Test]
@@ -93,7 +95,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security
             manager.Initialise();
 
             string sessionToken = manager.Login(credentials);
-            Assert.IsNull(sessionToken);
+            ClassicAssert.IsNull(sessionToken);
         }
 
         [Test]
@@ -125,7 +127,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security
             manager.Initialise();
 
             bool result = manager.ValidateSession(testSessionToken);
-            Assert.IsTrue(result);
+            ClassicAssert.IsTrue(result);
         }
 
         [Test]
@@ -136,7 +138,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security
             manager.Initialise();
 
             bool result = manager.ValidateSession(testSessionToken);
-            Assert.IsFalse(result);
+            ClassicAssert.IsFalse(result);
         }
 
         [Test]
@@ -145,7 +147,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security
             manager.Initialise();
 
             bool result = manager.ValidateSession(null);
-            Assert.IsFalse(result);
+            ClassicAssert.IsFalse(result);
         }
 
         [Test]
@@ -156,7 +158,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security
             manager.Initialise();
 
             string result = manager.GetUserName(testSessionToken);
-            Assert.AreEqual("johndoe", result);
+            ClassicAssert.AreEqual("johndoe", result);
         }
 
         [Test]
@@ -167,7 +169,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security
             manager.Initialise();
 
             string result = manager.GetUserName(testSessionToken);
-            Assert.IsNull(result);
+            ClassicAssert.IsNull(result);
         }
 
         [Test]
@@ -176,7 +178,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security
             manager.Initialise();
 
             string result = manager.GetUserName(null);
-            Assert.IsNull(result);
+            ClassicAssert.IsNull(result);
         }
 
         [Test]
@@ -187,7 +189,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security
             manager.Initialise();
 
             string result = manager.GetDisplayName(testSessionToken, null);
-            Assert.AreEqual("John Doe", result);
+            ClassicAssert.AreEqual("John Doe", result);
         }
 
         [Test]
@@ -198,7 +200,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security
             manager.Initialise();
 
             string result = manager.GetDisplayName(testSessionToken, null);
-            Assert.IsNull(result);
+            ClassicAssert.IsNull(result);
         }
 
         [Test]
@@ -207,7 +209,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security
             manager.Initialise();
 
             string result = manager.GetDisplayName(null, null);
-            Assert.IsNull(result);
+            ClassicAssert.IsNull(result);
         }
 
         [Test]
@@ -237,8 +239,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security
             Mock.Get(authenticationMock).SetupGet(_authenticationMock => _authenticationMock.UserName).Returns("johndoe");
             manager.Initialise();
             List<UserDetails> users = manager.ListAllUsers();
-            Assert.IsNotNull(users, "No data returned");
-            Assert.AreEqual(1, users.Count, "Unexpected number of users returned");
+            ClassicAssert.IsNotNull(users, "No data returned");
+            ClassicAssert.AreEqual(1, users.Count, "Unexpected number of users returned");
         }
 
         [Test]
@@ -246,7 +248,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security
         {
             manager.Initialise();
             List<AuditRecord> actual = manager.ReadAuditRecords(0, 100);
-            Assert.AreEqual(0, actual.Count);
+            ClassicAssert.AreEqual(0, actual.Count);
         }
 
         [Test]
@@ -254,7 +256,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security
         {
             manager.Initialise();
             List<AuditRecord> actual = manager.ReadAuditRecords(0, 100, AuditFilters.ByProject("Project #1"));
-            Assert.AreEqual(0, actual.Count);
+            ClassicAssert.AreEqual(0, actual.Count);
         }
 
         [Test]
@@ -267,7 +269,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security
             manager.AuditReader = readerMock;
             manager.Initialise();
             List<AuditRecord> actual = manager.ReadAuditRecords(0, 100);
-            Assert.AreEqual(1, actual.Count);
+            ClassicAssert.AreEqual(1, actual.Count);
         }
 
         [Test]
@@ -281,7 +283,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security
             manager.AuditReader = readerMock;
             manager.Initialise();
             List<AuditRecord> actual = manager.ReadAuditRecords(0, 100, filter);
-            Assert.AreEqual(1, actual.Count);
+            ClassicAssert.AreEqual(1, actual.Count);
         }
 
         //[Test]

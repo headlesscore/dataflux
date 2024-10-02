@@ -1,6 +1,7 @@
 ﻿namespace ThoughtWorks.CruiseControl.UnitTests.Core.Util
 {
     using NUnit.Framework;
+    using NUnit.Framework.Legacy;
     using ThoughtWorks.CruiseControl.Core.Util;
 
     [TestFixture]
@@ -10,23 +11,25 @@
         public void ConstructorWithNoArgumentsInitialises()
         {
             var args = new PrivateArguments();
-            Assert.AreEqual(0, args.Count);
+            ClassicAssert.AreEqual(0, args.Count);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
         }
 
         [Test]
         public void ConstructorWithOneArgumentInitialises()
         {
             var args = new PrivateArguments("test");
-            Assert.AreEqual(1, args.Count);
-            Assert.AreEqual("test", args.ToString());
+            ClassicAssert.AreEqual(1, args.Count);
+            ClassicAssert.AreEqual("test", args.ToString());
         }
 
         [Test]
         public void ConstructorWithTwoArgumentsInitialises()
         {
             var args = new PrivateArguments("first", "second");
-            Assert.AreEqual(2, args.Count);
-            Assert.AreEqual("first second", args.ToString());
+            ClassicAssert.AreEqual(2, args.Count);
+            ClassicAssert.AreEqual("first second", args.ToString());
         }
 
         [Test]
@@ -34,7 +37,7 @@
         {
             PrivateString hidden = "private";
             var args = new PrivateArguments("public", hidden);
-            Assert.AreEqual("public " + hidden.PublicValue, args.ToString());
+            ClassicAssert.AreEqual("public " + hidden.PublicValue, args.ToString());
         }
 
         [Test]
@@ -42,7 +45,7 @@
         {
             PrivateString hidden = "private";
             var args = new PrivateArguments("public", hidden);
-            Assert.AreEqual("public ********", args.ToString(SecureDataMode.Public));
+            ClassicAssert.AreEqual("public ********", args.ToString(SecureDataMode.Public));
         }
 
         [Test]
@@ -50,7 +53,7 @@
         {
             PrivateString hidden = "private";
             var args = new PrivateArguments("public", hidden);
-            Assert.AreEqual("public private", args.ToString(SecureDataMode.Private));
+            ClassicAssert.AreEqual("public private", args.ToString(SecureDataMode.Private));
         }
 
         [Test]
@@ -58,8 +61,8 @@
         {
             var args = new PrivateArguments();
             args.Add("testValue");
-            Assert.AreEqual(1, args.Count);
-            Assert.AreEqual("testValue", args.ToString());
+            ClassicAssert.AreEqual(1, args.Count);
+            ClassicAssert.AreEqual("testValue", args.ToString());
         }
 
         [Test]
@@ -67,8 +70,8 @@
         {
             var args = new PrivateArguments();
             args.Add("pre=", "test Value");
-            Assert.AreEqual(1, args.Count);
-            Assert.AreEqual("pre=test Value", args.ToString());
+            ClassicAssert.AreEqual(1, args.Count);
+            ClassicAssert.AreEqual("pre=test Value", args.ToString());
         }
 
         [Test]
@@ -76,8 +79,8 @@
         {
             var args = new PrivateArguments();
             args.AddQuote("testValue");
-            Assert.AreEqual(1, args.Count);
-            Assert.AreEqual("\"testValue\"", args.ToString());
+            ClassicAssert.AreEqual(1, args.Count);
+            ClassicAssert.AreEqual("\"testValue\"", args.ToString());
         }
 
         [Test]
@@ -85,8 +88,8 @@
         {
             var args = new PrivateArguments();
             args.AddQuote("pre=", "test Value");
-            Assert.AreEqual(1, args.Count);
-            Assert.AreEqual("pre=\"test Value\"", args.ToString());
+            ClassicAssert.AreEqual(1, args.Count);
+            ClassicAssert.AreEqual("pre=\"test Value\"", args.ToString());
         }
 
         [Test]
@@ -94,8 +97,8 @@
         {
             var args = new PrivateArguments();
             args.Add("pre=", "test Value", true);
-            Assert.AreEqual(1, args.Count);
-            Assert.AreEqual("pre=\"test Value\"", args.ToString());
+            ClassicAssert.AreEqual(1, args.Count);
+            ClassicAssert.AreEqual("pre=\"test Value\"", args.ToString());
         }
 
         [Test]
@@ -103,8 +106,8 @@
         {
             var args = new PrivateArguments();
             args.AddIf(true, "testValue");
-            Assert.AreEqual(1, args.Count);
-            Assert.AreEqual("testValue", args.ToString());
+            ClassicAssert.AreEqual(1, args.Count);
+            ClassicAssert.AreEqual("testValue", args.ToString());
         }
 
         [Test]
@@ -112,8 +115,8 @@
         {
             var args = new PrivateArguments();
             args.AddIf(true, "pre=", "test Value");
-            Assert.AreEqual(1, args.Count);
-            Assert.AreEqual("pre=test Value", args.ToString());
+            ClassicAssert.AreEqual(1, args.Count);
+            ClassicAssert.AreEqual("pre=test Value", args.ToString());
         }
 
         [Test]
@@ -121,8 +124,8 @@
         {
             var args = new PrivateArguments();
             args.AddIf(true, "pre=", "test Value", true);
-            Assert.AreEqual(1, args.Count);
-            Assert.AreEqual("pre=\"test Value\"", args.ToString());
+            ClassicAssert.AreEqual(1, args.Count);
+            ClassicAssert.AreEqual("pre=\"test Value\"", args.ToString());
         }
 
         [Test]
@@ -130,8 +133,8 @@
         {
             var args = new PrivateArguments();
             args.AddIf(false, "testValue");
-            Assert.AreEqual(0, args.Count);
-            Assert.AreEqual(string.Empty, args.ToString());
+            ClassicAssert.AreEqual(0, args.Count);
+            ClassicAssert.AreEqual(string.Empty, args.ToString());
         }
 
         [Test]
@@ -139,8 +142,8 @@
         {
             var args = new PrivateArguments();
             args.AddIf(false, "pre=", "test Value");
-            Assert.AreEqual(0, args.Count);
-            Assert.AreEqual(string.Empty, args.ToString());
+            ClassicAssert.AreEqual(0, args.Count);
+            ClassicAssert.AreEqual(string.Empty, args.ToString());
         }
 
         [Test]
@@ -148,16 +151,16 @@
         {
             var args = new PrivateArguments();
             args.AddIf(false, "pre=", "test Value", true);
-            Assert.AreEqual(0, args.Count);
-            Assert.AreEqual(string.Empty, args.ToString());
+            ClassicAssert.AreEqual(0, args.Count);
+            ClassicAssert.AreEqual(string.Empty, args.ToString());
         }
 
         [Test]
         public void ImplicitOperatorGeneratesInstance()
         {
             PrivateArguments args = "test args";
-            Assert.AreEqual(1, args.Count);
-            Assert.AreEqual("test args", args.ToString());
+            ClassicAssert.AreEqual(1, args.Count);
+            ClassicAssert.AreEqual("test args", args.ToString());
         }
 
         [Test]
@@ -165,8 +168,8 @@
         {
             PrivateArguments args = "test args";
             args += "value";
-            Assert.AreEqual(2, args.Count);
-            Assert.AreEqual("test args value", args.ToString());
+            ClassicAssert.AreEqual(2, args.Count);
+            ClassicAssert.AreEqual("test args value", args.ToString());
         }
 
         [Test]
@@ -177,8 +180,8 @@
             {
                 PrivateValue = "value"
             };
-            Assert.AreEqual(2, args.Count);
-            Assert.AreEqual("test args ********", args.ToString());
+            ClassicAssert.AreEqual(2, args.Count);
+            ClassicAssert.AreEqual("test args ********", args.ToString());
         }
     }
 }

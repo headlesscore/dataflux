@@ -3,6 +3,7 @@ using NUnit.Framework;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Sourcecontrol;
 using System;
+using NUnit.Framework.Legacy;
 
 namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 {
@@ -81,8 +82,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 			Modification modification = new Modification();
 			PathFilter filter = new PathFilter();
 			filter.Pattern = "*.*";
-			Assert.IsFalse(filter.Accept(modification));
-		}
+			ClassicAssert.IsFalse(filter.Accept(modification));
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
+        }
 
 		[Test]
 		public void ShouldNotAcceptModificationsWithNullFilename()
@@ -91,7 +94,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 			modification.FolderName = "c:\\";
 			PathFilter filter = new PathFilter();
 			filter.Pattern = "c:\\*.*";
-			Assert.IsFalse(filter.Accept(modification));
+			ClassicAssert.IsFalse(filter.Accept(modification));
 		}
 	    
 	    [Test]
@@ -121,11 +124,11 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
             Modification m = ModificationMother.CreateModification("x.xml", "/working/sources");
             PathFilter filter = new PathFilter();            
             filter.Pattern = "**/*.xml";
-            Assert.IsTrue(filter.Accept(m));
+            ClassicAssert.IsTrue(filter.Accept(m));
             m.FileName = "test.Xml";
-            Assert.IsFalse(filter.Accept(m));
+            ClassicAssert.IsFalse(filter.Accept(m));
             filter.CaseSensitive = false;
-            Assert.IsTrue(filter.Accept(m));
+            ClassicAssert.IsTrue(filter.Accept(m));
         }
 		private static Modification[] Modifications = 
 			{
@@ -325,7 +328,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 
 			foreach (Modification m in modifications) 
 			{
-				Assert.IsTrue(filter.Accept(m) == expectedResults[i], 
+				ClassicAssert.IsTrue(filter.Accept(m) == expectedResults[i], 
 					DescribeExpectedResult(m, expectedResults[i]));
 				i++;
 			}

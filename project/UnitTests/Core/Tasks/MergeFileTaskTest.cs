@@ -5,6 +5,7 @@ using System.Xml;
 using Exortech.NetReflector;
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Config;
 using ThoughtWorks.CruiseControl.Core.Tasks;
@@ -39,24 +40,26 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 </cruisecontrol>
 ");
             var configuration = reader.Read(xml, null);
-            Assert.IsNotNull(configuration, "Configuration not loaded");
+            ClassicAssert.IsNotNull(configuration, "Configuration not loaded");
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
             var project = configuration.Projects["WebTrunkTest"] as Project;
-            Assert.IsNotNull(project, "Project not loaded");
-            Assert.AreNotEqual(0, project.Tasks.Length, "Tasks not loaded");
+            ClassicAssert.IsNotNull(project, "Project not loaded");
+            ClassicAssert.AreNotEqual(0, project.Tasks.Length, "Tasks not loaded");
             var task = project.Tasks[0] as MergeFilesTask;
-            Assert.IsNotNull(task, "Task not correctly loaded");
-            Assert.AreEqual("somewhere", task.TargetFolder, "TargetFolder is incorrect");
+            ClassicAssert.IsNotNull(task, "Task not correctly loaded");
+            ClassicAssert.AreEqual("somewhere", task.TargetFolder, "TargetFolder is incorrect");
 
             var expected = new MergeFileInfo[] {
                 new MergeFileInfo{FileName = "File 1", MergeAction = MergeFileInfo.MergeActionType.Merge},
                 new MergeFileInfo{FileName = "File 2", MergeAction = MergeFileInfo.MergeActionType.Copy},
                 new MergeFileInfo{FileName = "File 3", MergeAction = MergeFileInfo.MergeActionType.Merge}
             };
-            Assert.AreEqual(task.MergeFiles.Length, expected.Length, "File count incorrect");
+            ClassicAssert.AreEqual(task.MergeFiles.Length, expected.Length, "File count incorrect");
             for (var loop = 0; loop < expected.Length; loop++)
             {
-                Assert.AreEqual(expected[loop].FileName, task.MergeFiles[loop].FileName, string.Format(System.Globalization.CultureInfo.CurrentCulture,"FileName on {0} does not match", loop));
-                Assert.AreEqual(expected[loop].MergeAction, task.MergeFiles[loop].MergeAction, string.Format(System.Globalization.CultureInfo.CurrentCulture,"MergeAction on {0} does not match", loop));
+                ClassicAssert.AreEqual(expected[loop].FileName, task.MergeFiles[loop].FileName, string.Format(System.Globalization.CultureInfo.CurrentCulture,"FileName on {0} does not match", loop));
+                ClassicAssert.AreEqual(expected[loop].MergeAction, task.MergeFiles[loop].MergeAction, string.Format(System.Globalization.CultureInfo.CurrentCulture,"MergeAction on {0} does not match", loop));
             }
         }
 
@@ -80,7 +83,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
     </project>
 </cruisecontrol>
 ");
-            Assert.That(delegate { reader.Read(xml, null); },
+            ClassicAssert.That(delegate { reader.Read(xml, null); },
                         Throws.TypeOf<ConfigurationException>());
         }
 
@@ -104,7 +107,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
     </project>
 </cruisecontrol>
 ");
-            Assert.That(delegate { reader.Read(xml, null); },
+            ClassicAssert.That(delegate { reader.Read(xml, null); },
                         Throws.TypeOf<ConfigurationException>());
         }
 
@@ -128,7 +131,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
     </project>
 </cruisecontrol>
 ");
-            Assert.That(delegate { reader.Read(xml, null); },
+            ClassicAssert.That(delegate { reader.Read(xml, null); },
                         Throws.TypeOf<ConfigurationException>());
         }
 
@@ -152,7 +155,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
     </project>
 </cruisecontrol>
 ");
-            Assert.That(delegate { reader.Read(xml, null); },
+            ClassicAssert.That(delegate { reader.Read(xml, null); },
                         Throws.TypeOf<ConfigurationException>());
         }
 

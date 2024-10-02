@@ -1,9 +1,11 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Threading;
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Config;
 using ThoughtWorks.CruiseControl.Core.Queues;
@@ -52,7 +54,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
 			{
 				integrator.Stop(false);
 				integrator.WaitForExit();
-			}
+                (integrator as IDisposable).Dispose();
+            }
             if (Directory.Exists(tempWorkingDir1))
                 Directory.Delete(tempWorkingDir1, true);
             if (Directory.Exists(tempArtifactDir1))
@@ -73,8 +76,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
 
 			integrator.Start();
 			latchHelper.WaitForSignal();
-			Assert.AreEqual(ProjectIntegratorState.Running, integrator.State);
-			projectMock.Verify(project => project.Integrate(It.IsAny<IntegrationRequest>()), Times.Never);
+			ClassicAssert.AreEqual(ProjectIntegratorState.Running, integrator.State);
+            ClassicAssert.AreEqual(ProjectIntegratorState.Running, integrator.State);
+            projectMock.Verify(project => project.Integrate(It.IsAny<IntegrationRequest>()), Times.Never);
 			integrationTriggerMock.Verify(_trigger => _trigger.IntegrationCompleted(), Times.Never);
 			VerifyAll();
 		}
@@ -87,11 +91,11 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
 
 			integrator.Start();
 			latchHelper.WaitForSignal();
-			Assert.AreEqual(ProjectIntegratorState.Running, integrator.State);
+			ClassicAssert.AreEqual(ProjectIntegratorState.Running, integrator.State);
 
 			integrator.Stop(false);
 			integrator.WaitForExit();
-			Assert.AreEqual(ProjectIntegratorState.Stopped, integrator.State);
+			ClassicAssert.AreEqual(ProjectIntegratorState.Stopped, integrator.State);
 			projectMock.Verify(project => project.NotifyPendingState(), Times.Never);
 			projectMock.Verify(project => project.Integrate(It.IsAny<IntegrationRequest>()), Times.Never);
 			projectMock.Verify(project => project.NotifySleepingState(), Times.Never);
@@ -109,10 +113,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
 			integrator.Start();
 			integrator.Start();
 			latchHelper.WaitForSignal();
-			Assert.AreEqual(ProjectIntegratorState.Running, integrator.State);
+			ClassicAssert.AreEqual(ProjectIntegratorState.Running, integrator.State);
 			integrator.Stop(false);
 			integrator.WaitForExit();
-			Assert.AreEqual(ProjectIntegratorState.Stopped, integrator.State);
+			ClassicAssert.AreEqual(ProjectIntegratorState.Stopped, integrator.State);
 			projectMock.Verify(project => project.NotifyPendingState(), Times.Never);
 			projectMock.Verify(project => project.Integrate(It.IsAny<IntegrationRequest>()), Times.Never);
 			projectMock.Verify(project => project.NotifySleepingState(), Times.Never);
@@ -147,7 +151,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
 		public void StopUnstartedIntegrator()
 		{
 			integrator.Stop(false);
-			Assert.AreEqual(ProjectIntegratorState.Stopping, integrator.State);
+			ClassicAssert.AreEqual(ProjectIntegratorState.Stopping, integrator.State);
 
 			projectMock.Verify(project => project.NotifyPendingState(), Times.Never);
 			projectMock.Verify(project => project.Integrate(It.IsAny<IntegrationRequest>()), Times.Never);
@@ -173,10 +177,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
 
 			integrator.Start();
 			latchHelper.WaitForSignal();
-			Assert.AreEqual(ProjectIntegratorState.Running, integrator.State);
+			ClassicAssert.AreEqual(ProjectIntegratorState.Running, integrator.State);
 			integrator.Stop(false);
 			integrator.WaitForExit();
-			Assert.AreEqual(ProjectIntegratorState.Stopped, integrator.State);
+			ClassicAssert.AreEqual(ProjectIntegratorState.Stopped, integrator.State);
 			VerifyAll();
 		}
 
@@ -188,10 +192,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
 
 			integrator.Start();
 			latchHelper.WaitForSignal();
-			Assert.AreEqual(ProjectIntegratorState.Running, integrator.State);
+			ClassicAssert.AreEqual(ProjectIntegratorState.Running, integrator.State);
 			integrator.Abort();
 			integrator.WaitForExit();
-			Assert.AreEqual(ProjectIntegratorState.Stopped, integrator.State);
+			ClassicAssert.AreEqual(ProjectIntegratorState.Stopped, integrator.State);
 			projectMock.Verify(project => project.NotifyPendingState(), Times.Never);
 			projectMock.Verify(project => project.Integrate(It.IsAny<IntegrationRequest>()), Times.Never);
 			projectMock.Verify(project => project.NotifySleepingState(), Times.Never);
@@ -206,7 +210,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
 			integrationTriggerMock.Setup(_trigger => _trigger.Fire()).Callback(() => latchHelper.SetLatch()).Returns(() => null);
 
 			integrator.Abort();
-			Assert.AreEqual(ProjectIntegratorState.Unknown, integrator.State);
+			ClassicAssert.AreEqual(ProjectIntegratorState.Unknown, integrator.State);
 			projectMock.Verify(project => project.NotifyPendingState(), Times.Never);
 			projectMock.Verify(project => project.Integrate(It.IsAny<IntegrationRequest>()), Times.Never);
 			projectMock.Verify(project => project.NotifySleepingState(), Times.Never);
@@ -222,7 +226,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
 
 			integrator.Start();
 			latchHelper.WaitForSignal();
-			Assert.AreEqual(ProjectIntegratorState.Running, integrator.State);
+			ClassicAssert.AreEqual(ProjectIntegratorState.Running, integrator.State);
 			integrator.Abort();
 			integrator.Abort();
 			projectMock.Verify(project => project.NotifyPendingState(), Times.Never);
@@ -273,7 +277,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
             integrator.Request(request);
 			integrationTriggerLatchHelper.WaitForSignal();
 			projectLatchHelper.WaitForSignal();
-			Assert.AreEqual(ProjectIntegratorState.Running, integrator.State);
+			ClassicAssert.AreEqual(ProjectIntegratorState.Running, integrator.State);
 			VerifyAll();
 		}
 
@@ -303,7 +307,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
 		{
 			int queuedItemCount = integrationQueue.GetQueuedIntegrations().Length;
 			integrator.CancelPendingRequest();
-			Assert.AreEqual(queuedItemCount, integrationQueue.GetQueuedIntegrations().Length);
+			ClassicAssert.AreEqual(queuedItemCount, integrationQueue.GetQueuedIntegrations().Length);
 
 			VerifyAll();
 		}
@@ -321,13 +325,13 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
 			integrationQueue.Enqueue(new IntegrationQueueItem(project, request2, integrator));
 
 			int queuedItemCount = integrationQueue.GetQueuedIntegrations().Length;
-			Assert.AreEqual(2, queuedItemCount);
+			ClassicAssert.AreEqual(2, queuedItemCount);
 			integrationTriggerMock.Setup(_trigger => _trigger.IntegrationCompleted()).Verifiable();
 
 			integrator.CancelPendingRequest();
 
 			queuedItemCount = integrationQueue.GetQueuedIntegrations().Length;
-			Assert.AreEqual(1, queuedItemCount);
+			ClassicAssert.AreEqual(1, queuedItemCount);
 
 			VerifyAll();
 			projectMock.Verify(_project => _project.NotifyPendingState(), Times.Once);
@@ -526,9 +530,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
             VerifyAll();
 
             latch.WaitOne(2000, false);
-            Assert.IsTrue(eventIntegrationStartedFired);
-            Assert.IsTrue(eventIntegrationCompletedFired);
-            Assert.AreEqual(IntegrationStatus.Success, status);
+            ClassicAssert.IsTrue(eventIntegrationStartedFired);
+            ClassicAssert.IsTrue(eventIntegrationCompletedFired);
+            ClassicAssert.AreEqual(IntegrationStatus.Success, status);
         }
 
         [Test]
@@ -582,9 +586,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
             projectMock.VerifyNoOtherCalls();
 
             latch.WaitOne(2000, false);
-            Assert.IsTrue(eventIntegrationStartedFired);
-            Assert.IsTrue(eventIntegrationCompletedFired);
-            Assert.AreEqual(IntegrationStatus.Success, status);
+            ClassicAssert.IsTrue(eventIntegrationStartedFired);
+            ClassicAssert.IsTrue(eventIntegrationCompletedFired);
+            ClassicAssert.AreEqual(IntegrationStatus.Success, status);
         }
 
         [Test]
@@ -632,9 +636,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
             projectMock.VerifyNoOtherCalls();
 
             latch.WaitOne(2000, false);
-            Assert.IsTrue(eventIntegrationStartedFired);
-            Assert.IsTrue(eventIntegrationCompletedFired);
-            Assert.AreEqual(IntegrationStatus.Cancelled, status);
+            ClassicAssert.IsTrue(eventIntegrationStartedFired);
+            ClassicAssert.IsTrue(eventIntegrationCompletedFired);
+            ClassicAssert.AreEqual(IntegrationStatus.Cancelled, status);
         }
     }
 }

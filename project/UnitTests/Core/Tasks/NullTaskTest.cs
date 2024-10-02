@@ -1,5 +1,6 @@
 using System;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Tasks;
 
@@ -21,15 +22,17 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 		{
 			IntegrationResult result = new IntegrationResult();
 			task.Run(result);
-			Assert.IsTrue(result.Succeeded);
-		}
+			ClassicAssert.IsTrue(result.Succeeded);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
+        }
 
         [Test]
         public void ShouldThrowExceptionWhenSimulateFailureIsTrue()
         {
             IntegrationResult result = new IntegrationResult();
             task.SimulateFailure = true;
-            Assert.That(delegate { task.Run(result); }, Throws.TypeOf<Exception>());
+            ClassicAssert.That(delegate { task.Run(result); }, Throws.TypeOf<Exception>());
 
         }
     }

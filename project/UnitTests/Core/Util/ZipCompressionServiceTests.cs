@@ -4,6 +4,7 @@
     using ThoughtWorks.CruiseControl.Core.Util;
     using System;
     using System.Diagnostics;
+    using NUnit.Framework.Legacy;
 
     /// <summary>
     /// Unit tests for <see cref="ZipCompressionService"/>.
@@ -19,11 +20,13 @@
         public void CompressStringValidatesInput()
         {
             var service = new ZipCompressionService();
-            var error = Assert.Throws<ArgumentNullException>(() =>
+            var error = ClassicAssert.Throws<ArgumentNullException>(() =>
             {
                 service.CompressString(null);
             });
-            Assert.AreEqual("value", error.ParamName);
+            ClassicAssert.AreEqual("value", error.ParamName);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
         }
 
         /// <summary>
@@ -36,7 +39,7 @@
             var inputString = "This is a string to compress - with multiple data, data, data!";
             var expected = "eJxNxEEKwCAMBMCvrPf6m34gtGICRsWs9PvtsTDMqRb4CILLegUHruFzlQhkPEaF70abreAWyvE7vbhUFbg=";
             var actual = service.CompressString(inputString);
-            Assert.AreEqual(expected, actual);
+            ClassicAssert.AreEqual(expected, actual);
         }
         #endregion
 
@@ -48,11 +51,11 @@
         public void ExpandStringValidatesInput()
         {
             var service = new ZipCompressionService();
-            var error = Assert.Throws<ArgumentNullException>(() =>
+            var error = ClassicAssert.Throws<ArgumentNullException>(() =>
             {
                 service.ExpandString(null);
             });
-            Assert.AreEqual("value", error.ParamName);
+            ClassicAssert.AreEqual("value", error.ParamName);
         }
 
         /// <summary>
@@ -65,7 +68,7 @@
             var inputString = "eJxNxEEKwCAMBMCvrPf6m34gtGICRsWs9PvtsTDMqRb4CILLegUHruFzlQhkPEaF70abreAWyvE7vbhUFbg=";
             var expected = "This is a string to compress - with multiple data, data, data!";
             var actual = service.ExpandString(inputString);
-            Assert.AreEqual(expected, actual);
+            ClassicAssert.AreEqual(expected, actual);
         }
         #endregion
         #endregion

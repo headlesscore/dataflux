@@ -2,6 +2,7 @@ using System.IO;
 using Exortech.NetReflector;
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Tasks;
 using ThoughtWorks.CruiseControl.Core.Util;
@@ -54,17 +55,19 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 </powershell>";
 
             PowerShellTask task = (PowerShellTask)NetReflector.Read(xml);
-            Assert.AreEqual(@"c:\powershell\powershell.exe", task.Executable);
-            Assert.AreEqual(@"testscript.ps1", task.Script);
-            Assert.AreEqual(@"D:\CruiseControl", task.ConfiguredScriptsDirectory);
-            Assert.AreEqual(@"-noprofile", task.BuildArgs);
-            Assert.AreEqual(4, task.BuildTimeoutSeconds);
-            Assert.AreEqual("1", task.SuccessExitCodes);
-            Assert.AreEqual("value1", task.EnvironmentVariables[0].value);
-            Assert.AreEqual("Env1", task.EnvironmentVariables[0].name);
-            Assert.AreEqual("value2", task.EnvironmentVariables[1].value);
-            Assert.AreEqual("Env2", task.EnvironmentVariables[1].name);
-         }
+            ClassicAssert.AreEqual(@"c:\powershell\powershell.exe", task.Executable);
+            ClassicAssert.AreEqual(@"testscript.ps1", task.Script);
+            ClassicAssert.AreEqual(@"D:\CruiseControl", task.ConfiguredScriptsDirectory);
+            ClassicAssert.AreEqual(@"-noprofile", task.BuildArgs);
+            ClassicAssert.AreEqual(4, task.BuildTimeoutSeconds);
+            ClassicAssert.AreEqual("1", task.SuccessExitCodes);
+            ClassicAssert.AreEqual("value1", task.EnvironmentVariables[0].value);
+            ClassicAssert.AreEqual("Env1", task.EnvironmentVariables[0].name);
+            ClassicAssert.AreEqual("value2", task.EnvironmentVariables[1].value);
+            ClassicAssert.AreEqual("Env2", task.EnvironmentVariables[1].name);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
+        }
 
         [Test]
         public void ShouldLoadMinimalValuesFromConfiguration()
@@ -79,12 +82,12 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
                 @"SOFTWARE\Microsoft\PowerShell\2\PowerShellEngine",
                 @"ApplicationBase")).Returns(@"C:\Windows\System32\WindowsPowerShell\v1.0").Verifiable();
 
-            Assert.AreEqual(System.IO.Path.Combine(@"C:\Windows\System32\WindowsPowerShell\v1.0", "powershell.exe"), task.Executable);
-            Assert.AreEqual(@"myScript.ps1", task.Script);
-            Assert.AreEqual(PowerShellTask.DefaultScriptsDirectory, task.ConfiguredScriptsDirectory);
-            Assert.AreEqual(PowerShellTask.DefaultBuildTimeOut, task.BuildTimeoutSeconds);
-            Assert.AreEqual(string.Empty, task.SuccessExitCodes);
-            Assert.AreEqual(0, task.EnvironmentVariables.Length, "Checking environment variable array size.");
+            ClassicAssert.AreEqual(System.IO.Path.Combine(@"C:\Windows\System32\WindowsPowerShell\v1.0", "powershell.exe"), task.Executable);
+            ClassicAssert.AreEqual(@"myScript.ps1", task.Script);
+            ClassicAssert.AreEqual(PowerShellTask.DefaultScriptsDirectory, task.ConfiguredScriptsDirectory);
+            ClassicAssert.AreEqual(PowerShellTask.DefaultBuildTimeOut, task.BuildTimeoutSeconds);
+            ClassicAssert.AreEqual(string.Empty, task.SuccessExitCodes);
+            ClassicAssert.AreEqual(0, task.EnvironmentVariables.Length, "Checking environment variable array size.");
         }
 
         [Test]
@@ -95,13 +98,13 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
             PowerShellTask task = new PowerShellTask((IRegistry)mockRegistry2.Object, (ProcessExecutor)mockProcessExecutor.Object);
             mockRegistry2.Setup(registry => registry.GetLocalMachineSubKeyValue(PowerShellTask.regkeypowershell2, PowerShellTask.regkeyholder)).Returns(() => null).Verifiable();
             mockRegistry2.Setup(registry => registry.GetLocalMachineSubKeyValue(PowerShellTask.regkeypowershell1, PowerShellTask.regkeyholder)).Returns(POWERSHELL1_PATH).Verifiable();
-            Assert.AreEqual(System.IO.Path.Combine(POWERSHELL1_PATH, "powershell.exe"), task.Executable);
+            ClassicAssert.AreEqual(System.IO.Path.Combine(POWERSHELL1_PATH, "powershell.exe"), task.Executable);
             mockRegistry2.Verify();
             mockProcessExecutor.Verify();
         }
 
         [Test]
-        [Ignore("In which place is the BuilderException expected? => Use Assert.That(..., Throws.TypeOf<BuilderException>())")]
+        [Ignore("In which place is the BuilderException expected? => Use ClassicAssert.That(..., Throws.TypeOf<BuilderException>())")]
         public void ShouldThrowAnExceptionIfPowerShellNotInstalled()
         {
             var mockRegistry2 = new Mock<IRegistry>();
@@ -109,7 +112,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
             PowerShellTask task = new PowerShellTask((IRegistry)mockRegistry2.Object, (ProcessExecutor)mockProcessExecutor.Object);
             mockRegistry2.Setup(registry => registry.GetLocalMachineSubKeyValue(PowerShellTask.regkeypowershell2, PowerShellTask.regkeyholder)).Returns(() => null).Verifiable();
             mockRegistry2.Setup(registry => registry.GetLocalMachineSubKeyValue(PowerShellTask.regkeypowershell1, PowerShellTask.regkeyholder)).Returns(() => null).Verifiable();
-            Assert.AreEqual(System.IO.Path.Combine(POWERSHELL1_PATH, "powershell.exe"), task.Executable);
+            ClassicAssert.AreEqual(System.IO.Path.Combine(POWERSHELL1_PATH, "powershell.exe"), task.Executable);
             mockRegistry2.Verify();
             mockProcessExecutor.Verify();
         }  
@@ -121,7 +124,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 
             PowerShellTask task = new PowerShellTask((IRegistry)mockRegistry2.Object, (ProcessExecutor)mockProcessExecutor.Object);
             mockRegistry2.Setup(registry => registry.GetLocalMachineSubKeyValue(PowerShellTask.regkeypowershell2,PowerShellTask.regkeyholder)).Returns(POWERSHELL2_PATH).Verifiable();
-            Assert.AreEqual(System.IO.Path.Combine(POWERSHELL2_PATH, "powershell.exe"), task.Executable);
+            ClassicAssert.AreEqual(System.IO.Path.Combine(POWERSHELL2_PATH, "powershell.exe"), task.Executable);
             mockRegistry2.Verify();
             mockProcessExecutor.Verify();
         }           
@@ -138,8 +141,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
            
             mytask.Run(IntegrationResult());
 
-            Assert.AreEqual(POWERSHELL_PATH, info.FileName);
-            Assert.AreEqual(PowerShellTask.DefaultBuildTimeOut * 1000, info.TimeOut);
+            ClassicAssert.AreEqual(POWERSHELL_PATH, info.FileName);
+            ClassicAssert.AreEqual(PowerShellTask.DefaultBuildTimeOut * 1000, info.TimeOut);
             CustomAssertion.AssertContains(mytask.Script, info.Arguments);
         }
 
@@ -156,8 +159,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 
             mytask.Run(IntegrationResult());
 
-            Assert.AreEqual(POWERSHELL_PATH, info.FileName);
-            Assert.AreEqual(PowerShellTask.DefaultBuildTimeOut * 1000, info.TimeOut);
+            ClassicAssert.AreEqual(POWERSHELL_PATH, info.FileName);
+            ClassicAssert.AreEqual(PowerShellTask.DefaultBuildTimeOut * 1000, info.TimeOut);
             CustomAssertion.AssertStartsWith(@"-nologo -NoProfile -NonInteractive -file ""D:\CruiseControl\MyScript.ps1""", info.Arguments);
         }
 
@@ -181,7 +184,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
             IntegrationResult result = (IntegrationResult)IntegrationResult();
             mytask.Run(result);
 
-            Assert.AreEqual(IntegrationStatus.Success, result.Status);
+            ClassicAssert.AreEqual(IntegrationStatus.Success, result.Status);
             CustomAssertion.AssertMatches(" ", result.TaskOutput);
         }
 
@@ -202,9 +205,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
             IIntegrationResult result = Integration("myProject", path, "myArtifactDirectory");
             mytask.Run(result);
 
-            Assert.AreEqual(path, info.WorkingDirectory);
+            ClassicAssert.AreEqual(path, info.WorkingDirectory);
 
-            Assert.AreEqual(IntegrationStatus.Failure, result.Status);
+            ClassicAssert.AreEqual(IntegrationStatus.Failure, result.Status);
             CustomAssertion.AssertMatches(@"(\.|\n)*is not recognized as a cmdlet", result.TaskOutput);
         }
 
@@ -215,7 +218,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
             mytask.Executable = POWERSHELL_PATH;
             mytask.Script = "MyScript.ps1";
 
-            Assert.That(delegate { mytask.Run(IntegrationResult()); },
+            ClassicAssert.That(delegate { mytask.Run(IntegrationResult()); },
                         Throws.TypeOf<BuilderException>());
         }
 
@@ -226,7 +229,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
             mytask.Executable = POWERSHELL_PATH;
             mytask.Script = "MyScript.ps1";
 
-            Assert.That(delegate { mytask.Run(IntegrationResult()); },
+            ClassicAssert.That(delegate { mytask.Run(IntegrationResult()); },
                         Throws.TypeOf<BuilderException>());
         }
 
@@ -242,8 +245,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 						var result = IntegrationResult();
 						mytask.Run(result);
 
-						Assert.That(result.Status, Is.EqualTo(IntegrationStatus.Failure));
-						Assert.That(result.TaskOutput, Does.Match("Command line '.*' timed out after \\d+ seconds"));
+						ClassicAssert.That(result.Status, Is.EqualTo(IntegrationStatus.Failure));
+						ClassicAssert.That(result.TaskOutput, Does.Match("Command line '.*' timed out after \\d+ seconds"));
         }
 
         [Test]
@@ -251,7 +254,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
         {
             var task = new PowerShellTask();
             task.SuccessExitCodes = "1,2,3";
-            Assert.AreEqual("1,2,3", task.SuccessExitCodes);
+            ClassicAssert.AreEqual("1,2,3", task.SuccessExitCodes);
         }
 
         [Test]
@@ -259,7 +262,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
         {
             var task = new PowerShellTask();
             task.SuccessExitCodes = null;
-            Assert.AreEqual(string.Empty, task.SuccessExitCodes);
+            ClassicAssert.AreEqual(string.Empty, task.SuccessExitCodes);
         }
 
         [Test]
@@ -267,7 +270,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
         {
             var task = new PowerShellTask();
             task.SuccessExitCodes = string.Empty;
-            Assert.AreEqual(string.Empty, task.SuccessExitCodes);
+            ClassicAssert.AreEqual(string.Empty, task.SuccessExitCodes);
         }
 
         [Test]
@@ -279,7 +282,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
             };
             var actual = task.ToString();
             var expected = " BaseDirectory: testDir, PowerShell: powershell.exe";
-            Assert.AreEqual(expected, actual);
+            ClassicAssert.AreEqual(expected, actual);
         }
     }
 }

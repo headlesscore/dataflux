@@ -6,6 +6,7 @@
     using System.Text;
     using ThoughtWorks.CruiseControl.Remote.Parameters;
     using ThoughtWorks.CruiseControl.Remote;
+    using NUnit.Framework.Legacy;
 
     [TestFixture]
     public class BooleanParameterTests
@@ -15,7 +16,9 @@
         {
             var name = "newParam";
             var parameter = new BooleanParameter(name);
-            Assert.AreEqual(name, parameter.Name);
+            ClassicAssert.AreEqual(name, parameter.Name);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
         }
 
         [Test]
@@ -26,25 +29,25 @@
             var falseValue = new NameValuePair("FalseName", "FalseValue");
             parameter.TrueValue = trueValue;
             parameter.FalseValue = falseValue;
-            Assert.AreEqual(typeof(string), parameter.DataType, "DataType does not match");
-            Assert.AreSame(trueValue, parameter.TrueValue);
-            Assert.AreSame(falseValue, parameter.FalseValue);
-            Assert.IsNotNull(parameter.AllowedValues);
-            Assert.AreEqual(2, parameter.AllowedValues.Length);
-            Assert.AreEqual(trueValue.Name, parameter.AllowedValues[0]);
-            Assert.AreEqual(falseValue.Name, parameter.AllowedValues[1]);
+            ClassicAssert.AreEqual(typeof(string), parameter.DataType, "DataType does not match");
+            ClassicAssert.AreSame(trueValue, parameter.TrueValue);
+            ClassicAssert.AreSame(falseValue, parameter.FalseValue);
+            ClassicAssert.IsNotNull(parameter.AllowedValues);
+            ClassicAssert.AreEqual(2, parameter.AllowedValues.Length);
+            ClassicAssert.AreEqual(trueValue.Name, parameter.AllowedValues[0]);
+            ClassicAssert.AreEqual(falseValue.Name, parameter.AllowedValues[1]);
 
             parameter.IsRequired = false;
-            Assert.AreEqual(false, parameter.IsRequired, "IsRequired does not match");
+            ClassicAssert.AreEqual(false, parameter.IsRequired, "IsRequired does not match");
             parameter.IsRequired = true;
-            Assert.AreEqual(true, parameter.IsRequired, "IsRequired does not match");
+            ClassicAssert.AreEqual(true, parameter.IsRequired, "IsRequired does not match");
             parameter.Description = "Some description goes here";
-            Assert.AreEqual("Some description goes here", parameter.Description, "Description does not match");
+            ClassicAssert.AreEqual("Some description goes here", parameter.Description, "Description does not match");
             parameter.Name = "Some name";
-            Assert.AreEqual("Some name", parameter.Name, "Name does not match");
-            Assert.AreEqual("Some name", parameter.DisplayName, "DisplayName does not match");
+            ClassicAssert.AreEqual("Some name", parameter.Name, "Name does not match");
+            ClassicAssert.AreEqual("Some name", parameter.DisplayName, "DisplayName does not match");
             parameter.DisplayName = "Another name";
-            Assert.AreEqual("Another name", parameter.DisplayName, "DisplayName does not match");
+            ClassicAssert.AreEqual("Another name", parameter.DisplayName, "DisplayName does not match");
         }
 
         [Test]
@@ -54,8 +57,8 @@
             parameter.Name = "Test";
             parameter.IsRequired = true;
             var results = parameter.Validate(string.Empty);
-            Assert.AreEqual(1, results.Length, "Number of exceptions does not match");
-            Assert.AreEqual("Value of 'Test' is required", results[0].Message, "Exception message does not match");
+            ClassicAssert.AreEqual(1, results.Length, "Number of exceptions does not match");
+            ClassicAssert.AreEqual("Value of 'Test' is required", results[0].Message, "Exception message does not match");
         }
 
         [Test]
@@ -63,7 +66,7 @@
         {
             var parameter = GenerateParameter();
             var value = parameter.Convert("trueName");
-            Assert.AreEqual("trueValue", value);
+            ClassicAssert.AreEqual("trueValue", value);
         }
 
         [Test]
@@ -71,7 +74,7 @@
         {
             var parameter = GenerateParameter();
             var value = parameter.Convert("falseName");
-            Assert.AreEqual("falseValue", value);
+            ClassicAssert.AreEqual("falseValue", value);
         }
 
         [Test]
@@ -79,7 +82,7 @@
         {
             var parameter = GenerateParameter();
             var value = parameter.Convert("Unknown");
-            Assert.AreEqual("Unknown", value);
+            ClassicAssert.AreEqual("Unknown", value);
         }
 
         private static BooleanParameter GenerateParameter()

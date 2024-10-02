@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.IO;
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.CCTrayLib.Configuration;
 using ThoughtWorks.CruiseControl.CCTrayLib.Monitoring;
 
@@ -29,14 +30,13 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Configuration
 		public void CanLoadConfigurationFromFile()
 		{
 			CCTrayMultiConfiguration configuration = CreateTestConfiguration(ConfigXml);
+			ClassicAssert.AreEqual(2, configuration.Projects.Length);
+			ClassicAssert.AreEqual("tcp://blah1", configuration.Projects[0].ServerUrl);
+			ClassicAssert.AreEqual("ProjectOne", configuration.Projects[0].ProjectName);
+			ClassicAssert.AreEqual("tcp://blah2", configuration.Projects[1].ServerUrl);
+			ClassicAssert.AreEqual("Project Two", configuration.Projects[1].ProjectName);
 
-			Assert.AreEqual(2, configuration.Projects.Length);
-			Assert.AreEqual("tcp://blah1", configuration.Projects[0].ServerUrl);
-			Assert.AreEqual("ProjectOne", configuration.Projects[0].ProjectName);
-			Assert.AreEqual("tcp://blah2", configuration.Projects[1].ServerUrl);
-			Assert.AreEqual("Project Two", configuration.Projects[1].ProjectName);
-
-			Assert.IsTrue(configuration.ShouldShowBalloonOnBuildTransition);
+			ClassicAssert.IsTrue(configuration.ShouldShowBalloonOnBuildTransition);
 		}
 
 		[Test]
@@ -48,7 +48,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Configuration
 </Configuration>";
 
 			CCTrayMultiConfiguration configuration = CreateTestConfiguration(ConfigWithoutBalloonStuff);
-			Assert.IsTrue(configuration.ShouldShowBalloonOnBuildTransition);
+			ClassicAssert.IsTrue(configuration.ShouldShowBalloonOnBuildTransition);
 		}
 
 		private const string configFileName = "test_config.xml";
@@ -92,7 +92,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Configuration
 				.Returns(() => null).Verifiable();
 
             IProjectMonitor[] monitorList = provider.GetProjectStatusMonitors(serverMonitorList);
-			Assert.AreEqual(2, monitorList.Length);
+			ClassicAssert.AreEqual(2, monitorList.Length);
 
 			mockProjectConfigFactory.Verify();
             mockServerConfigFactory.Verify();
@@ -113,8 +113,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Configuration
 			configuration.Persist();
 
 			configuration.Reload();
-			Assert.AreEqual(1, configuration.Projects.Length);
-			Assert.AreEqual("projName", configuration.Projects[0].ProjectName);
+			ClassicAssert.AreEqual(1, configuration.Projects.Length);
+			ClassicAssert.AreEqual("projName", configuration.Projects[0].ProjectName);
 		}
 
 		[Test]
@@ -126,14 +126,14 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Configuration
 				(ICruiseProjectManagerFactory) mockProjectConfigFactory.Object,
 				"config_file_that_isnt_present.xml");
 
-			Assert.IsNotNull(configuration);
-			Assert.AreEqual(0, configuration.Projects.Length);
-			Assert.IsTrue(configuration.ShouldShowBalloonOnBuildTransition);
-			Assert.IsNull(configuration.Audio.BrokenBuildSound);
-			Assert.IsNull(configuration.Audio.FixedBuildSound);
-			Assert.IsNull(configuration.Audio.StillFailingBuildSound);
-			Assert.IsNull(configuration.Audio.StillSuccessfulBuildSound);
-			Assert.IsFalse(configuration.X10.Enabled);
+			ClassicAssert.IsNotNull(configuration);
+			ClassicAssert.AreEqual(0, configuration.Projects.Length);
+			ClassicAssert.IsTrue(configuration.ShouldShowBalloonOnBuildTransition);
+			ClassicAssert.IsNull(configuration.Audio.BrokenBuildSound);
+			ClassicAssert.IsNull(configuration.Audio.FixedBuildSound);
+			ClassicAssert.IsNull(configuration.Audio.StillFailingBuildSound);
+			ClassicAssert.IsNull(configuration.Audio.StillSuccessfulBuildSound);
+			ClassicAssert.IsFalse(configuration.X10.Enabled);
 		}
 
 		[Test]
@@ -142,9 +142,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Configuration
 			CCTrayMultiConfiguration configuration = CreateTestConfiguration(ConfigXml);
 
 			BuildServer[] buildServers = configuration.GetUniqueBuildServerList();
-			Assert.AreEqual(2, buildServers.Length);
-			Assert.AreEqual("tcp://blah1", buildServers[0].Url);
-			Assert.AreEqual("tcp://blah2", buildServers[1].Url);
+			ClassicAssert.AreEqual(2, buildServers.Length);
+			ClassicAssert.AreEqual("tcp://blah1", buildServers[0].Url);
+			ClassicAssert.AreEqual("tcp://blah2", buildServers[1].Url);
 		}
 
 		[Test]
@@ -160,8 +160,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Configuration
 			CCTrayMultiConfiguration configuration = CreateTestConfiguration(SameServerProjectConfigXml);
 
 			BuildServer[] buildServers = configuration.GetUniqueBuildServerList();
-			Assert.AreEqual(1, buildServers.Length);
-			Assert.AreEqual("tcp://blah1", buildServers[0].Url);
+			ClassicAssert.AreEqual(1, buildServers.Length);
+			ClassicAssert.AreEqual("tcp://blah1", buildServers[0].Url);
 		}
 
 		[Test]
@@ -175,7 +175,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Configuration
 				.Returns(() => null).Verifiable();
 
 			IServerMonitor[] monitorList = configuration.GetServerMonitors();
-			Assert.AreEqual(2, monitorList.Length);
+			ClassicAssert.AreEqual(2, monitorList.Length);
 
 			mockServerConfigFactory.Verify();
 		}
@@ -195,7 +195,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Configuration
         {
             CCTrayProject newValue = new CCTrayProject();
             newValue.ExtensionSettings = "Some settings";
-            Assert.AreEqual("Some settings", newValue.ExtensionSettings);
+            ClassicAssert.AreEqual("Some settings", newValue.ExtensionSettings);
         }
 
         [Test]
@@ -203,8 +203,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Configuration
         {
             CCTrayProject newValue = new CCTrayProject();
             newValue.ExtensionName = "An extension";
-            Assert.AreEqual("An extension", newValue.ExtensionName);
-            Assert.AreEqual(BuildServerTransport.Extension, newValue.BuildServer.Transport);
+            ClassicAssert.AreEqual("An extension", newValue.ExtensionName);
+            ClassicAssert.AreEqual(BuildServerTransport.Extension, newValue.BuildServer.Transport);
         }
 
         [Test]
@@ -212,8 +212,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Configuration
         {
             CCTrayProject newValue = new CCTrayProject();
             newValue.ExtensionName = string.Empty;
-            Assert.AreEqual(string.Empty, newValue.ExtensionName);
-            Assert.AreEqual(BuildServerTransport.HTTP, newValue.BuildServer.Transport);
+            ClassicAssert.AreEqual(string.Empty, newValue.ExtensionName);
+            ClassicAssert.AreEqual(BuildServerTransport.HTTP, newValue.BuildServer.Transport);
         }
 	}
 }

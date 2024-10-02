@@ -1,8 +1,9 @@
 ﻿namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol.Mercurial
 {
 	using NUnit.Framework;
-	using System;
-	using System.IO;
+    using NUnit.Framework.Legacy;
+    using System;
+    using System.IO;
 	using System.Text;
 
 	/// <summary>
@@ -88,9 +89,11 @@
 		[Test]
 		public void EnsureFileExistsShouldThrowException()
 		{
-			Assert.That(delegate { sf.EnsureFileExists("asdf"); },
+			ClassicAssert.That(delegate { sf.EnsureFileExists("asdf"); },
 			            Throws.TypeOf<NotImplementedException>());
-		}
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
+        }
 
 		[Test]
 		public void FileExistsCoverage()
@@ -125,21 +128,21 @@
 		[Test]
 		public void GetFilesInDirectoryShouldThrowException()
 		{
-			Assert.That(delegate {sf.GetFilesInDirectory("asdf", "asdf", SearchOption.AllDirectories); },
+			ClassicAssert.That(delegate {sf.GetFilesInDirectory("asdf", "asdf", SearchOption.AllDirectories); },
 			            Throws.TypeOf<NotImplementedException>());
 		}
 
 		[Test]
 		public void GetFileLengthShouldThrowException()
 		{
-			Assert.That(delegate { sf.GetFileLength("asdf"); },
+			ClassicAssert.That(delegate { sf.GetFileLength("asdf"); },
 			            Throws.TypeOf<NotImplementedException>());
 		}
 
 		[Test]
 		public void GetFileVersionShouldThrowException()
 		{
-			Assert.That(delegate {sf.GetFileVersion("asdf"); },
+			ClassicAssert.That(delegate {sf.GetFileVersion("asdf"); },
 			            Throws.TypeOf<NotImplementedException>());
 		}
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using CCNet = ThoughtWorks.CruiseControl;
 
 namespace ThoughtWorks.CruiseControl.UnitTests.IntegrationTests
@@ -81,8 +82,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.IntegrationTests
             }
 
             Log("Checking the data");
-            Assert.AreEqual(1, psr.Projects.Count, "Amount of projects in configfile is not correct." + ccNetConfigFile);
-
+            ClassicAssert.AreEqual(1, psr.Projects.Count, "Amount of projects in configfile is not correct." + ccNetConfigFile);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
             CCNet.Remote.ProjectStatus ps = null;
 
             // checking data of project 1
@@ -91,8 +93,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.IntegrationTests
                 if (p.Name == projectName1) ps = p;
             }
 
-            Assert.AreEqual(projectName1, ps.Name);
-            Assert.AreEqual(CCNet.Remote.IntegrationStatus.Success, ps.BuildStatus, "wrong build state for project " + projectName1);
+            ClassicAssert.AreEqual(projectName1, ps.Name);
+            ClassicAssert.AreEqual(CCNet.Remote.IntegrationStatus.Success, ps.BuildStatus, "wrong build state for project " + projectName1);
 
         }
 

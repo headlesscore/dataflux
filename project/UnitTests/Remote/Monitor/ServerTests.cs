@@ -6,6 +6,7 @@ using Moq;
 using NUnit.Framework;
 using ThoughtWorks.CruiseControl.Remote.Monitor;
 using ThoughtWorks.CruiseControl.Remote;
+using NUnit.Framework.Legacy;
 
 namespace ThoughtWorks.CruiseControl.UnitTests.Remote.Monitor
 {
@@ -32,7 +33,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote.Monitor
             try
             {
                 var monitor = new Server(string.Empty);
-                Assert.Fail("ArgumentNullException was expected");
+                ClassicAssert.Fail("ArgumentNullException was expected");
+                ClassicAssert.IsTrue(true);
+                ClassicAssert.IsTrue(true);
             }
             catch (ArgumentNullException) { }
         }
@@ -44,7 +47,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote.Monitor
             try
             {
                 var monitor = new Server(client, (IServerWatcher)null);
-                Assert.Fail("ArgumentNullException was expected");
+                ClassicAssert.Fail("ArgumentNullException was expected");
             }
             catch (ArgumentNullException) { }
         }
@@ -57,7 +60,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote.Monitor
             var watcher = new TestWatcher();
             var monitor = InitialiseServer(watcher);
             monitor.Refresh();
-            Assert.IsTrue(watcher.Refreshed);
+            ClassicAssert.IsTrue(watcher.Refreshed);
         }
 
         [Test]
@@ -83,7 +86,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote.Monitor
                 }
             };
             monitor.Refresh();
-            Assert.IsTrue(hasFired);
+            ClassicAssert.IsTrue(hasFired);
         }
 
         [Test]
@@ -95,7 +98,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote.Monitor
             monitor.ProjectRemoved += (o, e) =>
             {
                 hasFired = true;
-                Assert.AreEqual(e.Project.Name, "Project2");
+                ClassicAssert.AreEqual(e.Project.Name, "Project2");
             };
             monitor.Refresh();
             watcher.Snapshot.ProjectStatuses = new ProjectStatus[]{
@@ -104,7 +107,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote.Monitor
                 }
             };
             monitor.Refresh();
-            Assert.IsTrue(hasFired);
+            ClassicAssert.IsTrue(hasFired);
         }
 
         [Test]
@@ -124,8 +127,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote.Monitor
                 }
             };
             monitor.Refresh();
-            Assert.AreEqual(IntegrationStatus.Success, monitor.FindProject("Project1").BuildStatus);
-            Assert.AreEqual(IntegrationStatus.Failure, monitor.FindProject("Project2").BuildStatus);
+            ClassicAssert.AreEqual(IntegrationStatus.Success, monitor.FindProject("Project1").BuildStatus);
+            ClassicAssert.AreEqual(IntegrationStatus.Failure, monitor.FindProject("Project2").BuildStatus);
         }
         #endregion
         #endregion

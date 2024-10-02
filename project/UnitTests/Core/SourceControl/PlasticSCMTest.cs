@@ -5,6 +5,7 @@ using ThoughtWorks.CruiseControl.Core.Sourcecontrol;
 using ThoughtWorks.CruiseControl.Core.Util;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Remote;
+using NUnit.Framework.Legacy;
 
 namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 {
@@ -38,8 +39,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
                  </sourceControl>";
 
             PlasticSCM plasticscm = new PlasticSCM();
-            Assert.That(delegate { NetReflector.Read(PLASTICSCM_ERR2_XML, plasticscm); },
+            ClassicAssert.That(delegate { NetReflector.Read(PLASTICSCM_ERR2_XML, plasticscm); },
                         Throws.TypeOf<NetReflectorException>());
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
 
         }
 
@@ -56,13 +59,13 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
             PlasticSCM plasticscm = new PlasticSCM();
             NetReflector.Read(PLASTICSCM_XML, plasticscm);
 
-            Assert.AreEqual(@"c:\plastic\client\cm.exe", plasticscm.Executable);
-            Assert.AreEqual("mainrep", plasticscm.Repository);
-            Assert.AreEqual("br:/main", plasticscm.Branch);
-            Assert.AreEqual(true, plasticscm.Forced);
-            Assert.AreEqual(true, plasticscm.LabelOnSuccess);
-            Assert.AreEqual("BL", plasticscm.LabelPrefix);
-            Assert.AreEqual(@"c:\workspace", plasticscm.WorkingDirectory);
+            ClassicAssert.AreEqual(@"c:\plastic\client\cm.exe", plasticscm.Executable);
+            ClassicAssert.AreEqual("mainrep", plasticscm.Repository);
+            ClassicAssert.AreEqual("br:/main", plasticscm.Branch);
+            ClassicAssert.AreEqual(true, plasticscm.Forced);
+            ClassicAssert.AreEqual(true, plasticscm.LabelOnSuccess);
+            ClassicAssert.AreEqual("BL", plasticscm.LabelPrefix);
+            ClassicAssert.AreEqual(@"c:\workspace", plasticscm.WorkingDirectory);
         }
 
         [Test]
@@ -77,7 +80,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
             NetReflector.Read(PLASTICSCM_XML, plasticscm);
             string expected = @"c:\plastic\client\cm.exe stb br:/main -repository=mainrep";
             ProcessInfo info = plasticscm.GoToBranchProcessInfo(result);
-            Assert.AreEqual(expected, info.FileName + " " + info.Arguments);
+            ClassicAssert.AreEqual(expected, info.FileName + " " + info.Arguments);
         }
 
         [Test]
@@ -91,7 +94,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
             NetReflector.Read(PLASTICSCM_XML, plasticscm);
             string expected = @"c:\plastic\client\cm.exe stb br:/main -repository=mainrep";
             ProcessInfo info = plasticscm.GoToBranchProcessInfo(result);
-            Assert.AreEqual(expected, info.FileName + " " + info.Arguments);
+            ClassicAssert.AreEqual(expected, info.FileName + " " + info.Arguments);
 
         }
 
@@ -120,7 +123,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
             string format = string.Format(System.Globalization.CultureInfo.CurrentCulture, "--format=\"{0}\"", PlasticSCM.FORMAT);
 
             ProcessInfo info = plasticscm.CreateQueryProcessInfo(from, to);
-            Assert.AreEqual(query + dateformat + format, info.FileName + " " + info.Arguments);
+            ClassicAssert.AreEqual(query + dateformat + format, info.FileName + " " + info.Arguments);
         }
 
         public void VerifyCreateQueryProcessInfoWithAttributes()
@@ -143,7 +146,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
             string format = string.Format(System.Globalization.CultureInfo.CurrentCulture, "--format=\"{0}\"", PlasticSCM.FORMAT);
 
             ProcessInfo info = plasticscm.CreateQueryProcessInfo(from, to);
-            Assert.AreEqual(query + dateformat + format, info.FileName + " " + info.Arguments);
+            ClassicAssert.AreEqual(query + dateformat + format, info.FileName + " " + info.Arguments);
 
         }
 
@@ -160,7 +163,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
             NetReflector.Read(PLASTICSCM_BASIC_XML, plasticscm);
             string expected = @"cm mklb ccver-1";
             ProcessInfo info = plasticscm.CreateLabelProcessInfo(result);
-            Assert.AreEqual(expected, info.FileName + " " + info.Arguments);
+            ClassicAssert.AreEqual(expected, info.FileName + " " + info.Arguments);
         }
 
         [Test]
@@ -176,7 +179,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
             NetReflector.Read(PLASTICSCM_XML, plasticscm);
             string expected = @"c:\plastic\client\cm.exe mklb BL1";
             ProcessInfo info = plasticscm.CreateLabelProcessInfo(result);
-            Assert.AreEqual(expected, info.FileName + " " + info.Arguments);
+            ClassicAssert.AreEqual(expected, info.FileName + " " + info.Arguments);
         }
 
         [Test]
@@ -192,7 +195,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
             NetReflector.Read(PLASTICSCM_BASIC_XML, plasticscm);
             string expected = @"cm label lb:ccver-1 .";
             ProcessInfo info = plasticscm.LabelProcessInfo(result);
-            Assert.AreEqual(expected, info.FileName + " " + info.Arguments);
+            ClassicAssert.AreEqual(expected, info.FileName + " " + info.Arguments);
         }
 
         [Test]
@@ -208,7 +211,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
             NetReflector.Read(PLASTICSCM_XML, plasticscm);
             string expected = @"c:\plastic\client\cm.exe label lb:BL1 .";
             ProcessInfo info = plasticscm.LabelProcessInfo(result);
-            Assert.AreEqual(expected, info.FileName + " " + info.Arguments);
+            ClassicAssert.AreEqual(expected, info.FileName + " " + info.Arguments);
         }
 
         [Test]
@@ -216,13 +219,13 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
         {
             PlasticSCM plasticscm = new PlasticSCM();
 
-            Assert.AreEqual("cm", plasticscm.Executable);
-            Assert.AreEqual(string.Empty, plasticscm.Repository);
-            Assert.AreEqual(string.Empty, plasticscm.Branch);
-            Assert.AreEqual(false, plasticscm.Forced);
-            Assert.AreEqual(false, plasticscm.LabelOnSuccess);
-            Assert.AreEqual("ccver-", plasticscm.LabelPrefix);
-            Assert.AreEqual(string.Empty, plasticscm.WorkingDirectory);
+            ClassicAssert.AreEqual("cm", plasticscm.Executable);
+            ClassicAssert.AreEqual(string.Empty, plasticscm.Repository);
+            ClassicAssert.AreEqual(string.Empty, plasticscm.Branch);
+            ClassicAssert.AreEqual(false, plasticscm.Forced);
+            ClassicAssert.AreEqual(false, plasticscm.LabelOnSuccess);
+            ClassicAssert.AreEqual("ccver-", plasticscm.LabelPrefix);
+            ClassicAssert.AreEqual(string.Empty, plasticscm.WorkingDirectory);
         }
     }
 }

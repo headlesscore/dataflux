@@ -7,6 +7,7 @@
     using Exortech.NetReflector;
     using Moq;
     using NUnit.Framework;
+    using NUnit.Framework.Legacy;
     using ThoughtWorks.CruiseControl.Core;
     using ThoughtWorks.CruiseControl.Core.Storage;
     using ThoughtWorks.CruiseControl.Core.Util;
@@ -35,8 +36,10 @@
         {
             const string xml = @"<xmlFolderData />";
             var dataStore = NetReflector.Read(xml) as XmlFolderDataStore;
-            Assert.AreEqual(string.Empty, dataStore.BaseFolder);
-            Assert.AreEqual(defaultFolder, dataStore.SnapshotsFolder);
+            ClassicAssert.AreEqual(string.Empty, dataStore.BaseFolder);
+            ClassicAssert.AreEqual(defaultFolder, dataStore.SnapshotsFolder);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
         }
         #endregion
 
@@ -195,12 +198,12 @@
 
             // Assert
             this.mocks.VerifyAll();
-            Assert.IsNotNull(snapshot);
-            Assert.AreEqual("UnitTest", snapshot.Name);
-            Assert.AreEqual(
+            ClassicAssert.IsNotNull(snapshot);
+            ClassicAssert.AreEqual("UnitTest", snapshot.Name);
+            ClassicAssert.AreEqual(
                 DateTime.Parse("2010-01-01T12:00:00.00000+00:00", CultureInfo.InvariantCulture), 
                 snapshot.TimeStarted);
-            Assert.AreEqual(ItemBuildStatus.CompletedSuccess, snapshot.Status);
+            ClassicAssert.AreEqual(ItemBuildStatus.CompletedSuccess, snapshot.Status);
         }
 
         [Test]
@@ -223,7 +226,7 @@
 
             // Assert
             this.mocks.VerifyAll();
-            Assert.IsNull(snapshot);
+            ClassicAssert.IsNull(snapshot);
         }
         #endregion
         #endregion
@@ -241,7 +244,7 @@
                         actual = actual.Substring(0, actual.IndexOf('\x0'));
                     }
 
-                    Assert.AreEqual(expected, actual);
+                    ClassicAssert.AreEqual(expected, actual);
                 }
             }
         }

@@ -1,5 +1,6 @@
 using System.IO;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Sourcecontrol;
 
@@ -35,17 +36,18 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 
             Modification[] mods = parser.Parse(historyReader, histData.oldestHistoryModification,
                                                histData.newestHistoryModification);
-			Assert.IsNotNull(mods, "mods should not be null");
-		    Assert.AreEqual(histData.historyOutputModifications.Length, mods.Length);
+			ClassicAssert.IsNotNull(mods, "mods should not be null");
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.AreEqual(histData.historyOutputModifications.Length, mods.Length);
 		    for (int i = 0; i < histData.historyOutputModifications.Length; i++)
 		    {
-		        Assert.AreEqual(histData.historyOutputModifications[i].ChangeNumber, mods[i].ChangeNumber);
-		        Assert.AreEqual(histData.historyOutputModifications[i].Comment, mods[i].Comment);
-		        Assert.AreEqual(histData.historyOutputModifications[i].FileName, mods[i].FileName);
-		        Assert.AreEqual(histData.historyOutputModifications[i].FolderName, mods[i].FolderName);
-		        Assert.AreEqual(histData.historyOutputModifications[i].ModifiedTime, mods[i].ModifiedTime);
-		        Assert.AreEqual(histData.historyOutputModifications[i].Type, mods[i].Type);
-		        Assert.AreEqual(histData.historyOutputModifications[i].UserName, mods[i].UserName);
+		        ClassicAssert.AreEqual(histData.historyOutputModifications[i].ChangeNumber, mods[i].ChangeNumber);
+		        ClassicAssert.AreEqual(histData.historyOutputModifications[i].Comment, mods[i].Comment);
+		        ClassicAssert.AreEqual(histData.historyOutputModifications[i].FileName, mods[i].FileName);
+		        ClassicAssert.AreEqual(histData.historyOutputModifications[i].FolderName, mods[i].FolderName);
+		        ClassicAssert.AreEqual(histData.historyOutputModifications[i].ModifiedTime, mods[i].ModifiedTime);
+		        ClassicAssert.AreEqual(histData.historyOutputModifications[i].Type, mods[i].Type);
+		        ClassicAssert.AreEqual(histData.historyOutputModifications[i].UserName, mods[i].UserName);
 		    }
 		}
 	}

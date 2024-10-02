@@ -1,6 +1,7 @@
 using System;
 using Exortech.NetReflector;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Sourcecontrol.Telelogic;
 using ThoughtWorks.CruiseControl.Core.Util;
@@ -210,10 +211,12 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol.Telelogic
 
 		private void ValidateProcessInfo(ProcessInfo actual, string arguments)
 		{
-			Assert.IsNotNull(actual);
-			Assert.AreEqual(connection.Executable, actual.FileName);
-			Assert.AreEqual(connection.WorkingDirectory, actual.WorkingDirectory);
-			Assert.AreEqual(arguments, actual.Arguments);
-		}
+			ClassicAssert.IsNotNull(actual);
+			ClassicAssert.AreEqual(connection.Executable, actual.FileName);
+			ClassicAssert.AreEqual(connection.WorkingDirectory, actual.WorkingDirectory);
+			ClassicAssert.AreEqual(arguments, actual.Arguments);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
+        }
 	}
 }

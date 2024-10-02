@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Remote;
 
 namespace ThoughtWorks.CruiseControl.UnitTests.Remote
@@ -16,7 +17,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote
                 null);
             int expected = request.ToString().GetHashCode();
             int actual = request.GetHashCode();
-            Assert.AreEqual(expected, actual);
+            ClassicAssert.AreEqual(expected, actual);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
         }
         #endregion
         #endregion

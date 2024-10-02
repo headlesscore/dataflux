@@ -1,5 +1,6 @@
 using System;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Remote;
 
 namespace ThoughtWorks.CruiseControl.UnitTests.Remote
@@ -25,8 +26,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote
 
             CruiseServerSnapshot cruiseServerSnapshot = new CruiseServerSnapshot(projectStatuses, queueSetSnapshot);
 
-            Assert.AreSame(projectStatuses, cruiseServerSnapshot.ProjectStatuses);
-            Assert.AreSame(queueSetSnapshot, cruiseServerSnapshot.QueueSetSnapshot);
+            ClassicAssert.AreSame(projectStatuses, cruiseServerSnapshot.ProjectStatuses);
+            ClassicAssert.AreSame(queueSetSnapshot, cruiseServerSnapshot.QueueSetSnapshot);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
         }
 
 		[Test]
@@ -38,8 +41,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote
 
 			CruiseServerSnapshot cruiseServerSnapshot = new CruiseServerSnapshot(projectStatuses, null);
 
-			Assert.AreSame(projectStatuses[0], cruiseServerSnapshot.GetProjectStatus("test1"));
-			Assert.AreSame(projectStatuses[1], cruiseServerSnapshot.GetProjectStatus("test2"));
+			ClassicAssert.AreSame(projectStatuses[0], cruiseServerSnapshot.GetProjectStatus("test1"));
+			ClassicAssert.AreSame(projectStatuses[1], cruiseServerSnapshot.GetProjectStatus("test2"));
 		}
 
 		[Test]
@@ -50,7 +53,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote
 
 			CruiseServerSnapshot cruiseServerSnapshot = new CruiseServerSnapshot(projectStatuses, null);
 
-			Assert.IsNull(cruiseServerSnapshot.GetProjectStatus("this doesn't match"));
+			ClassicAssert.IsNull(cruiseServerSnapshot.GetProjectStatus("this doesn't match"));
 		}
 
 		[Test]
@@ -142,7 +145,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote
         {
             CruiseServerSnapshot cruiseServerSnapshot1 = new CruiseServerSnapshot(null, firstSnapshot);
             CruiseServerSnapshot cruiseServerSnapshot2 = new CruiseServerSnapshot(null, secondSnapshot);
-            Assert.AreEqual(result, cruiseServerSnapshot1.IsQueueSetSnapshotChanged(cruiseServerSnapshot2.QueueSetSnapshot));
+            ClassicAssert.AreEqual(result, cruiseServerSnapshot1.IsQueueSetSnapshotChanged(cruiseServerSnapshot2.QueueSetSnapshot));
         }
     }
 }

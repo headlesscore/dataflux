@@ -1,6 +1,7 @@
 using System.Windows.Forms;
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.CCTrayLib.Configuration;
 using ThoughtWorks.CruiseControl.CCTrayLib.Monitoring;
 using ThoughtWorks.CruiseControl.CCTrayLib.Presentation;
@@ -30,8 +31,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Presentation
 			ProjectStatusListViewItemAdaptor adaptor = new ProjectStatusListViewItemAdaptor(detailStringFormatter);
 			ListViewItem item = adaptor.Create(projectMonitor);
 
-			Assert.AreEqual("projectName", item.Text);
-			Assert.AreEqual(0, item.ImageIndex);
+			ClassicAssert.AreEqual("projectName", item.Text);
+            ClassicAssert.AreEqual("projectName", item.Text);
+            ClassicAssert.AreEqual(0, item.ImageIndex);
 		}
 
 
@@ -42,15 +44,15 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Presentation
 			ProjectStatusListViewItemAdaptor adaptor = new ProjectStatusListViewItemAdaptor(detailStringFormatter);
 			ListViewItem item = adaptor.Create(projectMonitor);
 
-			Assert.AreEqual("projectName", item.Text);
-			Assert.AreEqual(0, item.ImageIndex);
+			ClassicAssert.AreEqual("projectName", item.Text);
+			ClassicAssert.AreEqual(0, item.ImageIndex);
 
 			projectMonitor.ProjectState = ProjectState.Building;
 
 			projectMonitor.OnPolled(new MonitorPolledEventArgs(projectMonitor));
 
-			Assert.AreEqual("projectName", item.Text);
-			Assert.AreEqual(ProjectState.Building.ImageIndex, item.ImageIndex);
+			ClassicAssert.AreEqual("projectName", item.Text);
+			ClassicAssert.AreEqual(ProjectState.Building.ImageIndex, item.ImageIndex);
 		}
 
 		[Test]
@@ -64,20 +66,20 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Presentation
 			ProjectStatusListViewItemAdaptor adaptor = new ProjectStatusListViewItemAdaptor(detailStringFormatter);
 			ListViewItem item = adaptor.Create(projectMonitor);
 
-			Assert.AreEqual(10, item.SubItems.Count);
+			ClassicAssert.AreEqual(10, item.SubItems.Count);
 			ListViewItem.ListViewSubItem activity = item.SubItems[3];
 			ListViewItem.ListViewSubItem label = item.SubItems[5];
 
-			Assert.AreEqual("", activity.Text);
-			Assert.AreEqual("", label.Text);
+			ClassicAssert.AreEqual("", activity.Text);
+			ClassicAssert.AreEqual("", label.Text);
 
 			ProjectStatus status = ProjectStatusFixture.New(ProjectActivity.Sleeping, "lastLabel");
 			projectMonitor.ProjectStatus = status;
 
 			projectMonitor.OnPolled(new MonitorPolledEventArgs(projectMonitor));
 
-			Assert.AreEqual("Sleeping", activity.Text);
-			Assert.AreEqual("lastLabel", label.Text);
+			ClassicAssert.AreEqual("Sleeping", activity.Text);
+			ClassicAssert.AreEqual("lastLabel", label.Text);
 
 		}
 
@@ -94,12 +96,12 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Presentation
 			ListViewItem item = adaptor.Create(projectMonitor);
 
 			ListViewItem.ListViewSubItem detail = item.SubItems[4];
-			Assert.AreEqual("test1", detail.Text);
+			ClassicAssert.AreEqual("test1", detail.Text);
 
 			mockProjectDetailStringFormatter.Setup(formatter => formatter.FormatDetailString(projectMonitor)).Returns("test2").Verifiable();
 			projectMonitor.OnPolled(new MonitorPolledEventArgs(projectMonitor));
 
-			Assert.AreEqual("test2", detail.Text);
+			ClassicAssert.AreEqual("test2", detail.Text);
 
 			mockProjectDetailStringFormatter.Verify();
 		}

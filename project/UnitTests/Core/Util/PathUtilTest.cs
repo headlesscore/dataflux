@@ -1,5 +1,6 @@
 using System;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core.Util;
 
 namespace ThoughtWorks.CruiseControl.UnitTests.Core.Util
@@ -60,85 +61,87 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Util
 		[Test]
 		public void CaseInsensitiveMatch()
 		{
-			Assert.IsTrue(PathUtils.Match("thename", "TheName", false));
-		}
+			ClassicAssert.IsTrue(PathUtils.Match("thename", "TheName", false));
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
+        }
 
 		[Test]
 		public void CaseInsensitiveMisMatch()
 		{
-			Assert.IsFalse(PathUtils.Match("thefile", "TheName", false));
+			ClassicAssert.IsFalse(PathUtils.Match("thefile", "TheName", false));
 		}
 
 		[Test]
 		public void CaseInsensitiveStarMismatch()
 		{
-			Assert.IsFalse(PathUtils.Match("the*", "ratBone", false));
+			ClassicAssert.IsFalse(PathUtils.Match("the*", "ratBone", false));
 		}
 
 		[Test]
 		public void MatchWithStarAtEnd()
 		{
-			Assert.IsTrue(PathUtils.Match("thename*", "thename", false));
+			ClassicAssert.IsTrue(PathUtils.Match("thename*", "thename", false));
 		}
 
 		[Test]
 		public void MisMatchWithMatchBeforeStar()
 		{
-			Assert.IsFalse(PathUtils.Match("thename*x", "thename", false));
+			ClassicAssert.IsFalse(PathUtils.Match("thename*x", "thename", false));
 		}
 
 		[Test]
 		public void MisMatchWithStar()
 		{
-			Assert.IsFalse(PathUtils.Match("the*name", "thexfile", false));
+			ClassicAssert.IsFalse(PathUtils.Match("the*name", "thexfile", false));
 		}
 
 		[Test]
 		public void MatchWithExhaustingStrings()
 		{
-			Assert.IsTrue(PathUtils.Match("the*name*back", "thexnameisBack", false));
+			ClassicAssert.IsTrue(PathUtils.Match("the*name*back", "thexnameisBack", false));
 		}
 
 		[Test]
 		public void MatchMiddleStar()
 		{
-			Assert.IsFalse(PathUtils.Match("t*a*x", "tx", false));
+			ClassicAssert.IsFalse(PathUtils.Match("t*a*x", "tx", false));
 		}
 
 		[Test]
 		public void MatchTwoStars()
 		{
-			Assert.IsTrue(PathUtils.Match("t**a*x", "txax", false));
+			ClassicAssert.IsTrue(PathUtils.Match("t**a*x", "txax", false));
 		}
 
 		[Test]
 		public void MisMatchWithTwoStarsExhaustedStrings()
 		{
-			Assert.IsFalse(PathUtils.Match("t*ay*x", "txax", false));
+			ClassicAssert.IsFalse(PathUtils.Match("t*ay*x", "txax", false));
 		}
 
 		[Test]
 		public void MatchStarStarStarStar()
 		{
-			Assert.IsTrue(PathUtils.MatchPath("**/**/*", "/f/dat", false));
+			ClassicAssert.IsTrue(PathUtils.MatchPath("**/**/*", "/f/dat", false));
 		}
 
 		[Test]
 		public void MismatchExhaustedStrings()
 		{
-			Assert.IsFalse(PathUtils.Match("the*name*back", "thexnamisBack", false));
+			ClassicAssert.IsFalse(PathUtils.Match("the*name*back", "thexnamisBack", false));
 		}
 
 		[Test]
 		public void MismatchStringExhausted()
 		{
-			Assert.IsFalse(PathUtils.MatchPath("/f/dat/**/x", "/f/dat", false));
+			ClassicAssert.IsFalse(PathUtils.MatchPath("/f/dat/**/x", "/f/dat", false));
 		}
 
 		[Test]
 		public void MismatchExhaustedStringNoStarAtEnd()
 		{
-			Assert.IsFalse(PathUtils.Match("the*name*backxx", "thexnameisBack", false));
+			ClassicAssert.IsFalse(PathUtils.Match("the*name*backxx", "thexnameisBack", false));
 		}
 
 		[Test]
@@ -146,7 +149,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Util
 		{
 			for (int i = 0; i < names.Length; i++)
 			{
-				Assert.AreEqual(namesTokenLen[i], PathUtils.SplitPath(names[i]).Length);
+				ClassicAssert.AreEqual(namesTokenLen[i], PathUtils.SplitPath(names[i]).Length);
 			}
 		}
 
@@ -154,20 +157,20 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Util
 		public void TokenizeComplexTest()
 		{
 			string[] r = PathUtils.SplitPath(names[7]);
-			Assert.AreEqual(4, r.Length);
-			Assert.AreEqual("theFolder", r[0]);
-			Assert.AreEqual("theSubFolder", r[1]);
-			Assert.AreEqual("theSubSubFolder", r[2]);
-			Assert.AreEqual("theName.dat", r[3]);
+			ClassicAssert.AreEqual(4, r.Length);
+			ClassicAssert.AreEqual("theFolder", r[0]);
+			ClassicAssert.AreEqual("theSubFolder", r[1]);
+			ClassicAssert.AreEqual("theSubSubFolder", r[2]);
+			ClassicAssert.AreEqual("theName.dat", r[3]);
 		}
 
 		[Test]
 		public void TokenizeFunnySlants()
 		{
 			string[] r = PathUtils.SplitPath("\\theFolder/theName.dav");
-			Assert.AreEqual(2, r.Length);
-			Assert.AreEqual("theFolder", r[0]);
-			Assert.AreEqual("theName.dav", r[1]);
+			ClassicAssert.AreEqual(2, r.Length);
+			ClassicAssert.AreEqual("theFolder", r[0]);
+			ClassicAssert.AreEqual("theName.dav", r[1]);
 		}
 
 		[Test]
@@ -294,25 +297,25 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Util
 		[Test]
 		public void SingledOutFunnySlants()
 		{
-			Assert.IsTrue(PathUtils.MatchPath("/theFolder/*", "\\theFolder/theName.dav", true));
+			ClassicAssert.IsTrue(PathUtils.MatchPath("/theFolder/*", "\\theFolder/theName.dav", true));
 		}
 
 		[Test]
 		public void SingledOutStarStarNoExtension()
 		{
-			Assert.IsTrue(PathUtils.Match("*.*", "theName", true));
-			Assert.IsTrue(PathUtils.Match("*.*", "theName.dat", true));
-			Assert.IsTrue(PathUtils.Match("*", "theName", true));
-			Assert.IsTrue(PathUtils.Match("*", "theName.dat", true));
+			ClassicAssert.IsTrue(PathUtils.Match("*.*", "theName", true));
+			ClassicAssert.IsTrue(PathUtils.Match("*.*", "theName.dat", true));
+			ClassicAssert.IsTrue(PathUtils.Match("*", "theName", true));
+			ClassicAssert.IsTrue(PathUtils.Match("*", "theName.dat", true));
 		}
 
         [Test]
         public void NullOrEmptyTargetShouldNotMatchPattern()
         {
-            Assert.IsFalse(PathUtils.MatchPath("/theFolder/*", null, true));
-            Assert.IsFalse(PathUtils.MatchPath("/theFolder/*", null, false));
-            Assert.IsFalse(PathUtils.MatchPath("/theFolder/*", "", true));
-            Assert.IsFalse(PathUtils.MatchPath("/theFolder/*", "", false));
+            ClassicAssert.IsFalse(PathUtils.MatchPath("/theFolder/*", null, true));
+            ClassicAssert.IsFalse(PathUtils.MatchPath("/theFolder/*", null, false));
+            ClassicAssert.IsFalse(PathUtils.MatchPath("/theFolder/*", "", true));
+            ClassicAssert.IsFalse(PathUtils.MatchPath("/theFolder/*", "", false));
         }
 	}
 
@@ -333,12 +336,12 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Util
 
 		public void RunTest()
 		{
-			Assert.AreEqual(strs.Length, expected.Length);
+			ClassicAssert.AreEqual(strs.Length, expected.Length);
 			for (int i = 0; i < strs.Length; i++)
 			{
 				if (PathUtils.MatchPath(pattern, strs[i], caseSensitive) != expected[i])
 				{
-					Assert.Fail(
+					ClassicAssert.Fail(
 						string.Format(System.Globalization.CultureInfo.CurrentCulture,"[{4}] pattern={0} str={1} caseSensitive={2} expected={3}",
 						              pattern, strs[i], caseSensitive, expected[i], i));
 				}

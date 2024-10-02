@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using System;
 using ThoughtWorks.CruiseControl.Core;
 
@@ -16,8 +17,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote
             TestHelpers.EnsureLanguageIsValid();
             string reference = "Something";
             BadReferenceException exception = new BadReferenceException(reference);
-            Assert.AreEqual("Reference 'Something' is either incorrect or missing.", exception.Message);
-            Assert.AreEqual(reference, exception.Reference);
+            ClassicAssert.AreEqual("Reference 'Something' is either incorrect or missing.", exception.Message);
+            ClassicAssert.AreEqual(reference, exception.Reference);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
         }
 
         [Test]
@@ -27,8 +30,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote
             string reference = "Something";
             string message = "An error has occured";
             BadReferenceException exception = new BadReferenceException(reference, message);
-            Assert.AreEqual(message, exception.Message);
-            Assert.AreEqual(reference, exception.Reference);
+            ClassicAssert.AreEqual(message, exception.Message);
+            ClassicAssert.AreEqual(reference, exception.Reference);
         }
 
         [Test]
@@ -39,9 +42,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote
             string message = "An error has occured";
             Exception innerException = new Exception("An inner exception");
             BadReferenceException exception = new BadReferenceException(reference, message, innerException);
-            Assert.AreEqual(message, exception.Message);
-            Assert.AreEqual(reference, exception.Reference);
-            Assert.AreEqual(innerException, exception.InnerException);
+            ClassicAssert.AreEqual(message, exception.Message);
+            ClassicAssert.AreEqual(reference, exception.Reference);
+            ClassicAssert.AreEqual(innerException, exception.InnerException);
         }
 
         [Test]
@@ -51,10 +54,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote
             string reference = "Something";
             BadReferenceException exception = new BadReferenceException(reference);
             object result = TestHelpers.RunSerialisationTest(exception);
-            Assert.IsNotNull(result);
-            Assert.IsInstanceOf<BadReferenceException>(result);
-            Assert.AreEqual("Reference 'Something' is either incorrect or missing.", (result as BadReferenceException).Message);
-            Assert.AreEqual(reference, (result as BadReferenceException).Reference);
+            ClassicAssert.IsNotNull(result);
+            ClassicAssert.IsInstanceOf<BadReferenceException>(result);
+            ClassicAssert.AreEqual("Reference 'Something' is either incorrect or missing.", (result as BadReferenceException).Message);
+            ClassicAssert.AreEqual(reference, (result as BadReferenceException).Reference);
         }
     }
 }

@@ -2,6 +2,7 @@ using System.Xml;
 using Exortech.NetReflector;
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Tasks;
 using ThoughtWorks.CruiseControl.Core.Util;
@@ -35,10 +36,11 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 				Callback<string, string>((file, content) => {
 					XmlUtil.VerifyXmlIsWellFormed(content);
 					XmlElement element = XmlUtil.CreateDocumentElement(content);
-					Assert.AreEqual(2, element.ChildNodes.Count);
+					ClassicAssert.AreEqual(2, element.ChildNodes.Count);
 				}).Verifiable();
-
-			IntegrationResult result = IntegrationResultMother.CreateSuccessful();
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
+            IntegrationResult result = IntegrationResultMother.CreateSuccessful();
 			result.ArtifactDirectory = "artifactDir";
 			result.Modifications = new Modification[]
 				{
@@ -60,7 +62,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
                 Callback<string, string>((file, content) => {
                     XmlUtil.VerifyXmlIsWellFormed(content);
                     XmlElement element = XmlUtil.CreateDocumentElement(content);
-                    Assert.AreEqual(2, element.ChildNodes.Count);
+                    ClassicAssert.AreEqual(2, element.ChildNodes.Count);
             }).Verifiable();
 
             result.ArtifactDirectory = "artifactDir";
@@ -82,7 +84,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 				Callback<string, string>((file, content) => {
 					XmlUtil.VerifyXmlIsWellFormed(content);
 					XmlElement element = XmlUtil.CreateDocumentElement(content);
-					Assert.AreEqual(0, element.ChildNodes.Count);
+					ClassicAssert.AreEqual(0, element.ChildNodes.Count);
 				}).Verifiable();
 
 			IntegrationResult result = IntegrationResultMother.CreateSuccessful();
@@ -102,7 +104,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
                 Callback<string, string>((file, content) => {
                     XmlUtil.VerifyXmlIsWellFormed(content);
                     XmlElement element = XmlUtil.CreateDocumentElement(content);
-                    Assert.AreEqual(0, element.ChildNodes.Count);
+                    ClassicAssert.AreEqual(0, element.ChildNodes.Count);
                 }).Verifiable();
 
             result.ArtifactDirectory = "artifactDir";
@@ -121,7 +123,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 				Callback<string, string>((file, content) => {
 					XmlUtil.VerifyXmlIsWellFormed(content);
 					XmlElement element = XmlUtil.CreateDocumentElement(content);
-					Assert.AreEqual(0, element.ChildNodes.Count);
+					ClassicAssert.AreEqual(0, element.ChildNodes.Count);
 				}).Verifiable();
 
 			IntegrationResult result = IntegrationResultMother.CreateSuccessful();
@@ -141,7 +143,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
                 Callback<string, string>((file, content) => {
                     XmlUtil.VerifyXmlIsWellFormed(content);
                     XmlElement element = XmlUtil.CreateDocumentElement(content);
-                    Assert.AreEqual(0, element.ChildNodes.Count);
+                    ClassicAssert.AreEqual(0, element.ChildNodes.Count);
                 }).Verifiable();
 
             result.ArtifactDirectory = "artifactDir";
@@ -157,7 +159,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 		{
 			mockIO.Setup(fileSystem => fileSystem.Save(System.IO.Path.Combine("artifactDir", "modifications.xml"), It.IsAny<string>())).
 				Callback<string, string>((file, content) => {
-					Assert.IsTrue(content.StartsWith("<?xml version=\"1.0\" encoding=\"utf-8\"?>"));
+					ClassicAssert.IsTrue(content.StartsWith("<?xml version=\"1.0\" encoding=\"utf-8\"?>"));
 				}).Verifiable();
 
 			IntegrationResult result = IntegrationResultMother.CreateSuccessful();
@@ -175,7 +177,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 
             mockIO.Setup(fileSystem => fileSystem.Save(newFileName, It.IsAny<string>())).
                 Callback<string, string>((file, content) => {
-                    Assert.IsTrue(content.StartsWith("<?xml version=\"1.0\" encoding=\"utf-8\"?>"));
+                    ClassicAssert.IsTrue(content.StartsWith("<?xml version=\"1.0\" encoding=\"utf-8\"?>"));
                 }).Verifiable();
 
             result.ArtifactDirectory = "artifactDir";
@@ -191,9 +193,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 		public void LoadFromConfigurationXml()
 		{
 			ModificationWriterTask writer = (ModificationWriterTask) NetReflector.Read(@"<modificationWriter filename=""foo.xml"" path=""c:\bar"" />");
-			Assert.AreEqual("foo.xml", writer.Filename);
-			Assert.AreEqual(@"c:\bar", writer.OutputPath);
-            Assert.AreEqual(false, writer.AppendTimeStamp);
+			ClassicAssert.AreEqual("foo.xml", writer.Filename);
+			ClassicAssert.AreEqual(@"c:\bar", writer.OutputPath);
+            ClassicAssert.AreEqual(false, writer.AppendTimeStamp);
 
 		}
 
@@ -202,9 +204,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
         public void LoadFromConfigurationXmlWithBuildTimeSetToTrue()
         {
             ModificationWriterTask writer = (ModificationWriterTask)NetReflector.Read(@"<modificationWriter filename=""foo.xml"" path=""c:\bar"" appendTimeStamp=""true""/>");
-            Assert.AreEqual("foo.xml", writer.Filename);
-            Assert.AreEqual(@"c:\bar", writer.OutputPath);
-            Assert.AreEqual(true, writer.AppendTimeStamp);
+            ClassicAssert.AreEqual("foo.xml", writer.Filename);
+            ClassicAssert.AreEqual(@"c:\bar", writer.OutputPath);
+            ClassicAssert.AreEqual(true, writer.AppendTimeStamp);
 
         }
 

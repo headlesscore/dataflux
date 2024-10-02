@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using NUnit.Framework;
+    using NUnit.Framework.Legacy;
     using ThoughtWorks.CruiseControl.Remote.Messages;
 
     [TestFixture]
@@ -15,7 +16,9 @@
         {
             var message = "MyNewSession";
             var request = new ErrorMessage(message);
-            Assert.AreEqual(message, request.Message);
+            ClassicAssert.AreEqual(message, request.Message);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
         }
 
         [Test]
@@ -24,8 +27,8 @@
             var message = "MyNewSession";
             var type = "TheErrorType";
             var request = new ErrorMessage(message, type);
-            Assert.AreEqual(message, request.Message);
-            Assert.AreEqual(type, request.Type);
+            ClassicAssert.AreEqual(message, request.Message);
+            ClassicAssert.AreEqual(type, request.Type);
         }
         #endregion
 
@@ -36,7 +39,7 @@
             var request = new ErrorMessage();
             var type = "TheErrorType";
             request.Type = type;
-            Assert.AreEqual(type, request.Type);
+            ClassicAssert.AreEqual(type, request.Type);
         }
         #endregion
         #endregion

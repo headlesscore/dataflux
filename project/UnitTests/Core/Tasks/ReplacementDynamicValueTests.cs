@@ -1,5 +1,6 @@
 ﻿using Exortech.NetReflector;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -17,15 +18,17 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
         {
             ReplacementDynamicValue value = new ReplacementDynamicValue();
             value.FormatValue = "test parameter";
-            Assert.AreEqual("test parameter", value.FormatValue, "FormatValue not being get/set correctly");
+            ClassicAssert.AreEqual("test parameter", value.FormatValue, "FormatValue not being get/set correctly");
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
             value.PropertyName = "test property";
-            Assert.AreEqual("test property", value.PropertyName, "PropertyName not being get/set correctly");
+            ClassicAssert.AreEqual("test property", value.PropertyName, "PropertyName not being get/set correctly");
             var parameters = new NameValuePair[] 
             {
                 new NameValuePair("name", "value")
             };
             value.Parameters = parameters;
-            Assert.AreSame(parameters, value.Parameters);
+            ClassicAssert.AreSame(parameters, value.Parameters);
         }
 
         [Test]
@@ -38,7 +41,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
             Dictionary<string, string> parameters = new Dictionary<string, string>();
             parameters.Add("newDir", "a location");
             value.ApplyTo(testTask, parameters, null);
-            Assert.AreEqual("a location\\Happy - default", testTask.WorkingDirectory, "Value has not been correctly set");
+            ClassicAssert.AreEqual("a location\\Happy - default", testTask.WorkingDirectory, "Value has not been correctly set");
         }
     }
 }

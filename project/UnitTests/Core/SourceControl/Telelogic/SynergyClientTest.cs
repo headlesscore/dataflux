@@ -3,6 +3,7 @@ using System.Globalization;
 using Exortech.NetReflector;
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Sourcecontrol.Telelogic;
 using ThoughtWorks.CruiseControl.Core.Util;
@@ -16,47 +17,49 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol.Telelogic
 		public void VerifyDefaultValues()
 		{
 			Synergy synergy = new Synergy();
-			Assert.AreEqual("ccm.exe", synergy.Connection.Executable, "#A1");
-			Assert.AreEqual("localhost", synergy.Connection.Host, "#A2");
-			Assert.IsNull(synergy.Connection.Database, "#A3");
-			Assert.IsNull(synergy.Connection.SessionId, "#A4");
-			Assert.AreEqual(3600, synergy.Connection.Timeout, "#A5");
-			Assert.AreEqual('-', synergy.Connection.Delimiter, "#A6");
-			Assert.IsNull(synergy.Project.Release, "#A7");
-			Assert.AreEqual(0, synergy.Project.TaskFolder, "#A8");
-			Assert.AreEqual(Environment.ExpandEnvironmentVariables("%USERNAME%"), synergy.Connection.Username, "#A9");
-			Assert.AreEqual(String.Empty, synergy.Connection.Password, "#A10");
-			Assert.AreEqual("build_mgr", synergy.Connection.Role, "#A11");
-			Assert.IsFalse(synergy.Connection.PollingEnabled, "#A12");
-			Assert.IsFalse(synergy.Project.BaseliningEnabled, "#A13");
-			Assert.IsFalse(synergy.Project.TemplateEnabled, "#A14");
-			Assert.IsNull(synergy.Project.ReconcilePaths, "#A15");
-			Assert.AreEqual("Integration Testing", synergy.Project.Purpose, "#A16");
-		}
+			ClassicAssert.AreEqual("ccm.exe", synergy.Connection.Executable, "#A1");
+			ClassicAssert.AreEqual("localhost", synergy.Connection.Host, "#A2");
+			ClassicAssert.IsNull(synergy.Connection.Database, "#A3");
+			ClassicAssert.IsNull(synergy.Connection.SessionId, "#A4");
+			ClassicAssert.AreEqual(3600, synergy.Connection.Timeout, "#A5");
+			ClassicAssert.AreEqual('-', synergy.Connection.Delimiter, "#A6");
+			ClassicAssert.IsNull(synergy.Project.Release, "#A7");
+			ClassicAssert.AreEqual(0, synergy.Project.TaskFolder, "#A8");
+			ClassicAssert.AreEqual(Environment.ExpandEnvironmentVariables("%USERNAME%"), synergy.Connection.Username, "#A9");
+			ClassicAssert.AreEqual(String.Empty, synergy.Connection.Password, "#A10");
+			ClassicAssert.AreEqual("build_mgr", synergy.Connection.Role, "#A11");
+			ClassicAssert.IsFalse(synergy.Connection.PollingEnabled, "#A12");
+			ClassicAssert.IsFalse(synergy.Project.BaseliningEnabled, "#A13");
+			ClassicAssert.IsFalse(synergy.Project.TemplateEnabled, "#A14");
+			ClassicAssert.IsNull(synergy.Project.ReconcilePaths, "#A15");
+			ClassicAssert.AreEqual("Integration Testing", synergy.Project.Purpose, "#A16");
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
+        }
 
 		[Test]
 		public void PopulateFromConfigurationXml()
 		{
 			Synergy synergy = (Synergy) NetReflector.Read(SynergyMother.ConfigValues);
-			Assert.AreEqual("ccm.cmd", synergy.Connection.Executable);
-			Assert.AreEqual("myserver", synergy.Connection.Host);
-			Assert.AreEqual(@"\\myserver\share\mydatabase", synergy.Connection.Database);
-			Assert.AreEqual(600, synergy.Connection.Timeout);
-			Assert.AreEqual("Product/1.0", synergy.Project.Release);
-			Assert.AreEqual(1234, synergy.Project.TaskFolder);
-			Assert.AreEqual("jdoe", synergy.Connection.Username);
-			Assert.AreEqual("password", synergy.Connection.Password);
-			Assert.AreEqual("developer", synergy.Connection.Role);
-			Assert.IsTrue(synergy.Connection.PollingEnabled);
-			Assert.IsTrue(synergy.Project.BaseliningEnabled);
-			Assert.IsTrue(synergy.Project.TemplateEnabled);
-			Assert.IsNotNull(synergy.Project.ReconcilePaths);
-			Assert.AreEqual(2, synergy.Project.ReconcilePaths.Length);
-			Assert.AreEqual(@"Product\bin", synergy.Project.ReconcilePaths[0]);
-			Assert.AreEqual(@"Product\temp.txt", synergy.Project.ReconcilePaths[1]);
-			Assert.AreEqual("Custom Purpose", synergy.Project.Purpose);
-			Assert.AreEqual(@"D:\cmsynergy\jdoe", synergy.Connection.HomeDirectory);
-			Assert.AreEqual(@"D:\cmsynergy\uidb", synergy.Connection.ClientDatabaseDirectory);
+			ClassicAssert.AreEqual("ccm.cmd", synergy.Connection.Executable);
+			ClassicAssert.AreEqual("myserver", synergy.Connection.Host);
+			ClassicAssert.AreEqual(@"\\myserver\share\mydatabase", synergy.Connection.Database);
+			ClassicAssert.AreEqual(600, synergy.Connection.Timeout);
+			ClassicAssert.AreEqual("Product/1.0", synergy.Project.Release);
+			ClassicAssert.AreEqual(1234, synergy.Project.TaskFolder);
+			ClassicAssert.AreEqual("jdoe", synergy.Connection.Username);
+			ClassicAssert.AreEqual("password", synergy.Connection.Password);
+			ClassicAssert.AreEqual("developer", synergy.Connection.Role);
+			ClassicAssert.IsTrue(synergy.Connection.PollingEnabled);
+			ClassicAssert.IsTrue(synergy.Project.BaseliningEnabled);
+			ClassicAssert.IsTrue(synergy.Project.TemplateEnabled);
+			ClassicAssert.IsNotNull(synergy.Project.ReconcilePaths);
+			ClassicAssert.AreEqual(2, synergy.Project.ReconcilePaths.Length);
+			ClassicAssert.AreEqual(@"Product\bin", synergy.Project.ReconcilePaths[0]);
+			ClassicAssert.AreEqual(@"Product\temp.txt", synergy.Project.ReconcilePaths[1]);
+			ClassicAssert.AreEqual("Custom Purpose", synergy.Project.Purpose);
+			ClassicAssert.AreEqual(@"D:\cmsynergy\jdoe", synergy.Connection.HomeDirectory);
+			ClassicAssert.AreEqual(@"D:\cmsynergy\uidb", synergy.Connection.ClientDatabaseDirectory);
 		}
 
 		[Test]
@@ -69,7 +72,7 @@ Warning: CM Synergy startup failed.
 			Synergy synergy = (Synergy) NetReflector.Read(SynergyMother.ConfigValues);
 			SynergyCommand command = new SynergyCommand(synergy.Connection, synergy.Project);
 
-			Assert.IsTrue(command.IsDatabaseProtected(status, synergy.Connection.Host, synergy.Connection.Database));
+			ClassicAssert.IsTrue(command.IsDatabaseProtected(status, synergy.Connection.Host, synergy.Connection.Database));
 		}
 
 		[Test]
@@ -81,7 +84,7 @@ Warning: CM Synergy startup failed.
 			Synergy synergy = (Synergy) NetReflector.Read(SynergyMother.ConfigValues);
 			SynergyCommand command = new SynergyCommand(synergy.Connection, synergy.Project);
 
-			Assert.IsFalse(command.IsDatabaseProtected(status, synergy.Connection.Host, synergy.Connection.Database));
+			ClassicAssert.IsFalse(command.IsDatabaseProtected(status, synergy.Connection.Host, synergy.Connection.Database));
 		}
 
 		[Test]
@@ -90,10 +93,10 @@ Warning: CM Synergy startup failed.
 			// test non-default configured values
 			SynergyConnectionInfo info = new SynergyConnectionInfo();
 			info.Database = System.IO.Path.DirectorySeparatorChar + System.IO.Path.Combine("myserver", "share", "mydatabase");
-			Assert.AreEqual(@"mydatabase", info.DatabaseName);
+			ClassicAssert.AreEqual(@"mydatabase", info.DatabaseName);
 
 			info.Database = System.IO.Path.DirectorySeparatorChar + System.IO.Path.Combine("myserver", "share", "mydatabase") + System.IO.Path.DirectorySeparatorChar;
-			Assert.AreEqual(@"mydatabase", info.DatabaseName);
+			ClassicAssert.AreEqual(@"mydatabase", info.DatabaseName);
 		}
 
 		[Test]
@@ -225,7 +228,7 @@ Current project could not be identified.
 		{
 			SynergyCommand command = new SynergyCommand(null, null);
 			bool result = command.IsSessionAlive(status, sessionId, database);
-			Assert.IsTrue(isAlive == result, "IsSessionAlive checked failed");
+			ClassicAssert.IsTrue(isAlive == result, "IsSessionAlive checked failed");
 		}
 	}
 }

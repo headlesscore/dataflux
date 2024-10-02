@@ -1,5 +1,6 @@
 using System;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core.Sourcecontrol;
 
 namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
@@ -18,8 +19,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 		[Test]
 		public void ShouldReturnEmptyListOfModifications()
 		{
-			Assert.AreEqual(0, sourceControl.GetModifications(IntegrationResultMother.CreateSuccessful(DateTime.MinValue), IntegrationResultMother.CreateSuccessful(DateTime.MaxValue)).Length);
-		}
+			ClassicAssert.AreEqual(0, sourceControl.GetModifications(IntegrationResultMother.CreateSuccessful(DateTime.MinValue), IntegrationResultMother.CreateSuccessful(DateTime.MaxValue)).Length);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
+        }
 
 		[Test]
 		public void ShouldReturnSilentlyForOtherOperations()
@@ -34,7 +37,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
         public void ShouldFailGetModsWhenFailModsIsTrue()
         {
             sourceControl.FailGetModifications = true;
-            Assert.That(delegate { sourceControl.GetModifications(null, null); },
+            ClassicAssert.That(delegate { sourceControl.GetModifications(null, null); },
                         Throws.TypeOf<Exception>().With.Message.EqualTo("Failing GetModifications"));
         }
 
@@ -42,7 +45,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
         public void ShouldFailGetSourceWhenFailGetSourceIsTrue()
         {
             sourceControl.FailGetSource = true;
-            Assert.That(delegate { sourceControl.GetSource(null); },
+            ClassicAssert.That(delegate { sourceControl.GetSource(null); },
                         Throws.TypeOf<Exception>().With.Message.EqualTo("Failing getting the source"));
         }
 
@@ -50,7 +53,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
         public void ShouldFailLabelSourceWhenFailLabelSourceIsTrue()
         {
             sourceControl.FailLabelSourceControl = true;
-            Assert.That(delegate { sourceControl.LabelSourceControl(null); },
+            ClassicAssert.That(delegate { sourceControl.LabelSourceControl(null); },
                         Throws.TypeOf<Exception>().With.Message.EqualTo("Failing label source control"));
         }
 
@@ -58,7 +61,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
         public void ShouldReturnNonEmptyListOfModificationsWhenAlwaysModifiedIsTrue()
         {
             sourceControl.AlwaysModified = true;
-            Assert.AreNotEqual(0, sourceControl.GetModifications(IntegrationResultMother.CreateSuccessful(DateTime.MinValue), IntegrationResultMother.CreateSuccessful(DateTime.MaxValue)).Length);
+            ClassicAssert.AreNotEqual(0, sourceControl.GetModifications(IntegrationResultMother.CreateSuccessful(DateTime.MinValue), IntegrationResultMother.CreateSuccessful(DateTime.MaxValue)).Length);
         }
 
     }

@@ -1,5 +1,6 @@
 using System;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Reporting.Dashboard.Navigation;
 using ThoughtWorks.CruiseControl.WebDashboard.Dashboard;
@@ -23,35 +24,37 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.Dashboard.GenericPlu
 		[Test]
 		public void ByDefaultWillAlwaysBeAvailableForAnyProject()
 		{
-			Assert.IsTrue(plugin.IsDisplayedForProject( project2 ));
-		}
+			ClassicAssert.IsTrue(plugin.IsDisplayedForProject( project2 ));
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
+        }
 
 		[Test]
 		public void ShouldNotBeAvailableForANonIncludedProjectIfIncludedProjectsAreSpecified()
 		{
 			plugin.IncludedProjects = new string[] { project1.ProjectName };
-			Assert.IsFalse(plugin.IsDisplayedForProject( project2 ));
+			ClassicAssert.IsFalse(plugin.IsDisplayedForProject( project2 ));
 		}
 
 		[Test]
 		public void ShouldBeAvailableForAnIncludedProjectIfIncludedProjectsAreSpecified()
 		{
 			plugin.IncludedProjects = new string[] { project1.ProjectName };
-			Assert.IsTrue(plugin.IsDisplayedForProject( project1 ));
+			ClassicAssert.IsTrue(plugin.IsDisplayedForProject( project1 ));
 		}
 
 		[Test]
 		public void ShouldNotBeAvailableForAnExcludedProjectIfExcludedProjectsAreSpecified()
 		{
 			plugin.ExcludedProjects = new string[] { project1.ProjectName };
-			Assert.IsFalse(plugin.IsDisplayedForProject( project1 ));
+			ClassicAssert.IsFalse(plugin.IsDisplayedForProject( project1 ));
 		}
 
 		[Test]
 		public void ShouldBeAvailableForANonExcludedProjectIfExcludedProjectsAreSpecified()
 		{
 			plugin.ExcludedProjects = new string[] { project1.ProjectName };
-			Assert.IsTrue(plugin.IsDisplayedForProject( project2 ));
+			ClassicAssert.IsTrue(plugin.IsDisplayedForProject( project2 ));
 		}
 
 		[Test]
@@ -61,11 +64,11 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.Dashboard.GenericPlu
 			try
 			{
 				plugin.ExcludedProjects = new string[] { project2.ProjectName };
-				Assert.Fail("Should not be able to set included and excluded projects");
+				ClassicAssert.Fail("Should not be able to set included and excluded projects");
 			}
 			catch (CruiseControlException e)
 			{
-				Assert.AreEqual("Invalid configuration - cannot set both Included and Excluded Projects for a Build Plugin", e.Message);
+				ClassicAssert.AreEqual("Invalid configuration - cannot set both Included and Excluded Projects for a Build Plugin", e.Message);
 			}
 
 			plugin.IncludedProjects = new string[0];
@@ -73,11 +76,11 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.Dashboard.GenericPlu
 			try
 			{
 				plugin.IncludedProjects = new string[] { project1.ProjectName };
-				Assert.Fail("Should not be able to set included and excluded projects");
+				ClassicAssert.Fail("Should not be able to set included and excluded projects");
 			}
 			catch (CruiseControlException e)
 			{
-				Assert.AreEqual("Invalid configuration - cannot set both Included and Excluded Projects for a Build Plugin", e.Message);
+				ClassicAssert.AreEqual("Invalid configuration - cannot set both Included and Excluded Projects for a Build Plugin", e.Message);
 			}
 		}
 

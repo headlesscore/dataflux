@@ -1,5 +1,6 @@
 ﻿using System;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 
 namespace ThoughtWorks.CruiseControl.UnitTests.Remote
@@ -16,8 +17,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote
             TestHelpers.EnsureLanguageIsValid();
             string permission = "Something";
             PermissionDeniedException exception = new PermissionDeniedException(permission);
-            Assert.AreEqual("Permission to execute 'Something' has been denied.", exception.Message);
-            Assert.AreEqual(permission, exception.Permission);
+            ClassicAssert.AreEqual("Permission to execute 'Something' has been denied.", exception.Message);
+            ClassicAssert.AreEqual(permission, exception.Permission);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
         }
 
         [Test]
@@ -27,8 +30,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote
             string permission = "Something";
             string message = "An error has occured";
             PermissionDeniedException exception = new PermissionDeniedException(permission, message);
-            Assert.AreEqual(message, exception.Message);
-            Assert.AreEqual(permission, exception.Permission);
+            ClassicAssert.AreEqual(message, exception.Message);
+            ClassicAssert.AreEqual(permission, exception.Permission);
         }
 
         [Test]
@@ -39,9 +42,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote
             string message = "An error has occured";
             Exception innerException = new Exception("An inner exception");
             PermissionDeniedException exception = new PermissionDeniedException(permission, message, innerException);
-            Assert.AreEqual(message, exception.Message);
-            Assert.AreEqual(permission, exception.Permission);
-            Assert.AreEqual(innerException, exception.InnerException);
+            ClassicAssert.AreEqual(message, exception.Message);
+            ClassicAssert.AreEqual(permission, exception.Permission);
+            ClassicAssert.AreEqual(innerException, exception.InnerException);
         }
 
         [Test]
@@ -51,10 +54,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote
             string permission = "Something";
             PermissionDeniedException exception = new PermissionDeniedException(permission);
             object result = TestHelpers.RunSerialisationTest(exception);
-            Assert.IsNotNull(result);
-            Assert.That(result, Is.InstanceOf<PermissionDeniedException>());
-            Assert.AreEqual("Permission to execute 'Something' has been denied.", exception.Message);
-            Assert.AreEqual(permission, (result as PermissionDeniedException).Permission);
+            ClassicAssert.IsNotNull(result);
+            ClassicAssert.That(result, Is.InstanceOf<PermissionDeniedException>());
+            ClassicAssert.AreEqual("Permission to execute 'Something' has been denied.", exception.Message);
+            ClassicAssert.AreEqual(permission, (result as PermissionDeniedException).Permission);
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using ThoughtWorks.CruiseControl.Remote;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 
 namespace ThoughtWorks.CruiseControl.UnitTests.Remote
 {
@@ -14,7 +15,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote
         public void StartANewBlankMessage()
         {
             Message value = new Message();
-            Assert.IsNull(value.Text);
+            ClassicAssert.IsNull(value.Text);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
         }
 
         [Test]
@@ -22,7 +25,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote
         {
             string expected = "Testing";
             Message value = new Message(expected);
-            Assert.AreEqual(expected, value.Text);
+            ClassicAssert.AreEqual(expected, value.Text);
         }
 
         [Test]
@@ -30,9 +33,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote
         {
             string expected = "Testing";
             Message value = new Message();
-            Assert.IsNull(value.Text);
+            ClassicAssert.IsNull(value.Text);
             value.Text = expected;
-            Assert.AreEqual(expected, value.Text);
+            ClassicAssert.AreEqual(expected, value.Text);
         }
 
         [Test]
@@ -40,7 +43,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote
         {
             string expected = "Testing";
             Message value = new Message(expected);
-            Assert.AreEqual(expected, value.ToString());
+            ClassicAssert.AreEqual(expected, value.ToString());
         }
 
         [Test]
@@ -48,14 +51,14 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote
         {
             var msg = new Message("A message");
             var hashCode = msg.GetHashCode();
-            Assert.AreEqual(msg.ToString().GetHashCode(), msg.GetHashCode());
+            ClassicAssert.AreEqual(msg.ToString().GetHashCode(), msg.GetHashCode());
         }
 
         [Test]
         public void GetHashCodeWithNullMessage()
         {
             var msg = new Message(null, Message.MessageKind.BuildAbortedBy);
-            Assert.AreEqual(msg.ToString().GetHashCode(), msg.GetHashCode());
+            ClassicAssert.AreEqual(msg.ToString().GetHashCode(), msg.GetHashCode());
         }
 
         [Test]
@@ -63,7 +66,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote
         {
             var msg1 = new Message("The message", Message.MessageKind.NotDefined);
             var msg2 = new Message("The message", Message.MessageKind.NotDefined);
-            Assert.IsTrue(msg1.Equals(msg2));
+            ClassicAssert.IsTrue(msg1.Equals(msg2));
         }
 
         [Test]
@@ -71,7 +74,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote
         {
             var msg1 = new Message("The message1", Message.MessageKind.NotDefined);
             var msg2 = new Message("The message2", Message.MessageKind.NotDefined);
-            Assert.IsFalse(msg1.Equals(msg2));
+            ClassicAssert.IsFalse(msg1.Equals(msg2));
         }
 
         [Test]
@@ -79,7 +82,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote
         {
             var msg1 = new Message("The message", Message.MessageKind.NotDefined);
             var msg2 = new Message("The message", Message.MessageKind.Fixer);
-            Assert.IsFalse(msg1.Equals(msg2));
+            ClassicAssert.IsFalse(msg1.Equals(msg2));
         }
 
         [Test]
@@ -87,7 +90,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote
         {
             var msg1 = new Message("The message", Message.MessageKind.NotDefined);
             var msg2 = "A message";
-            Assert.IsFalse(msg1.Equals(msg2));
+            ClassicAssert.IsFalse(msg1.Equals(msg2));
         }
         #endregion
     }

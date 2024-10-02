@@ -1,6 +1,7 @@
 using System.Collections.Specialized;
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core.Reporting.Dashboard.Navigation;
 using ThoughtWorks.CruiseControl.WebDashboard.IO;
 using ThoughtWorks.CruiseControl.WebDashboard.MVC;
@@ -33,54 +34,56 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.IO
 		[Test]
 		public void ReturnsEmptyStringIfNoProjectSpecified()
 		{
-			Assert.AreEqual(string.Empty, cruiseRequest.ProjectName);
-		}
+			ClassicAssert.AreEqual(string.Empty, cruiseRequest.ProjectName);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
+        }
 
 		[Test]
 		public void ReturnsProjectNameIfProjectSpecified()
 		{
 			CreateCruiseRequest("server/myserver/project/myproject/baz.html");
-			Assert.AreEqual("myproject", cruiseRequest.ProjectName);
+			ClassicAssert.AreEqual("myproject", cruiseRequest.ProjectName);
 		}
 
 		[Test]
 		public void ReturnsEmptyStringIfNoServerSpecified()
 		{
-			Assert.AreEqual(string.Empty, cruiseRequest.ServerName);
+			ClassicAssert.AreEqual(string.Empty, cruiseRequest.ServerName);
 		}
 
 		[Test]
 		public void ReturnsServerNameIfServerSpecified()
 		{
 			CreateCruiseRequest("server/myserver/baz.html");
-			Assert.AreEqual("myserver", cruiseRequest.ServerName);
+			ClassicAssert.AreEqual("myserver", cruiseRequest.ServerName);
 		}
 
 		[Test]
 		public void ReturnsEmptyStringIfNoBuildSpecified()
 		{
-			Assert.AreEqual(string.Empty, cruiseRequest.BuildName);
+			ClassicAssert.AreEqual(string.Empty, cruiseRequest.BuildName);
 		}
 
 		[Test]
 		public void ReturnsBuildNameIfBuildSpecified()
 		{
 			CreateCruiseRequest("server/myserver/project/myproject/build/mybuild/baz.html");
-			Assert.AreEqual("mybuild", cruiseRequest.BuildName);
+			ClassicAssert.AreEqual("mybuild", cruiseRequest.BuildName);
 		}
 
 		[Test]
 		public void DecodeServerName()
 		{
 			CreateCruiseRequest("server/my+server/baz.html");
-			Assert.AreEqual("my server", cruiseRequest.ServerName);
+			ClassicAssert.AreEqual("my server", cruiseRequest.ServerName);
 		}
 
 		[Test]
 		public void DecodeProjectName()
 		{
 			CreateCruiseRequest("server/my+server/project/my+project%232/baz.html");
-			Assert.AreEqual("my project#2", cruiseRequest.ProjectName);
+			ClassicAssert.AreEqual("my project#2", cruiseRequest.ProjectName);
 		}
 	}
 }

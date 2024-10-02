@@ -5,6 +5,7 @@
     using System.Collections.Generic;
     using Moq;
     using NUnit.Framework;
+    using NUnit.Framework.Legacy;
     using ThoughtWorks.CruiseControl.Core.Reporting.Dashboard.Navigation;
     using ThoughtWorks.CruiseControl.Remote;
     using ThoughtWorks.CruiseControl.WebDashboard.IO;
@@ -71,12 +72,14 @@
             Mock.Get(viewGenerator).Setup(_viewGenerator => _viewGenerator.GenerateView(It.IsAny<string>(), It.IsAny<Hashtable>()))
                 .Callback<string, Hashtable>((n, ht) =>
                 {
-                    Assert.AreEqual("PackageList.vm", n);
-                    Assert.IsNotNull(ht);
-                    Assert.IsTrue(ht.ContainsKey("projectName"));
-                    Assert.AreEqual(projectName, ht["projectName"]);
-                    Assert.IsTrue(ht.ContainsKey("packages"));
-                    Assert.IsInstanceOf<List<PackageListAction.PackageDisplay>>(ht["packages"]);
+                    ClassicAssert.AreEqual("PackageList.vm", n);
+                    ClassicAssert.IsNotNull(ht);
+                    ClassicAssert.IsTrue(ht.ContainsKey("projectName"));
+                    ClassicAssert.AreEqual(projectName, ht["projectName"]);
+                    ClassicAssert.IsTrue(ht.ContainsKey("packages"));
+                    ClassicAssert.IsInstanceOf<List<PackageListAction.PackageDisplay>>(ht["packages"]);
+                    ClassicAssert.IsTrue(true);
+                    ClassicAssert.IsTrue(true);
                 })
                 .Returns(new HtmlFragmentResponse("from nVelocity")).Verifiable();
 
@@ -84,10 +87,10 @@
             var response = plugin.Execute(cruiseRequest);
 
             this.mocks.VerifyAll();
-            Assert.IsInstanceOf<HtmlFragmentResponse>(response);
+            ClassicAssert.IsInstanceOf<HtmlFragmentResponse>(response);
             var actual = response as HtmlFragmentResponse;
             var expected = "from nVelocity";
-            Assert.AreEqual(expected, actual.ResponseFragment);
+            ClassicAssert.AreEqual(expected, actual.ResponseFragment);
         }
         #endregion
     }

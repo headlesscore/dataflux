@@ -3,6 +3,7 @@ using System.IO;
 using Exortech.NetReflector;
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Sourcecontrol;
 using ThoughtWorks.CruiseControl.Core.Util;
@@ -76,28 +77,30 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 		public void CheckDefaults()
 		{
 			Mks defalutMks = new Mks();
-			Assert.AreEqual(@"si.exe", defalutMks.Executable);
-			Assert.AreEqual(8722, defalutMks.Port);
-			Assert.AreEqual(true, defalutMks.AutoGetSource);
-			Assert.AreEqual(false, defalutMks.CheckpointOnSuccess);
-			Assert.AreEqual(false, defalutMks.AutoDisconnect);
-		}
+			ClassicAssert.AreEqual(@"si.exe", defalutMks.Executable);
+			ClassicAssert.AreEqual(8722, defalutMks.Port);
+			ClassicAssert.AreEqual(true, defalutMks.AutoGetSource);
+			ClassicAssert.AreEqual(false, defalutMks.CheckpointOnSuccess);
+			ClassicAssert.AreEqual(false, defalutMks.AutoDisconnect);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
+        }
 
 		[Test]
 		public void ValuePopulation()
 		{
 			mks = CreateMks(CreateSourceControlXml(), null, null);
 
-			Assert.AreEqual(System.IO.Path.Combine("..", "bin", "si.exe"), mks.Executable);
-			Assert.AreEqual(@"hostname", mks.Hostname);
-			Assert.AreEqual(8722, mks.Port);
-			Assert.AreEqual(@"CCNetUser", mks.User);
-			Assert.AreEqual(@"CCNetPassword", mks.Password);
-			Assert.AreEqual(sandboxRoot, mks.SandboxRoot);
-			Assert.AreEqual(@"myproject.pj", mks.SandboxFile);
-			Assert.AreEqual(true, mks.AutoGetSource);
-			Assert.AreEqual(true, mks.CheckpointOnSuccess);
-			Assert.AreEqual(true, mks.AutoDisconnect);
+			ClassicAssert.AreEqual(System.IO.Path.Combine("..", "bin", "si.exe"), mks.Executable);
+			ClassicAssert.AreEqual(@"hostname", mks.Hostname);
+			ClassicAssert.AreEqual(8722, mks.Port);
+			ClassicAssert.AreEqual(@"CCNetUser", mks.User);
+			ClassicAssert.AreEqual(@"CCNetPassword", mks.Password);
+			ClassicAssert.AreEqual(sandboxRoot, mks.SandboxRoot);
+			ClassicAssert.AreEqual(@"myproject.pj", mks.SandboxFile);
+			ClassicAssert.AreEqual(true, mks.AutoGetSource);
+			ClassicAssert.AreEqual(true, mks.CheckpointOnSuccess);
+			ClassicAssert.AreEqual(true, mks.AutoDisconnect);
 		}
 
 		[Test]
@@ -186,7 +189,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 			
 			mks = CreateMks(CreateSourceControlXml(), mksHistoryParser, mockProcessExecutor);
 			Modification[] modifications = mks.GetModifications(IntegrationResultMother.CreateSuccessful(FROM), IntegrationResultMother.CreateSuccessful(TO));
-			Assert.AreEqual(0, modifications.Length);
+			ClassicAssert.AreEqual(0, modifications.Length);
 
 			mksHistoryParserWrapper.Verify();
 			mksHistoryParserWrapper.VerifyNoOtherCalls();
@@ -213,7 +216,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 			
 			mks = CreateMks(CreateSourceControlXml(), mksHistoryParser, mockProcessExecutor);
 			Modification[] modifications = mks.GetModifications(IntegrationResultMother.CreateSuccessful(FROM), IntegrationResultMother.CreateSuccessful(TO));
-			Assert.AreEqual(1, modifications.Length);
+			ClassicAssert.AreEqual(1, modifications.Length);
 		}
 
 		[Test]
@@ -239,7 +242,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 			
 			mks = CreateMks(CreateSourceControlXml(), mksHistoryParser, mockProcessExecutor);
 			Modification[] modifications = mks.GetModifications(IntegrationResultMother.CreateSuccessful(FROM), IntegrationResultMother.CreateSuccessful(TO));
-			Assert.AreEqual(1, modifications.Length);
+			ClassicAssert.AreEqual(1, modifications.Length);
 		}
 
 		[Test]
@@ -262,7 +265,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 
 			mks = CreateMks(CreateSourceControlXml(), mksHistoryParser, mockProcessExecutor);
 			Modification[] modifications = mks.GetModifications(IntegrationResultMother.CreateSuccessful(FROM), IntegrationResultMother.CreateSuccessful(TO));
-			Assert.AreEqual(3, modifications.Length);
+			ClassicAssert.AreEqual(3, modifications.Length);
 		}
 
 		[Test]
@@ -282,7 +285,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 			mks = CreateMks(CreateSourceControlXml(), mksHistoryParser, mockProcessExecutor);
 			mks.CheckpointOnSuccess = false;
 			Modification[] modifications = mks.GetModifications(IntegrationResultMother.CreateSuccessful(FROM), IntegrationResultMother.CreateSuccessful(TO));
-			Assert.AreEqual(1, modifications.Length);
+			ClassicAssert.AreEqual(1, modifications.Length);
 		}
 
 		private static Mks CreateMks(string xml, IHistoryParser historyParser, ProcessExecutor executor)

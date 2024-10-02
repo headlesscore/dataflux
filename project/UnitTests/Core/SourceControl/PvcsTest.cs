@@ -4,6 +4,7 @@ using System.IO;
 using Exortech.NetReflector;
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Sourcecontrol;
 using ThoughtWorks.CruiseControl.Core.Util;
@@ -44,10 +45,12 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 
 			NetReflector.Read(xml, pvcs);
 
-			Assert.AreEqual(@"..\etc\pvcs\mockpcli.bat", pvcs.Executable);
-			Assert.AreEqual("fooproject", pvcs.Project);
-			Assert.AreEqual("barsub", pvcs.Subproject);
-		}
+			ClassicAssert.AreEqual(@"..\etc\pvcs\mockpcli.bat", pvcs.Executable);
+			ClassicAssert.AreEqual("fooproject", pvcs.Project);
+			ClassicAssert.AreEqual("barsub", pvcs.Subproject);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
+        }
 
 		// Daylight savings time bug
 		// This was necessary to resolve a bug with PVCS 7.5.1 (would not properly
@@ -60,7 +63,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 
 			DateTime date = new DateTime(2000, 1, 1, 1, 0, 0);
 			DateTime anHourBefore = new DateTime(2000, 1, 1, 0, 0, 0);
-			Assert.AreEqual(anHourBefore, pvcs.AdjustForDayLightSavingsBug(date));
+			ClassicAssert.AreEqual(anHourBefore, pvcs.AdjustForDayLightSavingsBug(date));
 		}
 
 		[Test]
@@ -70,7 +73,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 			pvcs.CurrentTimeZone = timeZoneWhereItIsNeverDayLightSavings;
 
 			DateTime date = new DateTime(2000, 1, 1, 1, 0, 0);
-			Assert.AreEqual(date, pvcs.AdjustForDayLightSavingsBug(date));
+			ClassicAssert.AreEqual(date, pvcs.AdjustForDayLightSavingsBug(date));
 		}
 
 		[Test]
@@ -78,11 +81,11 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 		{
 			DateTime expected = new DateTime(2005, 05, 01, 12, 0, 0, 0);
 			DateTime actual = Pvcs.GetDate("May 1 2005 12:00:00", CultureInfo.InvariantCulture);
-			Assert.AreEqual(expected, actual);
+			ClassicAssert.AreEqual(expected, actual);
 
 			expected = new DateTime(2005, 10, 01, 15, 0, 0, 0);
 			actual = Pvcs.GetDate("Oct 1 2005 15:00:00", CultureInfo.InvariantCulture);
-			Assert.AreEqual(expected, actual);
+			ClassicAssert.AreEqual(expected, actual);
 		}
 
 		[Test]
@@ -90,7 +93,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 		{
 			string expected = "10/31/2001 18:52";
 			string actual = Pvcs.GetDateString(new DateTime(2001, 10, 31, 18, 52, 13), CultureInfo.InvariantCulture.DateTimeFormat);
-			Assert.AreEqual(expected, actual);
+			ClassicAssert.AreEqual(expected, actual);
 		}
 
 		[Test]
@@ -98,7 +101,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 		{
 			string expected = "run -xe\"" + pvcs.ErrorFile + "\" -xo\"" + pvcs.LogFile + "\" -q vlog -pr\"" + pvcs.Project + "\"  -z -ds\"beforedate\" -de\"afterdate\" " + pvcs.Subproject;
 			string actual = pvcs.CreatePcliContentsForCreatingVLog("beforedate", "afterdate");
-			Assert.AreEqual(expected, actual);
+			ClassicAssert.AreEqual(expected, actual);
 		}
 
 		[Test]
@@ -106,7 +109,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 		{
 			string expected = "Vcs -q -xo\"" + pvcs.LogFile + "\" -xe\"" + pvcs.ErrorFile + "\"  -v\"temp\" \"@" + pvcs.TempFile + "\"";
 			string actual = pvcs.CreatePcliContentsForLabeling("temp");
-			Assert.AreEqual(expected, actual);
+			ClassicAssert.AreEqual(expected, actual);
 		}
 
 		[Test]
@@ -117,7 +120,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 
 			Modification[] mods = pvcs.GetModifications(IntegrationResultMother.CreateSuccessful(new DateTime(2004, 6, 1, 1, 1, 1)), 
 				IntegrationResultMother.CreateSuccessful(new DateTime(2004, 6, 1, 2, 2, 2)));
-			Assert.AreEqual(2, mods.Length);
+			ClassicAssert.AreEqual(2, mods.Length);
 		}
 
 		[Test]
@@ -129,7 +132,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 			mod.FolderName = @"fooproject\archives\test";
 			mod.FileName = "myfile.txt-arc";
 			string actual = pvcs.CreateIndividualGetString(mod, @"c:\source\test");
-			Assert.AreEqual(expected, actual);
+			ClassicAssert.AreEqual(expected, actual);
 		}
 
 		[Test]
@@ -141,7 +144,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 			mod.FolderName = @"fooproject\archives\test";
 			mod.FileName = "myfile.txt-arc";
 			string actual = pvcs.CreateIndividualLabelString(mod,"TestLabel");
-			Assert.AreEqual(expected, actual);
+			ClassicAssert.AreEqual(expected, actual);
 		}
 
 		[Test]
@@ -149,7 +152,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 		{
 			pvcs.Username = "foo";
 			pvcs.Password = "bar";
-			Assert.AreEqual(" -id\"foo\":\"bar\" ", pvcs.GetLogin(false));
+			ClassicAssert.AreEqual(" -id\"foo\":\"bar\" ", pvcs.GetLogin(false));
 		}
 
 		[Test]
@@ -157,7 +160,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 		{
 			pvcs.Username = "foo";
 			pvcs.Password = "bar";
-			Assert.AreEqual(" \"\"-id\"foo\":\"bar\"\"\" ", pvcs.GetLogin(true));
+			ClassicAssert.AreEqual(" \"\"-id\"foo\":\"bar\"\"\" ", pvcs.GetLogin(true));
 		}
 
         [Test]
@@ -165,13 +168,13 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
         {
             pvcs.Username = "foo";
             pvcs.Password = "";
-            Assert.AreEqual(" -id\"foo\" ", pvcs.GetLogin(false));
+            ClassicAssert.AreEqual(" -id\"foo\" ", pvcs.GetLogin(false));
         }
 
 		[Test]
 		public void GetExeFilenameShouldNotBeRootedIfPathIsNotSpecified()
 		{
-			Assert.AreEqual("Get.exe", pvcs.GetExeFilename());
+			ClassicAssert.AreEqual("Get.exe", pvcs.GetExeFilename());
 		}
 
 		private TimeZone CreateMockTimeZone(bool inDayLightSavings)

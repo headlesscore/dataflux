@@ -1,5 +1,6 @@
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.CCTrayLib.Configuration;
 using ThoughtWorks.CruiseControl.CCTrayLib.Monitoring;
 using ThoughtWorks.CruiseControl.Remote;
@@ -30,10 +31,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Monitoring
 			wrappedManagerMock.SetupGet(_manager => _manager.DisplayName).Returns("testDisplayName").Verifiable();
 			wrappedManagerMock.Setup(_manager => _manager.CancelPendingRequest("testProjectName")).Verifiable();
 
-
-			Assert.AreEqual("tcp://testUrl", cachingManager.Configuration.Url);
-			Assert.AreEqual("testDisplayName", cachingManager.DisplayName);
-			Assert.AreEqual(BuildServerTransport.Remoting, cachingManager.Configuration.Transport);
+            //ClassicAssert.AreEqual("tcp://testUrl", cachingManager.Configuration.Url);
+            ClassicAssert.AreEqual("tcp://testUrl", cachingManager.Configuration.Url);
+			ClassicAssert.AreEqual("testDisplayName", cachingManager.DisplayName);
+			ClassicAssert.AreEqual(BuildServerTransport.Remoting, cachingManager.Configuration.Transport);
 			cachingManager.CancelPendingRequest("testProjectName");
 
 		
@@ -46,7 +47,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Monitoring
 			CruiseServerSnapshot snapshot = new CruiseServerSnapshot();
 			wrappedManagerMock.Setup(_manager => _manager.GetCruiseServerSnapshot()).Returns(snapshot).Verifiable();
 
-			Assert.AreSame(snapshot, cachingManager.GetCruiseServerSnapshot());
+			ClassicAssert.AreSame(snapshot, cachingManager.GetCruiseServerSnapshot());
 
 			wrappedManagerMock.Verify();
 		}
@@ -57,8 +58,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Monitoring
 			CruiseServerSnapshot snapshot = new CruiseServerSnapshot();
 			wrappedManagerMock.Setup(_manager => _manager.GetCruiseServerSnapshot()).Returns(snapshot).Verifiable();
 
-			Assert.AreSame(snapshot, cachingManager.GetCruiseServerSnapshot());
-			Assert.AreSame(snapshot, cachingManager.GetCruiseServerSnapshot());
+			ClassicAssert.AreSame(snapshot, cachingManager.GetCruiseServerSnapshot());
+			ClassicAssert.AreSame(snapshot, cachingManager.GetCruiseServerSnapshot());
 
 			wrappedManagerMock.Verify();
 		}
@@ -72,10 +73,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Monitoring
 				.Returns(snapshot1)
 				.Returns(snapshot2);
 
-			Assert.AreSame(snapshot1, cachingManager.GetCruiseServerSnapshot());
-			Assert.AreSame(snapshot1, cachingManager.GetCruiseServerSnapshot());
+			ClassicAssert.AreSame(snapshot1, cachingManager.GetCruiseServerSnapshot());
+			ClassicAssert.AreSame(snapshot1, cachingManager.GetCruiseServerSnapshot());
 			((ICache) cachingManager).InvalidateCache();
-			Assert.AreSame(snapshot2, cachingManager.GetCruiseServerSnapshot());
+			ClassicAssert.AreSame(snapshot2, cachingManager.GetCruiseServerSnapshot());
 
 			wrappedManagerMock.Verify(_manager => _manager.GetCruiseServerSnapshot(), Times.Exactly(2));
 		}	

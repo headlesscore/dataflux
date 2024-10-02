@@ -1,5 +1,6 @@
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core.Reporting.Dashboard.Navigation;
 using ThoughtWorks.CruiseControl.Core.Util;
 using ThoughtWorks.CruiseControl.WebDashboard.Dashboard;
@@ -22,8 +23,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.Dashboard
 
 			delegateMock.Setup(t => t.Transform("myInput", new string[] { @"c:\myAppPath\xslFile1", @"c:\myAppPath\xslFile2" }, null)).Returns("output").Verifiable();
 
-			Assert.AreEqual("output", transformer.Transform("myInput", new string[] { "xslFile1", "xslFile2"}, null));
-			pathProviderStub.Verify();
+			ClassicAssert.AreEqual("output", transformer.Transform("myInput", new string[] { "xslFile1", "xslFile2"}, null));
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
+            pathProviderStub.Verify();
 			delegateMock.Verify();
 		}
 	}

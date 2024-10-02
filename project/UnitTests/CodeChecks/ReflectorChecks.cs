@@ -9,6 +9,7 @@
     using ThoughtWorks.CruiseControl.Remote;
     using ThoughtWorks.CruiseControl.Core;
     using ThoughtWorks.CruiseControl.WebDashboard.Configuration;
+    using NUnit.Framework.Legacy;
 
     [TestFixture]
     public class ReflectorChecks
@@ -90,7 +91,8 @@
                     Environment.NewLine +
                     "* " + 
                     string.Join(Environment.NewLine + "* ", failedTypes.ToArray());
-                Assert.Fail(message);
+                ClassicAssert.Fail(message);
+                ClassicAssert.Fail(message);
             }
         }
         #endregion
@@ -130,7 +132,7 @@
                     Environment.NewLine +
                     "* " +
                     string.Join(Environment.NewLine + "* ", failedTypes.ToArray());
-                Assert.Fail(message);
+                ClassicAssert.Fail(message);
             }
         }
         #endregion

@@ -7,6 +7,7 @@
     using Exortech.NetReflector;
     using Moq;
     using NUnit.Framework;
+    using NUnit.Framework.Legacy;
     using ThoughtWorks.CruiseControl.Core;
     using ThoughtWorks.CruiseControl.Core.Tasks;
     using ThoughtWorks.CruiseControl.Core.Util;
@@ -33,7 +34,9 @@
         {
             const string xml = @"<commentTask><message>Test Message</message></commentTask>";
             var task = NetReflector.Read(xml) as CommentTask;
-            Assert.AreEqual("Test Message", task.Message);
+            ClassicAssert.AreEqual("Test Message", task.Message);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
         }
 
         [Test]
@@ -41,8 +44,8 @@
         {
             const string xml = @"<commentTask failure=""true""><message>Test Message</message></commentTask>";
             var task = NetReflector.Read(xml) as CommentTask;
-            Assert.AreEqual("Test Message", task.Message);
-            Assert.IsTrue(task.FailTask);
+            ClassicAssert.AreEqual("Test Message", task.Message);
+            ClassicAssert.IsTrue(task.FailTask);
         }
 
         [Test]
@@ -68,9 +71,9 @@
             task.Run(result);
 
             this.mocks.VerifyAll();
-            Assert.IsNotNull(loggedResult);
-            Assert.IsTrue(loggedResult.CheckIfSuccess());
-            Assert.AreEqual("Test Message", loggedResult.Data);
+            ClassicAssert.IsNotNull(loggedResult);
+            ClassicAssert.IsTrue(loggedResult.CheckIfSuccess());
+            ClassicAssert.AreEqual("Test Message", loggedResult.Data);
         }
 
         [Test]
@@ -97,9 +100,9 @@
             task.Run(result);
 
             this.mocks.VerifyAll();
-            Assert.IsNotNull(loggedResult);
-            Assert.IsFalse(loggedResult.CheckIfSuccess());
-            Assert.AreEqual("Test Message", loggedResult.Data);
+            ClassicAssert.IsNotNull(loggedResult);
+            ClassicAssert.IsFalse(loggedResult.CheckIfSuccess());
+            ClassicAssert.AreEqual("Test Message", loggedResult.Data);
         }
         #endregion
     }

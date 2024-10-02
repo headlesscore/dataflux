@@ -7,6 +7,7 @@ using ThoughtWorks.CruiseControl.CCTrayLib.Monitoring;
 using ThoughtWorks.CruiseControl.CCTrayLib.X10;
 using ThoughtWorks.CruiseControl.Remote;
 using ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Monitoring;
+using NUnit.Framework.Legacy;
 
 namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.X10
 {
@@ -40,9 +41,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.X10
 			
 			stubCurrentTimeProvider = new StubCurrentTimeProvider();
 			stubCurrentTimeProvider.SetNow(new DateTime(2005, 11, 03, 12, 00, 00));
-			Assert.AreEqual(DayOfWeek.Thursday, stubCurrentTimeProvider.Now.DayOfWeek);
+			ClassicAssert.AreEqual(DayOfWeek.Thursday, stubCurrentTimeProvider.Now.DayOfWeek);
+            ClassicAssert.AreEqual(DayOfWeek.Thursday, stubCurrentTimeProvider.Now.DayOfWeek);
 
-			new X10Controller(
+            new X10Controller(
 				stubProjectMonitor, 
 				stubCurrentTimeProvider, 
 				configuration,
@@ -103,14 +105,14 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.X10
 		public void WhenTheCurrentTimeIsOutsideTheAvailableHoursAllLightsAreSwitchedOff()
 		{
 			stubCurrentTimeProvider.SetNow(new DateTime(2005, 11, 05, 12, 00, 00));
-			Assert.AreEqual(DayOfWeek.Saturday, stubCurrentTimeProvider.Now.DayOfWeek);
+			ClassicAssert.AreEqual(DayOfWeek.Saturday, stubCurrentTimeProvider.Now.DayOfWeek);
 			AssertLightsAreSwitchedOffRegardlessOfIntegrationStateOutsideOfConfiguredHours();
 
 			stubCurrentTimeProvider.SetNow(new DateTime(2005, 11, 05, 05, 00, 00));
 			AssertLightsAreSwitchedOffRegardlessOfIntegrationStateOutsideOfConfiguredHours();
 
 			stubCurrentTimeProvider.SetNow(new DateTime(2005, 11, 03, 05, 00, 00));
-			Assert.AreEqual(DayOfWeek.Thursday, stubCurrentTimeProvider.Now.DayOfWeek);
+			ClassicAssert.AreEqual(DayOfWeek.Thursday, stubCurrentTimeProvider.Now.DayOfWeek);
 			AssertLightsAreSwitchedOffRegardlessOfIntegrationStateOutsideOfConfiguredHours();
 
 			stubCurrentTimeProvider.SetNow(new DateTime(2005, 11, 03, 20, 00, 00));

@@ -22,15 +22,15 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.Dashboard
 //
 //			new CruiseObjectGiverInitializer(objectGiver).SetupObjectGiverForRequest(context);
 //
-//			Assert.IsNotNull(objectGiver.GiveObjectByType(typeof(HttpPathMapper)));
-//			Assert.IsNotNull(objectGiver.GiveObjectByType(typeof(ServerQueryingBuildRetriever)));
-//			Assert.IsNotNull(objectGiver.GiveObjectByType(typeof(CruiseManagerBuildNameRetriever)));
-//			Assert.IsNotNull(objectGiver.GiveObjectByType(typeof(ConfigurationSettingsConfigGetter)));
-//			Assert.IsNotNull(objectGiver.GiveObjectByType(typeof(PathMapperUsingHostName)));
-//			Assert.IsNotNull(objectGiver.GiveObjectByType(typeof(DefaultBuildNameFormatter)));
-//			Assert.IsNotNull(objectGiver.GiveObjectByType(typeof(ServerAggregatingCruiseManagerWrapper)));
-//			Assert.IsNotNull(objectGiver.GiveObjectByType(typeof(SideBarViewBuilder)));
-//			Assert.IsNotNull(objectGiver.GiveObjectByType(typeof(TopControlsViewBuilder)));
+//			ClassicAssert.IsNotNull(objectGiver.GiveObjectByType(typeof(HttpPathMapper)));
+//			ClassicAssert.IsNotNull(objectGiver.GiveObjectByType(typeof(ServerQueryingBuildRetriever)));
+//			ClassicAssert.IsNotNull(objectGiver.GiveObjectByType(typeof(CruiseManagerBuildNameRetriever)));
+//			ClassicAssert.IsNotNull(objectGiver.GiveObjectByType(typeof(ConfigurationSettingsConfigGetter)));
+//			ClassicAssert.IsNotNull(objectGiver.GiveObjectByType(typeof(PathMapperUsingHostName)));
+//			ClassicAssert.IsNotNull(objectGiver.GiveObjectByType(typeof(DefaultBuildNameFormatter)));
+//			ClassicAssert.IsNotNull(objectGiver.GiveObjectByType(typeof(ServerAggregatingCruiseManagerWrapper)));
+//			ClassicAssert.IsNotNull(objectGiver.GiveObjectByType(typeof(SideBarViewBuilder)));
+//			ClassicAssert.IsNotNull(objectGiver.GiveObjectByType(typeof(TopControlsViewBuilder)));
 //
 //			// ToDo - test Plugins registered correctly
 //		}
@@ -42,7 +42,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.Dashboard
 //			HttpContext context = new HttpContext(null);
 //			ObjectGiver objectGiver = new CruiseObjectGiverInitializer(new ManagableObjectGiver()).SetupObjectGiverForRequest(context);
 //	
-//			Assert.IsNotNull(objectGiver.GiveObjectById(LatestBuildReportProjectPlugin.ACTION_NAME));
+//			ClassicAssert.IsNotNull(objectGiver.GiveObjectById(LatestBuildReportProjectPlugin.ACTION_NAME));
 //		}
 }
 	

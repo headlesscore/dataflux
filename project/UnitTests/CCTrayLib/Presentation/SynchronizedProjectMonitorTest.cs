@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.CCTrayLib;
 using ThoughtWorks.CruiseControl.CCTrayLib.Monitoring;
 using ThoughtWorks.CruiseControl.CCTrayLib.Presentation;
@@ -20,7 +21,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Presentation
 				(IProjectMonitor) mockProjectMonitor.Object, null);
 
 			mockProjectMonitor.SetupGet(_monitor => _monitor.ProjectState).Returns(() => null).Verifiable();
-			Assert.IsNull(monitor.ProjectState);
+			ClassicAssert.IsNull(monitor.ProjectState);
+            ClassicAssert.IsNull(monitor.ProjectState);
 
             Dictionary<string, string> parameters = new Dictionary<string, string>();
 			mockProjectMonitor.Setup(_monitor => _monitor.ForceBuild(parameters, null)).Verifiable();
@@ -72,12 +74,12 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Presentation
 
 		private void Monitor_Polled(object sender, MonitorPolledEventArgs args)
 		{
-			Assert.Fail("Do not expect this method to actually get called as using mcoked synchronised invoke");
+			ClassicAssert.Fail("Do not expect this method to actually get called as using mcoked synchronised invoke");
 		}
 
 		private void Monitor_BuildOccurred(object sender, MonitorBuildOccurredEventArgs e)
 		{
-			Assert.Fail("Do not expect this method to actually get called as using mcoked synchronised invoke");
+			ClassicAssert.Fail("Do not expect this method to actually get called as using mcoked synchronised invoke");
 		}
 	}
 }

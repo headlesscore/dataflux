@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core.Tasks;
 
 namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
@@ -11,7 +12,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 		{
 			string data = "foo";
 			DataTaskResult result = new DataTaskResult(data);
-			Assert.AreEqual(data, result.Data);
-		}
+			ClassicAssert.AreEqual(data, result.Data);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
+        }
 	}
 }

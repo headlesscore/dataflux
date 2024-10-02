@@ -1,5 +1,6 @@
 using System;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.WebDashboard.IO;
 
 namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.IO
@@ -23,8 +24,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.IO
             ConditionalGetFingerprint firstFingerprint = new ConditionalGetFingerprint(testDate, testETag);
             ConditionalGetFingerprint secondFingerprint = new ConditionalGetFingerprint(testDate, testETag);
 
-            Assert.AreEqual(firstFingerprint, secondFingerprint);
-            Assert.AreNotSame(firstFingerprint, secondFingerprint);
+            ClassicAssert.AreEqual(firstFingerprint, secondFingerprint);
+            ClassicAssert.AreNotSame(firstFingerprint, secondFingerprint);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
         }
 
 		[Test]
@@ -35,7 +38,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.IO
 			DateTime differentDate = new DateTime(2007, 3, 22, 22, 50, 29, DateTimeKind.Utc);
 			ConditionalGetFingerprint secondFingerprint = new ConditionalGetFingerprint(differentDate, testETag);
 
-            Assert.AreNotEqual(firstFingerprint, secondFingerprint);
+            ClassicAssert.AreNotEqual(firstFingerprint, secondFingerprint);
         }
 
         [Test]
@@ -43,14 +46,14 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.IO
         {
             ConditionalGetFingerprint testFingerprint = new ConditionalGetFingerprint(testDate, testETag);
 
-            Assert.AreNotEqual(testFingerprint, ConditionalGetFingerprint.NOT_AVAILABLE);
+            ClassicAssert.AreNotEqual(testFingerprint, ConditionalGetFingerprint.NOT_AVAILABLE);
         }
 
         [Test]
         public void NotAvailableNotEvenEqualToItself()
         {
-            Assert.IsFalse(ConditionalGetFingerprint.NOT_AVAILABLE.Equals(ConditionalGetFingerprint.NOT_AVAILABLE));
-            Assert.AreSame(ConditionalGetFingerprint.NOT_AVAILABLE, ConditionalGetFingerprint.NOT_AVAILABLE);
+            ClassicAssert.IsFalse(ConditionalGetFingerprint.NOT_AVAILABLE.Equals(ConditionalGetFingerprint.NOT_AVAILABLE));
+            ClassicAssert.AreSame(ConditionalGetFingerprint.NOT_AVAILABLE, ConditionalGetFingerprint.NOT_AVAILABLE);
         }
 
         [Test]
@@ -59,7 +62,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.IO
             ConditionalGetFingerprint testFingerprint = new ConditionalGetFingerprint(testDate, testETag);
             ConditionalGetFingerprint fingerprintWithDifferentETag= new ConditionalGetFingerprint(testDate, testETag + "different");
 
-            Assert.That(delegate { testFingerprint.Combine(fingerprintWithDifferentETag); },
+            ClassicAssert.That(delegate { testFingerprint.Combine(fingerprintWithDifferentETag); },
                         Throws.TypeOf<UncombinableFingerprintException>());
         }
 
@@ -73,7 +76,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.IO
             ConditionalGetFingerprint newerFingerprint = new ConditionalGetFingerprint(recentDate, testETag);
 
             ConditionalGetFingerprint expectedFingerprint = newerFingerprint;
-            Assert.AreEqual(expectedFingerprint, olderFingerprint.Combine(newerFingerprint));
+            ClassicAssert.AreEqual(expectedFingerprint, olderFingerprint.Combine(newerFingerprint));
         }
 
         [Test]
@@ -81,8 +84,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.IO
         {
             ConditionalGetFingerprint testFingerprint = new ConditionalGetFingerprint(testDate, testETag);
 
-            Assert.AreSame(ConditionalGetFingerprint.NOT_AVAILABLE, ConditionalGetFingerprint.NOT_AVAILABLE.Combine(testFingerprint));
-            Assert.AreSame(ConditionalGetFingerprint.NOT_AVAILABLE, testFingerprint.Combine(ConditionalGetFingerprint.NOT_AVAILABLE));
+            ClassicAssert.AreSame(ConditionalGetFingerprint.NOT_AVAILABLE, ConditionalGetFingerprint.NOT_AVAILABLE.Combine(testFingerprint));
+            ClassicAssert.AreSame(ConditionalGetFingerprint.NOT_AVAILABLE, testFingerprint.Combine(ConditionalGetFingerprint.NOT_AVAILABLE));
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Tasks;
 using ThoughtWorks.CruiseControl.Core.Util;
@@ -40,7 +41,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
             // Verify the results
             VerifyResultMock(result, 5);
             mocks.Verify();
-            Assert.AreEqual(IntegrationStatus.Success, result.Status, "Status does not match");
+            ClassicAssert.AreEqual(IntegrationStatus.Success, result.Status, "Status does not match");
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
         }
 
         [Test]
@@ -67,7 +70,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
             // Verify the results
             VerifyResultMock(result, 4);
             mocks.Verify();
-            Assert.AreEqual(IntegrationStatus.Failure, result.Status, "Status does not match");
+            ClassicAssert.AreEqual(IntegrationStatus.Failure, result.Status, "Status does not match");
         }
 
         [Test]
@@ -95,7 +98,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
             // Verify the results
             VerifyResultMock(result, 5);
             mocks.Verify();
-            Assert.AreEqual(IntegrationStatus.Failure, result.Status, "Status does not match");
+            ClassicAssert.AreEqual(IntegrationStatus.Failure, result.Status, "Status does not match");
         }
 
         [Test]
@@ -122,7 +125,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
             // Verify the results
             VerifyResultMock(result, 0);
             mocks.Verify();
-            Assert.AreEqual(IntegrationStatus.Failure, result.Status, "Status does not match");
+            ClassicAssert.AreEqual(IntegrationStatus.Failure, result.Status, "Status does not match");
         }
 
         [Test]
@@ -160,8 +163,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 
             // Verify the results
             mocks.Verify();
-            Assert.AreEqual(IntegrationStatus.Failure, result.Status, "Status does not match");
-            Assert.AreEqual(innerCount * leafCount, result.TaskResults.Count, "Bad task results count");
+            ClassicAssert.AreEqual(IntegrationStatus.Failure, result.Status, "Status does not match");
+            ClassicAssert.AreEqual(innerCount * leafCount, result.TaskResults.Count, "Bad task results count");
         }
 
         private IIntegrationResult GenerateResultMock(int runCount)

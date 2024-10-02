@@ -4,6 +4,7 @@ using System.IO;
 using Exortech.NetReflector;
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Sourcecontrol;
 using ThoughtWorks.CruiseControl.Core.Util;
@@ -69,32 +70,34 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 </sourceControl>";	
 
 			NetReflector.Read(xml, vss);
-			Assert.AreEqual(@"..\tools\vss\ss.exe", vss.Executable);
-			Assert.AreEqual(@"admin", vss.Password.PrivateValue);
-			Assert.AreEqual(@"$/root", vss.Project);
-			Assert.AreEqual(@"..\tools\vss", vss.SsDir);
-			Assert.AreEqual(@"Joe Admin", vss.Username);
-			Assert.AreEqual(true, vss.ApplyLabel);
-			Assert.AreEqual(new Timeout(5), vss.Timeout);
-			Assert.AreEqual(true, vss.AutoGetSource);
-			Assert.AreEqual(@"C:\temp", vss.WorkingDirectory);
-			Assert.AreEqual("fr-FR", vss.Culture);
-			Assert.AreEqual(false, vss.CleanCopy);
-			Assert.AreEqual(true, vss.AlwaysGetLatest);
-		}
+			ClassicAssert.AreEqual(@"..\tools\vss\ss.exe", vss.Executable);
+			ClassicAssert.AreEqual(@"admin", vss.Password.PrivateValue);
+			ClassicAssert.AreEqual(@"$/root", vss.Project);
+			ClassicAssert.AreEqual(@"..\tools\vss", vss.SsDir);
+			ClassicAssert.AreEqual(@"Joe Admin", vss.Username);
+			ClassicAssert.AreEqual(true, vss.ApplyLabel);
+			ClassicAssert.AreEqual(new Timeout(5), vss.Timeout);
+			ClassicAssert.AreEqual(true, vss.AutoGetSource);
+			ClassicAssert.AreEqual(@"C:\temp", vss.WorkingDirectory);
+			ClassicAssert.AreEqual("fr-FR", vss.Culture);
+			ClassicAssert.AreEqual(false, vss.CleanCopy);
+			ClassicAssert.AreEqual(true, vss.AlwaysGetLatest);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
+        }
 
 		[Test]
 		public void ShouldPopulateWithMinimalConfiguration()
 		{
 			vss = (Vss) NetReflector.Read("<vss />");
-			Assert.AreEqual(Vss.DefaultProject, vss.Project);
+			ClassicAssert.AreEqual(Vss.DefaultProject, vss.Project);
 		}
 		
 		[Test]
 		public void StripQuotesFromSSDir()
 		{
 			vss.SsDir = @"""C:\Program Files\Microsoft Visual Studio\VSS""";
-			Assert.AreEqual(@"C:\Program Files\Microsoft Visual Studio\VSS", vss.SsDir);
+			ClassicAssert.AreEqual(@"C:\Program Files\Microsoft Visual Studio\VSS", vss.SsDir);
 		}
 
 		[Test]
@@ -103,14 +106,14 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 			mockRegistry.Setup(registry => registry.GetExpectedLocalMachineSubKeyValue(Vss.SS_REGISTRY_PATH, Vss.SS_REGISTRY_KEY)).
                 Returns(Platform.IsWindows ? @"C:\Program Files\Microsoft Visual Studio\VSS\win32\SSSCC.DLL" : "/Program Files/Microsoft Visual Studio/VSS/win32/SSSCC.DLL").
                 Verifiable();
-			Assert.AreEqual(DEFAULT_SS_EXE_PATH, vss.Executable);
+			ClassicAssert.AreEqual(DEFAULT_SS_EXE_PATH, vss.Executable);
 		}
 
 		[Test]
 		public void ShouldSetLocaleOnVssHistoryParserIfCultureChanges()
 		{
 			vss.Culture = "en-GB";
-			Assert.AreEqual(new VssLocale(new CultureInfo("en-GB")), historyParser.Locale);
+			ClassicAssert.AreEqual(new VssLocale(new CultureInfo("en-GB")), historyParser.Locale);
 		}
 
 		// GetModifications tests
@@ -168,7 +171,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 		public void ShouldFailIfProcessTimesOut()
 		{
 			ExpectToExecuteAndReturn(new ProcessResult("x", null, ProcessResult.TIMED_OUT_EXIT_CODE, true));
-            Assert.That(delegate { vss.GetModifications(IntegrationResult(yesterday), IntegrationResult(today)); },
+            ClassicAssert.That(delegate { vss.GetModifications(IntegrationResult(yesterday), IntegrationResult(today)); },
                         Throws.TypeOf<CruiseControlException>());
 		}
 
@@ -232,14 +235,14 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 		{
 			string workingDirectory = TempFileUtil.GetTempPath("VSS");
 			TempFileUtil.DeleteTempDir(workingDirectory);
-			Assert.IsFalse(Directory.Exists(workingDirectory));
+			ClassicAssert.IsFalse(Directory.Exists(workingDirectory));
 
 			ExpectToExecuteAndReturn(SuccessfulProcessResult());
 			vss.AutoGetSource = true;
 			vss.WorkingDirectory = workingDirectory;
 			vss.GetSource(IntegrationResultMother.CreateFailed());
 
-			Assert.IsTrue(Directory.Exists(workingDirectory));
+			ClassicAssert.IsTrue(Directory.Exists(workingDirectory));
 			TempFileUtil.DeleteTempDir(workingDirectory);
 		}
 

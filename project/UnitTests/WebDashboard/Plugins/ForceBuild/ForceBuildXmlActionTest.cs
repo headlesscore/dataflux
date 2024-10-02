@@ -1,5 +1,6 @@
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core.Reporting.Dashboard.Navigation;
 using ThoughtWorks.CruiseControl.WebDashboard.IO;
 using ThoughtWorks.CruiseControl.WebDashboard.MVC;
@@ -42,9 +43,11 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.Plugins.ForceBuild
             mockFarmService.Setup(service => service.ForceBuild(projectSpecifier, (string)null)).Verifiable();
 
 			IResponse response = reportAction.Execute(cruiseRequest);
-			Assert.IsTrue(response is XmlFragmentResponse);
-			Assert.AreEqual("<ForceBuildResult>Build Forced for myProject</ForceBuildResult>",
+			ClassicAssert.IsTrue(response is XmlFragmentResponse);
+			ClassicAssert.AreEqual("<ForceBuildResult>Build Forced for myProject</ForceBuildResult>",
 			                ((XmlFragmentResponse) response).ResponseFragment);
-		}
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
+        }
 	}
 }

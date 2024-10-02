@@ -7,6 +7,7 @@
     using System.Xml.Linq;
     using FluentAssertions;
     using NUnit.Framework;
+    using NUnit.Framework.Legacy;
     using ThoughtWorks.CruiseControl.Remote;
 
     public class ItemStatusTests
@@ -16,7 +17,9 @@
         public void ConstructorSetsName()
         {
             var item = new ItemStatus("theName");
-            Assert.AreEqual("theName", item.Name);
+            ClassicAssert.AreEqual("theName", item.Name);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
         }
 
         [Test]
@@ -41,15 +44,15 @@
             item.TimeOfEstimatedCompletion = estimatedTime;
             item.Parent = theParent;
 
-            Assert.AreEqual(theName, item.Name);
-            Assert.AreEqual(theDesc, item.Description);
-            Assert.AreEqual(theError, item.Error);
-            Assert.AreEqual(theStatus, item.Status);
-            Assert.AreEqual(startTime, item.TimeStarted);
-            Assert.AreEqual(completedTime, item.TimeCompleted);
-            Assert.AreEqual(estimatedTime, item.TimeOfEstimatedCompletion);
-            Assert.AreEqual(theParent, item.Parent);
-            Assert.AreNotEqual(item.Identifier, item.Parent.Identifier);
+            ClassicAssert.AreEqual(theName, item.Name);
+            ClassicAssert.AreEqual(theDesc, item.Description);
+            ClassicAssert.AreEqual(theError, item.Error);
+            ClassicAssert.AreEqual(theStatus, item.Status);
+            ClassicAssert.AreEqual(startTime, item.TimeStarted);
+            ClassicAssert.AreEqual(completedTime, item.TimeCompleted);
+            ClassicAssert.AreEqual(estimatedTime, item.TimeOfEstimatedCompletion);
+            ClassicAssert.AreEqual(theParent, item.Parent);
+            ClassicAssert.AreNotEqual(item.Identifier, item.Parent.Identifier);
         }
 
         [Test]
@@ -75,17 +78,17 @@
             item.ChildItems.Add(aChild);
             var clone = item.Clone();
 
-            Assert.AreEqual(theName, clone.Name);
-            Assert.AreEqual(theDesc, clone.Description);
-            Assert.AreEqual(theError, clone.Error);
-            Assert.AreEqual(theStatus, clone.Status);
-            Assert.AreEqual(startTime, clone.TimeStarted);
-            Assert.AreEqual(completedTime, clone.TimeCompleted);
-            Assert.AreEqual(estimatedTime, clone.TimeOfEstimatedCompletion);
-            Assert.AreEqual(item.Identifier, clone.Identifier);
-            Assert.AreEqual(1, clone.ChildItems.Count);
-            Assert.AreEqual("aChild", clone.ChildItems[0].Name);
-            Assert.AreEqual(aChild.Identifier, clone.ChildItems[0].Identifier);
+            ClassicAssert.AreEqual(theName, clone.Name);
+            ClassicAssert.AreEqual(theDesc, clone.Description);
+            ClassicAssert.AreEqual(theError, clone.Error);
+            ClassicAssert.AreEqual(theStatus, clone.Status);
+            ClassicAssert.AreEqual(startTime, clone.TimeStarted);
+            ClassicAssert.AreEqual(completedTime, clone.TimeCompleted);
+            ClassicAssert.AreEqual(estimatedTime, clone.TimeOfEstimatedCompletion);
+            ClassicAssert.AreEqual(item.Identifier, clone.Identifier);
+            ClassicAssert.AreEqual(1, clone.ChildItems.Count);
+            ClassicAssert.AreEqual("aChild", clone.ChildItems[0].Name);
+            ClassicAssert.AreEqual(aChild.Identifier, clone.ChildItems[0].Identifier);
         }
 
         [Test]
@@ -93,7 +96,7 @@
         {
             var item = new ItemStatus();
             var hash = item.GetHashCode();
-            Assert.AreEqual(item.Identifier.GetHashCode(), hash);
+            ClassicAssert.AreEqual(item.Identifier.GetHashCode(), hash);
         }
 
         [Test]
@@ -101,7 +104,7 @@
         {
             var item1 = new ItemStatus();
             var item2 = item1.Clone();
-            Assert.IsTrue(item1.Equals(item2));
+            ClassicAssert.IsTrue(item1.Equals(item2));
         }
 
         [Test]
@@ -109,7 +112,7 @@
         {
             var item1 = new ItemStatus();
             var item2 = new ItemStatus();
-            Assert.IsFalse(item1.Equals(item2));
+            ClassicAssert.IsFalse(item1.Equals(item2));
         }
 
         [Test]
@@ -117,7 +120,7 @@
         {
             var item1 = new ItemStatus();
             var item2 = "This is a test";
-            Assert.IsFalse(item1.Equals(item2));
+            ClassicAssert.IsFalse(item1.Equals(item2));
         }
 
         [Test]
@@ -157,7 +160,7 @@
                     "</childItem>" + 
                 "</childItems>" + 
                 "</itemStatus>";
-            //Assert.AreEqual(expected, xml);
+            //ClassicAssert.AreEqual(expected, xml);
 
             XDocument.Parse(xml).Should().BeEquivalentTo(XDocument.Parse(expected));
         }
@@ -186,20 +189,20 @@
             item.ChildItems.Add(aChild);
             var result = TestHelpers.RunSerialisationTest(item);
 
-            Assert.IsNotNull(result);
-            Assert.IsInstanceOf<ItemStatus>(result);
+            ClassicAssert.IsNotNull(result);
+            ClassicAssert.IsInstanceOf<ItemStatus>(result);
             var actualStatus = result as ItemStatus;
-            Assert.AreEqual(theName, actualStatus.Name);
-            Assert.AreEqual(theDesc, actualStatus.Description);
-            Assert.AreEqual(theError, actualStatus.Error);
-            Assert.AreEqual(theStatus, actualStatus.Status);
-            Assert.AreEqual(startTime, actualStatus.TimeStarted);
-            Assert.AreEqual(completedTime, actualStatus.TimeCompleted);
-            Assert.AreEqual(estimatedTime, actualStatus.TimeOfEstimatedCompletion);
-            Assert.AreEqual(item.Identifier, actualStatus.Identifier);
-            Assert.AreEqual(1, actualStatus.ChildItems.Count);
-            Assert.AreEqual("aChild", actualStatus.ChildItems[0].Name);
-            Assert.AreEqual(aChild.Identifier, actualStatus.ChildItems[0].Identifier);
+            ClassicAssert.AreEqual(theName, actualStatus.Name);
+            ClassicAssert.AreEqual(theDesc, actualStatus.Description);
+            ClassicAssert.AreEqual(theError, actualStatus.Error);
+            ClassicAssert.AreEqual(theStatus, actualStatus.Status);
+            ClassicAssert.AreEqual(startTime, actualStatus.TimeStarted);
+            ClassicAssert.AreEqual(completedTime, actualStatus.TimeCompleted);
+            ClassicAssert.AreEqual(estimatedTime, actualStatus.TimeOfEstimatedCompletion);
+            ClassicAssert.AreEqual(item.Identifier, actualStatus.Identifier);
+            ClassicAssert.AreEqual(1, actualStatus.ChildItems.Count);
+            ClassicAssert.AreEqual("aChild", actualStatus.ChildItems[0].Name);
+            ClassicAssert.AreEqual(aChild.Identifier, actualStatus.ChildItems[0].Identifier);
         }
         #endregion
     }

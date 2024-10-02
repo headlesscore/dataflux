@@ -3,6 +3,7 @@ using System.IO;
 using System.Xml;
 using System.Xml.XPath;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Publishers.Statistics;
 using ThoughtWorks.CruiseControl.Core.Util;
@@ -42,9 +43,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Publishers.Statistics
 
         public void AssertHasStatistic(string name, object value, StatisticsResults results)
         {
-            Assert.AreEqual(value,
+            ClassicAssert.AreEqual(value,
                             results.Find(delegate(StatisticResult obj) { return obj.StatName.Equals(name); }).Value,
                             "Wrong statistic for {0}", name);
+            ClassicAssert.IsTrue(true);
         }
 
         [Test]
@@ -68,9 +70,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Publishers.Statistics
             string failureType = Convert.ToString(failureTypeStat.Apply(navigator).Value);
             string failureMessage = Convert.ToString(failureMessageStat.Apply(navigator).Value);
 
-            Assert.IsTrue(failedBuildLog.IndexOf("builderror") > 0);
-            Assert.AreEqual("NAnt.Core.BuildException", failureType);
-            Assert.AreEqual(
+            ClassicAssert.IsTrue(failedBuildLog.IndexOf("builderror") > 0);
+            ClassicAssert.AreEqual("NAnt.Core.BuildException", failureType);
+            ClassicAssert.AreEqual(
                 @"External Program Failed: c:\sf\ccnet\tools\ncover\NCover.Console.exe (return code was 1)",
                 failureMessage);
         }
@@ -79,11 +81,11 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Publishers.Statistics
         public void ShouldNotAddStatisticWithSameName()
         {
             int count = builder.Statistics.Count;
-            Assert.IsTrue(count > 0);
+            ClassicAssert.IsTrue(count > 0);
             builder.Add(new Statistic("abc", "cdf"));
-            Assert.AreEqual(count + 1, builder.Statistics.Count);
+            ClassicAssert.AreEqual(count + 1, builder.Statistics.Count);
             builder.Add(new Statistic("abc", "cdf"));
-            Assert.AreEqual(count + 1, builder.Statistics.Count, "Duplicate Statistic added");
+            ClassicAssert.AreEqual(count + 1, builder.Statistics.Count, "Duplicate Statistic added");
         }
 
         [Test]

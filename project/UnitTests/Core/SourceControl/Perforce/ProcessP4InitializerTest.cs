@@ -1,6 +1,7 @@
 using System.Net;
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Sourcecontrol.Perforce;
 using ThoughtWorks.CruiseControl.Core.Util;
@@ -72,8 +73,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol.Perforce
 			p4Initializer.Initialize(p4, projectName, path);
 
 			// Verify
-			Assert.AreEqual(expectedClientName, p4.Client);
-			VerifyAll();
+			ClassicAssert.AreEqual(expectedClientName, p4.Client);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
+            VerifyAll();
 		}
 
 		[Test]
@@ -83,11 +86,11 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol.Perforce
 			try
 			{
 				p4Initializer.Initialize(p4, "myProject", "thisIsNotAnAbsoluteDirectory");
-				Assert.Fail("Should check for non absolute working directory");
+				ClassicAssert.Fail("Should check for non absolute working directory");
 			}
 			catch (CruiseControlException e)
 			{
-				Assert.IsTrue(e.Message.ToLower().IndexOf("absolute path") > -1, "Should mention something about an absolute directory");
+				ClassicAssert.IsTrue(e.Message.ToLower().IndexOf("absolute path") > -1, "Should mention something about an absolute directory");
 			}
 
 			VerifyAll();
@@ -101,11 +104,11 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol.Perforce
 			try
 			{
 				p4Initializer.Initialize(p4, "myProject", path);
-				Assert.Fail("Should check for a valid view");
+				ClassicAssert.Fail("Should check for a valid view");
 			}
 			catch (CruiseControlException e)
 			{
-				Assert.IsTrue(e.Message.ToLower().IndexOf("valid view") > -1, "Should mention something about a valid view");
+				ClassicAssert.IsTrue(e.Message.ToLower().IndexOf("valid view") > -1, "Should mention something about a valid view");
 			}
 			VerifyAll();
 		}
@@ -144,16 +147,16 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol.Perforce
 			try
 			{
 				p4Initializer.Initialize(p4, projectName, path);
-				Assert.Fail("Should throw an exception since process result has a non zero exit code");
+				ClassicAssert.Fail("Should throw an exception since process result has a non zero exit code");
 			}
 			catch (CruiseControlException e)
 			{
-				Assert.IsTrue(e.Message.IndexOf("This is standard out") > -1);
-				Assert.IsTrue(e.Message.IndexOf("This is standard error") > -1);
+				ClassicAssert.IsTrue(e.Message.IndexOf("This is standard out") > -1);
+				ClassicAssert.IsTrue(e.Message.IndexOf("This is standard error") > -1);
 			}
 
 			// Verify
-			Assert.AreEqual(expectedClientName, p4.Client);
+			ClassicAssert.AreEqual(expectedClientName, p4.Client);
 			VerifyAll();
 		}
 	}

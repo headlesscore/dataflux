@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core.Reporting.Dashboard.Navigation;
 using ThoughtWorks.CruiseControl.Core.Util;
 using ThoughtWorks.CruiseControl.Remote;
@@ -61,9 +62,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.Dashboard
 		{
 			ProjectStatusOnServer[] statusses = new ProjectStatusOnServer[0];
 
-            Assert.AreEqual(0, projectGrid.GenerateProjectGridRows(statusses, "myAction", ProjectGridSortColumn.Name, true, "", urlBuilderMock, new Translations("en-US")).Length);
+            ClassicAssert.AreEqual(0, projectGrid.GenerateProjectGridRows(statusses, "myAction", ProjectGridSortColumn.Name, true, "", urlBuilderMock, new Translations("en-US")).Length);
+            //ClassicAssert.AreEqual(0, projectGrid.GenerateProjectGridRows(statusses, "myAction", ProjectGridSortColumn.Name, true, "", urlBuilderMock, new Translations("en-US")).Length);
 
-			VerifyAll();
+            VerifyAll();
 		}
 
 		[Test]
@@ -81,8 +83,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.Dashboard
             ProjectGridRow[] rows = projectGrid.GenerateProjectGridRows(statusses, "myAction", ProjectGridSortColumn.Name, true, "", urlBuilderMock, new Translations("en-US"));
 
 			// Verify
-			Assert.AreEqual(1, rows.Length);
-			Assert.AreEqual(projectSpecifier.ProjectName, rows[0].Name);
+			ClassicAssert.AreEqual(1, rows.Length);
+			ClassicAssert.AreEqual(projectSpecifier.ProjectName, rows[0].Name);
 			VerifyAll();
 		}
 
@@ -101,8 +103,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.Dashboard
             ProjectGridRow[] rows = projectGrid.GenerateProjectGridRows(statusses, "myAction", ProjectGridSortColumn.Name, true, "", urlBuilderMock, new Translations("en-US"));
 
 			// Verify
-			Assert.AreEqual(1, rows.Length);
-			Assert.AreEqual("no build available", rows[0].LastBuildLabel);
+			ClassicAssert.AreEqual(1, rows.Length);
+			ClassicAssert.AreEqual("no build available", rows[0].LastBuildLabel);
 			VerifyAll();
 		}
 
@@ -121,8 +123,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.Dashboard
             ProjectGridRow[] rows = projectGrid.GenerateProjectGridRows(statusses, "myAction", ProjectGridSortColumn.Name, true, "", urlBuilderMock, new Translations("en-US"));
 
 			// Verify
-			Assert.AreEqual("Success", rows[0].BuildStatus);
-			Assert.AreEqual(Color.Green.Name, rows[0].BuildStatusHtmlColor);
+			ClassicAssert.AreEqual("Success", rows[0].BuildStatus);
+			ClassicAssert.AreEqual(Color.Green.Name, rows[0].BuildStatusHtmlColor);
 
 			// Setup
 			statusses = new ProjectStatusOnServer[]
@@ -135,8 +137,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.Dashboard
             rows = projectGrid.GenerateProjectGridRows(statusses, "myAction", ProjectGridSortColumn.Name, true, "", urlBuilderMock, new Translations("en-US"));
 
 			// Verify
-			Assert.AreEqual("Failure", rows[0].BuildStatus);
-			Assert.AreEqual(Color.Red.Name, rows[0].BuildStatusHtmlColor);
+			ClassicAssert.AreEqual("Failure", rows[0].BuildStatus);
+			ClassicAssert.AreEqual(Color.Red.Name, rows[0].BuildStatusHtmlColor);
 
 			// Setup
 			statusses = new ProjectStatusOnServer[]
@@ -149,8 +151,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.Dashboard
             rows = projectGrid.GenerateProjectGridRows(statusses, "myAction", ProjectGridSortColumn.Name, true, "", urlBuilderMock, new Translations("en-US"));
 
 			// Verify
-			Assert.AreEqual("Unknown", rows[0].BuildStatus);
-			Assert.AreEqual(Color.Blue.Name, rows[0].BuildStatusHtmlColor);
+			ClassicAssert.AreEqual("Unknown", rows[0].BuildStatus);
+			ClassicAssert.AreEqual(Color.Blue.Name, rows[0].BuildStatusHtmlColor);
 
 			// Setup
 			statusses = new ProjectStatusOnServer[]
@@ -163,8 +165,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.Dashboard
             rows = projectGrid.GenerateProjectGridRows(statusses, "myAction", ProjectGridSortColumn.Name, true, "", urlBuilderMock, new Translations("en-US"));
 
 			// Verify
-			Assert.AreEqual("Exception", rows[0].BuildStatus);
-			Assert.AreEqual(Color.Red.Name, rows[0].BuildStatusHtmlColor);
+			ClassicAssert.AreEqual("Exception", rows[0].BuildStatus);
+			ClassicAssert.AreEqual(Color.Red.Name, rows[0].BuildStatusHtmlColor);
 
 			VerifyAll();
 		}
@@ -184,7 +186,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.Dashboard
             ProjectGridRow[] rows = projectGrid.GenerateProjectGridRows(statusses, "myAction", ProjectGridSortColumn.Name, true, "", urlBuilderMock, new Translations("en-US"));
 
 			// Verify
-			Assert.AreEqual(DateUtil.FormatDate(date), rows[0].LastBuildDate);
+			ClassicAssert.AreEqual(DateUtil.FormatDate(date), rows[0].LastBuildDate);
 			VerifyAll();
 		}
 
@@ -207,7 +209,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.Dashboard
             ProjectGridRow[] rows = projectGrid.GenerateProjectGridRows(statusses, "myAction", ProjectGridSortColumn.Name, true, "", urlBuilderMock, new Translations("en-US"));
 
 			// Verify
-			Assert.AreEqual("Running", rows[0].Status);
+			ClassicAssert.AreEqual("Running", rows[0].Status);
            
 			VerifyAll();
 
@@ -226,7 +228,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.Dashboard
             rows = projectGrid.GenerateProjectGridRows(statusses, "myAction", ProjectGridSortColumn.Name, true, "", urlBuilderMock, new Translations("en-US"));
 
 			// Verify
-			Assert.AreEqual("Stopped", rows[0].Status);
+			ClassicAssert.AreEqual("Stopped", rows[0].Status);
 			VerifyAll();
 		}
 
@@ -248,7 +250,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.Dashboard
             ProjectGridRow[] rows = projectGrid.GenerateProjectGridRows(statusses, "myAction", ProjectGridSortColumn.Name, true, "", urlBuilderMock, new Translations("en-US"));
 
 			// Verify
-			Assert.AreEqual("Sleeping", rows[0].Activity);
+			ClassicAssert.AreEqual("Sleeping", rows[0].Activity);
 			VerifyAll();
 
 			// Setup
@@ -266,7 +268,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.Dashboard
             rows = projectGrid.GenerateProjectGridRows(statusses, "myAction", ProjectGridSortColumn.Name, true, "", urlBuilderMock, new Translations("en-US"));
 
 			// Verify
-			Assert.AreEqual("CheckingModifications", rows[0].Activity);
+			ClassicAssert.AreEqual("CheckingModifications", rows[0].Activity);
 			VerifyAll();
 		}
 
@@ -290,7 +292,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.Dashboard
             ProjectGridRow[] rows = projectGrid.GenerateProjectGridRows(statusses, "myAction", ProjectGridSortColumn.Name, true, "", urlBuilderMock, new Translations("en-US"));
 
 			// Verify
-			Assert.AreEqual("my label", rows[0].LastBuildLabel);
+			ClassicAssert.AreEqual("my label", rows[0].LastBuildLabel);
 			VerifyAll();
 		}
 
@@ -313,7 +315,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.Dashboard
             ProjectGridRow[] rows = projectGrid.GenerateProjectGridRows(statusses, "myAction", ProjectGridSortColumn.Name, true, "", urlBuilderMock, new Translations("en-US"));
 
 			// Verify
-			Assert.AreEqual("myLinkUrl", rows[0].Url);
+			ClassicAssert.AreEqual("myLinkUrl", rows[0].Url);
 			VerifyAll();
 		}
 
@@ -338,8 +340,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.Dashboard
             ProjectGridRow[] rows = projectGrid.GenerateProjectGridRows(statusses, "myAction", ProjectGridSortColumn.Name, true, "", urlBuilderMock, new Translations("en-US"));
 
 			// Verify
-			Assert.IsNotNull(rows[0].CurrentMessage);
-			Assert.AreEqual("Test Message", rows[0].CurrentMessage);
+			ClassicAssert.IsNotNull(rows[0].CurrentMessage);
+			ClassicAssert.AreEqual("Test Message", rows[0].CurrentMessage);
 			VerifyAll();
 
 			// Setup
@@ -360,8 +362,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.Dashboard
             rows = projectGrid.GenerateProjectGridRows(statusses, "myAction", ProjectGridSortColumn.Name, true, "", urlBuilderMock, new Translations("en-US"));
 
 			// Verify
-			Assert.IsNotNull(rows[0].CurrentMessage);
-			Assert.AreEqual("Second Message", rows[0].CurrentMessage);
+			ClassicAssert.IsNotNull(rows[0].CurrentMessage);
+			ClassicAssert.AreEqual("Second Message", rows[0].CurrentMessage);
 			VerifyAll();
 		}
 
@@ -385,7 +387,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.Dashboard
             ProjectGridRow[] rows = projectGrid.GenerateProjectGridRows(statusses, "myAction", ProjectGridSortColumn.Name, true, "", urlBuilderMock, new Translations("en-US"));
 
 			// Verify
-			Assert.AreEqual("category", rows[0].Category);
+			ClassicAssert.AreEqual("category", rows[0].Category);
 			VerifyAll();
 
 			// Setup
@@ -405,7 +407,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.Dashboard
             rows = projectGrid.GenerateProjectGridRows(statusses, "myAction", ProjectGridSortColumn.Name, true, "", urlBuilderMock, new Translations("en-US"));
 
 			// Verify
-			Assert.AreEqual("category1", rows[0].Category);
+			ClassicAssert.AreEqual("category1", rows[0].Category);
 			VerifyAll();
 		}
 
@@ -436,9 +438,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.Dashboard
             ProjectGridRow[] rows = projectGrid.GenerateProjectGridRows(statusses, "myAction", ProjectGridSortColumn.Name, true, "", urlBuilderMock, new Translations("en-US"));
 
 			// Verify
-			Assert.AreEqual(2, rows.Length);
-			Assert.AreEqual("a", rows[0].Name);
-			Assert.AreEqual("b", rows[1].Name);
+			ClassicAssert.AreEqual(2, rows.Length);
+			ClassicAssert.AreEqual("a", rows[0].Name);
+			ClassicAssert.AreEqual("b", rows[1].Name);
 
 			// Setup
 			SetupProjectLinkExpectation(projectA);
@@ -448,9 +450,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.Dashboard
             rows = projectGrid.GenerateProjectGridRows(statusses, "myAction", ProjectGridSortColumn.Name, false, "", urlBuilderMock, new Translations("en-US"));
 
 			// Verify
-			Assert.AreEqual(2, rows.Length);
-			Assert.AreEqual("b", rows[0].Name);
-			Assert.AreEqual("a", rows[1].Name);
+			ClassicAssert.AreEqual(2, rows.Length);
+			ClassicAssert.AreEqual("b", rows[0].Name);
+			ClassicAssert.AreEqual("a", rows[1].Name);
 
 			VerifyAll();
 		}
@@ -483,9 +485,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.Dashboard
             ProjectGridRow[] rows = projectGrid.GenerateProjectGridRows(statusses, "myAction", ProjectGridSortColumn.LastBuildDate, true, "", urlBuilderMock, new Translations("en-US"));
 
 			// Verify
-			Assert.AreEqual(2, rows.Length);
-			Assert.AreEqual("b", rows[0].Name);
-			Assert.AreEqual("a", rows[1].Name);
+			ClassicAssert.AreEqual(2, rows.Length);
+			ClassicAssert.AreEqual("b", rows[0].Name);
+			ClassicAssert.AreEqual("a", rows[1].Name);
 
 			// Setup
 			SetupProjectLinkExpectation(projectB);
@@ -495,9 +497,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.Dashboard
             rows = projectGrid.GenerateProjectGridRows(statusses, "myAction", ProjectGridSortColumn.LastBuildDate, false, "", urlBuilderMock, new Translations("en-US"));
 
 			// Verify
-			Assert.AreEqual(2, rows.Length);
-			Assert.AreEqual("a", rows[0].Name);
-			Assert.AreEqual("b", rows[1].Name);
+			ClassicAssert.AreEqual(2, rows.Length);
+			ClassicAssert.AreEqual("a", rows[0].Name);
+			ClassicAssert.AreEqual("b", rows[1].Name);
 
 			VerifyAll();
 		}
@@ -528,9 +530,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.Dashboard
             ProjectGridRow[] rows = projectGrid.GenerateProjectGridRows(statusses, "myAction", ProjectGridSortColumn.BuildStatus, true, "", urlBuilderMock, new Translations("en-US"));
 
 			// Verify
-			Assert.AreEqual(2, rows.Length);
-			Assert.AreEqual("b", rows[0].Name);
-			Assert.AreEqual("a", rows[1].Name);
+			ClassicAssert.AreEqual(2, rows.Length);
+			ClassicAssert.AreEqual("b", rows[0].Name);
+			ClassicAssert.AreEqual("a", rows[1].Name);
 
 			// Setup
 			SetupProjectLinkExpectation(projectA);
@@ -540,9 +542,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.Dashboard
             rows = projectGrid.GenerateProjectGridRows(statusses, "myAction", ProjectGridSortColumn.BuildStatus, false, "", urlBuilderMock, new Translations("en-US"));
 
 			// Verify
-			Assert.AreEqual(2, rows.Length);
-			Assert.AreEqual("a", rows[0].Name);
-			Assert.AreEqual("b", rows[1].Name);
+			ClassicAssert.AreEqual(2, rows.Length);
+			ClassicAssert.AreEqual("a", rows[0].Name);
+			ClassicAssert.AreEqual("b", rows[1].Name);
 
 			VerifyAll();
 		}
@@ -574,9 +576,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.Dashboard
             ProjectGridRow[] rows = projectGrid.GenerateProjectGridRows(statusses, "myAction", ProjectGridSortColumn.ServerName, true, "", urlBuilderMock, new Translations("en-US"));
 
 			// Verify
-			Assert.AreEqual(2, rows.Length);
-			Assert.AreEqual("a", rows[0].Name);
-			Assert.AreEqual("b", rows[1].Name);
+			ClassicAssert.AreEqual(2, rows.Length);
+			ClassicAssert.AreEqual("a", rows[0].Name);
+			ClassicAssert.AreEqual("b", rows[1].Name);
 
 			// Setup
 			SetupProjectLinkExpectation(projectA);
@@ -586,9 +588,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.Dashboard
             rows = projectGrid.GenerateProjectGridRows(statusses, "myAction", ProjectGridSortColumn.ServerName, false, "", urlBuilderMock, new Translations("en-US"));
 
 			// Verify
-			Assert.AreEqual(2, rows.Length);
-			Assert.AreEqual("b", rows[0].Name);
-			Assert.AreEqual("a", rows[1].Name);
+			ClassicAssert.AreEqual(2, rows.Length);
+			ClassicAssert.AreEqual("b", rows[0].Name);
+			ClassicAssert.AreEqual("a", rows[1].Name);
 
 			VerifyAll();
 		}
@@ -625,10 +627,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.Dashboard
             ProjectGridRow[] rows = projectGrid.GenerateProjectGridRows(status, "myAction", ProjectGridSortColumn.Category, true, "", urlBuilderMock, new Translations("en-US"));
 
 			// Verify
-			Assert.AreEqual(3, rows.Length);
-			Assert.AreEqual("A", rows[0].Name);
-			Assert.AreEqual("C", rows[1].Name);
-			Assert.AreEqual("B", rows[2].Name);
+			ClassicAssert.AreEqual(3, rows.Length);
+			ClassicAssert.AreEqual("A", rows[0].Name);
+			ClassicAssert.AreEqual("C", rows[1].Name);
+			ClassicAssert.AreEqual("B", rows[2].Name);
 
 			// Setup
 			SetupProjectLinkExpectation(projectA);
@@ -639,10 +641,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.Dashboard
             rows = projectGrid.GenerateProjectGridRows(status, "myAction", ProjectGridSortColumn.Category, false, "", urlBuilderMock, new Translations("en-US"));
 
 			// Verify
-			Assert.AreEqual(3, rows.Length);
-			Assert.AreEqual("B", rows[0].Name);
-			Assert.AreEqual("A", rows[1].Name);
-			Assert.AreEqual("C", rows[2].Name);
+			ClassicAssert.AreEqual(3, rows.Length);
+			ClassicAssert.AreEqual("B", rows[0].Name);
+			ClassicAssert.AreEqual("A", rows[1].Name);
+			ClassicAssert.AreEqual("C", rows[2].Name);
 
 			VerifyAll();
 		}

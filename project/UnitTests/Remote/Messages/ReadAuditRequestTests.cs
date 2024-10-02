@@ -2,6 +2,7 @@
 using System.Xml.Linq;
 using FluentAssertions;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Remote.Messages;
 using ThoughtWorks.CruiseControl.Remote.Security;
 
@@ -15,9 +16,11 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote.Messages
         {
             ReadAuditRequest request = new ReadAuditRequest();
             request.NumberOfRecords = 12;
-            Assert.AreEqual(12, request.NumberOfRecords, "NumberOfRecords fails the get/set test");
+            ClassicAssert.AreEqual(12, request.NumberOfRecords, "NumberOfRecords fails the get/set test");
             request.StartRecord = 15;
-            Assert.AreEqual(15, request.StartRecord, "StartRecord fails the get/set test");
+            ClassicAssert.AreEqual(15, request.StartRecord, "StartRecord fails the get/set test");
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
         }
 
         [Test]

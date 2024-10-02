@@ -2,6 +2,7 @@ using System;
 using System.Net;
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.CCTrayLib.Configuration;
 using ThoughtWorks.CruiseControl.CCTrayLib.Monitoring;
 using ThoughtWorks.CruiseControl.Remote;
@@ -30,9 +31,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Monitoring
 		[Test]
 		public void InitialisingReturnsCorrectServerProperties()
 		{
-			Assert.AreEqual(SERVER_URL, manager.Configuration.Url);
-			Assert.AreEqual(@"localhost", manager.DisplayName);
-			Assert.AreEqual(BuildServerTransport.HTTP, manager.Configuration.Transport);
+			ClassicAssert.AreEqual(SERVER_URL, manager.Configuration.Url);
+            //ClassicAssert.AreEqual(SERVER_URL, manager.Configuration.Url);
+            ClassicAssert.AreEqual(@"localhost", manager.DisplayName);
+			ClassicAssert.AreEqual(BuildServerTransport.HTTP, manager.Configuration.Transport);
 		}
 
 		[Test]
@@ -43,7 +45,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Monitoring
             Mock.Get(serverClient).Setup(_serverClient => _serverClient.GetCruiseServerSnapshot()).Returns(snapshot);
 			CruiseServerSnapshot actual = manager.GetCruiseServerSnapshot();
 			
-			Assert.AreSame(snapshot, actual);
+			ClassicAssert.AreSame(snapshot, actual);
 		}
 
 		[Test]
@@ -52,14 +54,14 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Monitoring
 
 			CruiseServerSnapshot actual = manager.GetCruiseServerSnapshot();
 			
-			Assert.IsNotNull(actual);
+			ClassicAssert.IsNotNull(actual);
 			// mainly want to make sure that the exception is caught, and return is not null. 
 		}
 
         [Test]
         public void CancelPendingRequestThrowsAnNotImplementedException()
         {
-            Assert.That(delegate { manager.CancelPendingRequest("myproject"); },
+            ClassicAssert.That(delegate { manager.CancelPendingRequest("myproject"); },
                         Throws.TypeOf<NotImplementedException>().With.Message.EqualTo("Cancel pending not currently supported on servers monitored via HTTP"));
         }
 	}

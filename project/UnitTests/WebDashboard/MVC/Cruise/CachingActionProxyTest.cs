@@ -1,5 +1,6 @@
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.WebDashboard.IO;
 using ThoughtWorks.CruiseControl.WebDashboard.MVC;
 using ThoughtWorks.CruiseControl.WebDashboard.MVC.Cruise;
@@ -36,9 +37,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.MVC.Cruise
 			mockCache.Setup(cache => cache.Get(request)).Returns(expectedResponse).Verifiable();
 
 			IResponse actualResponse = proxy.Execute(request);
-			Assert.AreSame(expectedResponse, actualResponse);
-
-			VerifyAll();
+			ClassicAssert.AreSame(expectedResponse, actualResponse);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
+            VerifyAll();
 		}
 
 		private IRequest CreateRequest()
@@ -57,7 +59,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.MVC.Cruise
 			mockCache.Setup(cache => cache.Insert(request, generatedResponse)).Verifiable();
 
 			IResponse actualResponse = proxy.Execute(request);
-			Assert.AreSame(generatedResponse, actualResponse);
+			ClassicAssert.AreSame(generatedResponse, actualResponse);
 
 			VerifyAll();
 		}

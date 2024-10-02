@@ -4,6 +4,7 @@ using System.IO;
 using Exortech.NetReflector;
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Sourcecontrol;
 using ThoughtWorks.CruiseControl.Core.Util;
@@ -52,8 +53,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 		[Test]
 		public void GitShouldBeDefaultExecutable()
 		{
-			Assert.AreEqual("git", git.Executable, "#A1");
-		}
+			ClassicAssert.AreEqual("git", git.Executable, "#A1");
+            ClassicAssert.IsTrue(true);
+        }
 
 		[Test]
 		public void PopulateFromFullySpecifiedXml()
@@ -77,20 +79,20 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 </git>";
 
 			git = (Git)NetReflector.Read(xml);
-			Assert.AreEqual("git", git.Executable, "#B1");
-			Assert.AreEqual(@"c:\git\ccnet\mygitrepo", git.Repository, "#B2");
-			Assert.AreEqual("master", git.Branch, "#B3");
-			Assert.AreEqual(new Timeout(5), git.Timeout, "#B4");
-			Assert.AreEqual(@"c:\git\working", git.WorkingDirectory, "#B5");
-			Assert.AreEqual(true, git.TagOnSuccess, "#B6");
-			Assert.AreEqual(true, git.AutoGetSource, "#B7");
-			Assert.AreEqual("CCNet Test Build {0}", git.TagCommitMessage, "#B8");
-			Assert.AreEqual("{0}", git.TagNameFormat, "#B9");
-			Assert.AreEqual("Max Mustermann", git.CommitterName, "#B10");
-			Assert.AreEqual("max.mustermann@gmx.de", git.CommitterEMail, "#B11");
-			Assert.AreEqual(true, git.CommitBuildModifications, "#B12");
-			Assert.AreEqual(true, git.CommitUntrackedFiles, "#B13");
-            Assert.AreEqual(500, git.MaxAmountOfModificationsToFetch,  "#B14");
+			ClassicAssert.AreEqual("git", git.Executable, "#B1");
+			ClassicAssert.AreEqual(@"c:\git\ccnet\mygitrepo", git.Repository, "#B2");
+			ClassicAssert.AreEqual("master", git.Branch, "#B3");
+			ClassicAssert.AreEqual(new Timeout(5), git.Timeout, "#B4");
+			ClassicAssert.AreEqual(@"c:\git\working", git.WorkingDirectory, "#B5");
+			ClassicAssert.AreEqual(true, git.TagOnSuccess, "#B6");
+			ClassicAssert.AreEqual(true, git.AutoGetSource, "#B7");
+			ClassicAssert.AreEqual("CCNet Test Build {0}", git.TagCommitMessage, "#B8");
+			ClassicAssert.AreEqual("{0}", git.TagNameFormat, "#B9");
+			ClassicAssert.AreEqual("Max Mustermann", git.CommitterName, "#B10");
+			ClassicAssert.AreEqual("max.mustermann@gmx.de", git.CommitterEMail, "#B11");
+			ClassicAssert.AreEqual(true, git.CommitBuildModifications, "#B12");
+			ClassicAssert.AreEqual(true, git.CommitUntrackedFiles, "#B13");
+            ClassicAssert.AreEqual(500, git.MaxAmountOfModificationsToFetch,  "#B14");
 
 		}
 
@@ -102,20 +104,20 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
     <repository>c:\git\ccnet\mygitrepo</repository>
 </git>";
 			git = (Git)NetReflector.Read(xml);
-			Assert.AreEqual(@"git", git.Executable, "#C1");
-			Assert.AreEqual(@"c:\git\ccnet\mygitrepo", git.Repository, "#C2");
-			Assert.AreEqual(@"master", git.Branch, "#C3");
-			Assert.AreEqual(new Timeout(600000), git.Timeout, "#C4");
-			Assert.AreEqual(null, git.WorkingDirectory, "#C5");
-			Assert.AreEqual(false, git.TagOnSuccess, "#C6");
-			Assert.AreEqual(true, git.AutoGetSource, "#C7");
-			Assert.AreEqual("CCNet Build {0}", git.TagCommitMessage, "#C8");
-			Assert.AreEqual("CCNet-Build-{0}", git.TagNameFormat, "#C9");
-			Assert.AreEqual(null, git.CommitterName, "#C10");
-			Assert.AreEqual(null, git.CommitterEMail, "#C11");
-			Assert.AreEqual(false, git.CommitBuildModifications, "#C12");
-			Assert.AreEqual(false, git.CommitUntrackedFiles, "#C13");
-            Assert.AreEqual(100, git.MaxAmountOfModificationsToFetch, "#C14");
+			ClassicAssert.AreEqual(@"git", git.Executable, "#C1");
+			ClassicAssert.AreEqual(@"c:\git\ccnet\mygitrepo", git.Repository, "#C2");
+			ClassicAssert.AreEqual(@"master", git.Branch, "#C3");
+			ClassicAssert.AreEqual(new Timeout(600000), git.Timeout, "#C4");
+			ClassicAssert.AreEqual(null, git.WorkingDirectory, "#C5");
+			ClassicAssert.AreEqual(false, git.TagOnSuccess, "#C6");
+			ClassicAssert.AreEqual(true, git.AutoGetSource, "#C7");
+			ClassicAssert.AreEqual("CCNet Build {0}", git.TagCommitMessage, "#C8");
+			ClassicAssert.AreEqual("CCNet-Build-{0}", git.TagNameFormat, "#C9");
+			ClassicAssert.AreEqual(null, git.CommitterName, "#C10");
+			ClassicAssert.AreEqual(null, git.CommitterEMail, "#C11");
+			ClassicAssert.AreEqual(false, git.CommitBuildModifications, "#C12");
+			ClassicAssert.AreEqual(false, git.CommitUntrackedFiles, "#C13");
+            ClassicAssert.AreEqual(100, git.MaxAmountOfModificationsToFetch, "#C14");
 		}
 
 		[Test]
@@ -338,7 +340,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 			IIntegrationResult to = IntegrationResult();
 			Modification[] result = git.GetModifications(IntegrationResult(FROM_COMMIT), to);
 
-			Assert.AreEqual(modifications, result);
+			ClassicAssert.AreEqual(modifications, result);
 			AssertIntegrationResultTaggedWithCommit(to, TO_COMMIT);
 		}
 
@@ -376,8 +378,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 		private void AssertIntegrationResultTaggedWithCommit(IIntegrationResult result, string commit)
 		{
 			Dictionary<string, string> data = NameValuePair.ToDictionary(result.SourceControlData);
-			Assert.That(data.ContainsKey(GIT_COMMIT_KEY), "IntegrationResult.SourceControlData did not contain commit info.");
-			Assert.That(data[GIT_COMMIT_KEY], Is.EqualTo(commit));
+			ClassicAssert.That(data.ContainsKey(GIT_COMMIT_KEY), "IntegrationResult.SourceControlData did not contain commit info.");
+			ClassicAssert.That(data[GIT_COMMIT_KEY], Is.EqualTo(commit));
 		}
 	}
 }

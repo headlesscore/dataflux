@@ -4,6 +4,7 @@ using System.IO;
 using System.Threading;
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Config;
 using ThoughtWorks.CruiseControl.Core.Queues;
@@ -52,6 +53,19 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
 			Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
 			             Path.Combine("CruiseControl.NET", "Server"));
 
+        [TearDown]
+        protected void TearDown()
+        {
+            if (server != null)
+            {
+                server.Dispose();
+            }
+            if (monitor != null)
+            {
+                monitor.Dispose();
+            }
+            
+        }
 		[SetUp]
 		protected void SetUp()
 		{
@@ -274,7 +288,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
 		[Test]
 		public void AttemptToForceBuildOnProjectThatDoesNotExist()
 		{
-            Assert.That(delegate { server.CruiseManager.ForceBuild("foo", "BuildForcer"); },
+            ClassicAssert.That(delegate { server.CruiseManager.ForceBuild("foo", "BuildForcer"); },
                         Throws.TypeOf<CruiseControlException>());
 		}
 
@@ -312,8 +326,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
 		public void DetectVersionMethod()
 		{
             string ServerVersion = server.CruiseManager.GetServerVersion();
-			Assert.IsFalse(ServerVersion.Length == 0, "Version not retrieved");
-		}
+			ClassicAssert.IsFalse(ServerVersion.Length == 0, "Version not retrieved");
+            //ClassicAssert.IsFalse(ServerVersion.Length == 0, "Version not retrieved");
+        }
 
 		[Test]
 		public void StopSpecificProject()
@@ -328,7 +343,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
 		[Test]
 		public void ThrowExceptionIfProjectNotFound()
 		{
-            Assert.That(delegate { server.CruiseManager.Stop("Project unknown"); },
+            ClassicAssert.That(delegate { server.CruiseManager.Stop("Project unknown"); },
                         Throws.TypeOf<CruiseControlException>());
 		}
 
@@ -363,19 +378,19 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
             server.ProjectStarting += delegate(object o, CancelProjectEventArgs e)
             {
                 projectStartingFired = true;
-                Assert.AreEqual(projectName, e.ProjectName);
+                ClassicAssert.AreEqual(projectName, e.ProjectName);
             };
 
             bool projectStartedFired = false;
             server.ProjectStarted += delegate(object o, ProjectEventArgs e)
             {
                 projectStartedFired = true;
-                Assert.AreEqual(projectName, e.ProjectName);
+                ClassicAssert.AreEqual(projectName, e.ProjectName);
             };
 
             server.CruiseManager.Start(projectName);
-            Assert.IsTrue(projectStartingFired, "ProjectStarting not fired");
-            Assert.IsTrue(projectStartedFired, "ProjectStarted not fired");
+            ClassicAssert.IsTrue(projectStartingFired, "ProjectStarting not fired");
+            ClassicAssert.IsTrue(projectStartedFired, "ProjectStarted not fired");
         }
 
         [Test]
@@ -386,17 +401,17 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
             server.ProjectStarting += delegate(object o, CancelProjectEventArgs e)
             {
                 projectStartingFired = true;
-                Assert.AreEqual(projectName, e.ProjectName);
+                ClassicAssert.AreEqual(projectName, e.ProjectName);
                 e.Cancel = true;
             };
 
             server.ProjectStarted += delegate(object o, ProjectEventArgs e)
             {
-                Assert.Fail("ProjectStarted has been fired");
+                ClassicAssert.Fail("ProjectStarted has been fired");
             };
 
             server.CruiseManager.Start(projectName);
-            Assert.IsTrue(projectStartingFired, "ProjectStarting not fired");
+            ClassicAssert.IsTrue(projectStartingFired, "ProjectStarting not fired");
         }
 
         [Test]
@@ -407,19 +422,19 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
             server.ProjectStopping += delegate(object o, CancelProjectEventArgs e)
             {
                 projectStoppingFired = true;
-                Assert.AreEqual(projectName, e.ProjectName);
+                ClassicAssert.AreEqual(projectName, e.ProjectName);
             };
 
             bool projectStoppedFired = false;
             server.ProjectStopped += delegate(object o, ProjectEventArgs e)
             {
                 projectStoppedFired = true;
-                Assert.AreEqual(projectName, e.ProjectName);
+                ClassicAssert.AreEqual(projectName, e.ProjectName);
             };
 
             server.CruiseManager.Stop(projectName);
-            Assert.IsTrue(projectStoppingFired, "ProjectStopping not fired");
-            Assert.IsTrue(projectStoppedFired, "ProjectStopped not fired");
+            ClassicAssert.IsTrue(projectStoppingFired, "ProjectStopping not fired");
+            ClassicAssert.IsTrue(projectStoppedFired, "ProjectStopped not fired");
         }
 
         [Test]
@@ -430,17 +445,17 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
             server.ProjectStopping += delegate(object o, CancelProjectEventArgs e)
             {
                 projectStoppingFired = true;
-                Assert.AreEqual(projectName, e.ProjectName);
+                ClassicAssert.AreEqual(projectName, e.ProjectName);
                 e.Cancel = true;
             };
 
             server.ProjectStopped += delegate(object o, ProjectEventArgs e)
             {
-                Assert.Fail("ProjectStopped has been fired");
+                ClassicAssert.Fail("ProjectStopped has been fired");
             };
 
             server.CruiseManager.Stop(projectName);
-            Assert.IsTrue(projectStoppingFired, "ProjectStopping not fired");
+            ClassicAssert.IsTrue(projectStoppingFired, "ProjectStopping not fired");
         }
 
         [Test]
@@ -452,19 +467,19 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
             server.ForceBuildReceived += delegate(object o, CancelProjectEventArgs<string> e)
             {
                 forceBuildReceived = true;
-                Assert.AreEqual(projectName, e.ProjectName);
+                ClassicAssert.AreEqual(projectName, e.ProjectName);
             };
 
             bool forceBuildProcessed = false;
             server.ForceBuildProcessed += delegate(object o, ProjectEventArgs<string> e)
             {
                 forceBuildProcessed = true;
-                Assert.AreEqual(projectName, e.ProjectName);
+                ClassicAssert.AreEqual(projectName, e.ProjectName);
             };
 
             server.CruiseManager.ForceBuild(projectName, enforcer);
-            Assert.IsTrue(forceBuildReceived, "ForceBuildReceived not fired");
-            Assert.IsTrue(forceBuildProcessed, "ForceBuildProcessed not fired");
+            ClassicAssert.IsTrue(forceBuildReceived, "ForceBuildReceived not fired");
+            ClassicAssert.IsTrue(forceBuildProcessed, "ForceBuildProcessed not fired");
         }
 
         [Test]
@@ -476,17 +491,17 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
             server.ForceBuildReceived += delegate(object o, CancelProjectEventArgs<string> e)
             {
                 forceBuildReceived = true;
-                Assert.AreEqual(projectName, e.ProjectName);
+                ClassicAssert.AreEqual(projectName, e.ProjectName);
                 e.Cancel = true;
             };
 
             server.ForceBuildProcessed += delegate(object o, ProjectEventArgs<string> e)
             {
-                Assert.Fail("ForceBuildProcessed has been fired");
+                ClassicAssert.Fail("ForceBuildProcessed has been fired");
             };
 
             server.CruiseManager.ForceBuild(projectName, enforcer);
-            Assert.IsTrue(forceBuildReceived, "ForceBuildReceived not fired");
+            ClassicAssert.IsTrue(forceBuildReceived, "ForceBuildReceived not fired");
         }
 
         [Test]
@@ -499,19 +514,19 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
             server.ForceBuildReceived += delegate(object o, CancelProjectEventArgs<string> e)
             {
                 forceBuildReceived = true;
-                Assert.AreEqual(projectName, e.ProjectName);
+                ClassicAssert.AreEqual(projectName, e.ProjectName);
             };
 
             bool forceBuildProcessed = false;
             server.ForceBuildProcessed += delegate(object o, ProjectEventArgs<string> e)
             {
                 forceBuildProcessed = true;
-                Assert.AreEqual(projectName, e.ProjectName);
+                ClassicAssert.AreEqual(projectName, e.ProjectName);
             };
 
             server.CruiseManager.Request(projectName, request);
-            Assert.IsTrue(forceBuildReceived, "ForceBuildReceived not fired");
-            Assert.IsTrue(forceBuildProcessed, "ForceBuildProcessed not fired");
+            ClassicAssert.IsTrue(forceBuildReceived, "ForceBuildReceived not fired");
+            ClassicAssert.IsTrue(forceBuildProcessed, "ForceBuildProcessed not fired");
         }
 
         [Test]
@@ -524,17 +539,17 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
             server.ForceBuildReceived += delegate(object o, CancelProjectEventArgs<string> e)
             {
                 forceBuildReceived = true;
-                Assert.AreEqual(projectName, e.ProjectName);
+                ClassicAssert.AreEqual(projectName, e.ProjectName);
                 e.Cancel = true;
             };
 
             server.ForceBuildProcessed += delegate(object o, ProjectEventArgs<string> e)
             {
-                Assert.Fail("ForceBuildProcessed has been fired");
+                ClassicAssert.Fail("ForceBuildProcessed has been fired");
             };
 
             server.CruiseManager.Request(projectName, request);
-            Assert.IsTrue(forceBuildReceived, "ForceBuildReceived not fired");
+            ClassicAssert.IsTrue(forceBuildReceived, "ForceBuildReceived not fired");
         }
 
         [Test]
@@ -546,19 +561,19 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
             server.AbortBuildReceived += delegate(object o, CancelProjectEventArgs<string> e)
             {
                 abortBuildReceived = true;
-                Assert.AreEqual(projectName, e.ProjectName);
+                ClassicAssert.AreEqual(projectName, e.ProjectName);
             };
 
             bool abortBuildProcessed = false;
             server.AbortBuildProcessed += delegate(object o, ProjectEventArgs<string> e)
             {
                 abortBuildProcessed = true;
-                Assert.AreEqual(projectName, e.ProjectName);
+                ClassicAssert.AreEqual(projectName, e.ProjectName);
             };
 
             server.CruiseManager.AbortBuild(projectName, enforcer);
-            Assert.IsTrue(abortBuildReceived, "AbortBuildReceived not fired");
-            Assert.IsTrue(abortBuildProcessed, "AbortBuildProcessed not fired");
+            ClassicAssert.IsTrue(abortBuildReceived, "AbortBuildReceived not fired");
+            ClassicAssert.IsTrue(abortBuildProcessed, "AbortBuildProcessed not fired");
         }
 
         [Test]
@@ -570,17 +585,17 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
             server.AbortBuildReceived += delegate(object o, CancelProjectEventArgs<string> e)
             {
                 abortBuildReceived = true;
-                Assert.AreEqual(projectName, e.ProjectName);
+                ClassicAssert.AreEqual(projectName, e.ProjectName);
                 e.Cancel = true;
             };
 
             server.AbortBuildProcessed += delegate(object o, ProjectEventArgs<string> e)
             {
-                Assert.Fail("AbortBuildProcessed has been fired");
+                ClassicAssert.Fail("AbortBuildProcessed has been fired");
             };
 
             server.CruiseManager.AbortBuild(projectName, enforcer);
-            Assert.IsTrue(abortBuildReceived, "AbortBuildReceived not fired");
+            ClassicAssert.IsTrue(abortBuildReceived, "AbortBuildReceived not fired");
         }
 
         [Test]
@@ -592,21 +607,21 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
             server.SendMessageReceived += delegate(object o, CancelProjectEventArgs<Message> e)
             {
                 sendMessageReceived = true;
-                Assert.AreEqual(projectName, e.ProjectName);
-                Assert.AreEqual(message.Text, e.Data.Text);
+                ClassicAssert.AreEqual(projectName, e.ProjectName);
+                ClassicAssert.AreEqual(message.Text, e.Data.Text);
             };
 
             bool sendMessageProcessed = false;
             server.SendMessageProcessed += delegate(object o, ProjectEventArgs<Message> e)
             {
                 sendMessageProcessed = true;
-                Assert.AreEqual(projectName, e.ProjectName);
-                Assert.AreEqual(message.Text, e.Data.Text);
+                ClassicAssert.AreEqual(projectName, e.ProjectName);
+                ClassicAssert.AreEqual(message.Text, e.Data.Text);
             };
 
             server.CruiseManager.SendMessage(projectName, message);
-            Assert.IsTrue(sendMessageReceived, "SendMessageReceived not fired");
-            Assert.IsTrue(sendMessageProcessed, "SendMessageProcessed not fired");
+            ClassicAssert.IsTrue(sendMessageReceived, "SendMessageReceived not fired");
+            ClassicAssert.IsTrue(sendMessageProcessed, "SendMessageProcessed not fired");
         }
 
         [Test]
@@ -618,18 +633,18 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
             server.SendMessageReceived += delegate(object o, CancelProjectEventArgs<Message> e)
             {
                 sendMessageReceived = true;
-                Assert.AreEqual(projectName, e.ProjectName);
-                Assert.AreEqual(message.Text, e.Data.Text);
+                ClassicAssert.AreEqual(projectName, e.ProjectName);
+                ClassicAssert.AreEqual(message.Text, e.Data.Text);
                 e.Cancel = true;
             };
 
             server.SendMessageProcessed += delegate(object o, ProjectEventArgs<Message> e)
             {
-                Assert.Fail("SendMessageProcessed has been fired");
+                ClassicAssert.Fail("SendMessageProcessed has been fired");
             };
 
             server.CruiseManager.SendMessage(projectName, message);
-            Assert.IsTrue(sendMessageReceived, "SendMessageReceived not fired");
+            ClassicAssert.IsTrue(sendMessageReceived, "SendMessageReceived not fired");
         }
 
         [Test]
@@ -661,14 +676,14 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
             server.IntegrationStarted += delegate(object o, IntegrationStartedEventArgs e)
             {
                 eventFired = true;
-                Assert.AreEqual(projectName, e.ProjectName);
-                Assert.AreSame(request, e.Request);
+                ClassicAssert.AreEqual(projectName, e.ProjectName);
+                ClassicAssert.AreSame(request, e.Request);
             };
 
 
             Mock.Get(integrator4).Raise(_integrator4 => _integrator4.IntegrationStarted += null,
                 new IntegrationStartedEventArgs(request, projectName));
-            Assert.IsTrue(eventFired, "IntegrationStarted not fired");
+            ClassicAssert.IsTrue(eventFired, "IntegrationStarted not fired");
         }
 
         [Test]
@@ -700,15 +715,15 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
             server.IntegrationCompleted += delegate(object o, IntegrationCompletedEventArgs e)
             {
                 eventFired = true;
-                Assert.AreEqual(projectName, e.ProjectName);
-                Assert.AreEqual(IntegrationStatus.Success, e.Status);
-                Assert.AreSame(request, e.Request);
+                ClassicAssert.AreEqual(projectName, e.ProjectName);
+                ClassicAssert.AreEqual(IntegrationStatus.Success, e.Status);
+                ClassicAssert.AreSame(request, e.Request);
             };
 
 
             Mock.Get(integrator4).Raise(_integrator4 => _integrator4.IntegrationCompleted += null,
                 new IntegrationCompletedEventArgs(request, projectName, IntegrationStatus.Success));
-            Assert.IsTrue(eventFired, "IntegrationCompleted not fired");
+            ClassicAssert.IsTrue(eventFired, "IntegrationCompleted not fired");
         }
 
         [Test]
@@ -729,13 +744,13 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
 									  fileSystem,
 									  executionEnvironment,
                                       extensions);
-            Assert.IsTrue(ServerExtensionStub.HasInitialised);
+            ClassicAssert.IsTrue(ServerExtensionStub.HasInitialised);
 
             server.Start();
-            Assert.IsTrue(ServerExtensionStub.HasStarted);
+            ClassicAssert.IsTrue(ServerExtensionStub.HasStarted);
 
             server.Stop();
-            Assert.IsTrue(ServerExtensionStub.HasStopped);
+            ClassicAssert.IsTrue(ServerExtensionStub.HasStopped);
         }
 
         [Test]
@@ -750,7 +765,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
             projectIntegratorListFactoryMock.Setup(factory => factory.CreateProjectIntegrators(configuration.Projects, It.IsAny<IntegrationQueueSet>()))
                 .Returns(integratorList).Verifiable();
 
-            Assert.That(delegate
+            ClassicAssert.That(delegate
                             {
                                 new CruiseServer((IConfigurationService) configServiceMock.Object,
                                                  (IProjectIntegratorListFactory)
@@ -783,13 +798,13 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
 									  fileSystem,
 									  executionEnvironment,
                                       extensions);
-            Assert.IsTrue(ServerExtensionStub.HasInitialised);
+            ClassicAssert.IsTrue(ServerExtensionStub.HasInitialised);
 
             server.Start();
-            Assert.IsTrue(ServerExtensionStub.HasStarted);
+            ClassicAssert.IsTrue(ServerExtensionStub.HasStarted);
 
             server.Abort();
-            Assert.IsTrue(ServerExtensionStub.HasAborted);
+            ClassicAssert.IsTrue(ServerExtensionStub.HasAborted);
         }
 
         [Test]
@@ -797,7 +812,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
         {
             var request = GenerateProjectRequest("garbage project");
             var response = server.TakeStatusSnapshot(request);
-            Assert.AreEqual(ResponseResult.Failure, response.Result);
+            ClassicAssert.AreEqual(ResponseResult.Failure, response.Result);
         }
 
         [Test]
@@ -806,28 +821,28 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
             var request = GenerateProjectRequest("Project 1");
             var response = server.TakeStatusSnapshot(request);
             ProjectStatusSnapshot snapshot = response.Snapshot;
-            Assert.IsNotNull(snapshot, "Snapshot not taken");
-            Assert.AreEqual("Project 1", snapshot.Name, "Name not set");
+            ClassicAssert.IsNotNull(snapshot, "Snapshot not taken");
+            ClassicAssert.AreEqual("Project 1", snapshot.Name, "Name not set");
         }
 
         [Test]
         public void RetrieveFileTransferOnlyWorksForFilesInArtefactFolder()
         {
-        	Assert.That(delegate { server.CruiseManager.RetrieveFileTransfer("Project 1", Path.Combine("..", "testfile.txt")); },
+        	ClassicAssert.That(delegate { server.CruiseManager.RetrieveFileTransfer("Project 1", Path.Combine("..", "testfile.txt")); },
                         Throws.TypeOf<CruiseControlException>());
         }
 
         [Test]
         public void RetrieveFileTransferFailsForBuildLogsFolder()
         {
-            Assert.That(delegate { server.CruiseManager.RetrieveFileTransfer("Project 1", Path.Combine("buildlogs", "testfile.txt")); },
+            ClassicAssert.That(delegate { server.CruiseManager.RetrieveFileTransfer("Project 1", Path.Combine("buildlogs", "testfile.txt")); },
                         Throws.TypeOf<CruiseControlException>());
         }
 
         [Test]
         public void RetrieveFileTransferFailsForAbsolutePaths()
         {
-            Assert.That(delegate { server.CruiseManager.RetrieveFileTransfer("Project 1", Path.GetFullPath(Path.Combine(".", "MyFile.txt"))); },
+            ClassicAssert.That(delegate { server.CruiseManager.RetrieveFileTransfer("Project 1", Path.GetFullPath(Path.Combine(".", "MyFile.txt"))); },
                         Throws.TypeOf<CruiseControlException>());
         }
 
@@ -838,14 +853,14 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
             if (!File.Exists(tempFile)) File.WriteAllText(tempFile, "This is a test");
             project1.ConfiguredArtifactDirectory = Path.GetDirectoryName(tempFile);
             var transfer = server.CruiseManager.RetrieveFileTransfer("Project 1", Path.GetFileName(tempFile));
-            Assert.IsNotNull(transfer);
+            ClassicAssert.IsNotNull(transfer);
         }
 
         [Test]
         public void RetrieveFileTransferGeneratesNullForInvalidFile()
         {
             var transfer = server.CruiseManager.RetrieveFileTransfer("Project 1", "GarbageFileNameThatShouldNotExist.NotHere");
-            Assert.IsNull(transfer);
+            ClassicAssert.IsNull(transfer);
         }
 
         [Test]
@@ -861,8 +876,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
             var actual = server.GetFinalBuildStatus(request);
 
             this.mocks.Verify();
-            Assert.AreEqual(ResponseResult.Failure, actual.Result);
-            Assert.AreEqual("Permission to execute 'ViewProject' has been denied.", actual.ErrorMessages[0].Message);
+            ClassicAssert.AreEqual(ResponseResult.Failure, actual.Result);
+            ClassicAssert.AreEqual("Permission to execute 'ViewProject' has been denied.", actual.ErrorMessages[0].Message);
         }
 
         [Test]
@@ -878,8 +893,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
             var actual = server.GetFinalBuildStatus(request);
 
             this.mocks.Verify();
-            Assert.AreEqual(ResponseResult.Warning, actual.Result);
-            Assert.AreEqual("Build status does not exist", actual.ErrorMessages[0].Message);
+            ClassicAssert.AreEqual(ResponseResult.Warning, actual.Result);
+            ClassicAssert.AreEqual("Build status does not exist", actual.ErrorMessages[0].Message);
         }
 
         [Test]
@@ -899,8 +914,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
             var actual = server.GetFinalBuildStatus(request);
 
             this.mocks.Verify();
-            Assert.AreEqual(ResponseResult.Success, actual.Result);
-            Assert.AreEqual("Project 1", actual.Snapshot.Name);
+            ClassicAssert.AreEqual(ResponseResult.Success, actual.Result);
+            ClassicAssert.AreEqual("Project 1", actual.Snapshot.Name);
         }
 
         [Test]
@@ -917,8 +932,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
             var actual = server.GetRSSFeed(request);
 
             this.mocks.Verify();
-            Assert.AreEqual(ResponseResult.Success, actual.Result);
-            Assert.AreEqual("RSS-Feed", actual.Data);
+            ClassicAssert.AreEqual(ResponseResult.Success, actual.Result);
+            ClassicAssert.AreEqual("RSS-Feed", actual.Data);
         }
 
         private ProjectRequest GenerateProjectRequest(string projectName)

@@ -1,6 +1,7 @@
 using System.IO;
 using Exortech.NetReflector;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Publishers;
 using ThoughtWorks.CruiseControl.Core.Util;
@@ -43,10 +44,11 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Publishers
 
 			publisher.Run(result);
 
-			Assert.IsTrue(labelPubDir.Combine(fileName).Exists(), "File not found in build number directory");
-			SystemPath subPubDir = labelPubDir.Combine("SubDir");
-			Assert.IsTrue(subPubDir.Combine(fileName).Exists(), "File not found in sub directory");
-			Assert.IsTrue(subPubDir.Combine("SubSubDir").Combine(fileName).Exists(), "File not found in sub sub directory");
+			ClassicAssert.IsTrue(labelPubDir.Combine(fileName).Exists(), "File not found in build number directory");
+            ClassicAssert.IsTrue(labelPubDir.Combine(fileName).Exists(), "File not found in build number directory");
+            SystemPath subPubDir = labelPubDir.Combine("SubDir");
+			ClassicAssert.IsTrue(subPubDir.Combine(fileName).Exists(), "File not found in sub directory");
+			ClassicAssert.IsTrue(subPubDir.Combine("SubSubDir").Combine(fileName).Exists(), "File not found in sub sub directory");
 		}
 
 
@@ -58,11 +60,11 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Publishers
             publisher.UseLabelSubDirectory = false;
             publisher.Run(result);
 
-            Assert.IsTrue(pubRoot.Combine(fileName).Exists(), "File not found in publish folder");
+            ClassicAssert.IsTrue(pubRoot.Combine(fileName).Exists(), "File not found in publish folder");
 
             // simulate deletion of a file
             rootFile.DeleteFile();
-            Assert.IsFalse(srcRoot.Combine(fileName).Exists(), "File found in root folder");
+            ClassicAssert.IsFalse(srcRoot.Combine(fileName).Exists(), "File found in root folder");
 
 
             // publish again
@@ -70,7 +72,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Publishers
             publisher.Run(result);
 
 
-            Assert.IsFalse(pubRoot.Combine(fileName).Exists(), "File found in publish folder");
+            ClassicAssert.IsFalse(pubRoot.Combine(fileName).Exists(), "File found in publish folder");
 
         }
 
@@ -88,10 +90,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Publishers
 
             publisher.Run(result);
 
-            Assert.IsFalse(labelPubDir.Combine(fileName).Exists(), "File found in build number directory");
+            ClassicAssert.IsFalse(labelPubDir.Combine(fileName).Exists(), "File found in build number directory");
             SystemPath subPubDir = labelPubDir.Combine("SubDir");
-            Assert.IsFalse(subPubDir.Combine(fileName).Exists(), "File found in sub directory");
-            Assert.IsFalse(subPubDir.Combine("SubSubDir").Combine(fileName).Exists(), "File found in sub sub directory");
+            ClassicAssert.IsFalse(subPubDir.Combine(fileName).Exists(), "File found in sub directory");
+            ClassicAssert.IsFalse(subPubDir.Combine("SubSubDir").Combine(fileName).Exists(), "File found in sub sub directory");
         }
 
 
@@ -109,10 +111,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Publishers
             publisher.AlwaysPublish = true;
             publisher.Run(result);
 
-            Assert.IsTrue(labelPubDir.Combine(fileName).Exists(), "File not found in build number directory");
+            ClassicAssert.IsTrue(labelPubDir.Combine(fileName).Exists(), "File not found in build number directory");
             SystemPath subPubDir = labelPubDir.Combine("SubDir");
-            Assert.IsTrue(subPubDir.Combine(fileName).Exists(), "File not found in sub directory");
-            Assert.IsTrue(subPubDir.Combine("SubSubDir").Combine(fileName).Exists(), "File not found in sub sub directory");
+            ClassicAssert.IsTrue(subPubDir.Combine(fileName).Exists(), "File not found in sub directory");
+            ClassicAssert.IsTrue(subPubDir.Combine("SubSubDir").Combine(fileName).Exists(), "File not found in sub sub directory");
         }
 
 
@@ -127,7 +129,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Publishers
 			publisher.SourceDir = "foo";
 			publisher.Run(result);
 
-			Assert.IsTrue(labelPubDir.Combine(fileName).Exists(), "File not found in build number directory");
+			ClassicAssert.IsTrue(labelPubDir.Combine(fileName).Exists(), "File not found in build number directory");
 		}
 
 		[Test]
@@ -140,7 +142,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Publishers
 			publisher.Run(result);
 
 			labelPubDir = pubRoot.Combine("bar").Combine("99").Combine("foo");
-			Assert.IsTrue(labelPubDir.Combine(fileName).Exists(), "File not found in build number directory");
+			ClassicAssert.IsTrue(labelPubDir.Combine(fileName).Exists(), "File not found in build number directory");
 		}
 
 		[Test]
@@ -150,7 +152,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Publishers
 			publisher.UseLabelSubDirectory = false;
 			publisher.Run(result);
 
-			Assert.IsTrue(pubRoot.Combine(fileName).Exists(), "File not found in pubRoot directory");
+			ClassicAssert.IsTrue(pubRoot.Combine(fileName).Exists(), "File not found in pubRoot directory");
 		}
 
 		[Test]
@@ -197,8 +199,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Publishers
 			string xml = @"<buildpublisher />";
 
 			publisher = (BuildPublisher) NetReflector.Read(xml);
-			Assert.IsNull(publisher.SourceDir);
-			Assert.IsNull(publisher.PublishDir);
+			ClassicAssert.IsNull(publisher.SourceDir);
+			ClassicAssert.IsNull(publisher.PublishDir);
 
             var expected = new BuildPublisher
             {
@@ -223,7 +225,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Publishers
 			publisher = new BuildPublisher();
 			publisher.Run(result);
 
-			Assert.IsTrue(labelPubDir.Combine(fileName).Exists(), "File not found in pubRoot directory");
+			ClassicAssert.IsTrue(labelPubDir.Combine(fileName).Exists(), "File not found in pubRoot directory");
 		}
 		
 		[TearDown]

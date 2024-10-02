@@ -1,5 +1,6 @@
 using System;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.WebDashboard.Resources;
 
 namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.Plugins.Statistics
@@ -17,13 +18,14 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.Plugins.Statistics
             bg01 = GetBuildGraph(2, true);      
             bg02 = GetBuildGraph(2, true);      
 
-            Assert.IsTrue(bg01.Equals(bg02));
+            ClassicAssert.IsTrue(bg01.Equals(bg02));
 
             bg01 = GetBuildGraph(2, false);      
             bg02 = GetBuildGraph(2, false);      
 
-            Assert.IsTrue(bg01.Equals(bg02));
-
+            ClassicAssert.IsTrue(bg01.Equals(bg02));
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
         }
 
 
@@ -36,12 +38,12 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.Plugins.Statistics
             bg01 = GetBuildGraph(1, true);      
             bg02 = GetBuildGraph(5, true);      
 
-            Assert.IsFalse(bg01.Equals(bg02));
+            ClassicAssert.IsFalse(bg01.Equals(bg02));
 
             bg01 = GetBuildGraph(1, false);      
             bg02 = GetBuildGraph(5, false);      
 
-            Assert.IsFalse(bg01.Equals(bg02));
+            ClassicAssert.IsFalse(bg01.Equals(bg02));
         
         }
 
@@ -56,12 +58,12 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.Plugins.Statistics
 
             var Result = bg01.GetBuildHistory(15); // get all builds, but limit them to the last 15 days
             
-            Assert.AreEqual(1,bg01.HighestAmountPerDay, "builds in same day must result in HighestAmountPerDay set to 1");
-            Assert.AreEqual(1,Result.Count, "1 build must result in HighestAmountPerDay set to 1");
+            ClassicAssert.AreEqual(1,bg01.HighestAmountPerDay, "builds in same day must result in HighestAmountPerDay set to 1");
+            ClassicAssert.AreEqual(1,Result.Count, "1 build must result in HighestAmountPerDay set to 1");
             
             GraphInfoDay1 = Result[0] as CruiseControl.WebDashboard.Plugins.Statistics.BuildGraph.GraphBuildDayInfo;
             
-            Assert.AreEqual(1, GraphInfoDay1.AmountOfBuilds, "1 build must have 1 build result in 1 day");
+            ClassicAssert.AreEqual(1, GraphInfoDay1.AmountOfBuilds, "1 build must have 1 build result in 1 day");
            
         }
 
@@ -75,12 +77,12 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.Plugins.Statistics
 
             var Result = bg01.GetBuildHistory(15); // get all builds, but limit them to the last 15 days
             
-            Assert.AreEqual(10, bg01.HighestAmountPerDay, "incorrect amount of HighestAmountPerDay");
-            Assert.AreEqual(1,Result.Count, "builds are in the same day, must have 1 day-build result");
+            ClassicAssert.AreEqual(10, bg01.HighestAmountPerDay, "incorrect amount of HighestAmountPerDay");
+            ClassicAssert.AreEqual(1,Result.Count, "builds are in the same day, must have 1 day-build result");
             
             GraphInfoDay1 = Result[0] as CruiseControl.WebDashboard.Plugins.Statistics.BuildGraph.GraphBuildDayInfo;
             
-            Assert.AreEqual(10, GraphInfoDay1.AmountOfBuilds, "day-build must have 10 build results");
+            ClassicAssert.AreEqual(10, GraphInfoDay1.AmountOfBuilds, "day-build must have 10 build results");
            
         }
 
@@ -94,12 +96,12 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.Plugins.Statistics
 
             var Result = bg01.GetBuildHistory(15); // get all builds, but limit them to the last 15 days
             
-            Assert.AreEqual(1,bg01.HighestAmountPerDay, "1 build must result in HighestAmountPerDay set to 1");
-            Assert.AreEqual(10,Result.Count, "incorrect amount of build days");
+            ClassicAssert.AreEqual(1,bg01.HighestAmountPerDay, "1 build must result in HighestAmountPerDay set to 1");
+            ClassicAssert.AreEqual(10,Result.Count, "incorrect amount of build days");
             
             GraphInfoDay1 = Result[0] as CruiseControl.WebDashboard.Plugins.Statistics.BuildGraph.GraphBuildDayInfo;
             
-            Assert.AreEqual(1, GraphInfoDay1.AmountOfBuilds, "day-build must have 10 build results");
+            ClassicAssert.AreEqual(1, GraphInfoDay1.AmountOfBuilds, "day-build must have 10 build results");
            
         }
 

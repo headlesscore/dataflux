@@ -6,6 +6,7 @@
     using System.Text;
     using Moq;
     using NUnit.Framework;
+    using NUnit.Framework.Legacy;
     using ThoughtWorks.CruiseControl.Core;
     using ThoughtWorks.CruiseControl.Core.Config;
     using ThoughtWorks.CruiseControl.Core.Queues;
@@ -51,8 +52,9 @@
 
             // Verify the results
             mocks.Verify();
-            Assert.AreEqual(ResponseResult.Success, response.Result);
-            Assert.AreNotEqual(data, response.Data);
+            ClassicAssert.AreEqual(ResponseResult.Success, response.Result);
+            ClassicAssert.AreEqual(ResponseResult.Success, response.Result);
+            ClassicAssert.AreNotEqual(data, response.Data);
         }
         #endregion
         #endregion

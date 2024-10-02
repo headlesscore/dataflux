@@ -19,6 +19,7 @@ using ThoughtWorks.CruiseControl.Core.Triggers;
 using ThoughtWorks.CruiseControl.Core.Util;
 using ThoughtWorks.CruiseControl.Remote;
 using ThoughtWorks.CruiseControl.UnitTests.UnitTestUtils;
+using NUnit.Framework.Legacy;
 
 namespace ThoughtWorks.CruiseControl.UnitTests.Core
 {
@@ -45,8 +46,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
             this.mocks = new MockRepository(MockBehavior.Default);
             workingDirPath = TempFileUtil.CreateTempDir("workingDir");
 			artifactDirPath = TempFileUtil.CreateTempDir("artifactDir");
-			Assert.IsTrue(Directory.Exists(workingDirPath));
-			Assert.IsTrue(Directory.Exists(artifactDirPath));
+			ClassicAssert.IsTrue(Directory.Exists(workingDirPath));
+            ClassicAssert.IsTrue(Directory.Exists(workingDirPath));
+            ClassicAssert.IsTrue(Directory.Exists(artifactDirPath));
 			queue = new IntegrationQueue("foo", new DefaultQueueConfiguration("foo"), null);
 			mockery = new Mockery();
 			mockSourceControl = mockery.NewStrictMock<ISourceControl>();
@@ -85,7 +87,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
 			PropertyInfo property = typeof (Project).GetProperty("Triggers");
 			ReflectorPropertyAttribute attribute = (ReflectorPropertyAttribute) property.GetCustomAttributes(false)[0];
 			IXmlSerialiser serialiser = factory.Create(ReflectorMember.Create(property), attribute);
-			Assert.AreEqual(typeof(XmlCollectionSerialiser), serialiser.GetType());
+			ClassicAssert.AreEqual(typeof(XmlCollectionSerialiser), serialiser.GetType());
 		}
 
 		[Test]
@@ -119,23 +121,23 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
 </project>";
 
 			project = (Project) NetReflector.Read(xml);
-			Assert.AreEqual("foo", project.Name);
-			Assert.AreEqual("http://localhost/ccnet", project.WebURL);
-			Assert.AreEqual("category1", project.Category);
-			Assert.AreEqual("queueName1", project.QueueName);
-			Assert.AreEqual(1, project.QueuePriority);
-			Assert.AreEqual(60, project.ModificationDelaySeconds);
-			Assert.IsTrue(project.SourceControl is FileSourceControl);
-			Assert.IsTrue(project.Labeller is DefaultLabeller);
-			Assert.IsTrue(project.StateManager is FileStateManager);
-			Assert.AreEqual(1, ((MultipleTrigger)project.Triggers).Triggers.Length);
-			Assert.AreEqual(typeof(ScheduleTrigger), ((MultipleTrigger)project.Triggers).Triggers[0].GetType());
-			Assert.IsTrue(project.Publishers[0] is XmlLogPublisher);
-			Assert.IsTrue(project.Publishers[1] is NullTask);
-			Assert.IsTrue(project.Tasks[0] is MergeFilesTask);
-			Assert.IsTrue(project.PrebuildTasks[0] is NullTask);
-			Assert.AreEqual("My Other Report", project.ExternalLinks[1].Name);
-			Assert.AreEqual(@"c:\my\working\directory", project.ConfiguredWorkingDirectory);
+			ClassicAssert.AreEqual("foo", project.Name);
+			ClassicAssert.AreEqual("http://localhost/ccnet", project.WebURL);
+			ClassicAssert.AreEqual("category1", project.Category);
+			ClassicAssert.AreEqual("queueName1", project.QueueName);
+			ClassicAssert.AreEqual(1, project.QueuePriority);
+			ClassicAssert.AreEqual(60, project.ModificationDelaySeconds);
+			ClassicAssert.IsTrue(project.SourceControl is FileSourceControl);
+			ClassicAssert.IsTrue(project.Labeller is DefaultLabeller);
+			ClassicAssert.IsTrue(project.StateManager is FileStateManager);
+			ClassicAssert.AreEqual(1, ((MultipleTrigger)project.Triggers).Triggers.Length);
+			ClassicAssert.AreEqual(typeof(ScheduleTrigger), ((MultipleTrigger)project.Triggers).Triggers[0].GetType());
+			ClassicAssert.IsTrue(project.Publishers[0] is XmlLogPublisher);
+			ClassicAssert.IsTrue(project.Publishers[1] is NullTask);
+			ClassicAssert.IsTrue(project.Tasks[0] is MergeFilesTask);
+			ClassicAssert.IsTrue(project.PrebuildTasks[0] is NullTask);
+			ClassicAssert.AreEqual("My Other Report", project.ExternalLinks[1].Name);
+			ClassicAssert.AreEqual(@"c:\my\working\directory", project.ConfiguredWorkingDirectory);
 			VerifyAll();
 		}
 
@@ -146,17 +148,17 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
 <project name=""foo"" />";
 
 			project = (Project) NetReflector.Read(xml);
-			Assert.AreEqual("foo", project.Name);
-			Assert.AreEqual(Project.DefaultUrl(), project.WebURL);
-			Assert.AreEqual(0, project.ModificationDelaySeconds); //TODO: is this the correct default?  should quiet period be turned off by default?  is this sourcecontrol specific?
-			Assert.IsTrue(project.SourceControl is NullSourceControl);
-			Assert.IsTrue(project.Labeller is DefaultLabeller);
-			Assert.AreEqual(typeof(MultipleTrigger), project.Triggers.GetType());
-			Assert.AreEqual(1, project.Publishers.Length);
-			Assert.IsTrue(project.Publishers[0] is XmlLogPublisher);
-			Assert.AreEqual(1, project.Tasks.Length);
-			Assert.AreEqual(typeof(NullTask), project.Tasks[0].GetType());
-			Assert.AreEqual(0, project.ExternalLinks.Length);
+			ClassicAssert.AreEqual("foo", project.Name);
+			ClassicAssert.AreEqual(Project.DefaultUrl(), project.WebURL);
+			ClassicAssert.AreEqual(0, project.ModificationDelaySeconds); //TODO: is this the correct default?  should quiet period be turned off by default?  is this sourcecontrol specific?
+			ClassicAssert.IsTrue(project.SourceControl is NullSourceControl);
+			ClassicAssert.IsTrue(project.Labeller is DefaultLabeller);
+			ClassicAssert.AreEqual(typeof(MultipleTrigger), project.Triggers.GetType());
+			ClassicAssert.AreEqual(1, project.Publishers.Length);
+			ClassicAssert.IsTrue(project.Publishers[0] is XmlLogPublisher);
+			ClassicAssert.AreEqual(1, project.Tasks.Length);
+			ClassicAssert.AreEqual(typeof(NullTask), project.Tasks[0].GetType());
+			ClassicAssert.AreEqual(0, project.ExternalLinks.Length);
 			VerifyAll();
 		}
 
@@ -169,7 +171,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
 </project>";
 
 			project = (Project) NetReflector.Read(xml);
-			Assert.AreEqual(typeof(MultipleTrigger), project.Triggers.GetType());
+			ClassicAssert.AreEqual(typeof(MultipleTrigger), project.Triggers.GetType());
 		}
 
 		// test: verify correct args are passed to sourcecontrol?  should use date of last modification from last successful build IMO
@@ -184,14 +186,14 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
 			mockStateManager.Setup(_manager => _manager.HasPreviousState(ProjectName)).Returns(true).Verifiable();
 			mockStateManager.Setup(_manager => _manager.LoadState(ProjectName)).Returns(expected).Verifiable();
 
-			Assert.AreEqual(expected, project.CurrentResult);
+			ClassicAssert.AreEqual(expected, project.CurrentResult);
 			VerifyAll();
 		}
 
 		[Test]
 		public void InitialActivityState()
 		{
-			Assert.AreEqual(ProjectActivity.Sleeping, project.CurrentActivity);
+			ClassicAssert.AreEqual(ProjectActivity.Sleeping, project.CurrentActivity);
 			VerifyAll();
 		}
 
@@ -217,8 +219,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
 			// Verify
 			mockSourceControl.Verify(sourceControl => sourceControl.Purge(It.IsAny<IProject>()), Times.Never);
 			VerifyAll();
-			Assert.IsTrue(Directory.Exists(workingDirPath));
-			Assert.IsTrue(Directory.Exists(artifactDirPath));
+			ClassicAssert.IsTrue(Directory.Exists(workingDirPath));
+			ClassicAssert.IsTrue(Directory.Exists(artifactDirPath));
 		}
 
 		[Test]
@@ -245,8 +247,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
 
 			// Verify
 			VerifyAll();
-			Assert.IsFalse(Directory.Exists(workingDirPath));
-			Assert.IsFalse(Directory.Exists(artifactDirPath));
+			ClassicAssert.IsFalse(Directory.Exists(workingDirPath));
+			ClassicAssert.IsFalse(Directory.Exists(artifactDirPath));
 		}
 
 		[Test]
@@ -258,7 +260,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
 			// Verify
 			mockSourceControl.Verify(sourceControl => sourceControl.Purge(It.IsAny<IProject>()), Times.Never);
 			VerifyAll();
-			Assert.IsFalse(Directory.Exists(workingDirPath));
+			ClassicAssert.IsFalse(Directory.Exists(workingDirPath));
 		}
 
 		[Test]
@@ -270,7 +272,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
 			// Verify
 			mockSourceControl.Verify(sourceControl => sourceControl.Purge(It.IsAny<IProject>()), Times.Never);
 			VerifyAll();
-			Assert.IsFalse(Directory.Exists(artifactDirPath));
+			ClassicAssert.IsFalse(Directory.Exists(artifactDirPath));
 		}
 
 		[Test]
@@ -289,8 +291,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
 
 			// Verify
 			VerifyAll();
-			Assert.IsTrue(Directory.Exists(workingDirPath));
-			Assert.IsTrue(Directory.Exists(artifactDirPath));
+			ClassicAssert.IsTrue(Directory.Exists(workingDirPath));
+			ClassicAssert.IsTrue(Directory.Exists(artifactDirPath));
 		}
 
 		[Test]
@@ -298,7 +300,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
 		{
 			// Setup
 			TempFileUtil.DeleteTempDir("workingDir");
-			Assert.IsFalse(Directory.Exists(workingDirPath));
+			ClassicAssert.IsFalse(Directory.Exists(workingDirPath));
 
 			// Execute
 			project.Purge(true, false, false);
@@ -313,7 +315,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
 		{
 			// Setup
 			TempFileUtil.DeleteTempDir("artifactDir");
-			Assert.IsFalse(Directory.Exists(artifactDirPath));
+			ClassicAssert.IsFalse(Directory.Exists(artifactDirPath));
 
 			// Execute
 			project.Purge(false, true, false);
@@ -340,7 +342,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
 			IIntegrationResult result = (IIntegrationResult)resultMock.Object;
 			IntegrationRequest request = ForceBuildRequest();
 			integratableMock.Setup(integratable => integratable.Integrate(request)).Returns(result).Verifiable();
-			Assert.AreEqual(result, project.Integrate(request));
+			ClassicAssert.AreEqual(result, project.Integrate(request));
 			VerifyAll();
 		}
 
@@ -361,18 +363,18 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
 
 			IIntegrationResult result = project.Integrate(ModificationExistRequest());
 
-			Assert.AreEqual(ProjectName, result.ProjectName);
-			Assert.AreEqual(null, result.ExceptionResult);
-			Assert.AreEqual(ProjectActivity.Sleeping, project.CurrentActivity);
-			Assert.AreEqual(IntegrationStatus.Success, result.Status);
-			Assert.AreEqual(IntegrationStatus.Unknown, result.LastIntegrationStatus);
-			Assert.AreEqual(BuildCondition.ForceBuild, result.BuildCondition);
-			Assert.AreEqual(Platform.IsWindows ? @"c:\temp" : @"/tmp", result.WorkingDirectory);
-			Assert.AreEqual(result, project.CurrentResult);
-			Assert.AreEqual("label", result.Label);
+			ClassicAssert.AreEqual(ProjectName, result.ProjectName);
+			ClassicAssert.AreEqual(null, result.ExceptionResult);
+			ClassicAssert.AreEqual(ProjectActivity.Sleeping, project.CurrentActivity);
+			ClassicAssert.AreEqual(IntegrationStatus.Success, result.Status);
+			ClassicAssert.AreEqual(IntegrationStatus.Unknown, result.LastIntegrationStatus);
+			ClassicAssert.AreEqual(BuildCondition.ForceBuild, result.BuildCondition);
+			ClassicAssert.AreEqual(Platform.IsWindows ? @"c:\temp" : @"/tmp", result.WorkingDirectory);
+			ClassicAssert.AreEqual(result, project.CurrentResult);
+			ClassicAssert.AreEqual("label", result.Label);
 			AssertFalse("unexpected modifications were returned", result.HasModifications());
 			AssertEqualArrays(new Modification[0], result.Modifications);
-			Assert.IsTrue(result.EndTime >= result.StartTime);
+			ClassicAssert.IsTrue(result.EndTime >= result.StartTime);
 			VerifyAll();
 		}
 
@@ -385,16 +387,16 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
 
 			IIntegrationResult result = project.Integrate(ModificationExistRequest());
 
-			Assert.AreEqual(ProjectName, result.ProjectName);
-			Assert.AreEqual(null, result.ExceptionResult);
-			Assert.AreEqual(ProjectActivity.Sleeping, project.CurrentActivity);
-			Assert.AreEqual(IntegrationStatus.Unknown, result.Status);
-			Assert.IsNotNull(project.CurrentResult);
-			//Assert.AreEqual(IntegrationResult.InitialLabel, result.Label);
+			ClassicAssert.AreEqual(ProjectName, result.ProjectName);
+			ClassicAssert.AreEqual(null, result.ExceptionResult);
+			ClassicAssert.AreEqual(ProjectActivity.Sleeping, project.CurrentActivity);
+			ClassicAssert.AreEqual(IntegrationStatus.Unknown, result.Status);
+			ClassicAssert.IsNotNull(project.CurrentResult);
+			//ClassicAssert.AreEqual(IntegrationResult.InitialLabel, result.Label);
 			AssertFalse("unexpected modifications were returned", result.HasModifications());
 			AssertEqualArrays(new Modification[0], result.Modifications);
-			Assert.AreEqual(string.Empty, result.TaskOutput, "no output is expected as builder is not called");
-			//			Assert.IsTrue(result.EndTime >= result.StartTime);
+			ClassicAssert.AreEqual(string.Empty, result.TaskOutput, "no output is expected as builder is not called");
+			//			ClassicAssert.IsTrue(result.EndTime >= result.StartTime);
 			mockPublisher.Verify(publisher => publisher.Run(It.IsAny<IntegrationResult>()), Times.Never);
 			VerifyAll();
 		}
@@ -415,15 +417,15 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
 
 			IIntegrationResult result = project.Integrate(ModificationExistRequest());
 
-			Assert.AreEqual(ProjectName, result.ProjectName);
-			Assert.AreEqual(ProjectActivity.Sleeping, project.CurrentActivity);
-			Assert.AreEqual(IntegrationStatus.Success, result.Status);
-			Assert.AreEqual(IntegrationStatus.Unknown, result.LastIntegrationStatus);
-			Assert.AreEqual("label", result.Label);
-			Assert.IsTrue(result.HasModifications());
-			Assert.AreEqual(project.WorkingDirectory, result.WorkingDirectory);
-			Assert.AreEqual(modifications, result.Modifications);
-			Assert.IsTrue(result.EndTime >= result.StartTime);
+			ClassicAssert.AreEqual(ProjectName, result.ProjectName);
+			ClassicAssert.AreEqual(ProjectActivity.Sleeping, project.CurrentActivity);
+			ClassicAssert.AreEqual(IntegrationStatus.Success, result.Status);
+			ClassicAssert.AreEqual(IntegrationStatus.Unknown, result.LastIntegrationStatus);
+			ClassicAssert.AreEqual("label", result.Label);
+			ClassicAssert.IsTrue(result.HasModifications());
+			ClassicAssert.AreEqual(project.WorkingDirectory, result.WorkingDirectory);
+			ClassicAssert.AreEqual(modifications, result.Modifications);
+			ClassicAssert.IsTrue(result.EndTime >= result.StartTime);
 			VerifyAll();
 		}
 
@@ -439,7 +441,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
             resultMock.SetupGet(_result => _result.Succeeded).Returns(false).Verifiable();
 
 
-            Assert.That(delegate { project.Integrate(ModificationExistRequest()); },
+            ClassicAssert.That(delegate { project.Integrate(ModificationExistRequest()); },
                         Throws.TypeOf<CruiseControlException>());
 			VerifyAll();
 		}
@@ -458,8 +460,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
 
 			IIntegrationResult results = project.Integrate(ModificationExistRequest());
 
-			Assert.AreEqual(results, project.CurrentResult, "new integration result has not been set to the last integration result");
-			Assert.IsNotNull(results.EndTime);
+			ClassicAssert.AreEqual(results, project.CurrentResult, "new integration result has not been set to the last integration result");
+			ClassicAssert.IsNotNull(results.EndTime);
 			VerifyAll();
 		}
 
@@ -506,8 +508,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
 			IIntegrationResult results = project.Integrate(ModificationExistRequest());
 
 			// failure to save the integration result will register as a failed project
-			Assert.AreEqual(results, project.CurrentResult, "new integration result has not been set to the last integration result");
-			Assert.IsNotNull(results.EndTime);
+			ClassicAssert.AreEqual(results, project.CurrentResult, "new integration result has not been set to the last integration result");
+			ClassicAssert.IsNotNull(results.EndTime);
 			VerifyAll();
 		}
 
@@ -536,7 +538,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
 			Message message = new Message("foo");
 			project.AddMessage(message);
 			ProjectStatus status = project.CreateProjectStatus(new ProjectIntegrator(project, queue));
-			Assert.AreEqual(message, status.Messages[0]);
+			ClassicAssert.AreEqual(message, status.Messages[0]);
 		}
 		
         //[Test]
@@ -549,7 +551,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
         //    mockPrebuildTask.Expect("Run", result);
         //    project.PrebuildTasks = new ITask[] { (ITask) mockPrebuildTask.MockInstance };
         //    project.Prebuild(result);
-        //    Assert.AreEqual("1.0", result.Label);
+        //    ClassicAssert.AreEqual("1.0", result.Label);
         //}
 
         [Test]
@@ -574,7 +576,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
             var actual = project.RetrieveBuildFinalStatus(buildName);
 
             this.mocks.VerifyAll();
-            Assert.AreSame(expected, actual);
+            ClassicAssert.AreSame(expected, actual);
         }
 
         #region PublishResults() tests
@@ -588,7 +590,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
             project.AddMessage(new Message("foo"));
             project.PublishResults(IntegrationResultMother.CreateSuccessful());
             ProjectStatus status = project.CreateProjectStatus(new ProjectIntegrator(project, queue));
-            Assert.AreEqual(0, status.Messages.Length);
+            ClassicAssert.AreEqual(0, status.Messages.Length);
         }
 
         [Test]
@@ -601,7 +603,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
             project.AddMessage(new Message("foo"));
             project.PublishResults(IntegrationResultMother.CreateFailed());
             ProjectStatus status = project.CreateProjectStatus(new ProjectIntegrator(project, queue));
-            Assert.AreEqual(2, status.Messages.Length);
+            ClassicAssert.AreEqual(2, status.Messages.Length);
         }
 
         [Test]
@@ -628,7 +630,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
 
             // Check the results
             this.mocks.VerifyAll();
-            Assert.IsTrue(cleaned);
+            ClassicAssert.IsTrue(cleaned);
         }
 
         [Test]
@@ -643,7 +645,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
             Mock.Get(result).SetupGet(_result => _result.TaskResults).Returns(results);
             var project = new Project();
             project.Publishers = new ITask[0];
-            var tempResult = new PhantomResult(p => { Assert.Fail("CleanUp() called"); });
+            var tempResult = new PhantomResult(p => { ClassicAssert.Fail("CleanUp() called"); });
             results.Add(tempResult);
 
             // Run the test
@@ -680,7 +682,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
 
             // Check the results
             this.mocks.Verify();
-            Assert.IsTrue(cleaned);
+            ClassicAssert.IsTrue(cleaned);
         }
 
         [Test]
@@ -701,7 +703,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
             {
                 new PhantomPublisher(true)
             };
-            var tempResult = new PhantomResult(p => { Assert.Fail("CleanUp() called"); });
+            var tempResult = new PhantomResult(p => { ClassicAssert.Fail("CleanUp() called"); });
             results.Add(tempResult);
 
             // Run the test

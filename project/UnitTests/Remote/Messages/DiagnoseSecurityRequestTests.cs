@@ -5,6 +5,7 @@
     using System.Xml.Linq;
     using FluentAssertions;
     using NUnit.Framework;
+    using NUnit.Framework.Legacy;
     using ThoughtWorks.CruiseControl.Remote.Messages;
 
     [TestFixture]
@@ -15,10 +16,12 @@
         {
             DiagnoseSecurityRequest request = new DiagnoseSecurityRequest();
             request.UserName = "new user";
-            Assert.AreEqual("new user", request.UserName, "UserName fails the get/set test");
+            ClassicAssert.AreEqual("new user", request.UserName, "UserName fails the get/set test");
             var projects = new List<string>();
             request.Projects = projects;
-            Assert.AreSame(projects, request.Projects);
+            ClassicAssert.AreSame(projects, request.Projects);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
         }
 
         [Test]

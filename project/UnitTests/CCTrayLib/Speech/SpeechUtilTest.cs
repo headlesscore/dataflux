@@ -9,6 +9,7 @@
 
 using System;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.CCTrayLib;
 using ThoughtWorks.CruiseControl.CCTrayLib.Monitoring;
 using ThoughtWorks.CruiseControl.CCTrayLib.Speech;
@@ -21,37 +22,38 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Speech
 		[Test]
 		public void TestMakeProjectNameSpeechFriendly()
 		{
-			Assert.AreEqual("expected",SpeechUtil.makeProjectNameMoreSpeechFriendly("expected"));
-			Assert.AreEqual("the One True Project",SpeechUtil.makeProjectNameMoreSpeechFriendly("theOneTrueProject"));
-			Assert.AreEqual("Project 1",SpeechUtil.makeProjectNameMoreSpeechFriendly("Project_1"));
-			Assert.AreEqual("A Project With First Word A Single Letter",SpeechUtil.makeProjectNameMoreSpeechFriendly("AProjectWithFirstWordASingleLetter"));
-			Assert.AreEqual("a Project With First Word A Single Letter",SpeechUtil.makeProjectNameMoreSpeechFriendly("aProjectWithFirstWordASingleLetter"));
-			Assert.AreEqual("A Project With Some Underscores",SpeechUtil.makeProjectNameMoreSpeechFriendly("AProjectWith_Some_Underscores"));
-			Assert.AreEqual("A Project With some dashes",SpeechUtil.makeProjectNameMoreSpeechFriendly("AProjectWith-some-dashes"));
-			Assert.AreEqual("",SpeechUtil.makeProjectNameMoreSpeechFriendly(""));
+			ClassicAssert.AreEqual("expected",SpeechUtil.makeProjectNameMoreSpeechFriendly("expected"));
+            ClassicAssert.AreEqual("expected", SpeechUtil.makeProjectNameMoreSpeechFriendly("expected"));
+            ClassicAssert.AreEqual("the One True Project",SpeechUtil.makeProjectNameMoreSpeechFriendly("theOneTrueProject"));
+			ClassicAssert.AreEqual("Project 1",SpeechUtil.makeProjectNameMoreSpeechFriendly("Project_1"));
+			ClassicAssert.AreEqual("A Project With First Word A Single Letter",SpeechUtil.makeProjectNameMoreSpeechFriendly("AProjectWithFirstWordASingleLetter"));
+			ClassicAssert.AreEqual("a Project With First Word A Single Letter",SpeechUtil.makeProjectNameMoreSpeechFriendly("aProjectWithFirstWordASingleLetter"));
+			ClassicAssert.AreEqual("A Project With Some Underscores",SpeechUtil.makeProjectNameMoreSpeechFriendly("AProjectWith_Some_Underscores"));
+			ClassicAssert.AreEqual("A Project With some dashes",SpeechUtil.makeProjectNameMoreSpeechFriendly("AProjectWith-some-dashes"));
+			ClassicAssert.AreEqual("",SpeechUtil.makeProjectNameMoreSpeechFriendly(""));
 		}
 		
 		[Test]
 		public void TestWhetherWeShouldSpeak(){
-			Assert.IsTrue(SpeechUtil.shouldSpeak(BuildTransition.StillSuccessful,true,false));
-			Assert.IsTrue(SpeechUtil.shouldSpeak(BuildTransition.Fixed,true,false));
-			Assert.IsTrue(SpeechUtil.shouldSpeak(BuildTransition.StillSuccessful,true,true));
-			Assert.IsTrue(SpeechUtil.shouldSpeak(BuildTransition.Fixed,true,true));
+			ClassicAssert.IsTrue(SpeechUtil.shouldSpeak(BuildTransition.StillSuccessful,true,false));
+			ClassicAssert.IsTrue(SpeechUtil.shouldSpeak(BuildTransition.Fixed,true,false));
+			ClassicAssert.IsTrue(SpeechUtil.shouldSpeak(BuildTransition.StillSuccessful,true,true));
+			ClassicAssert.IsTrue(SpeechUtil.shouldSpeak(BuildTransition.Fixed,true,true));
 
-			Assert.IsTrue(SpeechUtil.shouldSpeak(BuildTransition.Broken,false,true));
-			Assert.IsTrue(SpeechUtil.shouldSpeak(BuildTransition.StillFailing,false,true));
-			Assert.IsTrue(SpeechUtil.shouldSpeak(BuildTransition.Broken,true,true));
-			Assert.IsTrue(SpeechUtil.shouldSpeak(BuildTransition.StillFailing,true,true));
+			ClassicAssert.IsTrue(SpeechUtil.shouldSpeak(BuildTransition.Broken,false,true));
+			ClassicAssert.IsTrue(SpeechUtil.shouldSpeak(BuildTransition.StillFailing,false,true));
+			ClassicAssert.IsTrue(SpeechUtil.shouldSpeak(BuildTransition.Broken,true,true));
+			ClassicAssert.IsTrue(SpeechUtil.shouldSpeak(BuildTransition.StillFailing,true,true));
 
-			Assert.IsFalse(SpeechUtil.shouldSpeak(BuildTransition.Broken,true,false));
-			Assert.IsFalse(SpeechUtil.shouldSpeak(BuildTransition.StillFailing,true,false));
-			Assert.IsFalse(SpeechUtil.shouldSpeak(BuildTransition.Broken,false,false));
-			Assert.IsFalse(SpeechUtil.shouldSpeak(BuildTransition.StillFailing,false,false));
+			ClassicAssert.IsFalse(SpeechUtil.shouldSpeak(BuildTransition.Broken,true,false));
+			ClassicAssert.IsFalse(SpeechUtil.shouldSpeak(BuildTransition.StillFailing,true,false));
+			ClassicAssert.IsFalse(SpeechUtil.shouldSpeak(BuildTransition.Broken,false,false));
+			ClassicAssert.IsFalse(SpeechUtil.shouldSpeak(BuildTransition.StillFailing,false,false));
 			
-			Assert.IsFalse(SpeechUtil.shouldSpeak(BuildTransition.StillSuccessful,false,true));
-			Assert.IsFalse(SpeechUtil.shouldSpeak(BuildTransition.Fixed,false,true));
-			Assert.IsFalse(SpeechUtil.shouldSpeak(BuildTransition.StillSuccessful,false,false));
-			Assert.IsFalse(SpeechUtil.shouldSpeak(BuildTransition.Fixed,false,false));
+			ClassicAssert.IsFalse(SpeechUtil.shouldSpeak(BuildTransition.StillSuccessful,false,true));
+			ClassicAssert.IsFalse(SpeechUtil.shouldSpeak(BuildTransition.Fixed,false,true));
+			ClassicAssert.IsFalse(SpeechUtil.shouldSpeak(BuildTransition.StillSuccessful,false,false));
+			ClassicAssert.IsFalse(SpeechUtil.shouldSpeak(BuildTransition.Fixed,false,false));
 		}
 	}
 }

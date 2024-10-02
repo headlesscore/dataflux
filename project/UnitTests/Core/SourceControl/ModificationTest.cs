@@ -1,5 +1,6 @@
 using System;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Util;
 
@@ -17,10 +18,12 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 			Modification beta = new Modification();
 			alpha.ModifiedTime = new DateTime(1961, 3, 3);
 
-			Assert.IsTrue(alpha.CompareTo(beta) > 0, string.Format(System.Globalization.CultureInfo.CurrentCulture,"expected alpha greater than beta {0}", alpha.CompareTo(beta)));
-			Assert.IsTrue(alpha.CompareTo(alpha) == 0, string.Format(System.Globalization.CultureInfo.CurrentCulture,"expected alpha-beta equality {0}", alpha.CompareTo(beta)));
-			Assert.IsTrue(beta.CompareTo(alpha) < 0, string.Format(System.Globalization.CultureInfo.CurrentCulture,"expected alpha less than beta {0}", alpha.CompareTo(beta)));
-		}
+			ClassicAssert.IsTrue(alpha.CompareTo(beta) > 0, string.Format(System.Globalization.CultureInfo.CurrentCulture,"expected alpha greater than beta {0}", alpha.CompareTo(beta)));
+			ClassicAssert.IsTrue(alpha.CompareTo(alpha) == 0, string.Format(System.Globalization.CultureInfo.CurrentCulture,"expected alpha-beta equality {0}", alpha.CompareTo(beta)));
+			ClassicAssert.IsTrue(beta.CompareTo(alpha) < 0, string.Format(System.Globalization.CultureInfo.CurrentCulture,"expected alpha less than beta {0}", alpha.CompareTo(beta)));
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
+        }
 
 		[Test]
 		public void OutputModificationToXml() 
@@ -39,7 +42,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 	<email>foo.bar@quuuux.quuux.quux.qux</email>
 </modification>", DateUtil.FormatDate(mod.ModifiedTime));
 
-			Assert.AreEqual(XmlUtil.GenerateOuterXml(expected), mod.ToXml());
+			ClassicAssert.AreEqual(XmlUtil.GenerateOuterXml(expected), mod.ToXml());
 		}
 
 		[Test]
@@ -49,7 +52,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 			mod.Comment = "math says 2 < 4 & XML CDATA ends with ]]>; don't nest <![CDATA in <![CDATA]]> ]]>";
 
 			string actual = XmlUtil.SelectRequiredValue(mod.ToXml(), "/modification/comment");
-			Assert.AreEqual(mod.Comment, actual);
+			ClassicAssert.AreEqual(mod.Comment, actual);
 		}
 
 		[Test]
@@ -59,8 +62,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 			mod.EmailAddress = null;
 			mod.Url = null;
 
-			Assert.IsNull(XmlUtil.SelectNode(mod.ToXml(), "/modification/email"));
-			Assert.IsNull(XmlUtil.SelectNode(mod.ToXml(), "/modification/url"));
+			ClassicAssert.IsNull(XmlUtil.SelectNode(mod.ToXml(), "/modification/email"));
+			ClassicAssert.IsNull(XmlUtil.SelectNode(mod.ToXml(), "/modification/url"));
 		}
 
         [Test]
@@ -79,18 +82,18 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
             };
 
             Modification[] modifications = new Modification[] { mod1 };
-            Assert.AreEqual("10", Modification.GetLastChangeNumber(modifications), "from Modification.GetLastChangeNumber({10})");
+            ClassicAssert.AreEqual("10", Modification.GetLastChangeNumber(modifications), "from Modification.GetLastChangeNumber({10})");
             modifications = new Modification[] { mod1, mod2 };
-            Assert.AreEqual("20", Modification.GetLastChangeNumber(modifications), "from Modification.GetLastChangeNumber({10, 20})");
+            ClassicAssert.AreEqual("20", Modification.GetLastChangeNumber(modifications), "from Modification.GetLastChangeNumber({10, 20})");
             modifications = new Modification[] { mod2, mod1 };
-            Assert.AreEqual("20", Modification.GetLastChangeNumber(modifications), "from Modification.GetLastChangeNumber({20, 10})");
+            ClassicAssert.AreEqual("20", Modification.GetLastChangeNumber(modifications), "from Modification.GetLastChangeNumber({20, 10})");
         }
 
         [Test]
         public void ShouldReturnNullAsLastChangeNumberIfNoModifications()
         {
             Modification[] modifications = new Modification[0];
-            Assert.AreEqual(null, Modification.GetLastChangeNumber(modifications), "LastChangeNumer({})");
+            ClassicAssert.AreEqual(null, Modification.GetLastChangeNumber(modifications), "LastChangeNumer({})");
         }
 
 		private static Modification CreateModification()

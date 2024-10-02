@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.CCTrayLib.Configuration;
 using ThoughtWorks.CruiseControl.CCTrayLib.Monitoring;
 using ThoughtWorks.CruiseControl.Remote;
@@ -98,14 +99,16 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Monitoring
         [Test(Description="Fix build not currently supported on projects monitored via HTTP")]
         public void FixBuildThrowsAnNotImplementedException()
         {
-            Assert.That(delegate { manager.FixBuild(null, "John Do"); },
+            ClassicAssert.That(delegate { manager.FixBuild(null, "John Do"); },
+                        Throws.TypeOf<NotImplementedException>());
+            ClassicAssert.That(delegate { manager.FixBuild(null, "John Do"); },
                         Throws.TypeOf<NotImplementedException>());
         }
 
         [Test(Description="Cancel pending not currently supported on projects monitored via HTTP")]
         public void CancelPendingRequestThrowsAnNotImplementedException()
         {
-            Assert.That(delegate { manager.CancelPendingRequest(null); },
+            ClassicAssert.That(delegate { manager.CancelPendingRequest(null); },
                         Throws.TypeOf<NotImplementedException>());
         }
 	}

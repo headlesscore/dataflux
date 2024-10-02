@@ -5,6 +5,7 @@
     using System.Linq;
     using System.Text;
     using NUnit.Framework;
+    using NUnit.Framework.Legacy;
     using ThoughtWorks.CruiseControl.Core.Tasks;
 
     [TestFixture]
@@ -16,7 +17,9 @@
             var threshold = new CoverageFilter();
             var expected = string.Empty;
             var actual = threshold.ToParamString();
-            Assert.AreEqual(expected, actual);
+            ClassicAssert.AreEqual(expected, actual);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
         }
 
         [Test]
@@ -29,7 +32,7 @@
             };
             var expected = "SomeData:Class";
             var actual = threshold.ToParamString();
-            Assert.AreEqual(expected, actual);
+            ClassicAssert.AreEqual(expected, actual);
         }
 
         [Test]
@@ -43,7 +46,7 @@
             };
             var expected = "SomeData:Document:true:false";
             var actual = threshold.ToParamString();
-            Assert.AreEqual(expected, actual);
+            ClassicAssert.AreEqual(expected, actual);
         }
 
         [Test]
@@ -57,7 +60,7 @@
             };
             var expected = "SomeData:Document:false:true";
             var actual = threshold.ToParamString();
-            Assert.AreEqual(expected, actual);
+            ClassicAssert.AreEqual(expected, actual);
         }
     }
 }

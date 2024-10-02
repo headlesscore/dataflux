@@ -2,6 +2,7 @@ using System;
 using Exortech.NetReflector;
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Sourcecontrol.Perforce;
 using ThoughtWorks.CruiseControl.Core.Util;
@@ -68,20 +69,22 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol.Perforce
 </sourceControl>
 ", -5.5);
 			P4 p4 = CreateP4WithNoArgContructor(xml);
-			Assert.AreEqual(@"c:\bin\p4.exe", p4.Executable);
-			Assert.AreEqual("//depot/myproject/...", p4.View);
-			Assert.AreEqual("myclient", p4.Client);
-			Assert.AreEqual("me", p4.User);
-			Assert.AreEqual("mypassword", p4.Password);
-			Assert.AreEqual("anotherserver:2666", p4.Port);
-			Assert.AreEqual("myWorkingDirectory", p4.WorkingDirectory);
-			Assert.AreEqual("http://perforceWebServer:8080/@md=d&cd=//&c=3IB@/{0}?ac=10", p4.P4WebURLFormat);
-			Assert.AreEqual(-5.5, p4.TimeZoneOffset);
-            Assert.AreEqual(true, p4.UseExitCode);
-            Assert.AreEqual("Error: (.*)", p4.ErrorPattern);
-            Assert.AreEqual(@"(.*)\.accept1", p4.AcceptableErrors[0]);
-            Assert.AreEqual(@"(.*)\.accept2", p4.AcceptableErrors[1]);
-		}
+			ClassicAssert.AreEqual(@"c:\bin\p4.exe", p4.Executable);
+			ClassicAssert.AreEqual("//depot/myproject/...", p4.View);
+			ClassicAssert.AreEqual("myclient", p4.Client);
+			ClassicAssert.AreEqual("me", p4.User);
+			ClassicAssert.AreEqual("mypassword", p4.Password);
+			ClassicAssert.AreEqual("anotherserver:2666", p4.Port);
+			ClassicAssert.AreEqual("myWorkingDirectory", p4.WorkingDirectory);
+			ClassicAssert.AreEqual("http://perforceWebServer:8080/@md=d&cd=//&c=3IB@/{0}?ac=10", p4.P4WebURLFormat);
+			ClassicAssert.AreEqual(-5.5, p4.TimeZoneOffset);
+            ClassicAssert.AreEqual(true, p4.UseExitCode);
+            ClassicAssert.AreEqual("Error: (.*)", p4.ErrorPattern);
+            ClassicAssert.AreEqual(@"(.*)\.accept1", p4.AcceptableErrors[0]);
+            ClassicAssert.AreEqual(@"(.*)\.accept2", p4.AcceptableErrors[1]);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
+        }
 
         [Test]
         public void ReadConfigWithEmptyErrorsArguments()
@@ -95,8 +98,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol.Perforce
 </sourceControl>
 ";
             P4 p4 = CreateP4WithNoArgContructor(xml);
-            Assert.AreEqual("", p4.ErrorPattern);
-            Assert.AreEqual(0, p4.AcceptableErrors.Length);
+            ClassicAssert.AreEqual("", p4.ErrorPattern);
+            ClassicAssert.AreEqual(0, p4.AcceptableErrors.Length);
         }
 
 		private P4 CreateP4WithNoArgContructor(string p4root)
@@ -123,15 +126,15 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol.Perforce
 </sourceControl>
 ";
 			P4 p4 = CreateP4WithNoArgContructor(xml);
-			Assert.AreEqual("p4", p4.Executable);
-			Assert.AreEqual("//depot/anotherproject/...", p4.View);
-			Assert.AreEqual("", p4.Client);
-			Assert.AreEqual("", p4.User);
-			Assert.AreEqual("", p4.Password);
-			Assert.AreEqual("", p4.Port);
-            Assert.AreEqual(false, p4.UseExitCode);
-            Assert.AreEqual(@"^error: .*", p4.ErrorPattern);
-            Assert.AreEqual(@"file\(s\) up-to-date\.", p4.AcceptableErrors[0]);
+			ClassicAssert.AreEqual("p4", p4.Executable);
+			ClassicAssert.AreEqual("//depot/anotherproject/...", p4.View);
+			ClassicAssert.AreEqual("", p4.Client);
+			ClassicAssert.AreEqual("", p4.User);
+			ClassicAssert.AreEqual("", p4.Password);
+			ClassicAssert.AreEqual("", p4.Port);
+            ClassicAssert.AreEqual(false, p4.UseExitCode);
+            ClassicAssert.AreEqual(@"^error: .*", p4.ErrorPattern);
+            ClassicAssert.AreEqual(@"file\(s\) up-to-date\.", p4.AcceptableErrors[0]);
 		}
 
 		[Test]
@@ -141,7 +144,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol.Perforce
 <sourceControl name=""p4"">
 </sourceControl>
 ";
-            Assert.That(delegate { CreateP4WithNoArgContructor(xml); },
+            ClassicAssert.That(delegate { CreateP4WithNoArgContructor(xml); },
                         Throws.TypeOf<NetReflectorException>());
 		}
 
@@ -157,8 +160,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol.Perforce
 
 			string expectedArgs = "-s changes -s submitted //depot/myproj/...@2002/10/20:02:00:00,@2002/10/31:05:05:00";
 
-			Assert.AreEqual("p4", process.FileName);
-			Assert.AreEqual(expectedArgs, process.Arguments);
+			ClassicAssert.AreEqual("p4", process.FileName);
+			ClassicAssert.AreEqual(expectedArgs, process.Arguments);
 		}
 
 		[Test]
@@ -174,8 +177,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol.Perforce
 
 			string expectedArgs = "-s changes -s submitted //depot/myproj/...@2002/10/19:21:30:00,@2002/10/31:00:35:00";
 
-			Assert.AreEqual("p4", process.FileName);
-			Assert.AreEqual(expectedArgs, process.Arguments);
+			ClassicAssert.AreEqual("p4", process.FileName);
+			ClassicAssert.AreEqual(expectedArgs, process.Arguments);
 		}
 
 		[Test]
@@ -190,8 +193,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol.Perforce
 
 			string expectedArgs = "-s changes -s submitted //depot/myproj/...@2002/10/20:02:00:00,@2002/10/31:05:05:00 //myotherdepot/proj/...@2002/10/20:02:00:00,@2002/10/31:05:05:00";
 
-			Assert.AreEqual("p4", process.FileName);
-			Assert.AreEqual(expectedArgs, process.Arguments);
+			ClassicAssert.AreEqual("p4", process.FileName);
+			ClassicAssert.AreEqual(expectedArgs, process.Arguments);
 		}
 
 		[Test]
@@ -217,8 +220,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol.Perforce
 			P4 p4 = CreateP4WithNoArgContructor(xml);
 			ProcessInfo process = p4.CreateChangeListProcess(from, to);
 
-			Assert.AreEqual("c:\\bin\\p4.exe", process.FileName);
-			Assert.AreEqual(expectedArgs, process.Arguments);
+			ClassicAssert.AreEqual("c:\\bin\\p4.exe", process.FileName);
+			ClassicAssert.AreEqual(expectedArgs, process.Arguments);
 		}
 
 		[Test]
@@ -228,8 +231,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol.Perforce
 			ProcessInfo process = new P4().CreateDescribeProcess(changes);
 
 			string expectedArgs = "-s describe -s " + changes;
-			Assert.AreEqual("p4", process.FileName);
-			Assert.AreEqual(expectedArgs, process.Arguments);
+			ClassicAssert.AreEqual("p4", process.FileName);
+			ClassicAssert.AreEqual(expectedArgs, process.Arguments);
 		}
 
 		[Test]
@@ -253,8 +256,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol.Perforce
 			P4 p4 = CreateP4WithNoArgContructor(xml);
 			ProcessInfo process = p4.CreateDescribeProcess(changes);
 
-			Assert.AreEqual("c:\\bin\\p4.exe", process.FileName);
-			Assert.AreEqual(expectedArgs, process.Arguments);
+			ClassicAssert.AreEqual("c:\\bin\\p4.exe", process.FileName);
+			ClassicAssert.AreEqual(expectedArgs, process.Arguments);
 		}
 
 		[Test]
@@ -262,14 +265,14 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol.Perforce
 		{
 			string changes = "3327 3328 332; echo 'rm -rf /'";
 
-            Assert.That(delegate { new P4().CreateDescribeProcess(changes); },
+            ClassicAssert.That(delegate { new P4().CreateDescribeProcess(changes); },
                         Throws.TypeOf<CruiseControlException>());
 		}
 
 		[Test]
 		public void CreateGetDescribeProcessWithNoChanges()
 		{
-            Assert.That(delegate { new P4().CreateDescribeProcess(""); },
+            ClassicAssert.That(delegate { new P4().CreateDescribeProcess(""); },
                         Throws.TypeOf<CruiseControlException>());
 		}
 
@@ -297,9 +300,9 @@ exit: 0
 			Modification[] result = p4.GetModifications(new IntegrationResult(), new IntegrationResult());
 
 			VerifyAll();
-			Assert.AreEqual(7, result.Length);
-			Assert.AreEqual("http://perforceWebServer:8080/@md=d&amp;cd=//&amp;c=3IB@/3328?ac=10", result[0].Url);
-			Assert.AreEqual("http://perforceWebServer:8080/@md=d&amp;cd=//&amp;c=3IB@/3327?ac=10", result[3].Url);
+			ClassicAssert.AreEqual(7, result.Length);
+			ClassicAssert.AreEqual("http://perforceWebServer:8080/@md=d&amp;cd=//&amp;c=3IB@/3328?ac=10", result[0].Url);
+			ClassicAssert.AreEqual("http://perforceWebServer:8080/@md=d&amp;cd=//&amp;c=3IB@/3327?ac=10", result[3].Url);
 		}
 
 		[Test]
@@ -356,8 +359,8 @@ exit: 0
 			P4 p4 = CreateP4();
 			p4.View = "//depot/myproj/...";
 
-			Assert.AreEqual(1, p4.ViewForSpecifications.Length);
-			Assert.AreEqual("//depot/myproj/...", p4.ViewForSpecifications[0]);
+			ClassicAssert.AreEqual(1, p4.ViewForSpecifications.Length);
+			ClassicAssert.AreEqual("//depot/myproj/...", p4.ViewForSpecifications[0]);
 		}
 
 		[Test]
@@ -366,9 +369,9 @@ exit: 0
 			P4 p4 = CreateP4();
 			p4.View = "//depot/myproj/...,//myotherdepot/proj/...";
 
-			Assert.AreEqual(2, p4.ViewForSpecifications.Length);
-			Assert.AreEqual("//depot/myproj/...", p4.ViewForSpecifications[0]);
-			Assert.AreEqual("//myotherdepot/proj/...", p4.ViewForSpecifications[1]);
+			ClassicAssert.AreEqual(2, p4.ViewForSpecifications.Length);
+			ClassicAssert.AreEqual("//depot/myproj/...", p4.ViewForSpecifications[0]);
+			ClassicAssert.AreEqual("//myotherdepot/proj/...", p4.ViewForSpecifications[1]);
 		}
 
 		[Test]
@@ -381,7 +384,7 @@ exit: 0
 			try
 			{
 				p4.LabelSourceControl(IntegrationResultMother.CreateSuccessful("123"));
-				Assert.Fail("Perforce labelling should fail if a purely numeric label is attempted to be applied");
+				ClassicAssert.Fail("Perforce labelling should fail if a purely numeric label is attempted to be applied");
 			}
 			catch (CruiseControlException)
 			{}

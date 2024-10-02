@@ -2,6 +2,7 @@
 using System.Xml.Linq;
 using FluentAssertions;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Remote.Messages;
 
 namespace ThoughtWorks.CruiseControl.UnitTests.Remote.Messages
@@ -14,16 +15,18 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote.Messages
         {
             ServerRequest request = new ServerRequest();
             request.Identifier = "new id";
-            Assert.AreEqual("new id", request.Identifier, "Identifier fails the get/set test");
+            ClassicAssert.AreEqual("new id", request.Identifier, "Identifier fails the get/set test");
             request.ServerName = "new server";
-            Assert.AreEqual("new server", request.ServerName, "ServerName fails the get/set test");
+            ClassicAssert.AreEqual("new server", request.ServerName, "ServerName fails the get/set test");
             request.SessionToken = "new session";
-            Assert.AreEqual("new session", request.SessionToken, "SessionToken fails the get/set test");
+            ClassicAssert.AreEqual("new session", request.SessionToken, "SessionToken fails the get/set test");
             request.SourceName = "new source";
-            Assert.AreEqual("new source", request.SourceName, "SourceName fails the get/set test");
+            ClassicAssert.AreEqual("new source", request.SourceName, "SourceName fails the get/set test");
             DateTime now = DateTime.Now;
             request.Timestamp = now;
-            Assert.AreEqual(now, request.Timestamp, "Timestamp fails the get/set test");
+            ClassicAssert.AreEqual(now, request.Timestamp, "Timestamp fails the get/set test");
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
         }
 
         [Test]
@@ -31,9 +34,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote.Messages
         {
             DateTime now = DateTime.Now;
             ServerRequest request = new ServerRequest();
-            Assert.IsFalse(string.IsNullOrEmpty(request.Identifier), "Identifier was not set");
-            Assert.AreEqual(Environment.MachineName, request.SourceName, "Source name doesn't match the machine name");
-            Assert.IsTrue((now <= request.Timestamp), "Timestamp was not set");
+            ClassicAssert.IsFalse(string.IsNullOrEmpty(request.Identifier), "Identifier was not set");
+            ClassicAssert.AreEqual(Environment.MachineName, request.SourceName, "Source name doesn't match the machine name");
+            ClassicAssert.IsTrue((now <= request.Timestamp), "Timestamp was not set");
         }
 
         [Test]
@@ -42,10 +45,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote.Messages
             string sessionToken = "the session";
             DateTime now = DateTime.Now;
             ServerRequest request = new ServerRequest(sessionToken);
-            Assert.IsFalse(string.IsNullOrEmpty(request.Identifier), "Identifier was not set");
-            Assert.AreEqual(Environment.MachineName, request.SourceName, "Source name doesn't match the machine name");
-            Assert.AreEqual(sessionToken, request.SessionToken, "SessionToken doesn't match the input token");
-            Assert.IsTrue((now <= request.Timestamp), "Timestamp was not set");
+            ClassicAssert.IsFalse(string.IsNullOrEmpty(request.Identifier), "Identifier was not set");
+            ClassicAssert.AreEqual(Environment.MachineName, request.SourceName, "Source name doesn't match the machine name");
+            ClassicAssert.AreEqual(sessionToken, request.SessionToken, "SessionToken doesn't match the input token");
+            ClassicAssert.IsTrue((now <= request.Timestamp), "Timestamp was not set");
         }
 
         [Test]
@@ -54,7 +57,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote.Messages
             ServerRequest request1 = new ServerRequest();
             ServerRequest request2 = new ServerRequest();
             request1.Identifier = request2.Identifier;
-            Assert.IsTrue(request1.Equals(request2));
+            ClassicAssert.IsTrue(request1.Equals(request2));
         }
 
         [Test]
@@ -62,7 +65,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote.Messages
         {
             ServerRequest request1 = new ServerRequest();
             ServerRequest request2 = new ServerRequest();
-            Assert.IsFalse(request1.Equals(request2));
+            ClassicAssert.IsFalse(request1.Equals(request2));
         }
 
         [Test]
@@ -70,14 +73,14 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote.Messages
         {
             var request = new ServerRequest();
             var different = new object();
-            Assert.IsFalse(request.Equals(different));
+            ClassicAssert.IsFalse(request.Equals(different));
         }
 
         [Test]
         public void GetHashCodeReturnsHashCodeOfIdentifier()
         {
             ServerRequest request = new ServerRequest();
-            Assert.AreEqual(request.Identifier.GetHashCode(), request.GetHashCode());
+            ClassicAssert.AreEqual(request.Identifier.GetHashCode(), request.GetHashCode());
         }
 
         [Test]

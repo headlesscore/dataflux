@@ -3,6 +3,7 @@ using System.Globalization;
 using Exortech.NetReflector;
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Sourcecontrol;
 using ThoughtWorks.CruiseControl.Core.Util;
@@ -53,18 +54,19 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 		{
 			const string name = "baselinename";
 			ProcessInfo info = clearCase.CreateTempBaselineProcessInfo(name);
-			Assert.AreEqual(string.Format(System.Globalization.CultureInfo.CurrentCulture,"{0} mkbl -view {1} -identical {2}",
+			ClassicAssert.AreEqual(string.Format(System.Globalization.CultureInfo.CurrentCulture,"{0} mkbl -view {1} -identical {2}",
 			                              EXECUTABLE,
 			                              VIEWNAME,
 			                              name),
 			                info.FileName + " " + info.Arguments);
-		}
+            ClassicAssert.IsTrue(true);
+        }
 
 		[Test]
 		public void CanCreateRemoveBaselineProcessInfo()
 		{
 			ProcessInfo info = clearCase.CreateRemoveBaselineProcessInfo();
-			Assert.AreEqual(string.Format(System.Globalization.CultureInfo.CurrentCulture,"{0} rmbl -force {1}@\\{2}",
+			ClassicAssert.AreEqual(string.Format(System.Globalization.CultureInfo.CurrentCulture,"{0} rmbl -force {1}@\\{2}",
 			                              EXECUTABLE,
 			                              clearCase.TempBaseline,
 			                              clearCase.ProjectVobName),
@@ -76,7 +78,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 		{
 			const string newName = "HiImANewBaselineName";
 			ProcessInfo info = clearCase.CreateRenameBaselineProcessInfo(newName);
-			Assert.AreEqual(string.Format(System.Globalization.CultureInfo.CurrentCulture,"{0} rename baseline:{1}@\\{2} \"{3}\"",
+			ClassicAssert.AreEqual(string.Format(System.Globalization.CultureInfo.CurrentCulture,"{0} rename baseline:{1}@\\{2} \"{3}\"",
 			                              EXECUTABLE,
 			                              clearCase.TempBaseline,
 			                              clearCase.ProjectVobName,
@@ -88,13 +90,13 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 		[Test]
 		public void ShouldPopulateCorrectlyFromXml()
 		{
-			Assert.AreEqual(EXECUTABLE, clearCase.Executable);
-			Assert.AreEqual(VIEWPATH, clearCase.ViewPath);
-			Assert.AreEqual(VIEWNAME, clearCase.ViewName);
-			Assert.AreEqual(Convert.ToBoolean(USE_BASELINE), clearCase.UseBaseline);
-			Assert.AreEqual(Convert.ToBoolean(USE_LABEL), clearCase.UseLabel);
-			Assert.AreEqual(PROJECT_VOB_NAME, clearCase.ProjectVobName);
-			Assert.AreEqual(BRANCH, clearCase.Branch);
+			ClassicAssert.AreEqual(EXECUTABLE, clearCase.Executable);
+			ClassicAssert.AreEqual(VIEWPATH, clearCase.ViewPath);
+			ClassicAssert.AreEqual(VIEWNAME, clearCase.ViewName);
+			ClassicAssert.AreEqual(Convert.ToBoolean(USE_BASELINE), clearCase.UseBaseline);
+			ClassicAssert.AreEqual(Convert.ToBoolean(USE_LABEL), clearCase.UseLabel);
+			ClassicAssert.AreEqual(PROJECT_VOB_NAME, clearCase.ProjectVobName);
+			ClassicAssert.AreEqual(BRANCH, clearCase.Branch);
 		}
 
 		[Test]
@@ -102,7 +104,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 		{
 			ClearCase clearCase = new ClearCase();
 			const string invalidXml = "<sourcecontrol type=\"ClearCase\"><useBaseline>NOT_A_BOOLEAN</useBaseline></sourcecontrol>";
-			Assert.That(delegate { NetReflector.Read(invalidXml, clearCase); },
+			ClassicAssert.That(delegate { NetReflector.Read(invalidXml, clearCase); },
                         Throws.TypeOf<NetReflectorConverterException>());
 		}
 
@@ -111,28 +113,28 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 		{
 			ClearCase clearCase = new ClearCase();
 			const string invalidXml = "<sourcecontrol type=\"ClearCase\"><useLabel>NOT_A_BOOLEAN</useLabel></sourcecontrol>";
-			Assert.That(delegate { NetReflector.Read(invalidXml, clearCase); },
+			ClassicAssert.That(delegate { NetReflector.Read(invalidXml, clearCase); },
                         Throws.TypeOf<NetReflectorConverterException>());
 		}
 
 		[Test]
 		public void ValidateBaselineNameFailsForEmptyString()
 		{
-			Assert.That(delegate { clearCase.ValidateBaselineName(""); },
+			ClassicAssert.That(delegate { clearCase.ValidateBaselineName(""); },
                         Throws.TypeOf<CruiseControlException>());
 		}
 
 		[Test]
 		public void ValidateBaselineNameFailsForNull()
 		{
-			Assert.That(delegate { clearCase.ValidateBaselineName(null); },
+			ClassicAssert.That(delegate { clearCase.ValidateBaselineName(null); },
                         Throws.TypeOf<CruiseControlException>());
 		}
 
 		[Test]
 		public void ValidateBaselineNameFailsForNameWithSpaces()
 		{
-			Assert.That(delegate { clearCase.ValidateBaselineName("name with spaces"); },
+			ClassicAssert.That(delegate { clearCase.ValidateBaselineName("name with spaces"); },
                         Throws.TypeOf<CruiseControlException>());
 		}
 
@@ -141,7 +143,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 		{
 			clearCase.UseBaseline = true;
 			clearCase.ProjectVobName = null;
-            Assert.That(delegate { clearCase.LabelSourceControl(IntegrationResultMother.CreateSuccessful()); },
+            ClassicAssert.That(delegate { clearCase.LabelSourceControl(IntegrationResultMother.CreateSuccessful()); },
                         Throws.TypeOf<CruiseControlException>());
 		}
 
@@ -159,8 +161,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 				+ "!%l" + ClearCaseHistoryParser.DELIMITER + "!%a" + ClearCaseHistoryParser.DELIMITER
 				+ "%Nc" + ClearCaseHistoryParser.END_OF_LINE_DELIMITER + "\\n\" \"" + VIEWPATH + "\"";
 			ProcessInfo processInfo = clearCase.CreateHistoryProcessInfo(expectedStartDate, DateTime.Now);
-			Assert.AreEqual("cleartool.exe", processInfo.FileName);
-			Assert.AreEqual(expectedArguments, processInfo.Arguments);
+			ClassicAssert.AreEqual("cleartool.exe", processInfo.FileName);
+			ClassicAssert.AreEqual(expectedArguments, processInfo.Arguments);
 		}
 
 		[Test]
@@ -175,8 +177,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 				+ "!%l" + ClearCaseHistoryParser.DELIMITER + "!%a" + ClearCaseHistoryParser.DELIMITER
 				+ "%Nc" + ClearCaseHistoryParser.END_OF_LINE_DELIMITER + "\\n\" \"" + VIEWPATH + "\"";
 			ProcessInfo processInfo = clearCase.CreateHistoryProcessInfo(expectedStartDate, DateTime.Now);
-			Assert.AreEqual("cleartool.exe", processInfo.FileName);
-			Assert.AreEqual(expectedArguments, processInfo.Arguments);
+			ClassicAssert.AreEqual("cleartool.exe", processInfo.FileName);
+			ClassicAssert.AreEqual(expectedArguments, processInfo.Arguments);
 		}
 
 		[Test]
@@ -184,8 +186,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 		{
 			const string label = "This-is-a-test";
 			ProcessInfo labelTypeProcess = clearCase.CreateLabelTypeProcessInfo(label);
-			Assert.AreEqual(" mklbtype -c \"CRUISECONTROL Comment\" \"" + label + "\"", labelTypeProcess.Arguments);
-			Assert.AreEqual("cleartool.exe", labelTypeProcess.FileName);
+			ClassicAssert.AreEqual(" mklbtype -c \"CRUISECONTROL Comment\" \"" + label + "\"", labelTypeProcess.Arguments);
+			ClassicAssert.AreEqual("cleartool.exe", labelTypeProcess.FileName);
 		}
 
 		[Test]
@@ -193,20 +195,20 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 		{
 			const string label = "This-is-a-test";
 			ProcessInfo labelProcess = clearCase.CreateMakeLabelProcessInfo(label);
-			Assert.AreEqual(@" mklabel -recurse """ + label + "\" \"" + VIEWPATH + "\"", labelProcess.Arguments);
-			Assert.AreEqual("cleartool.exe", labelProcess.FileName);
+			ClassicAssert.AreEqual(@" mklabel -recurse """ + label + "\" \"" + VIEWPATH + "\"", labelProcess.Arguments);
+			ClassicAssert.AreEqual("cleartool.exe", labelProcess.FileName);
 		}
 
 		[Test]
 		public void CanIgnoreVobError()
 		{
-			Assert.IsFalse(clearCase.HasFatalError(ClearCaseMother.VOB_ERROR_ONLY));
+			ClassicAssert.IsFalse(clearCase.HasFatalError(ClearCaseMother.VOB_ERROR_ONLY));
 		}
 
 		[Test]
 		public void CanDetectError()
 		{
-			Assert.IsTrue(clearCase.HasFatalError(ClearCaseMother.REAL_ERROR_WITH_VOB));
+			ClassicAssert.IsTrue(clearCase.HasFatalError(ClearCaseMother.REAL_ERROR_WITH_VOB));
 		}
 
 		[Test]

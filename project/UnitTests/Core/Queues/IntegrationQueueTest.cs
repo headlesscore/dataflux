@@ -1,6 +1,7 @@
 using System;
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Config;
 using ThoughtWorks.CruiseControl.Core.Queues;
@@ -109,7 +110,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Queues
         [Test]
         public void HasConfig()
         {
-            Assert.IsNotNull(integrationQueueUseFirst.Configuration);
+            ClassicAssert.IsNotNull(integrationQueueUseFirst.Configuration);
         }
 	
 		[Test]
@@ -119,12 +120,12 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Queues
 			integrationQueueUseFirst.Enqueue(integrationQueueItem1);
 
 			string[] queueNames = integrationQueues.GetQueueNames();
-			Assert.AreEqual(4, queueNames.Length);
-			Assert.AreEqual(TestQueueName, queueNames[0]);
+			ClassicAssert.AreEqual(4, queueNames.Length);
+			ClassicAssert.AreEqual(TestQueueName, queueNames[0]);
 
 			IIntegrationQueueItem[] itemsOnQueue = integrationQueueUseFirst.GetQueuedIntegrations();
-			Assert.AreEqual(1, itemsOnQueue.Length);
-			Assert.AreSame(integrationQueueItem1, itemsOnQueue[0]);
+			ClassicAssert.AreEqual(1, itemsOnQueue.Length);
+			ClassicAssert.AreSame(integrationQueueItem1, itemsOnQueue[0]);
 
 			VerifyAll();
 			queueNotifier1Mock.VerifyNoOtherCalls();
@@ -143,9 +144,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Queues
 			integrationQueueUseFirst.Enqueue(secondQueueItem);
 
 			IIntegrationQueueItem[] itemsOnQueue = integrationQueueUseFirst.GetQueuedIntegrations();
-			Assert.AreEqual(2, itemsOnQueue.Length);
-			Assert.AreSame(integrationQueueItem1, itemsOnQueue[0]);
-			Assert.AreSame(secondQueueItem, itemsOnQueue[1]);
+			ClassicAssert.AreEqual(2, itemsOnQueue.Length);
+			ClassicAssert.AreSame(integrationQueueItem1, itemsOnQueue[0]);
+			ClassicAssert.AreSame(secondQueueItem, itemsOnQueue[1]);
 			
 			VerifyAll();
 			queueNotifier1Mock.VerifyNoOtherCalls();
@@ -168,9 +169,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Queues
 			integrationQueueUseFirst.Enqueue(thirdQueueItem);
 
 			IIntegrationQueueItem[] itemsOnQueue = integrationQueueUseFirst.GetQueuedIntegrations();
-			Assert.AreEqual(2, itemsOnQueue.Length);
-			Assert.AreSame(integrationQueueItem1, itemsOnQueue[0]);
-			Assert.AreSame(secondQueueItem, itemsOnQueue[1]);
+			ClassicAssert.AreEqual(2, itemsOnQueue.Length);
+			ClassicAssert.AreSame(integrationQueueItem1, itemsOnQueue[0]);
+			ClassicAssert.AreSame(secondQueueItem, itemsOnQueue[1]);
+            
 
 			queueNotifier1Mock.Verify(notifier => notifier.NotifyEnteringIntegrationQueue(), Times.Exactly(2));
 			queueNotifier1Mock.Verify(notifier => notifier.NotifyExitingIntegrationQueue(It.IsAny<bool>()), Times.Exactly(0));
@@ -190,13 +192,13 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Queues
 			integrationQueueUseFirst.Enqueue(integrationQueueItem2);
 
 			string[] queueNames = integrationQueues.GetQueueNames();
-			Assert.AreEqual(4, queueNames.Length);
-			Assert.AreEqual(TestQueueName, queueNames[0]);
+			ClassicAssert.AreEqual(4, queueNames.Length);
+			ClassicAssert.AreEqual(TestQueueName, queueNames[0]);
 
 			IIntegrationQueueItem[] itemsOnQueue = integrationQueueUseFirst.GetQueuedIntegrations();
-			Assert.AreEqual(2, itemsOnQueue.Length);
-			Assert.AreSame(integrationQueueItem1, itemsOnQueue[0]);
-			Assert.AreSame(integrationQueueItem2, itemsOnQueue[1]);
+			ClassicAssert.AreEqual(2, itemsOnQueue.Length);
+			ClassicAssert.AreSame(integrationQueueItem1, itemsOnQueue[0]);
+			ClassicAssert.AreSame(integrationQueueItem2, itemsOnQueue[1]);
 
 			VerifyAll();
 			queueNotifier1Mock.VerifyNoOtherCalls();
@@ -213,11 +215,11 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Queues
 			integrationQueueUseFirst.Dequeue();
 
 			string[] queueNames = integrationQueues.GetQueueNames();
-			Assert.AreEqual(4, queueNames.Length);
-			Assert.AreEqual(TestQueueName, queueNames[0]);
+			ClassicAssert.AreEqual(4, queueNames.Length);
+			ClassicAssert.AreEqual(TestQueueName, queueNames[0]);
 
 			IIntegrationQueueItem[] itemsOnQueue = integrationQueueUseFirst.GetQueuedIntegrations();
-			Assert.AreEqual(0, itemsOnQueue.Length);
+			ClassicAssert.AreEqual(0, itemsOnQueue.Length);
 
 			VerifyAll();
 		}
@@ -237,8 +239,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Queues
 			integrationQueueUseFirst.Dequeue();
 
 			IIntegrationQueueItem[] itemsOnQueue = integrationQueueUseFirst.GetQueuedIntegrations();
-			Assert.AreEqual(1, itemsOnQueue.Length);
-			Assert.AreSame(integrationQueueItem2, itemsOnQueue[0]);
+			ClassicAssert.AreEqual(1, itemsOnQueue.Length);
+			ClassicAssert.AreSame(integrationQueueItem2, itemsOnQueue[0]);
 
 			VerifyAll();
 			queueNotifier2Mock.VerifyNoOtherCalls();
@@ -266,8 +268,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Queues
 			integrationQueueUseFirst.RemoveProject((IProject)project1Mock.Object);
 
 			IIntegrationQueueItem[] itemsOnQueue = integrationQueueUseFirst.GetQueuedIntegrations();
-			Assert.AreEqual(1, itemsOnQueue.Length);
-			Assert.AreSame(integrationQueueItem2, itemsOnQueue[0]);
+			ClassicAssert.AreEqual(1, itemsOnQueue.Length);
+			ClassicAssert.AreSame(integrationQueueItem2, itemsOnQueue[0]);
 
 			VerifyAll();
 			queueNotifier2Mock.VerifyNoOtherCalls();
@@ -288,13 +290,13 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Queues
 			integrationQueueUseFirst.Enqueue(secondQueueItem);
 
 			IIntegrationQueueItem[] itemsOnQueue = integrationQueueUseFirst.GetQueuedIntegrations();
-			Assert.AreEqual(2, itemsOnQueue.Length);
+			ClassicAssert.AreEqual(2, itemsOnQueue.Length);
 
 			integrationQueueUseFirst.RemovePendingRequest((IProject)project1Mock.Object);
 
 			itemsOnQueue = integrationQueueUseFirst.GetQueuedIntegrations();
-			Assert.AreEqual(1, itemsOnQueue.Length);
-			Assert.AreSame(integrationQueueItem1, itemsOnQueue[0]);
+			ClassicAssert.AreEqual(1, itemsOnQueue.Length);
+			ClassicAssert.AreSame(integrationQueueItem1, itemsOnQueue[0]);
 
 			VerifyAll();
 			queueNotifier1Mock.VerifyNoOtherCalls();
@@ -321,10 +323,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Queues
 			integrationQueueUseFirst.Enqueue(integrationQueueItem3);
 
 			IIntegrationQueueItem[] itemsOnQueue = integrationQueueUseFirst.GetQueuedIntegrations();
-			Assert.AreEqual(3, itemsOnQueue.Length);
-			Assert.AreSame(integrationQueueItem1, itemsOnQueue[0]);
-			Assert.AreSame(integrationQueueItem2, itemsOnQueue[1]);
-			Assert.AreSame(integrationQueueItem3, itemsOnQueue[2]);
+			ClassicAssert.AreEqual(3, itemsOnQueue.Length);
+			ClassicAssert.AreSame(integrationQueueItem1, itemsOnQueue[0]);
+			ClassicAssert.AreSame(integrationQueueItem2, itemsOnQueue[1]);
+			ClassicAssert.AreSame(integrationQueueItem3, itemsOnQueue[2]);
 
 			VerifyAll();
 			queueNotifier1Mock.VerifyNoOtherCalls();
@@ -354,10 +356,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Queues
 			integrationQueueUseFirst.Enqueue(integrationQueueItem3);
 
 			IIntegrationQueueItem[] itemsOnQueue = integrationQueueUseFirst.GetQueuedIntegrations();
-			Assert.AreEqual(3, itemsOnQueue.Length);
-			Assert.AreSame(integrationQueueItem1, itemsOnQueue[0]);
-			Assert.AreSame(integrationQueueItem3, itemsOnQueue[1]);
-			Assert.AreSame(integrationQueueItem2, itemsOnQueue[2]);
+			ClassicAssert.AreEqual(3, itemsOnQueue.Length);
+			ClassicAssert.AreSame(integrationQueueItem1, itemsOnQueue[0]);
+			ClassicAssert.AreSame(integrationQueueItem3, itemsOnQueue[1]);
+			ClassicAssert.AreSame(integrationQueueItem2, itemsOnQueue[2]);
 
 			VerifyAll();
 			queueNotifier1Mock.VerifyNoOtherCalls();
@@ -369,7 +371,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Queues
 		public void GetNextRequestIsNullWithNothingOnQueue()
 		{
 			IntegrationRequest ir = integrationQueueUseFirst.GetNextRequest((IProject)project1Mock.Object);
-			Assert.IsNull(ir);
+			ClassicAssert.IsNull(ir);
 			VerifyAll();
 		}
 
@@ -381,7 +383,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Queues
 			integrationQueueUseFirst.Enqueue(integrationQueueItem1);
 
 			IntegrationRequest ir = integrationQueueUseFirst.GetNextRequest((IProject)project2Mock.Object);
-			Assert.IsNull(ir);
+			ClassicAssert.IsNull(ir);
 			VerifyAll();
 		}
 
@@ -393,7 +395,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Queues
 			integrationQueueUseFirst.Enqueue(integrationQueueItem1);
 
 			IntegrationRequest ir = integrationQueueUseFirst.GetNextRequest((IProject)project1Mock.Object);
-			Assert.AreSame(ir, integrationRequestForceBuild);
+			ClassicAssert.AreSame(ir, integrationRequestForceBuild);
 			VerifyAll();
 		}
 
@@ -401,7 +403,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Queues
 		public void HasItemPendingOnQueueFalseWhenQueueIsEmpty()
 		{
 			bool hasItem = integrationQueueUseFirst.HasItemPendingOnQueue((IProject) project1Mock.Object);
-			Assert.IsFalse(hasItem);
+			ClassicAssert.IsFalse(hasItem);
 			VerifyAll();
 		}
 
@@ -413,7 +415,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Queues
 			integrationQueueUseFirst.Enqueue(integrationQueueItem1);
 
 			bool hasItem = integrationQueueUseFirst.HasItemPendingOnQueue((IProject) project2Mock.Object);
-			Assert.IsFalse(hasItem);
+			ClassicAssert.IsFalse(hasItem);
 			VerifyAll();
 		}
 
@@ -425,7 +427,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Queues
 			integrationQueueUseFirst.Enqueue(integrationQueueItem1);
 
 			bool hasItem = integrationQueueUseFirst.HasItemPendingOnQueue((IProject) project1Mock.Object);
-			Assert.IsFalse(hasItem);
+			ClassicAssert.IsFalse(hasItem);
 			VerifyAll();
 		}
 
@@ -444,7 +446,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Queues
 			integrationQueueUseFirst.Enqueue(integrationQueueItem2);
 
 			bool hasItem = integrationQueueUseFirst.HasItemPendingOnQueue((IProject) project2Mock.Object);
-			Assert.IsTrue(hasItem);
+			ClassicAssert.IsTrue(hasItem);
 			VerifyAll();
 		}
 
@@ -452,7 +454,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Queues
 		public void HasItemOnQueueFalseWhenQueueIsEmpty()
 		{
 			bool hasItem = integrationQueueUseFirst.HasItemOnQueue((IProject) project1Mock.Object);
-			Assert.IsFalse(hasItem);
+			ClassicAssert.IsFalse(hasItem);
 			VerifyAll();
 		}
 
@@ -464,7 +466,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Queues
 			integrationQueueUseFirst.Enqueue(integrationQueueItem1);
 
 			bool hasItem = integrationQueueUseFirst.HasItemOnQueue((IProject) project2Mock.Object);
-			Assert.IsFalse(hasItem);
+			ClassicAssert.IsFalse(hasItem);
 			VerifyAll();
 		}
 
@@ -476,7 +478,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Queues
 			integrationQueueUseFirst.Enqueue(integrationQueueItem1);
 
 			bool hasItem = integrationQueueUseFirst.HasItemOnQueue((IProject) project1Mock.Object);
-			Assert.IsTrue(hasItem);
+			ClassicAssert.IsTrue(hasItem);
 			VerifyAll();
 		}
 
@@ -495,7 +497,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Queues
 			integrationQueueUseFirst.Enqueue(integrationQueueItem2);
 
 			bool hasItem = integrationQueueUseFirst.HasItemOnQueue((IProject) project2Mock.Object);
-			Assert.IsTrue(hasItem);
+			ClassicAssert.IsTrue(hasItem);
 			VerifyAll();
 		}
 
@@ -529,8 +531,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Queues
 
             // Check the queued items
             IIntegrationQueueItem[] queuedItems = integrationQueueReAdd.GetQueuedIntegrations();
-            Assert.AreEqual(integrationQueueItem3, queuedItems[1], "Integration item #1 is incorrect");
-            Assert.AreEqual(integrationQueueItem2, queuedItems[2], "Integration item #2 is incorrect");
+            ClassicAssert.AreEqual(integrationQueueItem3, queuedItems[1], "Integration item #1 is incorrect");
+            ClassicAssert.AreEqual(integrationQueueItem2, queuedItems[2], "Integration item #2 is incorrect");
             VerifyAll();
         }
 
@@ -564,8 +566,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Queues
 
             // Check the queued items
             IIntegrationQueueItem[] queuedItems = integrationQueueReAddTop.GetQueuedIntegrations();
-            Assert.AreEqual(integrationQueueItem2, queuedItems[1], "Integration item #1 is incorrect");
-            Assert.AreEqual(integrationQueueItem3, queuedItems[2], "Integration item #2 is incorrect");
+            ClassicAssert.AreEqual(integrationQueueItem2, queuedItems[1], "Integration item #1 is incorrect");
+            ClassicAssert.AreEqual(integrationQueueItem3, queuedItems[2], "Integration item #2 is incorrect");
             VerifyAll();
         }
 
@@ -599,8 +601,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Queues
 
             // Check the queued items
             IIntegrationQueueItem[] queuedItems = integrationQueueReplace.GetQueuedIntegrations();
-            Assert.AreEqual(integrationQueueItem2, queuedItems[1], "Integration item #1 is incorrect");
-            Assert.AreEqual(integrationQueueItem3, queuedItems[2], "Integration item #2 is incorrect");
+            ClassicAssert.AreEqual(integrationQueueItem2, queuedItems[1], "Integration item #1 is incorrect");
+            ClassicAssert.AreEqual(integrationQueueItem3, queuedItems[2], "Integration item #2 is incorrect");
             VerifyAll();
         }
 
@@ -632,8 +634,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Queues
 
             // Check the queued items
             IIntegrationQueueItem[] queuedItems = integrationQueueReAdd.GetQueuedIntegrations();
-            Assert.AreEqual(integrationQueueItem4, queuedItems[1], "Integration item #1 is incorrect");
-            Assert.AreEqual(integrationQueueItem3, queuedItems[2], "Integration item #2 is incorrect");
+            ClassicAssert.AreEqual(integrationQueueItem4, queuedItems[1], "Integration item #1 is incorrect");
+            ClassicAssert.AreEqual(integrationQueueItem3, queuedItems[2], "Integration item #2 is incorrect");
             VerifyAll();
         }
 
@@ -665,8 +667,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Queues
 
             // Check the queued items
             IIntegrationQueueItem[] queuedItems = integrationQueueReplace.GetQueuedIntegrations();
-            Assert.AreEqual(integrationQueueItem4, queuedItems[1], "Integration item #1 is incorrect");
-            Assert.AreEqual(integrationQueueItem3, queuedItems[2], "Integration item #2 is incorrect");
+            ClassicAssert.AreEqual(integrationQueueItem4, queuedItems[1], "Integration item #1 is incorrect");
+            ClassicAssert.AreEqual(integrationQueueItem3, queuedItems[2], "Integration item #2 is incorrect");
             VerifyAll();
         }
 
@@ -684,46 +686,46 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Queues
             // to test these locks before we involve projects, toggle locks on each in term and verify that the correct queues are locked
 
             // starting position
-            Assert.IsFalse(integrationQueues[queues[0]].IsBlocked, "Initial state of Queue0 should be unblocked");
-            Assert.IsFalse(integrationQueues[queues[1]].IsBlocked, "Initial state of Queue1 should be unblocked");
-            Assert.IsFalse(integrationQueues[queues[2]].IsBlocked, "Initial state of Queue2 should be unblocked");
+            ClassicAssert.IsFalse(integrationQueues[queues[0]].IsBlocked, "Initial state of Queue0 should be unblocked");
+            ClassicAssert.IsFalse(integrationQueues[queues[1]].IsBlocked, "Initial state of Queue1 should be unblocked");
+            ClassicAssert.IsFalse(integrationQueues[queues[2]].IsBlocked, "Initial state of Queue2 should be unblocked");
 
             // Toggle locks on #0 (acquire)
             IDisposable lock1, lock2;
-            Assert.IsTrue(integrationQueues[queues[0]].TryLock(out lock1));
-            Assert.IsFalse(integrationQueues[queues[0]].IsBlocked, "State of Queue0 should be unlocked");
-            Assert.IsTrue(integrationQueues[queues[1]].IsBlocked, "State of Queue1 should be locked");
-            Assert.IsTrue(integrationQueues[queues[2]].IsBlocked, "State of Queue2 should be locked");
+            ClassicAssert.IsTrue(integrationQueues[queues[0]].TryLock(out lock1));
+            ClassicAssert.IsFalse(integrationQueues[queues[0]].IsBlocked, "State of Queue0 should be unlocked");
+            ClassicAssert.IsTrue(integrationQueues[queues[1]].IsBlocked, "State of Queue1 should be locked");
+            ClassicAssert.IsTrue(integrationQueues[queues[2]].IsBlocked, "State of Queue2 should be locked");
 
             // Toggle locks on #0 (release)
             lock1.Dispose();
-            Assert.IsFalse(integrationQueues[queues[0]].IsBlocked, "State of Queue0 should be unlocked");
-            Assert.IsFalse(integrationQueues[queues[1]].IsBlocked, "State of Queue1 should be unlocked");
-            Assert.IsFalse(integrationQueues[queues[2]].IsBlocked, "State of Queue2 should be unlocked");
+            ClassicAssert.IsFalse(integrationQueues[queues[0]].IsBlocked, "State of Queue0 should be unlocked");
+            ClassicAssert.IsFalse(integrationQueues[queues[1]].IsBlocked, "State of Queue1 should be unlocked");
+            ClassicAssert.IsFalse(integrationQueues[queues[2]].IsBlocked, "State of Queue2 should be unlocked");
 
             // Toggle locks on #1 (acquire)
-            Assert.IsTrue(integrationQueues[queues[1]].TryLock(out lock1));
-            Assert.IsTrue(integrationQueues[queues[0]].IsBlocked, "State of Queue0 should be locked");
-            Assert.IsFalse(integrationQueues[queues[1]].IsBlocked, "State of Queue1 should be unlocked");
-            Assert.IsFalse(integrationQueues[queues[2]].IsBlocked, "State of Queue2 should be unlocked");
+            ClassicAssert.IsTrue(integrationQueues[queues[1]].TryLock(out lock1));
+            ClassicAssert.IsTrue(integrationQueues[queues[0]].IsBlocked, "State of Queue0 should be locked");
+            ClassicAssert.IsFalse(integrationQueues[queues[1]].IsBlocked, "State of Queue1 should be unlocked");
+            ClassicAssert.IsFalse(integrationQueues[queues[2]].IsBlocked, "State of Queue2 should be unlocked");
 
             // Toggle locks on #2 (acquire) - this means 2 queues have a lock on #0, therefore both must be released
-            Assert.IsTrue(integrationQueues[queues[2]].TryLock(out lock2));
-            Assert.IsTrue(integrationQueues[queues[0]].IsBlocked, "State of Queue0 should be locked");
-            Assert.IsFalse(integrationQueues[queues[1]].IsBlocked, "State of Queue1 should be unlocked");
-            Assert.IsFalse(integrationQueues[queues[2]].IsBlocked, "State of Queue2 should be unlocked");
+            ClassicAssert.IsTrue(integrationQueues[queues[2]].TryLock(out lock2));
+            ClassicAssert.IsTrue(integrationQueues[queues[0]].IsBlocked, "State of Queue0 should be locked");
+            ClassicAssert.IsFalse(integrationQueues[queues[1]].IsBlocked, "State of Queue1 should be unlocked");
+            ClassicAssert.IsFalse(integrationQueues[queues[2]].IsBlocked, "State of Queue2 should be unlocked");
 
             // Toggle locks on #1 (release) - #0 should remain locked
             lock1.Dispose();
-            Assert.IsTrue(integrationQueues[queues[0]].IsBlocked, "State of Queue0 should be locked");
-            Assert.IsFalse(integrationQueues[queues[1]].IsBlocked, "State of Queue1 should be unlocked");
-            Assert.IsFalse(integrationQueues[queues[2]].IsBlocked, "State of Queue2 should be unlocked");
+            ClassicAssert.IsTrue(integrationQueues[queues[0]].IsBlocked, "State of Queue0 should be locked");
+            ClassicAssert.IsFalse(integrationQueues[queues[1]].IsBlocked, "State of Queue1 should be unlocked");
+            ClassicAssert.IsFalse(integrationQueues[queues[2]].IsBlocked, "State of Queue2 should be unlocked");
 
             // Toggle locks on #2 (release) - #0 should remain locked
             lock2.Dispose();
-            Assert.IsFalse(integrationQueues[queues[0]].IsBlocked, "State of Queue0 should be unlocked");
-            Assert.IsFalse(integrationQueues[queues[1]].IsBlocked, "State of Queue1 should be unlocked");
-            Assert.IsFalse(integrationQueues[queues[2]].IsBlocked, "State of Queue2 should be unlocked");
+            ClassicAssert.IsFalse(integrationQueues[queues[0]].IsBlocked, "State of Queue0 should be unlocked");
+            ClassicAssert.IsFalse(integrationQueues[queues[1]].IsBlocked, "State of Queue1 should be unlocked");
+            ClassicAssert.IsFalse(integrationQueues[queues[2]].IsBlocked, "State of Queue2 should be unlocked");
         }
 
         [Test]
@@ -737,19 +739,19 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Queues
 
             // now lock one of the queues and add projects to it
             IDisposable lock1;
-            Assert.IsTrue(integrationQueues[queues[0]].TryLock(out lock1));
+            ClassicAssert.IsTrue(integrationQueues[queues[0]].TryLock(out lock1));
 
             project1Mock.SetupGet(project => project.QueueName).Returns(queues[1]);
             project1Mock.SetupGet(project => project.QueuePriority).Returns(1);
             queueNotifier1Mock.Setup(notifier => notifier.NotifyEnteringIntegrationQueue()).Verifiable();
             integrationQueueReplace.Enqueue(integrationQueueItem1);
 
-            Assert.IsNull(integrationQueueReplace.GetNextRequest((IProject)project1Mock.Object), "Expected no next request, as queue is locked");
+            ClassicAssert.IsNull(integrationQueueReplace.GetNextRequest((IProject)project1Mock.Object), "Expected no next request, as queue is locked");
 
             lock1.Dispose();
 
             IntegrationRequest next = integrationQueueReplace.GetNextRequest((IProject)project1Mock.Object);
-            Assert.IsNotNull(next, "Expected next request as queue lock has been released");
+            ClassicAssert.IsNotNull(next, "Expected next request as queue lock has been released");
         }
     }
 }

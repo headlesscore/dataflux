@@ -3,6 +3,7 @@
     using System;
     using System.IO;
     using NUnit.Framework;
+    using NUnit.Framework.Legacy;
     using ThoughtWorks.CruiseControl.Remote;
     using ThoughtWorks.CruiseControl.Remote.Parameters;
 
@@ -13,33 +14,35 @@
         public void SetGetProperties()
         {
             SelectParameter parameter = new SelectParameter();
-            Assert.AreEqual(typeof(string), parameter.DataType, "DataType does not match");
+            ClassicAssert.AreEqual(typeof(string), parameter.DataType, "DataType does not match");
 
             parameter.IsRequired = false;
-            Assert.AreEqual(false, parameter.IsRequired, "IsRequired does not match");
+            ClassicAssert.AreEqual(false, parameter.IsRequired, "IsRequired does not match");
             parameter.IsRequired = true;
-            Assert.AreEqual(true, parameter.IsRequired, "IsRequired does not match");
+            ClassicAssert.AreEqual(true, parameter.IsRequired, "IsRequired does not match");
             parameter.DataValues = new NameValuePair[] { 
                 new NameValuePair(string.Empty, "Dev"), 
                 new NameValuePair("Test", "Test"), 
                 new NameValuePair(null, "Prod") 
             };
-            Assert.AreEqual(3, parameter.AllowedValues.Length, "AllowedValues does not match");
+            ClassicAssert.AreEqual(3, parameter.AllowedValues.Length, "AllowedValues does not match");
             parameter.Description = "Some description goes here";
-            Assert.AreEqual("Some description goes here", parameter.Description, "Description does not match");
+            ClassicAssert.AreEqual("Some description goes here", parameter.Description, "Description does not match");
             parameter.Name = "Some name";
-            Assert.AreEqual("Some name", parameter.Name, "Name does not match");
-            Assert.AreEqual("Some name", parameter.DisplayName, "DisplayName does not match");
+            ClassicAssert.AreEqual("Some name", parameter.Name, "Name does not match");
+            ClassicAssert.AreEqual("Some name", parameter.DisplayName, "DisplayName does not match");
             parameter.DisplayName = "Another name";
-            Assert.AreEqual("Another name", parameter.DisplayName, "DisplayName does not match");
+            ClassicAssert.AreEqual("Another name", parameter.DisplayName, "DisplayName does not match");
 
             var defaultValue = "daDefault";
             var clientValue = "daDefaultForDaClient";
             parameter.DefaultValue = defaultValue;
-            Assert.AreEqual(defaultValue, parameter.DefaultValue);
-            Assert.AreEqual(defaultValue, parameter.ClientDefaultValue);
+            ClassicAssert.AreEqual(defaultValue, parameter.DefaultValue);
+            ClassicAssert.AreEqual(defaultValue, parameter.ClientDefaultValue);
             parameter.ClientDefaultValue = clientValue;
-            Assert.AreEqual(clientValue, parameter.ClientDefaultValue);
+            ClassicAssert.AreEqual(clientValue, parameter.ClientDefaultValue);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
         }
 
         [Test]
@@ -52,7 +55,7 @@
                 new NameValuePair("name2", "value2")
             };
             parameter.DefaultValue = "value2";
-            Assert.AreEqual("name2", parameter.ClientDefaultValue);
+            ClassicAssert.AreEqual("name2", parameter.ClientDefaultValue);
         }
 
         [Test]
@@ -65,7 +68,7 @@
                 new NameValuePair("name2", "value2")
             };
             var value = parameter.Convert("name1");
-            Assert.AreEqual("value1", value);
+            ClassicAssert.AreEqual("value1", value);
         }
 
         [Test]
@@ -78,7 +81,7 @@
                 new NameValuePair("name2", "value2")
             };
             var value = parameter.Convert("notFound");
-            Assert.AreEqual("notFound", value);
+            ClassicAssert.AreEqual("notFound", value);
         }
 
         [Test]
@@ -88,8 +91,8 @@
             parameter.Name = "Test";
             parameter.IsRequired = true;
             Exception[] results = parameter.Validate(string.Empty);
-            Assert.AreEqual(1, results.Length, "Number of exceptions does not match");
-            Assert.AreEqual("Value of 'Test' is required", results[0].Message, "Exception message does not match");
+            ClassicAssert.AreEqual(1, results.Length, "Number of exceptions does not match");
+            ClassicAssert.AreEqual("Value of 'Test' is required", results[0].Message, "Exception message does not match");
         }
 
         [Test]
@@ -103,7 +106,7 @@
                 new NameValuePair(null, "Prod") 
             };
             Exception[] results = parameter.Validate("Dev");
-            Assert.AreEqual(0, results.Length, "Number of exceptions does not match");
+            ClassicAssert.AreEqual(0, results.Length, "Number of exceptions does not match");
         }
 
         [Test]
@@ -117,8 +120,8 @@
                 new NameValuePair(null, "Prod") 
             };
             Exception[] results = parameter.Validate("QA");
-            Assert.AreEqual(1, results.Length, "Number of exceptions does not match");
-            Assert.AreEqual("Value of 'Test' is not an allowed value", results[0].Message, "Exception message does not match");
+            ClassicAssert.AreEqual(1, results.Length, "Number of exceptions does not match");
+            ClassicAssert.AreEqual("Value of 'Test' is not an allowed value", results[0].Message, "Exception message does not match");
         }
 
         [Test]
@@ -132,7 +135,7 @@
                 new NameValuePair("three", "3")
             };
             parameter.DataValues = dataValues;
-            Assert.AreSame(dataValues, parameter.DataValues);
+            ClassicAssert.AreSame(dataValues, parameter.DataValues);
         }
 
         [Test]

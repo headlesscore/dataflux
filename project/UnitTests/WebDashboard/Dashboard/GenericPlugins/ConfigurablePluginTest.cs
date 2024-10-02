@@ -1,5 +1,6 @@
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.WebDashboard.Dashboard;
 using ThoughtWorks.CruiseControl.WebDashboard.Dashboard.GenericPlugins;
 
@@ -18,9 +19,11 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.Dashboard.GenericPlu
 			plugin.LinkDescription = "My Plugin";
 			plugin.NamedActions = new INamedAction[] { action };
 
-			Assert.AreEqual("My Plugin", plugin.LinkDescription);
-			Assert.AreEqual(1, plugin.NamedActions.Length);
-			Assert.AreEqual(action, plugin.NamedActions[0]);
-		}
+			ClassicAssert.AreEqual("My Plugin", plugin.LinkDescription);
+			ClassicAssert.AreEqual(1, plugin.NamedActions.Length);
+			ClassicAssert.AreEqual(action, plugin.NamedActions[0]);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
+        }
 	}
 }

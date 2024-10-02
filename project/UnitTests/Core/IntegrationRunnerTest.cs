@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Sourcecontrol;
 using ThoughtWorks.CruiseControl.Core.Util;
@@ -80,9 +81,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
 
             IIntegrationResult returnedResult = runner.Integrate(request);
 
-            Assert.AreEqual(result, returnedResult);
-            Assert.IsTrue(Directory.Exists(result.WorkingDirectory));
-            Assert.IsTrue(Directory.Exists(result.ArtifactDirectory));
+            ClassicAssert.AreEqual(result, returnedResult);
+            ClassicAssert.IsTrue(Directory.Exists(result.WorkingDirectory));
+            ClassicAssert.IsTrue(Directory.Exists(result.ArtifactDirectory));
             mockery.Verify();
         }
 
@@ -95,7 +96,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
 
             IIntegrationResult returnedResult = runner.Integrate(request);
 
-            Assert.AreEqual(result, returnedResult);
+            ClassicAssert.AreEqual(result, returnedResult);
             mockery.Verify();
         }
 
@@ -185,16 +186,17 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
 
             // Check the results
             this.mocks.VerifyAll();
-            Assert.AreEqual(2, request.BuildValues.Count);
-            Assert.IsTrue(request.BuildValues.ContainsKey("$CCNetUser"));
-            Assert.AreEqual("John Doe", request.BuildValues["$CCNetUser"]);
-            Assert.IsTrue(request.BuildValues.ContainsKey("$CCNetLabel"));
-            Assert.AreEqual("1.1", request.BuildValues["$CCNetLabel"]);
-            Assert.AreEqual(2, parameters.Count);
-            Assert.AreEqual("$CCNetUser", parameters[0].Name);
-            Assert.AreEqual("John Doe", parameters[0].Value);
-            Assert.AreEqual("$CCNetLabel", parameters[1].Name);
-            Assert.AreEqual("1.1", parameters[1].Value);
+            ClassicAssert.AreEqual(2, request.BuildValues.Count);
+            ClassicAssert.IsTrue(request.BuildValues.ContainsKey("$CCNetUser"));
+            ClassicAssert.AreEqual("John Doe", request.BuildValues["$CCNetUser"]);
+            ClassicAssert.IsTrue(request.BuildValues.ContainsKey("$CCNetLabel"));
+            ClassicAssert.AreEqual("1.1", request.BuildValues["$CCNetLabel"]);
+            ClassicAssert.AreEqual(2, parameters.Count);
+            ClassicAssert.AreEqual(2, parameters.Count);
+            ClassicAssert.AreEqual("$CCNetUser", parameters[0].Name);
+            ClassicAssert.AreEqual("John Doe", parameters[0].Value);
+            ClassicAssert.AreEqual("$CCNetLabel", parameters[1].Name);
+            ClassicAssert.AreEqual("1.1", parameters[1].Value);
         }
 
         [Test]
@@ -227,16 +229,16 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
 
             // Check the results
             this.mocks.VerifyAll();
-            Assert.AreEqual(2, request.BuildValues.Count);
-            Assert.IsTrue(request.BuildValues.ContainsKey("$CCNetUser"));
-            Assert.AreEqual("John Doe", request.BuildValues["$CCNetUser"]);
-            Assert.IsTrue(request.BuildValues.ContainsKey("$CCNetLabel"));
-            Assert.AreEqual("1.2", request.BuildValues["$CCNetLabel"]);
-            Assert.AreEqual(2, parameters.Count);
-            Assert.AreEqual("$CCNetUser", parameters[0].Name);
-            Assert.AreEqual("John Doe", parameters[0].Value);
-            Assert.AreEqual("$CCNetLabel", parameters[1].Name);
-            Assert.AreEqual("1.2", parameters[1].Value);
+            ClassicAssert.AreEqual(2, request.BuildValues.Count);
+            ClassicAssert.IsTrue(request.BuildValues.ContainsKey("$CCNetUser"));
+            ClassicAssert.AreEqual("John Doe", request.BuildValues["$CCNetUser"]);
+            ClassicAssert.IsTrue(request.BuildValues.ContainsKey("$CCNetLabel"));
+            ClassicAssert.AreEqual("1.2", request.BuildValues["$CCNetLabel"]);
+            ClassicAssert.AreEqual(2, parameters.Count);
+            ClassicAssert.AreEqual("$CCNetUser", parameters[0].Name);
+            ClassicAssert.AreEqual("John Doe", parameters[0].Value);
+            ClassicAssert.AreEqual("$CCNetLabel", parameters[1].Name);
+            ClassicAssert.AreEqual("1.2", parameters[1].Value);
         }
         #endregion
     }

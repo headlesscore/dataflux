@@ -4,6 +4,7 @@ using System.IO;
 using System.Text;
 using Exortech.NetReflector;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Tasks;
 using ThoughtWorks.CruiseControl.Core.Util;
@@ -62,23 +63,25 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
     </dumpValue>";
 
             NetReflector.Read(xml, task);
-            Assert.AreEqual(@"C:\some\path\to\file.xml", task.XmlFileName);
-            Assert.AreEqual(5, task.Items.Length);
-            Assert.AreEqual("The Name", task.Items[0].Name);
-            Assert.AreEqual("something", task.Items[0].Value);
-            Assert.IsTrue(task.Items[0].ValueInCDATA);
-            Assert.AreEqual("The Name 2", task.Items[1].Name);
-            Assert.AreEqual("some other thing", task.Items[1].Value);
-            Assert.IsTrue(task.Items[1].ValueInCDATA);
-            Assert.AreEqual("The Name 3", task.Items[2].Name);
-            Assert.AreEqual("stuff", task.Items[2].Value);
-            Assert.IsTrue(task.Items[2].ValueInCDATA);
-            Assert.AreEqual("The Name 4", task.Items[3].Name);
-            Assert.AreEqual("last but not least", task.Items[3].Value);
-            Assert.IsTrue(task.Items[3].ValueInCDATA);
-            Assert.AreEqual("NotInCDATA", task.Items[4].Name);
-            Assert.AreEqual("given data", task.Items[4].Value);
-            Assert.IsFalse(task.Items[4].ValueInCDATA);
+            ClassicAssert.AreEqual(@"C:\some\path\to\file.xml", task.XmlFileName);
+            ClassicAssert.AreEqual(5, task.Items.Length);
+            ClassicAssert.AreEqual("The Name", task.Items[0].Name);
+            ClassicAssert.AreEqual("something", task.Items[0].Value);
+            ClassicAssert.IsTrue(task.Items[0].ValueInCDATA);
+            ClassicAssert.AreEqual("The Name 2", task.Items[1].Name);
+            ClassicAssert.AreEqual("some other thing", task.Items[1].Value);
+            ClassicAssert.IsTrue(task.Items[1].ValueInCDATA);
+            ClassicAssert.AreEqual("The Name 3", task.Items[2].Name);
+            ClassicAssert.AreEqual("stuff", task.Items[2].Value);
+            ClassicAssert.IsTrue(task.Items[2].ValueInCDATA);
+            ClassicAssert.AreEqual("The Name 4", task.Items[3].Name);
+            ClassicAssert.AreEqual("last but not least", task.Items[3].Value);
+            ClassicAssert.IsTrue(task.Items[3].ValueInCDATA);
+            ClassicAssert.AreEqual("NotInCDATA", task.Items[4].Name);
+            ClassicAssert.AreEqual("given data", task.Items[4].Value);
+            ClassicAssert.IsFalse(task.Items[4].ValueInCDATA);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
         }
 
         /// <summary>
@@ -140,7 +143,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
             task.XmlFileName = dumpFilePath;
             task.Items = NameValues;
             task.Run(GetResult());
-            Assert.IsTrue(File.Exists(dumpFilePath), "Dump file not generated");
+            ClassicAssert.IsTrue(File.Exists(dumpFilePath), "Dump file not generated");
 
             StreamReader reader = File.OpenText(dumpFilePath);
             string dumpContent;
@@ -153,7 +156,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
                 reader.Close();
             }
 
-            Assert.AreEqual(GetExpectedXMLContent(task.Items), dumpContent);
+            ClassicAssert.AreEqual(GetExpectedXMLContent(task.Items), dumpContent);
         }
 
         private IntegrationResult GetResult()

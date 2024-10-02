@@ -1,6 +1,7 @@
 using System;
 using Exortech.NetReflector;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Sourcecontrol;
 
@@ -49,8 +50,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
         {
             RegExIssueTrackerUrlBuilder regexIssue = CreateBuilder();
 
-            Assert.AreEqual(searchString, regexIssue.Find);
-            Assert.AreEqual(replacementString, regexIssue.Replace);
+            ClassicAssert.AreEqual(searchString, regexIssue.Find);
+            ClassicAssert.AreEqual(replacementString, regexIssue.Replace);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
         }
 
 
@@ -69,7 +72,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
             RegExIssueTrackerUrlBuilder regexIssue = CreateBuilder();
             regexIssue.SetupModification(mods);
 
-            Assert.AreEqual(ExpectedUrl, mods[0].IssueUrl);
+            ClassicAssert.AreEqual(ExpectedUrl, mods[0].IssueUrl);
         }
 
 
@@ -86,7 +89,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
             RegExIssueTrackerUrlBuilder regexIssue = CreateBuilder();
             regexIssue.SetupModification(mods);
 
-            Assert.AreEqual(ExpectedUrl, mods[0].IssueUrl);
+            ClassicAssert.AreEqual(ExpectedUrl, mods[0].IssueUrl);
         }
 
 
@@ -104,7 +107,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
             RegExIssueTrackerUrlBuilder regexIssue = CreateBuilder();
             regexIssue.SetupModification(mods);
 
-            Assert.AreEqual(ExpectedUrl, mods[0].IssueUrl);
+            ClassicAssert.AreEqual(ExpectedUrl, mods[0].IssueUrl);
         }
 
 
@@ -121,7 +124,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
             RegExIssueTrackerUrlBuilder regexIssue = CreateBuilder();
             regexIssue.SetupModification(mods);
 
-            Assert.IsNull(mods[0].IssueUrl);
+            ClassicAssert.IsNull(mods[0].IssueUrl);
         }
 
         [Test]
@@ -137,7 +140,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
             RegExIssueTrackerUrlBuilder regexIssue = CreateBuilder();
             regexIssue.SetupModification(mods);
 
-            Assert.IsNull(mods[0].IssueUrl);
+            ClassicAssert.IsNull(mods[0].IssueUrl);
         }
 
 
@@ -154,7 +157,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
             RegExIssueTrackerUrlBuilder regexIssue = CreateBuilder();
             regexIssue.SetupModification(mods);
 
-            Assert.IsNull(mods[0].IssueUrl);
+            ClassicAssert.IsNull(mods[0].IssueUrl);
         }
 
 
@@ -171,7 +174,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
             RegExIssueTrackerUrlBuilder regexIssue = CreateBuilder();
             regexIssue.SetupModification(mods);
 
-            Assert.IsNull(mods[0].IssueUrl);
+            ClassicAssert.IsNull(mods[0].IssueUrl);
         }
 
 
@@ -198,7 +201,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 
             regexIssue.SetupModification(mods);
 
-            Assert.AreEqual("http://flyspray.internal/index.php?do=details&task_id=1234", mods[0].IssueUrl);
+            ClassicAssert.AreEqual("http://flyspray.internal/index.php?do=details&task_id=1234", mods[0].IssueUrl);
         }
 
 

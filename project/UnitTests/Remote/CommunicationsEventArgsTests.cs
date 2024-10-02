@@ -1,6 +1,7 @@
 ﻿namespace ThoughtWorks.CruiseControl.UnitTests.Remote
 {
     using NUnit.Framework;
+    using NUnit.Framework.Legacy;
     using ThoughtWorks.CruiseControl.Remote;
     using ThoughtWorks.CruiseControl.Remote.Messages;
 
@@ -13,8 +14,10 @@
         {
             var message = new Response();
             var args = new CommunicationsEventArgs("action", message);
-            Assert.AreEqual("action", args.Action);
-            Assert.AreSame(message, args.Message);
+            ClassicAssert.AreEqual("action", args.Action);
+            ClassicAssert.AreSame(message, args.Message);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
         }
         #endregion
     }

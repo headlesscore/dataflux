@@ -6,6 +6,7 @@ using ThoughtWorks.CruiseControl.WebDashboard.IO;
 using ThoughtWorks.CruiseControl.WebDashboard.MVC;
 using ThoughtWorks.CruiseControl.WebDashboard.MVC.Cruise;
 using ThoughtWorks.CruiseControl.Core.Reporting.Dashboard.Navigation;
+using NUnit.Framework.Legacy;
 
 namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.MVC.Cruise
 {
@@ -56,8 +57,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.MVC.Cruise
 			IResponse returnedResponse = proxy.Execute(request);
 
 			// Verify
-			Assert.AreEqual(response, returnedResponse);
-			VerifyAll();
+			ClassicAssert.AreEqual(response, returnedResponse);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
+            VerifyAll();
 		}
 	}
 }

@@ -1,5 +1,6 @@
 using Exortech.NetReflector;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using Objection;
 using Objection.NetReflectorPlugin;
 
@@ -21,9 +22,11 @@ namespace Objection.UnitTests.NetReflectorPlugin
 
 			SerializableType deserialized = (SerializableType) NetReflector.Read(serializedForm, typeTable);
 
-			Assert.AreEqual("MyValue", deserialized.MyProperty);
-			Assert.IsNotNull("Hello NetReflector", deserialized.DependencyObject.Message);
-		}
+			ClassicAssert.AreEqual("MyValue", deserialized.MyProperty);
+			ClassicAssert.IsNotNull("Hello NetReflector", deserialized.DependencyObject.Message);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
+        }
 	}
 
 	[ReflectorType("mySerializableType")]

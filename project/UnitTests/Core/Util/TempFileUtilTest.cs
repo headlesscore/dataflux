@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Xml;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core.Util;
 
 namespace ThoughtWorks.CruiseControl.UnitTests.Core.Util
@@ -15,20 +16,22 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Util
 		public void SetUp()
 		{
 			TempFileUtil.DeleteTempDir(TempDir);
-			Assert.IsTrue(! Directory.Exists(TempFileUtil.GetTempPath(TempDir)), "Temp folder exists before test!");
-		}
+			ClassicAssert.IsTrue(! Directory.Exists(TempFileUtil.GetTempPath(TempDir)), "Temp folder exists before test!");
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
+        }
 
 		[TearDown]
 		public void TearDown()
 		{
 			TempFileUtil.DeleteTempDir(TempDir);
-			Assert.IsTrue(! Directory.Exists(TempFileUtil.GetTempPath(TempDir)));
+			ClassicAssert.IsTrue(! Directory.Exists(TempFileUtil.GetTempPath(TempDir)));
 		}
 
 		public void TestCreateTempDir()
 		{
 			TempFileUtil.CreateTempDir(TempDir);
-			Assert.IsTrue(Directory.Exists(TempFileUtil.GetTempPath(TempDir)));
+			ClassicAssert.IsTrue(Directory.Exists(TempFileUtil.GetTempPath(TempDir)));
 			TempFileUtil.DeleteTempDir(TempDir);
 		}
 
@@ -36,16 +39,16 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Util
 		{
 			TempFileUtil.CreateTempDir(TempDir);
 			TempFileUtil.CreateTempFiles(TempDir, new String[]{"test.tmp"});
-			Assert.AreEqual(1, Directory.GetFiles(TempFileUtil.GetTempPath(TempDir)).Length);
+			ClassicAssert.AreEqual(1, Directory.GetFiles(TempFileUtil.GetTempPath(TempDir)).Length);
 			TempFileUtil.CreateTempDir(TempDir);
-			Assert.AreEqual(0, Directory.GetFiles(TempFileUtil.GetTempPath(TempDir)).Length);
+			ClassicAssert.AreEqual(0, Directory.GetFiles(TempFileUtil.GetTempPath(TempDir)).Length);
 		}
 
 		public void TestCreateTempXmlDoc()
 		{
 			TempFileUtil.CreateTempDir(TempDir);
 			string path = TempFileUtil.CreateTempXmlFile(TempDir, "foobar.xml", "<test />");
-			Assert.IsTrue(File.Exists(path));
+			ClassicAssert.IsTrue(File.Exists(path));
 			XmlDocument doc = new XmlDocument();
 			doc.Load(path);
 		}
@@ -55,10 +58,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Util
 		{
 			string expected = "hello my name is rosebud";
 			string path = TempFileUtil.CreateTempFile(TempDir, "TestCreateTempFile_withContent.txt", expected);
-			Assert.IsTrue(File.Exists(path));
+			ClassicAssert.IsTrue(File.Exists(path));
 			using (StreamReader stream = File.OpenText(path))
 			{
-				Assert.AreEqual(expected, stream.ReadToEnd());				
+				ClassicAssert.AreEqual(expected, stream.ReadToEnd());				
 			}
 		}
 	}

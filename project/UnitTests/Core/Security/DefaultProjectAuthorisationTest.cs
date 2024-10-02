@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -16,7 +17,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security
             DefaultProjectAuthorisation authorisation = new DefaultProjectAuthorisation(SecurityRight.Deny,
                 new UserPermission("johndoe", SecurityRight.Inherit, SecurityRight.Inherit, SecurityRight.Allow, SecurityRight.Inherit));
             bool result = authorisation.CheckPermission(null, "johndoe", SecurityPermission.ForceAbortBuild, SecurityRight.Inherit);
-            Assert.AreEqual(true, result);
+            ClassicAssert.AreEqual(true, result);
         }
 
         [Test]
@@ -25,7 +26,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security
             DefaultProjectAuthorisation authorisation = new DefaultProjectAuthorisation(SecurityRight.Deny,
                 new UserPermission("johndoe", SecurityRight.Inherit, SecurityRight.Inherit, SecurityRight.Allow, SecurityRight.Inherit));
             bool result = authorisation.CheckPermission(null, "johndoe", SecurityPermission.SendMessage, SecurityRight.Inherit);
-            Assert.AreEqual(false, result);
+            ClassicAssert.AreEqual(false, result);
+            
         }
 
         [Test]
@@ -34,7 +36,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security
             DefaultProjectAuthorisation authorisation = new DefaultProjectAuthorisation(SecurityRight.Deny,
                 new UserPermission("johndoe", SecurityRight.Inherit, SecurityRight.Inherit, SecurityRight.Allow, SecurityRight.Inherit));
             bool result = authorisation.CheckPermission(null, "janedoe", SecurityPermission.ForceAbortBuild, SecurityRight.Inherit);
-            Assert.AreEqual(false, result);
+            ClassicAssert.AreEqual(false, result);
         }
 
         [Test]
@@ -43,7 +45,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security
             DefaultProjectAuthorisation authorisation = new DefaultProjectAuthorisation(SecurityRight.Deny,
                 new UserPermission("johndoe", SecurityRight.Inherit, SecurityRight.Inherit, SecurityRight.Allow, SecurityRight.Inherit));
             bool result = authorisation.CheckPermission(null, "janedoe", SecurityPermission.SendMessage, SecurityRight.Inherit);
-            Assert.AreEqual(false, result);
+            ClassicAssert.AreEqual(false, result);
         }
     }
 }

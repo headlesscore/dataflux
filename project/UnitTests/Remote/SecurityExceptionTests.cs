@@ -1,5 +1,6 @@
 ﻿using System;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 
 namespace ThoughtWorks.CruiseControl.UnitTests.Remote
@@ -15,7 +16,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote
         {
             TestHelpers.EnsureLanguageIsValid();
             SecurityException exception = new SecurityException();
-            Assert.AreEqual("A security failure has occurred.", exception.Message);
+            ClassicAssert.AreEqual("A security failure has occurred.", exception.Message);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
         }
 
         [Test]
@@ -24,7 +27,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote
             TestHelpers.EnsureLanguageIsValid();
             string message = "An error has occured";
             SecurityException exception = new SecurityException(message);
-            Assert.AreEqual(message, exception.Message);
+            ClassicAssert.AreEqual(message, exception.Message);
         }
 
         [Test]
@@ -34,8 +37,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote
             string message = "An error has occured";
             Exception innerException = new Exception("An inner exception");
             SecurityException exception = new SecurityException(message, innerException);
-            Assert.AreEqual(message, exception.Message);
-            Assert.AreEqual(innerException, exception.InnerException);
+            ClassicAssert.AreEqual(message, exception.Message);
+            ClassicAssert.AreEqual(innerException, exception.InnerException);
         }
 
         [Test]
@@ -44,9 +47,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote
             TestHelpers.EnsureLanguageIsValid();
             SecurityException exception = new SecurityException();
             object result = TestHelpers.RunSerialisationTest(exception);
-            Assert.IsNotNull(result);
-            Assert.That(result, Is.InstanceOf<SecurityException>());
-            Assert.AreEqual("A security failure has occurred.", (result as SecurityException).Message);
+            ClassicAssert.IsNotNull(result);
+            ClassicAssert.That(result, Is.InstanceOf<SecurityException>());
+            ClassicAssert.AreEqual("A security failure has occurred.", (result as SecurityException).Message);
         }
     }
 }

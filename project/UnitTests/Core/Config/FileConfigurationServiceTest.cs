@@ -1,6 +1,7 @@
 using System.IO;
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Config;
 
@@ -45,9 +46,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Config
 			configurationFileLoaderMock.Setup(loader => loader.Load(configFile)).Returns(configuration).Verifiable();
 
 			// Execute & Verify
-			Assert.AreEqual(configuration, fileService.Load());
+			ClassicAssert.AreEqual(configuration, fileService.Load());
+            ClassicAssert.AreEqual(configuration, fileService.Load());
 
-			VerifyAll();
+            VerifyAll();
 		}
 
 		[Test]

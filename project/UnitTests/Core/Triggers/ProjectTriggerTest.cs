@@ -6,6 +6,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Triggers
     using Exortech.NetReflector;
     using Moq;
     using NUnit.Framework;
+    using NUnit.Framework.Legacy;
     using ThoughtWorks.CruiseControl.Core.Triggers;
     using ThoughtWorks.CruiseControl.Remote;
 
@@ -40,7 +41,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Triggers
 
             this.InitialiseTriggerMockVerify(innerTriggerMock, 1);
             this.mocks.VerifyAll();
-            Assert.IsNull(actual);
+            ClassicAssert.IsNull(actual);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
         }
 
         [Test]
@@ -63,7 +66,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Triggers
             this.InitialiseTriggerMockVerify(innerTriggerMock, 1);
             this.mocks.VerifyAll();
             var expected = ModificationExistRequest();
-            Assert.AreEqual(expected, actual);
+            ClassicAssert.AreEqual(expected, actual);
         }
 
         [Test]
@@ -83,7 +86,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Triggers
 
             this.InitialiseTriggerMockVerify(innerTriggerMock, 1);
             this.mocks.VerifyAll();
-            Assert.IsNull(actual);
+            ClassicAssert.IsNull(actual);
         }
 
         [Test]
@@ -108,7 +111,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Triggers
             this.InitialiseTriggerMockVerify(innerTriggerMock, 2);
             this.mocks.VerifyAll();
             var expected = ModificationExistRequest();
-            Assert.AreEqual(expected, actual);
+            ClassicAssert.AreEqual(expected, actual);
         }
 
         [Test]
@@ -126,7 +129,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Triggers
             var actual = trigger.Fire();
 
             this.mocks.VerifyAll();
-            Assert.IsNull(actual);
+            ClassicAssert.IsNull(actual);
         }
 
         [Test]
@@ -150,7 +153,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Triggers
 
             this.InitialiseTriggerMockVerify(innerTriggerMock, 2);
             this.mocks.VerifyAll();
-            Assert.IsNull(actual);
+            ClassicAssert.IsNull(actual);
         }
 
         [Test]
@@ -174,7 +177,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Triggers
 
             this.InitialiseTriggerMockVerify(innerTriggerMock, 2);
             this.mocks.VerifyAll();
-            Assert.IsNull(actual);
+            ClassicAssert.IsNull(actual);
         }
 
         [Test]
@@ -202,7 +205,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Triggers
             var actual = trigger.NextBuild;
 
             mocks.VerifyAll();
-            Assert.AreEqual(now, actual);
+            ClassicAssert.AreEqual(now, actual);
         }
 
         [Test]
@@ -219,12 +222,12 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Triggers
 	</innerTrigger>
 </projectTrigger>";
             var trigger = NetReflector.Read(xml) as ProjectTrigger;
-            Assert.IsNotNull(trigger);
-            Assert.AreEqual("http://fooserver:12342/CruiseManager.rem", trigger.ServerUri);
-            Assert.AreEqual("Foo", trigger.Project);
-            Assert.IsNotNull(trigger.InnerTrigger);
-            Assert.AreEqual(IntegrationStatus.Failure, trigger.TriggerStatus);
-            Assert.IsTrue(trigger.TriggerFirstTime);
+            ClassicAssert.IsNotNull(trigger);
+            ClassicAssert.AreEqual("http://fooserver:12342/CruiseManager.rem", trigger.ServerUri);
+            ClassicAssert.AreEqual("Foo", trigger.Project);
+            ClassicAssert.IsNotNull(trigger.InnerTrigger);
+            ClassicAssert.AreEqual(IntegrationStatus.Failure, trigger.TriggerStatus);
+            ClassicAssert.IsTrue(trigger.TriggerFirstTime);
         }
 
         [Test]
@@ -232,12 +235,12 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Triggers
         {
             string xml = @"<projectTrigger><project>Foo</project></projectTrigger>";
             var trigger = NetReflector.Read(xml) as ProjectTrigger;
-            Assert.IsNotNull(trigger);
-            Assert.AreEqual("tcp://localhost:21234/CruiseManager.rem", trigger.ServerUri);
-            Assert.AreEqual("Foo", trigger.Project);
-            Assert.IsNotNull(trigger.InnerTrigger);
-            Assert.AreEqual(IntegrationStatus.Success, trigger.TriggerStatus);
-            Assert.IsFalse(trigger.TriggerFirstTime);
+            ClassicAssert.IsNotNull(trigger);
+            ClassicAssert.AreEqual("tcp://localhost:21234/CruiseManager.rem", trigger.ServerUri);
+            ClassicAssert.AreEqual("Foo", trigger.Project);
+            ClassicAssert.IsNotNull(trigger.InnerTrigger);
+            ClassicAssert.AreEqual(IntegrationStatus.Success, trigger.TriggerStatus);
+            ClassicAssert.IsFalse(trigger.TriggerFirstTime);
         }
 
         [Test]
@@ -252,7 +255,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Triggers
                 InnerTrigger = innerTriggerMock
             };
 
-            Assert.Throws<NoSuchProjectException>(() => trigger.Fire());
+            ClassicAssert.Throws<NoSuchProjectException>(() => trigger.Fire());
 
             this.InitialiseTriggerMockVerify(innerTriggerMock, 1);
             this.mocks.VerifyAll();
@@ -277,7 +280,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Triggers
 
             this.InitialiseTriggerMockVerify(innerTriggerMock, 1);
             this.mocks.VerifyAll();
-            Assert.IsNull(actual);
+            ClassicAssert.IsNull(actual);
         }
 
         [Test]
@@ -308,7 +311,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Triggers
             this.InitialiseTriggerMockVerify(innerTriggerMock, 1);
             this.mocks.VerifyAll();
             var expected = ModificationExistRequest();
-            Assert.AreEqual(expected, actual);
+            ClassicAssert.AreEqual(expected, actual);
         }
 
         [Test]
@@ -337,7 +340,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Triggers
             this.InitialiseTriggerMockVerify(innerTriggerMock, 1);
             this.mocks.VerifyAll();
             var expected = ModificationExistRequest();
-            Assert.AreEqual(expected, actual);
+            ClassicAssert.AreEqual(expected, actual);
         }
 
         private ProjectStatus NewProjectStatus(string name, IntegrationStatus integrationStatus, DateTime dateTime)

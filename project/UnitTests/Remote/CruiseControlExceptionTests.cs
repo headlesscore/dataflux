@@ -1,5 +1,6 @@
 ﻿using System;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 
 namespace ThoughtWorks.CruiseControl.UnitTests.Remote
@@ -15,7 +16,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote
         {
             TestHelpers.EnsureLanguageIsValid();
             CruiseControlException exception = new CruiseControlException();
-            Assert.AreEqual(string.Empty, exception.Message);
+            ClassicAssert.AreEqual(string.Empty, exception.Message);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
         }
 
         [Test]
@@ -24,7 +27,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote
             TestHelpers.EnsureLanguageIsValid();
             string message = "An error has occured";
             CruiseControlException exception = new CruiseControlException(message);
-            Assert.AreEqual(message, exception.Message);
+            ClassicAssert.AreEqual(message, exception.Message);
         }
 
         [Test]
@@ -34,8 +37,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote
             string message = "An error has occured";
             Exception innerException = new Exception("An inner exception");
             CruiseControlException exception = new CruiseControlException(message, innerException);
-            Assert.AreEqual(message, exception.Message);
-            Assert.AreEqual(innerException, exception.InnerException);
+            ClassicAssert.AreEqual(message, exception.Message);
+            ClassicAssert.AreEqual(innerException, exception.InnerException);
         }
 
         [Test]
@@ -45,9 +48,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote
             string message = "An error has occured";
             CruiseControlException exception = new CruiseControlException(message);
             object result = TestHelpers.RunSerialisationTest(exception);
-            Assert.IsNotNull(result);
-            Assert.That(result, Is.InstanceOf<CruiseControlException>());
-            Assert.AreEqual(message, (result as CruiseControlException).Message);
+            ClassicAssert.IsNotNull(result);
+            ClassicAssert.That(result, Is.InstanceOf<CruiseControlException>());
+            ClassicAssert.AreEqual(message, (result as CruiseControlException).Message);
         }
     }
 }

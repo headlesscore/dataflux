@@ -6,6 +6,7 @@ using ThoughtWorks.CruiseControl.Core.Security;
 using ThoughtWorks.CruiseControl.Remote;
 using ThoughtWorks.CruiseControl.Remote.Security;
 using ThoughtWorks.CruiseControl.Remote.Messages;
+using NUnit.Framework.Legacy;
 
 namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security
 {
@@ -19,7 +20,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security
             NullSecurityManager manager = new NullSecurityManager();
             manager.Initialise();
             string sessionToken = manager.Login(credentials);
-            Assert.AreEqual(NameValuePair.FindNamedValue(credentials.Credentials, LoginRequest.UserNameCredential), sessionToken);
+            ClassicAssert.AreEqual(NameValuePair.FindNamedValue(credentials.Credentials, LoginRequest.UserNameCredential), sessionToken);
+            ClassicAssert.IsTrue(true);
         }
 
         [Test]
@@ -34,7 +36,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security
         {
             NullSecurityManager manager = new NullSecurityManager();
             bool result = manager.ValidateSession("anydetailsinhere");
-            Assert.IsTrue(result);
+            ClassicAssert.IsTrue(result);
         }
 
         [Test]
@@ -43,7 +45,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security
             string sessionToken = "anydetailsinhere";
             NullSecurityManager manager = new NullSecurityManager();
             string userName = manager.GetUserName(sessionToken);
-            Assert.AreEqual(sessionToken, userName);
+            ClassicAssert.AreEqual(sessionToken, userName);
         }
 
         [Test]
@@ -52,7 +54,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security
             string sessionToken = "anydetailsinhere";
             NullSecurityManager manager = new NullSecurityManager();
             string userName = manager.GetDisplayName(sessionToken, null);
-            Assert.AreEqual(sessionToken, userName);
+            ClassicAssert.AreEqual(sessionToken, userName);
         }
 
         [Test]
@@ -60,7 +62,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security
         {
             NullSecurityManager manager = new NullSecurityManager();
             ISecuritySetting setting = manager.RetrievePermission("anything");
-            Assert.IsNull(setting);
+            ClassicAssert.IsNull(setting);
         }
 
         [Test]

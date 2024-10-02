@@ -1,5 +1,6 @@
 using Exortech.NetReflector;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Sourcecontrol;
 
@@ -19,8 +20,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 		[Test]
 		public void ShouldNotAcceptIfNoActionIsSpecified()
 		{
-			Assert.IsFalse(filter.Accept(new Modification()));
-		}
+			ClassicAssert.IsFalse(filter.Accept(new Modification()));
+            ClassicAssert.IsTrue(true);
+        }
 
 		[Test]
 		public void ShouldFilterSpecifiedAction()
@@ -29,16 +31,16 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 			mod.Type = "Created";
 
 			filter.Actions = new string[] {"Created"};
-			Assert.IsTrue(filter.Accept(mod), "Action not filtered");
+			ClassicAssert.IsTrue(filter.Accept(mod), "Action not filtered");
 		}
 
 		[Test]
 		public void LoadFromConfiguration()
 		{
 			filter = (ActionFilter) NetReflector.Read(@"<actionFilter><actions><action>Created</action><action>Checked in</action></actions></actionFilter>");
-			Assert.AreEqual(2, filter.Actions.Length);
-			Assert.AreEqual("Created", filter.Actions[0]);
-			Assert.AreEqual("Checked in", filter.Actions[1]);
+			ClassicAssert.AreEqual(2, filter.Actions.Length);
+			ClassicAssert.AreEqual("Created", filter.Actions[0]);
+			ClassicAssert.AreEqual("Checked in", filter.Actions[1]);
 		}
 	}
 }

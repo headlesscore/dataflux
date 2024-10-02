@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -15,7 +16,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security
         {
             UserPermission assertion = new UserPermission("johndoe", SecurityRight.Inherit, SecurityRight.Inherit, SecurityRight.Allow, SecurityRight.Inherit);
             bool result = assertion.CheckUser(null, "johndoe");
-            Assert.IsTrue(result);
+            ClassicAssert.IsTrue(result);
+            ClassicAssert.IsTrue(true);
         }
 
         [Test]
@@ -23,7 +25,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security
         {
             UserPermission assertion = new UserPermission("johndoe", SecurityRight.Inherit, SecurityRight.Inherit, SecurityRight.Allow, SecurityRight.Inherit);
             bool result = assertion.CheckUser(null, "janedoe");
-            Assert.IsFalse(result);
+            ClassicAssert.IsFalse(result);
         }
 
         [Test]
@@ -31,7 +33,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security
         {
             UserPermission assertion = new UserPermission("johndoe", SecurityRight.Inherit, SecurityRight.Inherit, SecurityRight.Allow, SecurityRight.Inherit);
             SecurityRight result = assertion.CheckPermission(null, SecurityPermission.ForceAbortBuild);
-            Assert.AreEqual(SecurityRight.Allow, result);
+            ClassicAssert.AreEqual(SecurityRight.Allow, result);
         }
 
         [Test]
@@ -39,7 +41,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security
         {
             UserPermission assertion = new UserPermission("johndoe", SecurityRight.Inherit, SecurityRight.Inherit, SecurityRight.Allow, SecurityRight.Inherit);
             SecurityRight result = assertion.CheckPermission(null, SecurityPermission.SendMessage);
-            Assert.AreEqual(SecurityRight.Inherit, result);
+            ClassicAssert.AreEqual(SecurityRight.Inherit, result);
         }
 
         [Test]
@@ -48,20 +50,20 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security
             string userName = "johndoe";
             UserPermission assertion = new UserPermission();
             assertion.UserName = userName;
-            Assert.AreEqual(userName, assertion.UserName, "UserName not correctly set");
-            Assert.AreEqual(userName, assertion.Identifier, "Identifier not correctly set");
+            ClassicAssert.AreEqual(userName, assertion.UserName, "UserName not correctly set");
+            ClassicAssert.AreEqual(userName, assertion.Identifier, "Identifier not correctly set");
 
             assertion.DefaultRight = SecurityRight.Deny;
-            Assert.AreEqual(SecurityRight.Deny, assertion.DefaultRight, "DefaultRight not correctly set");
+            ClassicAssert.AreEqual(SecurityRight.Deny, assertion.DefaultRight, "DefaultRight not correctly set");
             assertion.ForceBuildRight = SecurityRight.Deny;
-            Assert.AreEqual(SecurityRight.Deny, assertion.ForceBuildRight, "ForceBuildRight not correctly set");
+            ClassicAssert.AreEqual(SecurityRight.Deny, assertion.ForceBuildRight, "ForceBuildRight not correctly set");
             assertion.SendMessageRight = SecurityRight.Deny;
-            Assert.AreEqual(SecurityRight.Deny, assertion.SendMessageRight, "SendMessageRight not correctly set");
+            ClassicAssert.AreEqual(SecurityRight.Deny, assertion.SendMessageRight, "SendMessageRight not correctly set");
             assertion.StartProjectRight = SecurityRight.Deny;
-            Assert.AreEqual(SecurityRight.Deny, assertion.StartProjectRight, "StartProjectRight not correctly set");
+            ClassicAssert.AreEqual(SecurityRight.Deny, assertion.StartProjectRight, "StartProjectRight not correctly set");
 
             assertion.RefId = "A reference";
-            Assert.AreEqual("A reference", assertion.RefId, "RefId not correctly set");
+            ClassicAssert.AreEqual("A reference", assertion.RefId, "RefId not correctly set");
         }
     }
 }

@@ -3,6 +3,7 @@
     using System.Collections;
     using Moq;
     using NUnit.Framework;
+    using NUnit.Framework.Legacy;
     using ThoughtWorks.CruiseControl.Core.Reporting.Dashboard.Navigation;
     using ThoughtWorks.CruiseControl.WebDashboard.Dashboard;
     using ThoughtWorks.CruiseControl.WebDashboard.IO;
@@ -31,7 +32,8 @@
         public void DescriptionIsCorrect()
         {
             var plugin = new ProjectStatusPlugin(null, null, null);
-            Assert.AreEqual("Project Status", plugin.LinkDescription);
+            ClassicAssert.AreEqual("Project Status", plugin.LinkDescription);
+            //ClassicAssert.AreEqual("Project Status", plugin.LinkDescription);
         }
 
         [Test]
@@ -39,10 +41,10 @@
         {
             var plugin = new ProjectStatusPlugin(null, null, null);
             var actions = plugin.NamedActions;
-            Assert.AreEqual(1, actions.Length);
-            Assert.IsInstanceOf<ImmutableNamedAction>(actions[0]);
-            Assert.AreEqual("ViewProjectStatus", actions[0].ActionName);
-            Assert.AreSame(plugin, actions[0].Action);
+            ClassicAssert.AreEqual(1, actions.Length);
+            ClassicAssert.IsInstanceOf<ImmutableNamedAction>(actions[0]);
+            ClassicAssert.AreEqual("ViewProjectStatus", actions[0].ActionName);
+            ClassicAssert.AreSame(plugin, actions[0].Action);
         }
 
         [Test]
@@ -67,14 +69,14 @@
             Mock.Get(viewGenerator).Setup(_viewGenerator => _viewGenerator.GenerateView(It.IsAny<string>(), It.IsAny<Hashtable>()))
                 .Callback<string, Hashtable>((n, ht) =>
                 {
-                    Assert.AreEqual("ProjectStatusReport.vm", n);
-                    Assert.IsNotNull(ht);
-                    Assert.IsTrue(ht.ContainsKey("dataUrl"));
-                    Assert.AreEqual("/somewhere/action?view=json", ht["dataUrl"]);
-                    Assert.IsTrue(ht.ContainsKey("projectName"));
-                    Assert.AreEqual(projectName, ht["projectName"]);
-                    Assert.IsTrue(ht.ContainsKey("applicationPath"));
-                    Assert.AreEqual(string.Empty, ht["applicationPath"]);
+                    ClassicAssert.AreEqual("ProjectStatusReport.vm", n);
+                    ClassicAssert.IsNotNull(ht);
+                    ClassicAssert.IsTrue(ht.ContainsKey("dataUrl"));
+                    ClassicAssert.AreEqual("/somewhere/action?view=json", ht["dataUrl"]);
+                    ClassicAssert.IsTrue(ht.ContainsKey("projectName"));
+                    ClassicAssert.AreEqual(projectName, ht["projectName"]);
+                    ClassicAssert.IsTrue(ht.ContainsKey("applicationPath"));
+                    ClassicAssert.AreEqual(string.Empty, ht["applicationPath"]);
                 })
                 .Returns(new HtmlFragmentResponse("from nVelocity")).Verifiable();
 
@@ -82,9 +84,9 @@
             var response = plugin.Execute(cruiseRequest);
 
             this.mocks.Verify();
-            Assert.IsInstanceOf<HtmlFragmentResponse>(response);
+            ClassicAssert.IsInstanceOf<HtmlFragmentResponse>(response);
             var actual = response as HtmlFragmentResponse;
-            Assert.AreEqual("from nVelocity", actual.ResponseFragment);
+            ClassicAssert.AreEqual("from nVelocity", actual.ResponseFragment);
         }
 
         [Test]
@@ -109,14 +111,14 @@
             Mock.Get(viewGenerator).Setup(_viewGenerator => _viewGenerator.GenerateView(It.IsAny<string>(), It.IsAny<Hashtable>()))
                 .Callback<string, Hashtable>((n, ht) =>
                 {
-                    Assert.AreEqual("ProjectStatusReport.vm", n);
-                    Assert.IsNotNull(ht);
-                    Assert.IsTrue(ht.ContainsKey("dataUrl"));
-                    Assert.AreEqual("/somewhere/action?view=json", ht["dataUrl"]);
-                    Assert.IsTrue(ht.ContainsKey("projectName"));
-                    Assert.AreEqual(projectName, ht["projectName"]);
-                    Assert.IsTrue(ht.ContainsKey("applicationPath"));
-                    Assert.AreEqual("/ccnet/", ht["applicationPath"]);
+                    ClassicAssert.AreEqual("ProjectStatusReport.vm", n);
+                    ClassicAssert.IsNotNull(ht);
+                    ClassicAssert.IsTrue(ht.ContainsKey("dataUrl"));
+                    ClassicAssert.AreEqual("/somewhere/action?view=json", ht["dataUrl"]);
+                    ClassicAssert.IsTrue(ht.ContainsKey("projectName"));
+                    ClassicAssert.AreEqual(projectName, ht["projectName"]);
+                    ClassicAssert.IsTrue(ht.ContainsKey("applicationPath"));
+                    ClassicAssert.AreEqual("/ccnet/", ht["applicationPath"]);
                 })
                 .Returns(new HtmlFragmentResponse("from nVelocity")).Verifiable();
 
@@ -124,9 +126,9 @@
             var response = plugin.Execute(cruiseRequest);
 
             this.mocks.Verify();
-            Assert.IsInstanceOf<HtmlFragmentResponse>(response);
+            ClassicAssert.IsInstanceOf<HtmlFragmentResponse>(response);
             var actual = response as HtmlFragmentResponse;
-            Assert.AreEqual("from nVelocity", actual.ResponseFragment);
+            ClassicAssert.AreEqual("from nVelocity", actual.ResponseFragment);
         }
         #endregion
     }

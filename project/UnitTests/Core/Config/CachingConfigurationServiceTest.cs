@@ -1,6 +1,7 @@
 using System;
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Config;
 
@@ -37,9 +38,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Config
 			slaveServiceMock.Setup(service => service.Load()).Returns(configuration).Verifiable();
 
 			// Execute & Verify
-			Assert.AreEqual(configuration, cachingConfigurationService.Load());
+			ClassicAssert.AreEqual(configuration, cachingConfigurationService.Load());
+            ClassicAssert.AreEqual(configuration, cachingConfigurationService.Load());
 
-			VerifyAll();
+            VerifyAll();
 		}
 
 		[Test]
@@ -93,11 +95,11 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Config
 
 			// Execute & Verify
 			slaveService.configuration = configuration;
-			Assert.AreEqual(configuration, cachingConfigurationService.Load());
+			ClassicAssert.AreEqual(configuration, cachingConfigurationService.Load());
 
 			slaveService.handler();
 			slaveService.configuration = configuration2;
-			Assert.AreEqual(configuration2, cachingConfigurationService.Load());
+			ClassicAssert.AreEqual(configuration2, cachingConfigurationService.Load());
 
 			VerifyAll();
 		}

@@ -1,6 +1,7 @@
 using System.IO;
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Sourcecontrol.Perforce;
 using ThoughtWorks.CruiseControl.Core.Util;
@@ -48,13 +49,15 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol.Perforce
 			processInfoCreatorMock.Setup(creator => creator.CreateProcessInfo(p4, "client -d myClient")).Returns(processInfo).Verifiable();
 			processExecutorMock.Setup(executor => executor.Execute(processInfo)).Returns(new ProcessResult("", "", 0, false)).Verifiable();
 
-			Assert.IsTrue(Directory.Exists(tempDirPath));
+			ClassicAssert.IsTrue(Directory.Exists(tempDirPath));
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
 
-			// Execute
-			p4Purger.Purge(p4, tempDirPath);
+            // Execute
+            p4Purger.Purge(p4, tempDirPath);
 
 			// Verify
-			Assert.IsFalse(Directory.Exists(tempDirPath));
+			ClassicAssert.IsFalse(Directory.Exists(tempDirPath));
 			VerifyAll();
 		}
 
@@ -65,13 +68,13 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol.Perforce
 			P4 p4 = new P4();
 			p4.Client = null;
 
-			Assert.IsTrue(Directory.Exists(tempDirPath));
+			ClassicAssert.IsTrue(Directory.Exists(tempDirPath));
 
 			// Execute
 			p4Purger.Purge(p4, tempDirPath);
 
 			// Verify
-			Assert.IsFalse(Directory.Exists(tempDirPath));
+			ClassicAssert.IsFalse(Directory.Exists(tempDirPath));
 			VerifyAll();
 			processInfoCreatorMock.VerifyNoOtherCalls();
 			processExecutorMock.VerifyNoOtherCalls();
@@ -92,17 +95,17 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol.Perforce
 			try
 			{
 				p4Purger.Purge(p4, tempDirPath);
-				Assert.Fail("Should throw an exception since process result has a non zero exit code");
+				ClassicAssert.Fail("Should throw an exception since process result has a non zero exit code");
 			}
 			catch (CruiseControlException e)
 			{
-				Assert.IsTrue(e.Message.IndexOf("This is standard out") > -1);
-				Assert.IsTrue(e.Message.IndexOf("This is standard error") > -1);
+				ClassicAssert.IsTrue(e.Message.IndexOf("This is standard out") > -1);
+				ClassicAssert.IsTrue(e.Message.IndexOf("This is standard error") > -1);
 			}
 
 			VerifyAll();
 			// Don't delete wd since the client may still exist
-			Assert.IsTrue(Directory.Exists(tempDirPath));
+			ClassicAssert.IsTrue(Directory.Exists(tempDirPath));
 		}
 	}
 }

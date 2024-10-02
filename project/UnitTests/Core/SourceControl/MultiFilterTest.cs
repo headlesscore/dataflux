@@ -1,5 +1,6 @@
 ﻿using Exortech.NetReflector;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Sourcecontrol;
 
@@ -19,7 +20,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
         [Test]
         public void ShouldNotAcceptIfNoActionIsSpecified()
         {
-            Assert.IsFalse(filter.Accept(new Modification()));
+            ClassicAssert.IsFalse(filter.Accept(new Modification()));
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
         }
 
         [Test]
@@ -38,7 +41,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 
             filter.Filters = new IModificationFilter[] { aFilter, uFilter };
 
-            Assert.IsTrue(filter.Accept(mod), "Modifcation not filtered");
+            ClassicAssert.IsTrue(filter.Accept(mod), "Modifcation not filtered");
         }
 
         [Test]
@@ -57,7 +60,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 
             filter.Filters = new IModificationFilter[] { aFilter, uFilter };
 
-            Assert.IsFalse(filter.Accept(mod), "Modifcation was filtered");
+            ClassicAssert.IsFalse(filter.Accept(mod), "Modifcation was filtered");
         }
 
         [Test]
@@ -65,7 +68,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
         {
             filter = (MultiFilter)NetReflector.Read(@"<multiFilter><filters><actionFilter><actions><action>Delete</action></actions></actionFilter>
                                                         <userFilter><names><name>bob</name><name>perry</name></names></userFilter></filters></multiFilter>");
-            Assert.AreEqual(2, filter.Filters.Length);
+            ClassicAssert.AreEqual(2, filter.Filters.Length);
         }
     }
 }

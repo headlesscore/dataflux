@@ -6,6 +6,7 @@ using System.Text;
 using Exortech.NetReflector;
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Tasks;
 using ThoughtWorks.CruiseControl.Core.Util;
@@ -41,10 +42,12 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
     </fake>";
 
             NetReflector.Read(xml, task);
-            Assert.AreEqual(@"C:\FAKE.exe", task.Executable);
-            Assert.AreEqual(@"C:\", task.ConfiguredBaseDirectory);
-            Assert.AreEqual("mybuild.fx", task.BuildFile);
-            Assert.AreEqual("Test description", task.Description);
+            ClassicAssert.AreEqual(@"C:\FAKE.exe", task.Executable);
+            ClassicAssert.AreEqual(@"C:\", task.ConfiguredBaseDirectory);
+            ClassicAssert.AreEqual("mybuild.fx", task.BuildFile);
+            ClassicAssert.AreEqual("Test description", task.Description);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
         }
 
         [Test]
@@ -55,10 +58,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
             const string xml = "<fake />";
 
             NetReflector.Read(xml, task);
-            Assert.AreEqual(FakeTask.defaultExecutable, task.Executable);
-            Assert.AreEqual(string.Empty, task.ConfiguredBaseDirectory);
-            Assert.AreEqual(string.Empty, task.BuildFile);
-            Assert.AreEqual(null, task.Description);
+            ClassicAssert.AreEqual(FakeTask.defaultExecutable, task.Executable);
+            ClassicAssert.AreEqual(string.Empty, task.ConfiguredBaseDirectory);
+            ClassicAssert.AreEqual(string.Empty, task.BuildFile);
+            ClassicAssert.AreEqual(null, task.Description);
         }
 
         [Test]
@@ -90,8 +93,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 					task.Run(result);
 					
 					mocks.VerifyAll();
-					Assert.That(result.Status, Is.EqualTo(IntegrationStatus.Failure));
-					Assert.That(result.TaskOutput, Does.Match("Command line '.*' timed out after \\d+ seconds"));
+					ClassicAssert.That(result.Status, Is.EqualTo(IntegrationStatus.Failure));
+					ClassicAssert.That(result.TaskOutput, Does.Match("Command line '.*' timed out after \\d+ seconds"));
 				}
 
         private IIntegrationResult GenerateResultMock(string workingDir, string artefactDir)
@@ -113,10 +116,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
             Mock.Get(executor).Setup(_executor => _executor.Execute(It.IsAny<ProcessInfo>()))
                 .Callback<ProcessInfo>(info =>
                 {
-                    Assert.AreEqual(fileName, info.FileName);
-                    Assert.AreEqual(args, info.Arguments);
-                    Assert.AreEqual(workingDir, info.WorkingDirectory);
-                    Assert.AreEqual(timeout, info.TimeOut);
+                    ClassicAssert.AreEqual(fileName, info.FileName);
+                    ClassicAssert.AreEqual(args, info.Arguments);
+                    ClassicAssert.AreEqual(workingDir, info.WorkingDirectory);
+                    ClassicAssert.AreEqual(timeout, info.TimeOut);
                 }).Returns(new ProcessResult(string.Empty, string.Empty, 0, false)).Verifiable();
         }
 

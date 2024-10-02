@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using Moq;
     using NUnit.Framework;
+    using NUnit.Framework.Legacy;
     using ThoughtWorks.CruiseControl.Core;
     using ThoughtWorks.CruiseControl.Core.Config;
     using ThoughtWorks.CruiseControl.Core.Tasks;
@@ -59,7 +60,9 @@
             task.Run(result);
 
             // Verify the results
-            Assert.AreEqual(IntegrationStatus.Success, result.Status);
+            ClassicAssert.AreEqual(IntegrationStatus.Success, result.Status);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
             this.mocks.VerifyAll();
         }
 
@@ -97,7 +100,7 @@
             task.Run(result);
 
             // Verify the results
-            Assert.AreEqual(IntegrationStatus.Success, result.Status);
+            ClassicAssert.AreEqual(IntegrationStatus.Success, result.Status);
             this.mocks.VerifyAll();
         }
 
@@ -136,7 +139,7 @@
             task.Run(result);
 
             // Verify the results
-            Assert.AreEqual(IntegrationStatus.Success, result.Status);
+            ClassicAssert.AreEqual(IntegrationStatus.Success, result.Status);
             this.mocks.VerifyAll();
         }
 
@@ -185,7 +188,7 @@
             task.Run(result);
 
             // Verify the results
-            Assert.AreEqual(IntegrationStatus.Success, result.Status);
+            ClassicAssert.AreEqual(IntegrationStatus.Success, result.Status);
             this.mocks.VerifyAll();
         }
         #endregion

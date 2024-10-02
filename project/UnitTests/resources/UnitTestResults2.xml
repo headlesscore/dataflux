@@ -290,7 +290,7 @@
                       relativeResultsDirectory="c98799b7-8675-43b9-ae03-7eb7fd2acb70">
         <Output>
           <ErrorInfo>
-            <Message>Assert.AreEqual failed. Expected:&lt;&gt;. Actual:&lt;all went ok&gt;. </Message>
+            <Message>ClassicAssert.AreEqual failed. Expected:&lt;&gt;. Actual:&lt;all went ok&gt;. </Message>
             <StackTrace>
               at TestAgents.UnitTest1.TestReport() in c:\users\ruben\documents\visual studio 2010\Projects\CCNetStatistics\TestAgents\UnitTest1.vb:line 17
             </StackTrace>

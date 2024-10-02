@@ -7,6 +7,7 @@ using System.Text;
 using Moq;
 using Moq.Protected;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Remote;
 
 namespace ThoughtWorks.CruiseControl.UnitTests.Remote
@@ -92,10 +93,12 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote
 
             client.GetCruiseServerSnapshot();
 
-            Assert.IsNotNull(webClient.Credentials, "No credentials set");
+            ClassicAssert.IsNotNull(webClient.Credentials, "No credentials set");
             var cred = webClient.Credentials.GetCredential(new Uri(url), "Basic");
-            Assert.AreEqual("test1", cred.UserName, "Unexpected username");
-            Assert.AreEqual("test2", cred.Password, "Unexpected password");
+            ClassicAssert.AreEqual("test1", cred.UserName, "Unexpected username");
+            ClassicAssert.AreEqual("test2", cred.Password, "Unexpected password");
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
         }
 
         [Test]
@@ -108,10 +111,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote
 
             client.GetProjectStatus();
 
-            Assert.IsNotNull(webClient.Credentials, "No credentials set");
+            ClassicAssert.IsNotNull(webClient.Credentials, "No credentials set");
             var cred = webClient.Credentials.GetCredential(new Uri(url), "Basic");
-            Assert.AreEqual("test1", cred.UserName, "Unexpected username");
-            Assert.AreEqual("test2", cred.Password, "Unexpected password");
+            ClassicAssert.AreEqual("test1", cred.UserName, "Unexpected username");
+            ClassicAssert.AreEqual("test2", cred.Password, "Unexpected password");
         }
 
         [Test]
@@ -124,10 +127,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote
 
             client.StartProject(null);
 
-            Assert.IsNotNull(webClient.Credentials, "No credentials set");
+            ClassicAssert.IsNotNull(webClient.Credentials, "No credentials set");
             var cred = webClient.Credentials.GetCredential(new Uri(url), "Basic");
-            Assert.AreEqual("test1", cred.UserName, "Unexpected username");
-            Assert.AreEqual("test2", cred.Password, "Unexpected password");
+            ClassicAssert.AreEqual("test1", cred.UserName, "Unexpected username");
+            ClassicAssert.AreEqual("test2", cred.Password, "Unexpected password");
         }
 
         [Test]
@@ -141,7 +144,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote
 
             client.GetProjectStatus();
 
-            Assert.AreEqual("Basic dGVzdDE6dGVzdDI=", webClient.Headers["Authorization"], "Unexpected Authorization header");
+            ClassicAssert.AreEqual("Basic dGVzdDE6dGVzdDI=", webClient.Headers["Authorization"], "Unexpected Authorization header");
         }
 
         [Test]
@@ -153,8 +156,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote
 
             var results = client.GetProjectStatus();
 
-            Assert.IsNotNull(results, "No projects parsed");
-            Assert.AreEqual(1, results.Length, "Unexpected number of projects returned");
+            ClassicAssert.IsNotNull(results, "No projects parsed");
+            ClassicAssert.AreEqual(1, results.Length, "Unexpected number of projects returned");
             CompareProjects(projectFrom11, results[0]);
             mocks.Verify();
         }
@@ -180,8 +183,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote
 
             var results = client.GetProjectStatus();
 
-            Assert.IsNotNull(results, "No projects parsed");
-            Assert.AreEqual(1, results.Length, "Unexpected number of projects returned");
+            ClassicAssert.IsNotNull(results, "No projects parsed");
+            ClassicAssert.AreEqual(1, results.Length, "Unexpected number of projects returned");
             CompareProjects(projectFrom11, results[0]);
             mocks.Verify();
         }
@@ -195,14 +198,14 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote
 
             var results = client.GetCruiseServerSnapshot();
 
-            Assert.IsNotNull(results, "Snapshot not parsed");
-            Assert.AreEqual(1, results.ProjectStatuses.Length, "Unexpected number of projects returned");
+            ClassicAssert.IsNotNull(results, "Snapshot not parsed");
+            ClassicAssert.AreEqual(1, results.ProjectStatuses.Length, "Unexpected number of projects returned");
             CompareProjects(projectFrom144, results.ProjectStatuses[0]);
-            Assert.AreEqual(1, results.QueueSetSnapshot.Queues.Count, "Unexpected number of queues returned");
-            Assert.AreEqual(queueFrom144.QueueName, results.QueueSetSnapshot.Queues[0].QueueName, "Queue name does not match");
-            Assert.AreEqual(1, results.QueueSetSnapshot.Queues[0].Requests.Count, "Unexpected number of queue requests returned");
-            Assert.AreEqual(requestFrom144.Activity, results.QueueSetSnapshot.Queues[0].Requests[0].Activity, "Queue request activity does not match");
-            Assert.AreEqual(requestFrom144.ProjectName, results.QueueSetSnapshot.Queues[0].Requests[0].ProjectName, "Queue request project name does not match");
+            ClassicAssert.AreEqual(1, results.QueueSetSnapshot.Queues.Count, "Unexpected number of queues returned");
+            ClassicAssert.AreEqual(queueFrom144.QueueName, results.QueueSetSnapshot.Queues[0].QueueName, "Queue name does not match");
+            ClassicAssert.AreEqual(1, results.QueueSetSnapshot.Queues[0].Requests.Count, "Unexpected number of queue requests returned");
+            ClassicAssert.AreEqual(requestFrom144.Activity, results.QueueSetSnapshot.Queues[0].Requests[0].Activity, "Queue request activity does not match");
+            ClassicAssert.AreEqual(requestFrom144.ProjectName, results.QueueSetSnapshot.Queues[0].Requests[0].ProjectName, "Queue request project name does not match");
 
             mocks.Verify();
         }
@@ -216,8 +219,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote
 
             var results = client.GetProjectStatus();
 
-            Assert.IsNotNull(results, "No projects parsed");
-            Assert.AreEqual(1, results.Length, "Unexpected number of projects returned");
+            ClassicAssert.IsNotNull(results, "No projects parsed");
+            ClassicAssert.AreEqual(1, results.Length, "Unexpected number of projects returned");
             CompareProjects(projectFromCC, results[0]);
             mocks.Verify();
         }
@@ -225,16 +228,16 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote
         private void CompareProjects(ProjectStatus expected, ProjectStatus actual)
         {
             var dateFormat = "yyyy-MM-ddTHH:mm:ss";     // For some reason .NET will give slightly different results for date/times
-            Assert.AreEqual(expected.Name, actual.Name, "Name does not match");
-            Assert.AreEqual(expected.Category, actual.Category, "Category does not match");
-            Assert.AreEqual(expected.Activity, actual.Activity, "Activity does not match");
-            Assert.AreEqual(expected.BuildStatus, actual.BuildStatus, "BuildStatus does not match");
-            Assert.AreEqual(expected.LastBuildLabel, actual.LastBuildLabel, "LastBuildLabel does not match");
-            Assert.AreEqual(expected.LastBuildDate.ToString(dateFormat), actual.LastBuildDate.ToString(dateFormat), "LastBuildDate does not match");
-            Assert.AreEqual(expected.NextBuildTime.ToString(dateFormat), actual.NextBuildTime.ToString(dateFormat), "NextBuildTime does not match");
-            Assert.AreEqual(expected.WebURL, actual.WebURL, "WebURL does not match");
-            Assert.AreEqual(expected.BuildStage, actual.BuildStage, "BuildStage does not match");
-            Assert.AreEqual(expected.ServerName, actual.ServerName, "ServerName does not match");
+            ClassicAssert.AreEqual(expected.Name, actual.Name, "Name does not match");
+            ClassicAssert.AreEqual(expected.Category, actual.Category, "Category does not match");
+            ClassicAssert.AreEqual(expected.Activity, actual.Activity, "Activity does not match");
+            ClassicAssert.AreEqual(expected.BuildStatus, actual.BuildStatus, "BuildStatus does not match");
+            ClassicAssert.AreEqual(expected.LastBuildLabel, actual.LastBuildLabel, "LastBuildLabel does not match");
+            ClassicAssert.AreEqual(expected.LastBuildDate.ToString(dateFormat), actual.LastBuildDate.ToString(dateFormat), "LastBuildDate does not match");
+            ClassicAssert.AreEqual(expected.NextBuildTime.ToString(dateFormat), actual.NextBuildTime.ToString(dateFormat), "NextBuildTime does not match");
+            ClassicAssert.AreEqual(expected.WebURL, actual.WebURL, "WebURL does not match");
+            ClassicAssert.AreEqual(expected.BuildStage, actual.BuildStage, "BuildStage does not match");
+            ClassicAssert.AreEqual(expected.ServerName, actual.ServerName, "ServerName does not match");
         }
 
         private void SetupWebClient(WebClient webClient, string requestUrl, string response = null, bool exceptionOnFirstRequest = false)

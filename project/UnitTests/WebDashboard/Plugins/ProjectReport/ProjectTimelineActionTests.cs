@@ -3,6 +3,7 @@
     using System.Collections;
     using Moq;
     using NUnit.Framework;
+    using NUnit.Framework.Legacy;
     using ThoughtWorks.CruiseControl.Core;
     using ThoughtWorks.CruiseControl.Core.Reporting.Dashboard.Navigation;
     using ThoughtWorks.CruiseControl.WebDashboard.IO;
@@ -40,9 +41,10 @@
             var response = plugin.Execute(cruiseRequest);
 
             this.mocks.VerifyAll();
-            Assert.IsInstanceOf<HtmlFragmentResponse>(response);
+            ClassicAssert.IsInstanceOf<HtmlFragmentResponse>(response);
+            //ClassicAssert.IsInstanceOf<HtmlFragmentResponse>(response);
             var actual = response as HtmlFragmentResponse;
-            Assert.AreEqual("from nVelocity", actual.ResponseFragment);
+            ClassicAssert.AreEqual("from nVelocity", actual.ResponseFragment);
         }
 
         [Test]
@@ -58,9 +60,9 @@
             var response = plugin.Execute(cruiseRequest);
 
             this.mocks.VerifyAll();
-            Assert.IsInstanceOf<HtmlFragmentResponse>(response);
+            ClassicAssert.IsInstanceOf<HtmlFragmentResponse>(response);
             var actual = response as HtmlFragmentResponse;
-            Assert.AreEqual("from nVelocity", actual.ResponseFragment);
+            ClassicAssert.AreEqual("from nVelocity", actual.ResponseFragment);
         }
 
         [Test]
@@ -91,13 +93,13 @@
             var response = plugin.Execute(cruiseRequest);
 
             this.mocks.VerifyAll();
-            Assert.IsInstanceOf<XmlFragmentResponse>(response);
+            ClassicAssert.IsInstanceOf<XmlFragmentResponse>(response);
             var actual = response as XmlFragmentResponse;
             var expected = "<data>" +
                 "<event start=\"Tue, 06 Apr 2010 07:17:25 GMT\" title=\"Success (1)\" color=\"green\" icon=\"/javascript/Timeline/images/dark-green-circle.png\">&lt;a href=\"build/1\"&gt;View Build&lt;/a&gt;</event>" +
                 "<event start=\"Tue, 06 Apr 2010 07:17:25 GMT\" title=\"Failure\" color=\"red\" icon=\"/javascript/Timeline/images/dark-red-circle.png\">&lt;a href=\"build/2\"&gt;View Build&lt;/a&gt;</event>" +
                 "</data>";
-            Assert.AreEqual(expected, actual.ResponseFragment);
+            ClassicAssert.AreEqual(expected, actual.ResponseFragment);
         }
 
         [Test]
@@ -112,13 +114,13 @@
             Mock.Get(request).SetupGet(_request => _request.FileNameWithoutExtension).Returns("SomeOtherAction");
 
             var plugin = new ProjectTimelineAction(viewGenerator, farmService, urlBuilder);
-            var error = Assert.Throws<CruiseControlException>(() =>
+            var error = ClassicAssert.Throws<CruiseControlException>(() =>
             {
                 var response = plugin.Execute(cruiseRequest);
             });
 
             this.mocks.VerifyAll();
-            Assert.AreEqual("Unknown action: SomeOtherAction", error.Message);
+            ClassicAssert.AreEqual("Unknown action: SomeOtherAction", error.Message);
         }
         #endregion
 
@@ -142,14 +144,14 @@
             Mock.Get(viewGenerator).Setup(_viewGenerator => _viewGenerator.GenerateView(It.IsAny<string>(), It.IsAny<Hashtable>()))
                 .Callback<string, Hashtable>((n, ht) =>
                 {
-                    Assert.AreEqual("ProjectTimeline.vm", n);
-                    Assert.IsNotNull(ht);
-                    Assert.IsTrue(ht.ContainsKey("applicationPath"));
-                    Assert.IsTrue(ht.ContainsKey("projectName"));
-                    Assert.IsTrue(ht.ContainsKey("dataUrl"));
-                    Assert.AreEqual(expected, ht["applicationPath"]);
-                    Assert.AreEqual(projectName, ht["projectName"]);
-                    Assert.AreEqual(url, ht["dataUrl"]);
+                    ClassicAssert.AreEqual("ProjectTimeline.vm", n);
+                    ClassicAssert.IsNotNull(ht);
+                    ClassicAssert.IsTrue(ht.ContainsKey("applicationPath"));
+                    ClassicAssert.IsTrue(ht.ContainsKey("projectName"));
+                    ClassicAssert.IsTrue(ht.ContainsKey("dataUrl"));
+                    ClassicAssert.AreEqual(expected, ht["applicationPath"]);
+                    ClassicAssert.AreEqual(projectName, ht["projectName"]);
+                    ClassicAssert.AreEqual(url, ht["dataUrl"]);
                 })
                 .Returns(new HtmlFragmentResponse("from nVelocity")).Verifiable();
         }

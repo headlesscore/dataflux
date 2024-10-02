@@ -1,6 +1,7 @@
 using System;
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.CCTrayLib.Configuration;
 using ThoughtWorks.CruiseControl.CCTrayLib.Monitoring;
 using ThoughtWorks.CruiseControl.Remote;
@@ -29,9 +30,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Monitoring
 		[Test]
 		public void InitialisingReturnsCorrectServerProperties()
 		{
-			Assert.AreEqual(ServerUrl, manager.Configuration.Url);
-			Assert.AreEqual(@"blah:1000", manager.DisplayName);
-			Assert.AreEqual(BuildServerTransport.Remoting, manager.Configuration.Transport);
+			ClassicAssert.AreEqual(ServerUrl, manager.Configuration.Url);
+            //ClassicAssert.AreEqual(ServerUrl, manager.Configuration.Url);
+            ClassicAssert.AreEqual(@"blah:1000", manager.DisplayName);
+			ClassicAssert.AreEqual(BuildServerTransport.Remoting, manager.Configuration.Transport);
 		}
 
 		[Test]
@@ -42,7 +44,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Monitoring
                 .Returns(snapshot);
 
             CruiseServerSnapshot result = manager.GetCruiseServerSnapshot();
-			Assert.AreEqual(snapshot, result);
+			ClassicAssert.AreEqual(snapshot, result);
 		}
 	}
 }

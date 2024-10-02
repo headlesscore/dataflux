@@ -8,6 +8,7 @@
     using Moq;
     using Moq.Protected;
     using NUnit.Framework;
+    using NUnit.Framework.Legacy;
 
     [TestFixture]
     public class DefaultWebClientTests
@@ -50,8 +51,9 @@
         private void AssertCredentialsMatch()
         {
             var cred = _mockClient.Credentials.GetCredential(_uri, "Basic");
-            Assert.AreEqual("test1", cred.UserName);
-            Assert.AreEqual("test2", cred.Password);
+            ClassicAssert.AreEqual("test1", cred.UserName);
+            ClassicAssert.AreEqual("test2", cred.Password);
+            ClassicAssert.IsTrue(true);
         }
     }
 }

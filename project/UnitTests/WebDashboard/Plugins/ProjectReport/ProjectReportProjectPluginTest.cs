@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core.Reporting.Dashboard.Navigation;
 using ThoughtWorks.CruiseControl.Remote;
 using ThoughtWorks.CruiseControl.WebDashboard.Configuration;
@@ -126,14 +127,15 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.Plugins.ProjectRepor
             expectedContext["ForceAbortBuildButtonValue"] = "Force";
 
 			viewGeneratorMock.Setup(generator => generator.GenerateView(@"ProjectReport.vm", It.IsAny<Hashtable>())).
-				Callback<string, Hashtable>((name, context) => Assert.AreEqual(context, expectedContext)).Returns(response).Verifiable();
+				Callback<string, Hashtable>((name, context) => ClassicAssert.AreEqual(context, expectedContext)).Returns(response).Verifiable();
 
-
-			// Execute
-			IResponse returnedResponse = plugin.Execute(cruiseRequest);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
+            // Execute
+            IResponse returnedResponse = plugin.Execute(cruiseRequest);
 
 			// Verify
-			Assert.AreEqual(response, returnedResponse);
+			ClassicAssert.AreEqual(response, returnedResponse);
 			VerifyAll();
 		}
 
@@ -189,7 +191,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.Plugins.ProjectRepor
             expectedContext["ForceAbortBuildButtonValue"] = "Force";
 
             viewGeneratorMock.Setup(generator => generator.GenerateView(@"ProjectReport.vm", It.IsAny<Hashtable>())).
-                Callback<string, Hashtable>((name, context) => Assert.AreEqual(context, expectedContext)).Returns(response).Verifiable();
+                Callback<string, Hashtable>((name, context) => ClassicAssert.AreEqual(context, expectedContext)).Returns(response).Verifiable();
 
             
             // Execute
@@ -197,7 +199,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.Plugins.ProjectRepor
 			IResponse returnedResponse = plugin.Execute(cruiseRequest);
 
 			// Verify
-			Assert.AreEqual(response, returnedResponse);
+			ClassicAssert.AreEqual(response, returnedResponse);
 			VerifyAll();
 		}
 
@@ -260,14 +262,14 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.Plugins.ProjectRepor
             expectedContext["ForceAbortBuildButtonValue"] = "Force";
 
 			viewGeneratorMock.Setup(generator => generator.GenerateView(@"ProjectReport.vm", It.IsAny<Hashtable>())).
-				Callback<string, Hashtable>((name, context) => Assert.AreEqual(context, expectedContext)).Returns(response).Verifiable();
+				Callback<string, Hashtable>((name, context) => ClassicAssert.AreEqual(context, expectedContext)).Returns(response).Verifiable();
                        
             
             // Execute
 			IResponse returnedResponse = plugin.Execute(cruiseRequest);
 
 			// Verify
-			Assert.AreEqual(response, returnedResponse);
+			ClassicAssert.AreEqual(response, returnedResponse);
 			VerifyAll();
 		}
 		[Test]
@@ -276,10 +278,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.Plugins.ProjectRepor
 			IBuildPlugin plugIn = new TestPlugin();
 			IResponse response =  plugIn.NamedActions[0].Action.Execute(cruiseRequest);
 
-			Assert.IsNotNull(response, "Response is null");
-			Assert.That(response, Is.InstanceOf<HtmlFragmentResponse>(), "Response is not HTML");
+			ClassicAssert.IsNotNull(response, "Response is null");
+			ClassicAssert.That(response, Is.InstanceOf<HtmlFragmentResponse>(), "Response is not HTML");
 
-			Assert.AreEqual(new HtmlFragmentResponse("test").ResponseFragment, 
+			ClassicAssert.AreEqual(new HtmlFragmentResponse("test").ResponseFragment, 
 							((HtmlFragmentResponse)response).ResponseFragment, "Responses are not equal");
 		}
 	}

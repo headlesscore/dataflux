@@ -2,6 +2,7 @@ using System;
 using System.Runtime.Remoting.Channels;
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Util;
 using ThoughtWorks.CruiseControl.Remote;
@@ -20,7 +21,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
 			{
 				ChannelServices.UnregisterChannel(channel);
 			}
-			Assert.AreEqual(0, ChannelServices.RegisteredChannels.Length);
+			ClassicAssert.AreEqual(0, ChannelServices.RegisteredChannels.Length);
 		}
 
 		[TearDown]
@@ -44,7 +45,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
                 Mock.Get(innerServer).Raise(_innerServer => _innerServer.AbortBuildProcessed += null, new ProjectEventArgs<string>("test", "data"));
             }
 
-            Assert.IsTrue(eventFired);
+            ClassicAssert.IsTrue(eventFired);
             mocks.VerifyAll();
         }
 
@@ -63,7 +64,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
                 Mock.Get(innerServer).Raise(_innerServer => _innerServer.AbortBuildReceived += null, new CancelProjectEventArgs<string>("test", "data"));
             }
 
-            Assert.IsTrue(eventFired);
+            ClassicAssert.IsTrue(eventFired);
             mocks.VerifyAll();
         }
 
@@ -82,7 +83,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
                 Mock.Get(innerServer).Raise(_innerServer => _innerServer.ForceBuildProcessed += null, new ProjectEventArgs<string>("test", "data"));
             }
 
-            Assert.IsTrue(eventFired);
+            ClassicAssert.IsTrue(eventFired);
             mocks.VerifyAll();
         }
 
@@ -101,7 +102,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
                 Mock.Get(innerServer).Raise(_innerServer => _innerServer.ForceBuildReceived += null, new CancelProjectEventArgs<string>("test", "data"));
             }
 
-            Assert.IsTrue(eventFired);
+            ClassicAssert.IsTrue(eventFired);
             mocks.VerifyAll();
         }
 
@@ -120,7 +121,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
                 Mock.Get(innerServer).Raise(_innerServer => _innerServer.IntegrationCompleted += null, new IntegrationCompletedEventArgs(null, "test", IntegrationStatus.Success));
             }
 
-            Assert.IsTrue(eventFired);
+            ClassicAssert.IsTrue(eventFired);
             mocks.VerifyAll();
         }
 
@@ -139,7 +140,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
                 Mock.Get(innerServer).Raise(_innerServer => _innerServer.IntegrationStarted += null, new IntegrationStartedEventArgs(null, "test"));
             }
 
-            Assert.IsTrue(eventFired);
+            ClassicAssert.IsTrue(eventFired);
             mocks.VerifyAll();
         }
 
@@ -158,7 +159,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
                 Mock.Get(innerServer).Raise(_innerServer => _innerServer.ProjectStarted += null, new ProjectEventArgs("test"));
             }
 
-            Assert.IsTrue(eventFired);
+            ClassicAssert.IsTrue(eventFired);
             mocks.VerifyAll();
         }
 
@@ -177,7 +178,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
                 Mock.Get(innerServer).Raise(_innerServer => _innerServer.ProjectStarting += null, new CancelProjectEventArgs("test"));
             }
 
-            Assert.IsTrue(eventFired);
+            ClassicAssert.IsTrue(eventFired);
             mocks.VerifyAll();
         }
 
@@ -196,7 +197,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
                 Mock.Get(innerServer).Raise(_innerServer => _innerServer.ProjectStopped += null, new ProjectEventArgs("test"));
             }
 
-            Assert.IsTrue(eventFired);
+            ClassicAssert.IsTrue(eventFired);
             mocks.VerifyAll();
         }
 
@@ -215,7 +216,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
                 Mock.Get(innerServer).Raise(_innerServer => _innerServer.ProjectStopping += null, new CancelProjectEventArgs("test"));
             }
 
-            Assert.IsTrue(eventFired);
+            ClassicAssert.IsTrue(eventFired);
+            
             mocks.VerifyAll();
         }
 
@@ -234,7 +236,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
                 Mock.Get(innerServer).Raise(_innerServer => _innerServer.SendMessageProcessed += null, new ProjectEventArgs<Message>("test", null));
             }
 
-            Assert.IsTrue(eventFired);
+            ClassicAssert.IsTrue(eventFired);
             mocks.VerifyAll();
         }
 
@@ -252,7 +254,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
             using (var server = new RemoteCruiseServer(innerServer, configFile, true))
             {
                 var actual = server.GetFinalBuildStatus(request);
-                Assert.AreSame(response, actual);
+                ClassicAssert.AreSame(response, actual);
             }
 
             mocks.VerifyAll();
@@ -273,7 +275,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
                 Mock.Get(innerServer).Raise(_innerServer => _innerServer.SendMessageReceived += null, new CancelProjectEventArgs<Message>("test", null));
             }
 
-            Assert.IsTrue(eventFired);
+            ClassicAssert.IsTrue(eventFired);
             mocks.VerifyAll();
         }
 

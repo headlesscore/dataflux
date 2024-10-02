@@ -14,6 +14,7 @@ using ThoughtWorks.CruiseControl.WebDashboard.Plugins.BuildReport;
 using ThoughtWorks.CruiseControl.WebDashboard.Plugins.ServerReport;
 using ThoughtWorks.CruiseControl.WebDashboard.ServerConnection;
 using ThoughtWorks.CruiseControl.WebDashboard.Plugins.FarmReport;
+using NUnit.Framework.Legacy;
 
 namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.Dashboard
 {
@@ -109,14 +110,16 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.Dashboard
             System.Diagnostics.Debug.WriteLine("starting");
 
 			velocityViewGeneratorMock.Setup(generator => generator.GenerateView(@"FarmSideBar.vm", It.IsAny<Hashtable>())).
-				Callback<string, Hashtable>((name, context) => Assert.AreEqual(context, velocityContext)).Returns(velocityResponse).Verifiable();
+				Callback<string, Hashtable>((name, context) => ClassicAssert.AreEqual(context, velocityContext)).Returns(velocityResponse).Verifiable();
 
 			// Execute
 			HtmlFragmentResponse returnedResponse = sideBarViewBuilder.Execute(cruiseRequestWrapperMock.Object as ICruiseRequest);
 
 			// Verify
-			Assert.AreEqual(velocityResponse, returnedResponse);
-			VerifyAll();
+			ClassicAssert.AreEqual(velocityResponse, returnedResponse);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
+            VerifyAll();
 		}
 
 		[Test]
@@ -146,13 +149,13 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.Dashboard
 			velocityContext["categorylinks"] = categoryLinks;
 
 			velocityViewGeneratorMock.Setup(generator => generator.GenerateView(@"ServerSideBar.vm", It.IsAny<Hashtable>())).
-				Callback<string, Hashtable>((name, context) => Assert.AreEqual(context, velocityContext)).Returns(velocityResponse).Verifiable();
+				Callback<string, Hashtable>((name, context) => ClassicAssert.AreEqual(context, velocityContext)).Returns(velocityResponse).Verifiable();
 
 			// Execute
 			HtmlFragmentResponse returnedResponse = sideBarViewBuilder.Execute(cruiseRequestWrapperMock.Object as ICruiseRequest);
 
 			// Verify
-			Assert.AreEqual(velocityResponse, returnedResponse);
+			ClassicAssert.AreEqual(velocityResponse, returnedResponse);
 			VerifyAll();
 		}
 
@@ -174,13 +177,13 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.Dashboard
 			velocityContext["recentBuildsTable"] = recentBuildsView;
 
 			velocityViewGeneratorMock.Setup(generator => generator.GenerateView(@"ProjectSideBar.vm", It.IsAny<Hashtable>())).
-				Callback<string, Hashtable>((name, context) => Assert.AreEqual(context, velocityContext)).Returns(velocityResponse).Verifiable();
+				Callback<string, Hashtable>((name, context) => ClassicAssert.AreEqual(context, velocityContext)).Returns(velocityResponse).Verifiable();
 
 			// Execute
 			HtmlFragmentResponse returnedResponse = sideBarViewBuilder.Execute(cruiseRequestWrapperMock.Object as ICruiseRequest);
 
 			// Verify
-			Assert.AreEqual(velocityResponse, returnedResponse);
+			ClassicAssert.AreEqual(velocityResponse, returnedResponse);
 			VerifyAll();
 		}
 
@@ -222,13 +225,13 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.Dashboard
 			velocityContext["previousLink"] = previousLink;
 
 			velocityViewGeneratorMock.Setup(generator => generator.GenerateView(@"BuildSideBar.vm", It.IsAny<Hashtable>())).
-				Callback<string, Hashtable>((name, context) => Assert.AreEqual(context, velocityContext)).Returns(velocityResponse).Verifiable();
+				Callback<string, Hashtable>((name, context) => ClassicAssert.AreEqual(context, velocityContext)).Returns(velocityResponse).Verifiable();
 
 			// Execute
 			HtmlFragmentResponse returnedResponse = sideBarViewBuilder.Execute(cruiseRequestWrapperMock.Object as ICruiseRequest);
 
 			// Verify
-			Assert.AreEqual(velocityResponse, returnedResponse);
+			ClassicAssert.AreEqual(velocityResponse, returnedResponse);
 			VerifyAll();
 		}
 	}

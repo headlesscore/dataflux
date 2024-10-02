@@ -2,6 +2,7 @@ using System;
 using System.Diagnostics;
 using System.Threading;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Remote;
 
 namespace ThoughtWorks.CruiseControl.UnitTests.Core
@@ -21,22 +22,22 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
 		public void SingleForceBuildRequestShouldBeRetrievableFromQueue()
 		{
 			queue.RequestBuild(BuildCondition.ForceBuild);
-			Assert.IsTrue(queue.HasPendingRequests());
-			Assert.AreEqual(BuildCondition.ForceBuild, queue.WaitForRequest());
+			ClassicAssert.IsTrue(queue.HasPendingRequests());
+			ClassicAssert.AreEqual(BuildCondition.ForceBuild, queue.WaitForRequest());
 		}
 
 		[Test]
 		public void SingleModificationBuildRequestShouldBeRetrievableFromQueue()
 		{
 			queue.RequestBuild(BuildCondition.IfModificationExists);
-			Assert.IsTrue(queue.HasPendingRequests());
-			Assert.AreEqual(BuildCondition.IfModificationExists, queue.WaitForRequest());
+			ClassicAssert.IsTrue(queue.HasPendingRequests());
+			ClassicAssert.AreEqual(BuildCondition.IfModificationExists, queue.WaitForRequest());
 		}
 
 		[Test]
 		public void QueueShouldInitialBeEmpty()
 		{
-			Assert.IsFalse(queue.HasPendingRequests());
+			ClassicAssert.IsFalse(queue.HasPendingRequests());
 		}
 
 		[Test]
@@ -44,7 +45,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
 		{
 			queue.RequestBuild(BuildCondition.IfModificationExists);
 			queue.WaitForRequest();
-			Assert.IsFalse(queue.HasPendingRequests());
+			ClassicAssert.IsFalse(queue.HasPendingRequests());
 		}
 
 		[Test]
@@ -53,7 +54,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
 			queue.RequestBuild(BuildCondition.IfModificationExists);
 			queue.RequestBuild(BuildCondition.IfModificationExists);
 			queue.WaitForRequest();
-			Assert.IsFalse(queue.HasPendingRequests());
+			ClassicAssert.IsFalse(queue.HasPendingRequests());
 		}
 
 		[Test]
@@ -61,8 +62,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
 		{
 			queue.RequestBuild(BuildCondition.IfModificationExists);
 			queue.RequestBuild(BuildCondition.ForceBuild);
-			Assert.AreEqual(BuildCondition.ForceBuild, queue.WaitForRequest());
-			Assert.IsFalse(queue.HasPendingRequests());
+			ClassicAssert.AreEqual(BuildCondition.ForceBuild, queue.WaitForRequest());
+			ClassicAssert.IsFalse(queue.HasPendingRequests());
 		}
 
 		[Test]
@@ -70,8 +71,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
 		{
 			queue.RequestBuild(BuildCondition.ForceBuild);
 			queue.RequestBuild(BuildCondition.IfModificationExists);
-			Assert.AreEqual(BuildCondition.ForceBuild, queue.WaitForRequest());
-			Assert.IsFalse(queue.HasPendingRequests());
+			ClassicAssert.AreEqual(BuildCondition.ForceBuild, queue.WaitForRequest());
+            ClassicAssert.IsFalse(queue.HasPendingRequests());
 		}
 
 		// TODO: This is causing ProjectIntegratorTest.Abort() to fail with a "LatchMock has not
@@ -94,14 +95,14 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
 				BuildCondition condition = queue.WaitForRequest();
 				if (condition == BuildCondition.ForceBuild) processedForcedBuildRequests++;
 				else if (condition == BuildCondition.IfModificationExists) processedModExistsRequests++;
-				else Assert.Fail("Unexpected build request");
+				else ClassicAssert.Fail("Unexpected build request");
 			}
 			
-			Assert.IsTrue(spawningThread.Join(30000), "Build request threads did not complete within 30 seconds.");
+			ClassicAssert.IsTrue(spawningThread.Join(30000), "Build request threads did not complete within 30 seconds.");
 			
-			Assert.AreEqual(totalThreads * 2, processedRequests, "Not all threads which started, completed.");
-			Assert.AreEqual(totalThreads, processedForcedBuildRequests, "Not all force build requests were received.");
-			Assert.AreEqual(totalThreads, processedModExistsRequests, "Not all modification exists requests were received.");
+			ClassicAssert.AreEqual(totalThreads * 2, processedRequests, "Not all threads which started, completed.");
+			ClassicAssert.AreEqual(totalThreads, processedForcedBuildRequests, "Not all force build requests were received.");
+			ClassicAssert.AreEqual(totalThreads, processedModExistsRequests, "Not all modification exists requests were received.");
 		}
 
 		private int completedThreads = 0;

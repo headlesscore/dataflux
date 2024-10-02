@@ -5,6 +5,7 @@ using System.Text;
 using System.Xml.Serialization;
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Remote;
 using ThoughtWorks.CruiseControl.Remote.Messages;
@@ -31,7 +32,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
             // Run the actual test
             var manager = new ThoughtWorks.CruiseControl.Core.CruiseServerClient(server);
             string responseText = manager.ProcessMessage("ForceBuild", request.ToString());
-            Assert.AreEqual(response.ToString(), responseText);
+            ClassicAssert.AreEqual(response.ToString(), responseText);
+            ClassicAssert.AreEqual(response.ToString(), responseText);
             mocks.VerifyAll();
         }
 
@@ -45,7 +47,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
             var manager = new ThoughtWorks.CruiseControl.Core.CruiseServerClient(server);
             string responseText = manager.ProcessMessage("ForceBuild", "<garbage><data/></garbage>");
             Response response = ConvertXmlToResponse(responseText);
-            Assert.AreEqual(ResponseResult.Failure, response.Result, "Result is unexpected");
+            ClassicAssert.AreEqual(ResponseResult.Failure, response.Result, "Result is unexpected");
         }
 
         [Test]
@@ -61,7 +63,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
             var manager = new ThoughtWorks.CruiseControl.Core.CruiseServerClient(server);
             string responseText = manager.ProcessMessage("UnknownAction", request.ToString());
             Response response = ConvertXmlToResponse(responseText);
-            Assert.AreEqual(ResponseResult.Failure, response.Result, "Result is unexpected");
+            ClassicAssert.AreEqual(ResponseResult.Failure, response.Result, "Result is unexpected");
         }
 
         /// <summary>

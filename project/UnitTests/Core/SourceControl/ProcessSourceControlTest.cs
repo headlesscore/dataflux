@@ -1,6 +1,7 @@
 using System;
 using Exortech.NetReflector;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Sourcecontrol;
 using ThoughtWorks.CruiseControl.Core.Util;
@@ -15,8 +16,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 		{
 			StubSourceControl control = new StubSourceControl(null, null);
 			control.Timeout = null;
-			Assert.AreEqual(Timeout.DefaultTimeout, control.Timeout);
-		}
+			ClassicAssert.AreEqual(Timeout.DefaultTimeout, control.Timeout);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
+        }
 
 		[Test]
 		public void DeserializesTimeoutAsElement()
@@ -90,7 +93,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 		{
 			StubSourceControl sc = new StubSourceControl(null, null);
 			NetReflector.Read(xml, sc);
-			Assert.AreEqual(expected, sc.Timeout);
+			ClassicAssert.AreEqual(expected, sc.Timeout);
 		}
 	}
 

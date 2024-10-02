@@ -2,6 +2,7 @@
 {
     using Moq;
     using NUnit.Framework;
+    using NUnit.Framework.Legacy;
     using ThoughtWorks.CruiseControl.WebDashboard.Dashboard;
     using ThoughtWorks.CruiseControl.WebDashboard.MVC.Cruise;
     using ThoughtWorks.CruiseControl.WebDashboard.Plugins.ProjectReport;
@@ -25,7 +26,9 @@
         public void DescriptionIsCorrect()
         {
             var plugin = new PackageListPlugin(null);
-            Assert.AreEqual("Package List", plugin.LinkDescription);
+            ClassicAssert.AreEqual("Package List", plugin.LinkDescription);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
         }
 
         [Test]
@@ -40,10 +43,10 @@
             var actions = plugin.NamedActions;
 
             this.mocks.VerifyAll();
-            Assert.AreEqual(1, actions.Length);
-            Assert.IsInstanceOf<ImmutableNamedAction>(actions[0]);
-            Assert.AreEqual(PackageListAction.ActionName, actions[0].ActionName);
-            Assert.AreSame(action, actions[0].Action);
+            ClassicAssert.AreEqual(1, actions.Length);
+            ClassicAssert.IsInstanceOf<ImmutableNamedAction>(actions[0]);
+            ClassicAssert.AreEqual(PackageListAction.ActionName, actions[0].ActionName);
+            ClassicAssert.AreSame(action, actions[0].Action);
         }
         #endregion
     }

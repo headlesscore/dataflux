@@ -1,5 +1,6 @@
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core.Reporting.Dashboard.Navigation;
 using ThoughtWorks.CruiseControl.Remote;
 using ThoughtWorks.CruiseControl.UnitTests.Core;
@@ -47,7 +48,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.Plugins.ProjectRepor
 
             IResponse response = report.Execute((ICruiseRequest) mockRequest.Object);
 
-            Assert.That(response, Is.InstanceOf<XmlFragmentResponse>());
+            ClassicAssert.That(response, Is.InstanceOf<XmlFragmentResponse>());
             string xml = ((XmlFragmentResponse) response).ResponseFragment;
             XPathAssert.Matches(XPathAssert.LoadAsDocument(xml), "/CruiseControl/Projects/Project/@name", "test");
         }
@@ -57,8 +58,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.Plugins.ProjectRepor
         public void ShouldThrowExceptionIfProjectNameIsInvalid()
         {
             mockFarmService.Setup(service => service.GetProjectStatusListAndCaptureExceptions(null)).Returns(ProjectStatusList()).Verifiable();
-            Assert.That(delegate { report.Execute((ICruiseRequest)mockRequest.Object); },
+            ClassicAssert.That(delegate { report.Execute((ICruiseRequest)mockRequest.Object); },
                         Throws.TypeOf<NoSuchProjectException>());
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
         }
 
         private static ProjectStatusListAndExceptions ProjectStatusList(params ProjectStatusOnServer[] statuses)

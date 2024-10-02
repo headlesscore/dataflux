@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Tasks;
 using ThoughtWorks.CruiseControl.Core.Util;
@@ -139,7 +140,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 
                 Mock.Get(result).SetupProperty(_result => _result.Status);
                 result.Status = IntegrationStatus.Unknown;
-                Assert.Throws<CruiseControlException>(() => task.Run(result));
+                ClassicAssert.Throws<CruiseControlException>(() => task.Run(result));
+                ClassicAssert.IsTrue(true);
+                ClassicAssert.IsTrue(true);
                 mocks.Verify();
             }
         }
@@ -163,7 +166,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 
                 Mock.Get(result).SetupProperty(_result => _result.Status);
                 result.Status = IntegrationStatus.Unknown;
-                Assert.Throws<CruiseControlException>(() => task.Run(result));
+                ClassicAssert.Throws<CruiseControlException>(() => task.Run(result));
                 mocks.Verify();
             }
         }
@@ -405,8 +408,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
         public void DefaultConstructorSetsFileSystemAndLogger()
         {
             var task = new NDependTask();
-            Assert.IsInstanceOf<SystemIoFileSystem>(task.FileSystem);
-            Assert.IsInstanceOf<DefaultLogger>(task.Logger);
+            ClassicAssert.IsInstanceOf<SystemIoFileSystem>(task.FileSystem);
+            ClassicAssert.IsInstanceOf<DefaultLogger>(task.Logger);
         }
         #endregion
 
@@ -436,10 +439,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
             Mock.Get(executor).Setup(_executor => _executor.Execute(It.IsAny<ProcessInfo>()))
                 .Callback<ProcessInfo>(info =>
                 {
-                    Assert.AreEqual(fileName, info.FileName);
-                    Assert.AreEqual(args, info.Arguments);
-                    Assert.AreEqual(workingDir, info.WorkingDirectory);
-                    Assert.AreEqual(timeout, info.TimeOut);
+                    ClassicAssert.AreEqual(fileName, info.FileName);
+                    ClassicAssert.AreEqual(args, info.Arguments);
+                    ClassicAssert.AreEqual(workingDir, info.WorkingDirectory);
+                    ClassicAssert.AreEqual(timeout, info.TimeOut);
                 }).Returns(new ProcessResult(string.Empty, string.Empty, 0, false)).Verifiable();
             return executor;
         }

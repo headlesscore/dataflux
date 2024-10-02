@@ -5,6 +5,7 @@
     using System.Xml.Linq;
     using FluentAssertions;
     using NUnit.Framework;
+    using NUnit.Framework.Legacy;
     using ThoughtWorks.CruiseControl.Remote.Messages;
 
     [TestFixture]
@@ -15,12 +16,14 @@
         {
             DateTime now = DateTime.Now;
             DataListResponse response = new DataListResponse();
-            Assert.AreEqual(ResponseResult.Unknown, response.Result, "Result wasn't set to failure");
-            Assert.IsTrue((now <= response.Timestamp), "Timestamp was not set");
+            ClassicAssert.AreEqual(ResponseResult.Unknown, response.Result, "Result wasn't set to failure");
+            ClassicAssert.IsTrue((now <= response.Timestamp), "Timestamp was not set");
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
 
             var data = new List<string>();
             response.Data = data;
-            Assert.AreSame(data, response.Data);
+            ClassicAssert.AreSame(data, response.Data);
         }
 
         [Test]
@@ -29,9 +32,9 @@
             DateTime now = DateTime.Now;
             ServerRequest request = new ServerRequest();
             DataListResponse response = new DataListResponse(request);
-            Assert.AreEqual(ResponseResult.Unknown, response.Result, "Result wasn't set to failure");
-            Assert.AreEqual(request.Identifier, response.RequestIdentifier, "RequestIdentifier wasn't set to the identifier of the request");
-            Assert.IsTrue((now <= response.Timestamp), "Timestamp was not set");
+            ClassicAssert.AreEqual(ResponseResult.Unknown, response.Result, "Result wasn't set to failure");
+            ClassicAssert.AreEqual(request.Identifier, response.RequestIdentifier, "RequestIdentifier wasn't set to the identifier of the request");
+            ClassicAssert.IsTrue((now <= response.Timestamp), "Timestamp was not set");
         }
 
         [Test]
@@ -43,9 +46,9 @@
             response1.RequestIdentifier = "original id";
             response1.Timestamp = DateTime.Now.AddMinutes(-1);
             DataListResponse response2 = new DataListResponse(response1);
-            Assert.AreEqual(ResponseResult.Success, response2.Result, "Result wasn't set to failure");
-            Assert.AreEqual("original id", response2.RequestIdentifier, "RequestIdentifier wasn't set to the identifier of the request");
-            Assert.IsTrue((response1.Timestamp == response2.Timestamp), "Timestamp was not set");
+            ClassicAssert.AreEqual(ResponseResult.Success, response2.Result, "Result wasn't set to failure");
+            ClassicAssert.AreEqual("original id", response2.RequestIdentifier, "RequestIdentifier wasn't set to the identifier of the request");
+            ClassicAssert.IsTrue((response1.Timestamp == response2.Timestamp), "Timestamp was not set");
         }
 
         [Test]

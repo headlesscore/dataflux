@@ -13669,7 +13669,7 @@ A	project/WebDashboard/javascript/Dojo/src/json.js
 A	project/WebDashboard/javascript/Dojo/src/lang.js
 A	project/WebDashboard/javascript/Dojo/src/lang/__package__.js
 A	project/WebDashboard/javascript/Dojo/src/lang/array.js
-A	project/WebDashboard/javascript/Dojo/src/lang/assert.js
+A	project/WebDashboard/javascript/Dojo/src/lang/ClassicAssert.js
 A	project/WebDashboard/javascript/Dojo/src/lang/common.js
 A	project/WebDashboard/javascript/Dojo/src/lang/declare.js
 A	project/WebDashboard/javascript/Dojo/src/lang/extras.js

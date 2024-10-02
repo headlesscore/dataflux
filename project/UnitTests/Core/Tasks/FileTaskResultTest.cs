@@ -2,6 +2,7 @@ using System.Diagnostics;
 using System.IO;
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Tasks;
 using ThoughtWorks.CruiseControl.Core.Util;
@@ -31,13 +32,15 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 		public void ShouldReadContentsOfTempFile()
 		{
 			FileTaskResult result = new FileTaskResult(filename);
-			Assert.AreEqual("<invalid xml>", result.Data);
-		}
+			ClassicAssert.AreEqual("<invalid xml>", result.Data);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
+        }
 
 		[Test]
 		public void ShouldThrowReadableExceptionIfFileDoesNotExist()
 		{
-            Assert.That(delegate { new FileTaskResult("unknown.file"); },
+            ClassicAssert.That(delegate { new FileTaskResult("unknown.file"); },
                         Throws.TypeOf<CruiseControlException>());
 		}
 

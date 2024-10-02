@@ -4,6 +4,7 @@ using System.IO;
 using Exortech.NetReflector;
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Config;
 using ThoughtWorks.CruiseControl.Core.Sourcecontrol;
@@ -55,14 +56,15 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 		public void PopulateFromXml()
 		{
 			NetReflector.Read(xml, cvs);
-			Assert.AreEqual(@"..\tools\cvs.exe", cvs.Executable);
-			Assert.AreEqual("..", cvs.WorkingDirectory);
-			Assert.AreEqual("myCvsRoot", cvs.CvsRoot);
-			Assert.AreEqual("branch", cvs.Branch);
-			Assert.AreEqual(true, cvs.AutoGetSource);
-			Assert.AreEqual(true, cvs.CleanCopy);
-			Assert.AreEqual("module", cvs.Module);
-			Assert.AreEqual(true, cvs.SuppressRevisionHeader);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.AreEqual(@"..\tools\cvs.exe", cvs.Executable);
+			ClassicAssert.AreEqual("..", cvs.WorkingDirectory);
+			ClassicAssert.AreEqual("myCvsRoot", cvs.CvsRoot);
+			ClassicAssert.AreEqual("branch", cvs.Branch);
+			ClassicAssert.AreEqual(true, cvs.AutoGetSource);
+			ClassicAssert.AreEqual(true, cvs.CleanCopy);
+			ClassicAssert.AreEqual("module", cvs.Module);
+			ClassicAssert.AreEqual(true, cvs.SuppressRevisionHeader);
 		}
 
 		[Test]
@@ -70,10 +72,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 		{
 			string minimalXml = @"<cvs><executable>c:\cvs\cvs.exe</executable><cvsroot>:local:C:\dev\CVSRoot</cvsroot><module>ccnet</module></cvs>";
 			NetReflector.Read(minimalXml, cvs);
-			Assert.AreEqual(@"c:\cvs\cvs.exe", cvs.Executable);
-			Assert.AreEqual(@":local:C:\dev\CVSRoot", cvs.CvsRoot);
-			Assert.AreEqual(@"ccnet", cvs.Module);
-			Assert.IsFalse(cvs.SuppressRevisionHeader);
+			ClassicAssert.AreEqual(@"c:\cvs\cvs.exe", cvs.Executable);
+			ClassicAssert.AreEqual(@":local:C:\dev\CVSRoot", cvs.CvsRoot);
+			ClassicAssert.AreEqual(@"ccnet", cvs.Module);
+			ClassicAssert.IsFalse(cvs.SuppressRevisionHeader);
 		}
 
 		[Test]
@@ -137,14 +139,14 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 		[Test]
 		public void CvsShouldBeDefaultExecutable()
 		{
-			Assert.AreEqual("cvs", cvs.Executable);
+			ClassicAssert.AreEqual("cvs", cvs.Executable);
 		}
 
 		[Test]
 		public void VerifyDateIsFormatedCorrectly()
 		{
 			DateTime dt = DateTime.Parse("2003-01-01 01:01:01 GMT", CultureInfo.InvariantCulture);
-			Assert.AreEqual("2003-01-01 01:01:01 GMT", cvs.FormatCommandDate(dt));
+			ClassicAssert.AreEqual("2003-01-01 01:01:01 GMT", cvs.FormatCommandDate(dt));
 		}
 
 		[Test]
@@ -243,7 +245,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 			ExpectCvsDirectoryExists(false);
 			
 			cvs.AutoGetSource = true;
-            Assert.That(delegate { cvs.GetSource(IntegrationResult()); },
+            ClassicAssert.That(delegate { cvs.GetSource(IntegrationResult()); },
                         Throws.TypeOf<ConfigurationException>());
 		}
 
@@ -331,7 +333,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 			cvs.CvsRoot = @":pserver:anonymous@cruisecontrol.cvs.sourceforge.net:/cvsroot/cruisecontrol";
 			cvs.Module = "cruisecontrol";
 			Modification[] modifications = cvs.GetModifications(IntegrationResult(from), IntegrationResult(to));
-			Assert.AreEqual("main", modifications[0].FolderName);
+			ClassicAssert.AreEqual("main", modifications[0].FolderName);
 		}
 
 		[Test]
@@ -345,7 +347,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 			cvs.CvsRoot = @":local:C:\dev\CVSRoot";
 			cvs.Module = "fitwebservice";
 			Modification[] modifications = cvs.GetModifications(IntegrationResult(from), IntegrationResult(to));
-			Assert.AreEqual("src/fitwebservice/src", modifications[0].FolderName);
+			ClassicAssert.AreEqual("src/fitwebservice/src", modifications[0].FolderName);
 		}
 
 		private void ExpectToParseAndReturnNoModifications()

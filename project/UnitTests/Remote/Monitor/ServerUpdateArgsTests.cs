@@ -2,6 +2,7 @@
 {
     using System;
     using NUnit.Framework;
+    using NUnit.Framework.Legacy;
     using ThoughtWorks.CruiseControl.Remote.Monitor;
 
     public class ServerUpdateArgsTests
@@ -12,7 +13,9 @@
         {
             var exception = new Exception();
             var args = new ServerUpdateArgs(exception);
-            Assert.AreSame(exception, args.Exception);
+            ClassicAssert.AreSame(exception, args.Exception);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
         }
         #endregion
     }

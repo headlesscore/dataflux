@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Xml;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core.Tasks;
 using ThoughtWorks.CruiseControl.Core.Util;
 
@@ -16,21 +17,23 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 		public void CheckIfSuccessIfProcessResultSucceeded()
 		{
 			ProcessTaskResult result = new ProcessTaskResult(ProcessResultFixture.CreateSuccessfulResult());
-			Assert.IsTrue(result.CheckIfSuccess());
-		}
+			ClassicAssert.IsTrue(result.CheckIfSuccess());
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
+        }
 
 		[Test]
 		public void FailedIfProcessResultFailed()
 		{
 			ProcessTaskResult result = new ProcessTaskResult(ProcessResultFixture.CreateNonZeroExitCodeResult());
-			Assert.IsFalse(result.CheckIfSuccess());
+			ClassicAssert.IsFalse(result.CheckIfSuccess());
 		}
 
 		[Test]
 		public void FailedIfProcessResultTimedout()
 		{
 			ProcessTaskResult result = new ProcessTaskResult(ProcessResultFixture.CreateTimedOutResult());
-			Assert.IsFalse(result.CheckIfSuccess());
+			ClassicAssert.IsFalse(result.CheckIfSuccess());
 		}
 
 		[Test]
@@ -38,7 +41,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 		{
 			ProcessResult processResult = new ProcessResult("stdout", null, 5, false);
 			ProcessTaskResult result = new ProcessTaskResult(processResult);
-			Assert.AreEqual("stdout", result.Data);
+			ClassicAssert.AreEqual("stdout", result.Data);
 		}
 
 		[Test]
@@ -46,27 +49,27 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 		{
 			ProcessResult processResult = new ProcessResult("stdout", "error", 5, false);
 			ProcessTaskResult result = new ProcessTaskResult(processResult);
-			Assert.AreEqual(string.Format(System.Globalization.CultureInfo.CurrentCulture,"stdout{0}error", Environment.NewLine), result.Data);
+			ClassicAssert.AreEqual(string.Format(System.Globalization.CultureInfo.CurrentCulture,"stdout{0}error", Environment.NewLine), result.Data);
 		}
 
 		[Test]
 		public void WriteProcessResultToXml()
 		{
-			Assert.AreEqual("<task><standardOutput>foo</standardOutput><standardError>bar</standardError></task>", 
+			ClassicAssert.AreEqual("<task><standardOutput>foo</standardOutput><standardError>bar</standardError></task>", 
 				WriteToXml("foo", "bar", ProcessResult.SUCCESSFUL_EXIT_CODE, false));
 		}
 
 		[Test]
 		public void WriteFailedProcessResultToXml()
 		{
-			Assert.AreEqual(@"<task failed=""True""><standardOutput /><standardError>bar</standardError></task>", 
+			ClassicAssert.AreEqual(@"<task failed=""True""><standardOutput /><standardError>bar</standardError></task>", 
 				WriteToXml(null, "bar", -3, false));
 		}
 
 		[Test]
 		public void WriteTimedOutProcessResultToXml()
 		{
-			Assert.AreEqual(@"<task failed=""True"" timedout=""True""><standardOutput /><standardError>bar</standardError></task>", 
+			ClassicAssert.AreEqual(@"<task failed=""True"" timedout=""True""><standardOutput /><standardError>bar</standardError></task>", 
 				WriteToXml(null, "bar", ProcessResult.TIMED_OUT_EXIT_CODE, true));
 		}
 

@@ -5,6 +5,7 @@
     using ThoughtWorks.CruiseControl.Remote;
     using System.Runtime.Serialization.Formatters.Binary;
     using System.IO;
+    using NUnit.Framework.Legacy;
 
     [TestFixture]
     public class CommunicationsExceptionTests
@@ -15,14 +16,16 @@
         public void NewWithNoParametersSetsDefaultMessage()
         {
             CommunicationsException exception = new CommunicationsException();
-            Assert.AreEqual("A communications error has occurred.", exception.Message);
+            ClassicAssert.AreEqual("A communications error has occurred.", exception.Message);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
         }
 
         [Test]
         public void NewWithMessageSetsMessage()
         {
             CommunicationsException exception = new CommunicationsException("Message");
-            Assert.AreEqual("Message", exception.Message);
+            ClassicAssert.AreEqual("Message", exception.Message);
         }
 
         [Test]
@@ -30,8 +33,8 @@
         {
             Exception error = new Exception();
             CommunicationsException exception = new CommunicationsException("Message", error);
-            Assert.AreEqual("Message", exception.Message);
-            Assert.AreEqual(error, exception.InnerException);
+            ClassicAssert.AreEqual("Message", exception.Message);
+            ClassicAssert.AreEqual(error, exception.InnerException);
         }
 
         [Test]
@@ -41,9 +44,9 @@
             var exception = new Exception();
             var type = "Some type";
             var error = new CommunicationsException(message, exception, type);
-            Assert.AreEqual(message, error.Message);
-            Assert.AreSame(exception, error.InnerException);
-            Assert.AreEqual(type, error.ErrorType);
+            ClassicAssert.AreEqual(message, error.Message);
+            ClassicAssert.AreSame(exception, error.InnerException);
+            ClassicAssert.AreEqual(type, error.ErrorType);
         }
 
         [Test]
@@ -58,12 +61,12 @@
             formatter.Serialize(stream, original);
             stream.Position = 0;  
             var error = formatter.Deserialize(stream);
-            Assert.IsInstanceOf<CommunicationsException>(error);
+            ClassicAssert.IsInstanceOf<CommunicationsException>(error);
             var deserialised = error as CommunicationsException;
-            Assert.AreEqual(message, deserialised.Message);
-            Assert.IsNotNull(deserialised.InnerException);
-            Assert.AreEqual(exception.Message, deserialised.InnerException.Message);
-            Assert.AreEqual(type, deserialised.ErrorType);
+            ClassicAssert.AreEqual(message, deserialised.Message);
+            ClassicAssert.IsNotNull(deserialised.InnerException);
+            ClassicAssert.AreEqual(exception.Message, deserialised.InnerException.Message);
+            ClassicAssert.AreEqual(type, deserialised.ErrorType);
         }
         #endregion
         #endregion

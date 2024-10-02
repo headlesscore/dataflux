@@ -1,6 +1,7 @@
 using System.Collections;
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.WebDashboard.MVC;
 using ThoughtWorks.CruiseControl.WebDashboard.MVC.View;
 
@@ -36,8 +37,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.MVC.View
 			HtmlFragmentResponse response = viewGenerator.GenerateView("myTemplate", context);
 
 			// Verify
-			Assert.AreEqual("transformed", ((HtmlFragmentResponse) response).ResponseFragment);
-			VerifyAll();
+			ClassicAssert.AreEqual("transformed", ((HtmlFragmentResponse) response).ResponseFragment);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
+            VerifyAll();
 		}
 	}
 }

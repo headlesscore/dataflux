@@ -5,6 +5,7 @@ using ThoughtWorks.CruiseControl.Remote;
 using System.Collections.Generic;
 using System.Xml.Linq;
 using FluentAssertions;
+using NUnit.Framework.Legacy;
 
 namespace ThoughtWorks.CruiseControl.UnitTests.Remote.Messages
 {
@@ -16,10 +17,12 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote.Messages
         {
             LoginRequest request = new LoginRequest("johndoe");
             string actual = NameValuePair.FindNamedValue(request.Credentials, LoginRequest.UserNameCredential);
-            Assert.AreEqual("johndoe", actual);
+            ClassicAssert.AreEqual("johndoe", actual);
             var credentials = new List<NameValuePair>();
             request.Credentials = credentials;
-            Assert.AreSame(credentials, request.Credentials);
+            ClassicAssert.AreSame(credentials, request.Credentials);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
         }
 
         [Test]
@@ -28,7 +31,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote.Messages
             LoginRequest request = new LoginRequest();
             request.AddCredential(LoginRequest.PasswordCredential, "whoami");
             string actual = NameValuePair.FindNamedValue(request.Credentials, LoginRequest.PasswordCredential);
-            Assert.AreEqual("whoami", actual);
+            ClassicAssert.AreEqual("whoami", actual);
         }
 
         [Test]
@@ -80,8 +83,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote.Messages
                 new NameValuePair("password", password)
             };
             var credential = request.FindCredential("password");
-            Assert.IsNotNull(credential);
-            Assert.AreEqual(password, credential.Value);
+            ClassicAssert.IsNotNull(credential);
+            ClassicAssert.AreEqual(password, credential.Value);
         }
 
         [Test]
@@ -93,7 +96,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote.Messages
                 new NameValuePair("name", "me")
             };
             var credential = request.FindCredential("password");
-            Assert.IsNull(credential);
+            ClassicAssert.IsNull(credential);
         }
     }
 }

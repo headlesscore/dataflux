@@ -1,5 +1,6 @@
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Config;
 using ThoughtWorks.CruiseControl.Core.Queues;
@@ -23,8 +24,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Queues
 		{
 			set.Add("q1", new DefaultQueueConfiguration("q1"));
 			IIntegrationQueue q = set["q1"];
-			Assert.IsNotNull(q);
-		}
+			ClassicAssert.IsNotNull(q);
+            ClassicAssert.IsNotNull(q);
+        }
 
 		[Test]
 		public void AddingSameQueueNameReturnsOriginalQueue()
@@ -32,13 +34,13 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Queues
             set.Add("q1", new DefaultQueueConfiguration("q1"));
 			IIntegrationQueue q = set["q1"];
             set.Add("q1", new DefaultQueueConfiguration("q1"));
-			Assert.AreSame(q, set["q1"]);
+			ClassicAssert.AreSame(q, set["q1"]);
 		}
 
 		[Test]
 		public void RetrievingUnknownQueueNameReturnsNull()
 		{
-			Assert.IsNull(set["foo"]);
+			ClassicAssert.IsNull(set["foo"]);
 		}
 	}
 
@@ -103,26 +105,26 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Queues
 		public void GetIntegrationQueueSnapshotForNoContent()
 		{
 			QueueSetSnapshot queueSetSnapshot = integrationQueues.GetIntegrationQueueSnapshot();
-			Assert.IsNotNull(queueSetSnapshot);
-			Assert.AreEqual(2, queueSetSnapshot.Queues.Count);
-            Assert.IsTrue(queueSetSnapshot.FindByName(TestQueueName).IsEmpty);
-            Assert.IsTrue(queueSetSnapshot.FindByName(TestQueueName).IsEmpty);
+			ClassicAssert.IsNotNull(queueSetSnapshot);
+			ClassicAssert.AreEqual(2, queueSetSnapshot.Queues.Count);
+            ClassicAssert.IsTrue(queueSetSnapshot.FindByName(TestQueueName).IsEmpty);
+            ClassicAssert.IsTrue(queueSetSnapshot.FindByName(TestQueueName).IsEmpty);
 		}
 
 		[Test]
 		public void GetIntegrationQueueSnapshotForNoProjectsStarted()
 		{
 			QueueSetSnapshot queueSetSnapshot = integrationQueues.GetIntegrationQueueSnapshot();
-			Assert.IsNotNull(queueSetSnapshot);
-			Assert.AreEqual(2, queueSetSnapshot.Queues.Count);
+			ClassicAssert.IsNotNull(queueSetSnapshot);
+			ClassicAssert.AreEqual(2, queueSetSnapshot.Queues.Count);
 		}
 
 		[Test]
 		public void GetIntegrationQueueSnapshotForProjectRegisteredButNotQueued()
 		{
 			QueueSetSnapshot queueSetSnapshot = integrationQueues.GetIntegrationQueueSnapshot();
-			Assert.IsNotNull(queueSetSnapshot);
-			Assert.AreEqual(2, queueSetSnapshot.Queues.Count);
+			ClassicAssert.IsNotNull(queueSetSnapshot);
+			ClassicAssert.AreEqual(2, queueSetSnapshot.Queues.Count);
 			VerifyAll();
 		}
 
@@ -134,23 +136,23 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Queues
 			integrationQueue1.Enqueue(integrationQueueItem1);
 
 			QueueSetSnapshot queueSetSnapshot = integrationQueues.GetIntegrationQueueSnapshot();
-			Assert.IsNotNull(queueSetSnapshot);
-			Assert.AreEqual(2, queueSetSnapshot.Queues.Count);
+			ClassicAssert.IsNotNull(queueSetSnapshot);
+			ClassicAssert.AreEqual(2, queueSetSnapshot.Queues.Count);
 
 			QueueSnapshot queueSnapshot = queueSetSnapshot.Queues[0];
-			Assert.IsNotNull(queueSnapshot);
-            Assert.IsFalse(queueSnapshot.IsEmpty);
-            Assert.AreEqual(TestQueueName, queueSnapshot.QueueName);
-			Assert.AreEqual(1, queueSnapshot.Requests.Count);
-            Assert.AreEqual(queueSnapshot, queueSetSnapshot.FindByName(TestQueueName));
+			ClassicAssert.IsNotNull(queueSnapshot);
+            ClassicAssert.IsFalse(queueSnapshot.IsEmpty);
+            ClassicAssert.AreEqual(TestQueueName, queueSnapshot.QueueName);
+			ClassicAssert.AreEqual(1, queueSnapshot.Requests.Count);
+            ClassicAssert.AreEqual(queueSnapshot, queueSetSnapshot.FindByName(TestQueueName));
 
 			QueuedRequestSnapshot queuedRequestSnapshot = queueSnapshot.Requests[0];
-            Assert.AreEqual("ProjectOne", queuedRequestSnapshot.ProjectName);
-            Assert.AreEqual(ProjectActivity.CheckingModifications, queuedRequestSnapshot.Activity);
+            ClassicAssert.AreEqual("ProjectOne", queuedRequestSnapshot.ProjectName);
+            ClassicAssert.AreEqual(ProjectActivity.CheckingModifications, queuedRequestSnapshot.Activity);
 
             QueueSnapshot queueSnapshot2 = queueSetSnapshot.Queues[1];
-            Assert.IsNotNull(queueSnapshot2);
-            Assert.IsTrue(queueSnapshot2.IsEmpty);
+            ClassicAssert.IsNotNull(queueSnapshot2);
+            ClassicAssert.IsTrue(queueSnapshot2.IsEmpty);
 
 			VerifyAll();
 			queueNotifier1Mock.VerifyNoOtherCalls();
@@ -170,18 +172,18 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Queues
 			integrationQueue1.Enqueue(integrationQueueItem2);
 
 			QueueSetSnapshot queueSetSnapshot = integrationQueues.GetIntegrationQueueSnapshot();
-			Assert.AreEqual(2, queueSetSnapshot.Queues.Count);
+			ClassicAssert.AreEqual(2, queueSetSnapshot.Queues.Count);
 
 			QueueSnapshot queueSnapshot = queueSetSnapshot.Queues[0];
-			Assert.AreEqual(2, queueSnapshot.Requests.Count);
+			ClassicAssert.AreEqual(2, queueSnapshot.Requests.Count);
 
 			QueuedRequestSnapshot firstQueuedRequestSnapshot = queueSnapshot.Requests[0];
-			Assert.AreEqual("ProjectOne", firstQueuedRequestSnapshot.ProjectName);
-            Assert.AreEqual(ProjectActivity.CheckingModifications, firstQueuedRequestSnapshot.Activity);
+			ClassicAssert.AreEqual("ProjectOne", firstQueuedRequestSnapshot.ProjectName);
+            ClassicAssert.AreEqual(ProjectActivity.CheckingModifications, firstQueuedRequestSnapshot.Activity);
 
 			QueuedRequestSnapshot secondQueuedRequestSnapshot = queueSnapshot.Requests[1];
-			Assert.AreEqual("ProjectTwo", secondQueuedRequestSnapshot.ProjectName);
-            Assert.AreEqual(ProjectActivity.Pending, secondQueuedRequestSnapshot.Activity);
+			ClassicAssert.AreEqual("ProjectTwo", secondQueuedRequestSnapshot.ProjectName);
+            ClassicAssert.AreEqual(ProjectActivity.Pending, secondQueuedRequestSnapshot.Activity);
 
 			VerifyAll();
 			queueNotifier1Mock.VerifyNoOtherCalls();
@@ -201,22 +203,22 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Queues
 			integrationQueue2.Enqueue(integrationQueueItem2);
 
 			QueueSetSnapshot queueSetSnapshot = integrationQueues.GetIntegrationQueueSnapshot();
-			Assert.AreEqual(2, queueSetSnapshot.Queues.Count);
+			ClassicAssert.AreEqual(2, queueSetSnapshot.Queues.Count);
 
 			foreach (QueueSnapshot namedQueueSnapshot in queueSetSnapshot.Queues)
 			{
-				Assert.AreEqual(1, namedQueueSnapshot.Requests.Count);
+				ClassicAssert.AreEqual(1, namedQueueSnapshot.Requests.Count);
 			}
 
 			QueueSnapshot firstQueueSnapshot = queueSetSnapshot.Queues[0];
-			Assert.AreEqual(1, firstQueueSnapshot.Requests.Count);
+			ClassicAssert.AreEqual(1, firstQueueSnapshot.Requests.Count);
 			QueuedRequestSnapshot firstQueuedRequestSnapshot = firstQueueSnapshot.Requests[0];
-			Assert.AreEqual("ProjectOne", firstQueuedRequestSnapshot.ProjectName);
+			ClassicAssert.AreEqual("ProjectOne", firstQueuedRequestSnapshot.ProjectName);
 
 			QueueSnapshot secondQueueSnapshot = queueSetSnapshot.Queues[1];
-			Assert.AreEqual(1, secondQueueSnapshot.Requests.Count);
+			ClassicAssert.AreEqual(1, secondQueueSnapshot.Requests.Count);
 			QueuedRequestSnapshot secondQueuedRequestSnapshot = secondQueueSnapshot.Requests[0];
-			Assert.AreEqual("ProjectTwo", secondQueuedRequestSnapshot.ProjectName);
+			ClassicAssert.AreEqual("ProjectTwo", secondQueuedRequestSnapshot.ProjectName);
 
 			VerifyAll();
 			queueNotifier1Mock.VerifyNoOtherCalls();

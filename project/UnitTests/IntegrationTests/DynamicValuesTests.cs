@@ -1,6 +1,7 @@
 ﻿namespace ThoughtWorks.CruiseControl.UnitTests.IntegrationTests
 {
     using NUnit.Framework;
+    using NUnit.Framework.Legacy;
     using ThoughtWorks.CruiseControl.Remote;
 
     public class DynamicValuesTests
@@ -21,7 +22,9 @@
                 harness.TriggerBuildAndWait(
                     projectName,
                     new NameValuePair("Password", "John's Password"));
-                Assert.AreEqual(IntegrationStatus.Success, status);
+                ClassicAssert.AreEqual(IntegrationStatus.Success, status);
+                ClassicAssert.IsTrue(true);
+                ClassicAssert.IsTrue(true);
             }
         }
 
@@ -39,7 +42,7 @@
                 };
                 harness.TriggerBuildAndWait(
                     projectName);
-                Assert.AreEqual(IntegrationStatus.Success, status);
+                ClassicAssert.AreEqual(IntegrationStatus.Success, status);
             }
         }
         #endregion

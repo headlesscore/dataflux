@@ -8,6 +8,7 @@
     using NUnit.Framework;
     using ThoughtWorks.CruiseControl.Remote;
     using ThoughtWorks.CruiseControl.Core.Triggers;
+    using NUnit.Framework.Legacy;
 
     public class ParameterTriggerTests
     {
@@ -45,7 +46,9 @@
             var actual = trigger.NextBuild;
 
             mocks.VerifyAll();
-            Assert.AreEqual(now, actual);
+            ClassicAssert.AreEqual(now, actual);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
         }
 
         [Test]
@@ -60,7 +63,7 @@
             var actual = trigger.Fire();
 
             mocks.VerifyAll();
-            Assert.IsNull(actual);
+            ClassicAssert.IsNull(actual);
         }
 
         [Test]
@@ -81,9 +84,9 @@
             var actual = trigger.Fire();
 
             mocks.VerifyAll();
-            Assert.AreSame(request, actual);
-            Assert.AreEqual(1, request.BuildValues.Count);
-            Assert.AreEqual(parameters[0].Value,
+            ClassicAssert.AreSame(request, actual);
+            ClassicAssert.AreEqual(1, request.BuildValues.Count);
+            ClassicAssert.AreEqual(parameters[0].Value,
                 request.BuildValues[parameters[0].Name]);
         }
 
@@ -100,8 +103,8 @@
             var actual = trigger.Fire();
 
             mocks.VerifyAll();
-            Assert.AreSame(request, actual);
-            Assert.AreEqual(0, request.BuildValues.Count);
+            ClassicAssert.AreSame(request, actual);
+            ClassicAssert.AreEqual(0, request.BuildValues.Count);
         }
     }
 }

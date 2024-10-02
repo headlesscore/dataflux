@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Sourcecontrol;
 
@@ -34,10 +35,12 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
         {
             Modification[] mods = parser.Parse(new StringReader(queryresult), from, to);
             Modification[] expecteds = GetExpectedModifications();
-            Assert.AreEqual(expecteds.Length, mods.Length);
+            ClassicAssert.AreEqual(expecteds.Length, mods.Length);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
             for (int i = 0; i < mods.Length; i++)
             {
-                Assert.AreEqual(expecteds[i], mods[i]);
+                ClassicAssert.AreEqual(expecteds[i], mods[i]);
             }
         }
 

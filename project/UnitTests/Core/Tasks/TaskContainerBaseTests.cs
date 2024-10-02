@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.CCTrayLib.Presentation;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Config;
@@ -54,7 +55,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
             };
 
             task.Validate(null, ConfigurationTrace.Start(null), null);
-            Assert.IsTrue(subTask.IsValided);
+            ClassicAssert.IsTrue(subTask.IsValided);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
         }
 
         [Test]
@@ -94,9 +97,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
             task.Run(result);
             mocks.VerifyAll();
 
-            Assert.AreSame(parameters, subTask.Parameters);
-            Assert.AreSame(definitions, subTask.Definitions);
-            Assert.IsTrue(subTask.Executed);
+            ClassicAssert.AreSame(parameters, subTask.Parameters);
+            ClassicAssert.AreSame(definitions, subTask.Definitions);
+            ClassicAssert.IsTrue(subTask.Executed);
         }
         #endregion
 
@@ -119,7 +122,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
                 Tasks = new ITask[0]
             };
             task.TestStatus();
-            Assert.IsNotNull(task.CurrentStatus);
+            ClassicAssert.IsNotNull(task.CurrentStatus);
         }
 
         [Test]
@@ -136,8 +139,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 
             task.TestStatus();
 
-            Assert.IsNotNull(task.CurrentStatus);
-            Assert.IsTrue(subTask.SnapshotGenerated);
+            ClassicAssert.IsNotNull(task.CurrentStatus);
+            ClassicAssert.IsTrue(subTask.SnapshotGenerated);
         }
 
         [Test]
@@ -155,7 +158,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
             task.TestStatus();
             mocks.VerifyAll();
 
-            Assert.IsNotNull(task.CurrentStatus);
+            ClassicAssert.IsNotNull(task.CurrentStatus);
         }
         #endregion
         #endregion

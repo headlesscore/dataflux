@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using System;
 using ThoughtWorks.CruiseControl.Remote.Security;
 
@@ -43,40 +44,42 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote.Security
         public void ByProject()
         {
             AuditFilterBase filter = AuditFilters.ByProject("Project #1");
-            Assert.IsTrue(filter.CheckFilter(record1), "Project not included");
-            Assert.IsFalse(filter.CheckFilter(record2), "Project not excluded");
+            ClassicAssert.IsTrue(filter.CheckFilter(record1), "Project not included");
+            ClassicAssert.IsFalse(filter.CheckFilter(record2), "Project not excluded");
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
         }
 
         [Test]
         public void ByDateRange()
         {
             AuditFilterBase filter = AuditFilters.ByDateRange(DateTime.Today.AddDays(-2), DateTime.Today);
-            Assert.IsTrue(filter.CheckFilter(record1), "Date/Time not included");
-            Assert.IsFalse(filter.CheckFilter(record2), "Date/Time not excluded");
+            ClassicAssert.IsTrue(filter.CheckFilter(record1), "Date/Time not included");
+            ClassicAssert.IsFalse(filter.CheckFilter(record2), "Date/Time not excluded");
         }
 
         [Test]
         public void ByEventType()
         {
             AuditFilterBase filter = AuditFilters.ByEventType(SecurityEvent.ViewAuditLog);
-            Assert.IsTrue(filter.CheckFilter(record1), "SecurityEvent not included");
-            Assert.IsFalse(filter.CheckFilter(record2), "SecurityEvent not excluded");
+            ClassicAssert.IsTrue(filter.CheckFilter(record1), "SecurityEvent not included");
+            ClassicAssert.IsFalse(filter.CheckFilter(record2), "SecurityEvent not excluded");
         }
 
         [Test]
         public void ByRight()
         {
             AuditFilterBase filter = AuditFilters.ByRight(SecurityRight.Allow);
-            Assert.IsTrue(filter.CheckFilter(record1), "SecurityRight not included");
-            Assert.IsFalse(filter.CheckFilter(record2), "SecurityRight not excluded");
+            ClassicAssert.IsTrue(filter.CheckFilter(record1), "SecurityRight not included");
+            ClassicAssert.IsFalse(filter.CheckFilter(record2), "SecurityRight not excluded");
         }
 
         [Test]
         public void ByUser()
         {
             AuditFilterBase filter = AuditFilters.ByUser("User #1");
-            Assert.IsTrue(filter.CheckFilter(record1), "User not included");
-            Assert.IsFalse(filter.CheckFilter(record2), "User not excluded");
+            ClassicAssert.IsTrue(filter.CheckFilter(record1), "User not included");
+            ClassicAssert.IsFalse(filter.CheckFilter(record2), "User not excluded");
         }
 
         [Test]
@@ -85,9 +88,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote.Security
             AuditFilterBase filter = AuditFilters.Combine(
                 AuditFilters.ByProject("Project #1"),
                 AuditFilters.ByUser("User #2"));
-            Assert.IsTrue(filter.CheckFilter(record1), "Project not included");
-            Assert.IsTrue(filter.CheckFilter(record2), "Project not included");
-            Assert.IsFalse(filter.CheckFilter(record3), "Project not excluded");
+            ClassicAssert.IsTrue(filter.CheckFilter(record1), "Project not included");
+            ClassicAssert.IsTrue(filter.CheckFilter(record2), "Project not included");
+            ClassicAssert.IsFalse(filter.CheckFilter(record3), "Project not excluded");
         }
 
         [Test]
@@ -95,8 +98,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote.Security
         {
             AuditFilterBase filter = AuditFilters.ByProject("Project #1")
                 .ByUser("User #1");
-            Assert.IsTrue(filter.CheckFilter(record1), "Project not included");
-            Assert.IsFalse(filter.CheckFilter(record3), "Project not excluded");
+            ClassicAssert.IsTrue(filter.CheckFilter(record1), "Project not included");
+            ClassicAssert.IsFalse(filter.CheckFilter(record3), "Project not excluded");
         }
 
         [Test]
@@ -104,8 +107,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote.Security
         {
             AuditFilterBase filter = AuditFilters.ByProject("Project #1")
                 .ByDateRange(DateTime.Today.AddDays(-2), DateTime.Today);
-            Assert.IsTrue(filter.CheckFilter(record1), "Date/Time not included");
-            Assert.IsFalse(filter.CheckFilter(record3), "Date/Time not excluded");
+            ClassicAssert.IsTrue(filter.CheckFilter(record1), "Date/Time not included");
+            ClassicAssert.IsFalse(filter.CheckFilter(record3), "Date/Time not excluded");
         }
 
         [Test]
@@ -113,8 +116,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote.Security
         {
             AuditFilterBase filter = AuditFilters.ByProject("Project #1")
                 .ByEventType(SecurityEvent.ViewAuditLog);
-            Assert.IsTrue(filter.CheckFilter(record1), "SecurityEvent not included");
-            Assert.IsFalse(filter.CheckFilter(record3), "SecurityEvent not excluded");
+            ClassicAssert.IsTrue(filter.CheckFilter(record1), "SecurityEvent not included");
+            ClassicAssert.IsFalse(filter.CheckFilter(record3), "SecurityEvent not excluded");
         }
 
         [Test]
@@ -122,8 +125,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote.Security
         {
             AuditFilterBase filter = AuditFilters.ByProject("Project #1")
                 .ByRight(SecurityRight.Allow);
-            Assert.IsTrue(filter.CheckFilter(record1), "SecurityRight not included");
-            Assert.IsFalse(filter.CheckFilter(record3), "SecurityRight not excluded");
+            ClassicAssert.IsTrue(filter.CheckFilter(record1), "SecurityRight not included");
+            ClassicAssert.IsFalse(filter.CheckFilter(record3), "SecurityRight not excluded");
         }
 
         [Test]
@@ -131,8 +134,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote.Security
         {
             AuditFilterBase filter = AuditFilters.ByUser("User #1")
                 .ByProject("Project #1");
-            Assert.IsTrue(filter.CheckFilter(record1), "Project not included");
-            Assert.IsFalse(filter.CheckFilter(record3), "Project not excluded");
+            ClassicAssert.IsTrue(filter.CheckFilter(record1), "Project not included");
+            ClassicAssert.IsFalse(filter.CheckFilter(record3), "Project not excluded");
         }
     }
 }

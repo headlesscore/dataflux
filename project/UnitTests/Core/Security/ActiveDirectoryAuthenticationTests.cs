@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -30,7 +31,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security
             authentication.DomainName = domainName;
             LoginRequest credentials = new LoginRequest(userName);
             bool isValid = authentication.Authenticate(credentials);
-            Assert.IsTrue(isValid);
+            ClassicAssert.IsTrue(isValid);
         }
 
         [Test]
@@ -42,7 +43,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security
             authentication.DomainName = domainName;
             LoginRequest credentials = new LoginRequest(userName);
             bool isValid = authentication.Authenticate(credentials);
-            Assert.IsFalse(isValid);
+            ClassicAssert.IsFalse(isValid);
         }
 
         [Test]
@@ -52,7 +53,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security
             ActiveDirectoryAuthentication authentication = new ActiveDirectoryAuthentication("janedoe",null);
             LoginRequest credentials = new LoginRequest();
             bool isValid = authentication.Authenticate(credentials);
-            Assert.IsFalse(isValid);
+            ClassicAssert.IsFalse(isValid);
         }
 
         [Test]
@@ -60,10 +61,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security
         {
             ActiveDirectoryAuthentication authentication = new ActiveDirectoryAuthentication();
             authentication.UserName = userName;
-            Assert.AreEqual(userName, authentication.UserName, "UserName not correctly set");
-            Assert.AreEqual(userName, authentication.Identifier, "Identifier not correctly set");
+            ClassicAssert.AreEqual(userName, authentication.UserName, "UserName not correctly set");
+            ClassicAssert.AreEqual(userName, authentication.Identifier, "Identifier not correctly set");
             authentication.DomainName = domainName;
-            Assert.AreEqual(domainName, authentication.DomainName, "DomainName not correctly set");
+            ClassicAssert.AreEqual(domainName, authentication.DomainName, "DomainName not correctly set");
         }
 
         [Test]
@@ -72,7 +73,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security
             LoginRequest credentials = new LoginRequest(userName);
             ActiveDirectoryAuthentication authentication = new ActiveDirectoryAuthentication();
             string result = authentication.GetUserName(credentials);
-            Assert.AreEqual(userName, result);
+            ClassicAssert.AreEqual(userName, result);
+            
         }
 
         [Test]
@@ -84,7 +86,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security
             ActiveDirectoryAuthentication authentication = new ActiveDirectoryAuthentication();
             authentication.DomainName = domainName;
             string result = authentication.GetDisplayName(credentials);
-            Assert.AreEqual(displayName, result);
+            ClassicAssert.AreEqual(displayName, result);
         }
 
         [Test]
@@ -95,7 +97,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security
             ActiveDirectoryAuthentication authentication = new ActiveDirectoryAuthentication();
             authentication.DomainName = domainName;
             string result = authentication.GetDisplayName(credentials);
-            Assert.AreEqual(userName, result);
+            ClassicAssert.AreEqual(userName, result);
         }
     }
 }

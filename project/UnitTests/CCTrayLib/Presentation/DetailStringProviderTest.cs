@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.CCTrayLib.Monitoring;
 using ThoughtWorks.CruiseControl.CCTrayLib.Presentation;
 using ThoughtWorks.CruiseControl.Remote;
@@ -23,11 +24,12 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Presentation
 		[Test]
 		public void WhenTheProjecStatusIndicatesAnExceptionItsMessageIsReportedInTheDetailString()
 		{
-			Assert.AreEqual("Connecting...", provider.FormatDetailString(monitor.Detail));
+			ClassicAssert.AreEqual("Connecting...", provider.FormatDetailString(monitor.Detail));
+            ClassicAssert.AreEqual("Connecting...", provider.FormatDetailString(monitor.Detail));
 
-			monitor.SetUpAsIfExceptionOccurredOnConnect(new ApplicationException("message"));
+            monitor.SetUpAsIfExceptionOccurredOnConnect(new ApplicationException("message"));
 
-			Assert.AreEqual("Error: message", provider.FormatDetailString(monitor.Detail));
+			ClassicAssert.AreEqual("Error: message", provider.FormatDetailString(monitor.Detail));
 		}
 
 		[Test]
@@ -37,7 +39,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Presentation
 			monitor.ProjectStatus = CreateNewProjectStatus(nextBuildTime);
 			monitor.ProjectState = ProjectState.Success;
 
-			Assert.AreEqual(string.Format(System.Globalization.CultureInfo.CurrentCulture,"Next build check: {0:G}", nextBuildTime), provider.FormatDetailString(monitor.Detail));
+			ClassicAssert.AreEqual(string.Format(System.Globalization.CultureInfo.CurrentCulture,"Next build check: {0:G}", nextBuildTime), provider.FormatDetailString(monitor.Detail));
 		}
 
 		[Test]
@@ -47,7 +49,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Presentation
 			monitor.ProjectStatus = CreateNewProjectStatus(nextBuildTime);
 			monitor.ProjectState = ProjectState.Success;
 
-			Assert.AreEqual("Project is not automatically triggered", provider.FormatDetailString(monitor.Detail));
+			ClassicAssert.AreEqual("Project is not automatically triggered", provider.FormatDetailString(monitor.Detail));
 		}
 
 		[Test]
@@ -57,7 +59,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Presentation
 			monitor.ProjectStatus.Messages = new Message[] { new Message("foo") };
 			monitor.ProjectState = ProjectState.Success;
 
-			Assert.AreEqual("Project is not automatically triggered - foo", provider.FormatDetailString(monitor.Detail));			
+			ClassicAssert.AreEqual("Project is not automatically triggered - foo", provider.FormatDetailString(monitor.Detail));			
 		}
 
 		private static ProjectStatus CreateNewProjectStatus(DateTime nextBuildTime)

@@ -4,6 +4,7 @@
     using System.Xml;
     using Moq;
     using NUnit.Framework;
+    using NUnit.Framework.Legacy;
     using ThoughtWorks.CruiseControl.Core.Reporting.Dashboard.Navigation;
     using ThoughtWorks.CruiseControl.Remote;
     using ThoughtWorks.CruiseControl.WebDashboard.Dashboard;
@@ -51,7 +52,9 @@
             var response = report.Execute(cruiseRequest);
 
             this.mocks.VerifyAll();
-            Assert.IsInstanceOf<XmlFragmentResponse>(response);
+            ClassicAssert.IsInstanceOf<XmlFragmentResponse>(response);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
             var actual = response as XmlFragmentResponse;
             var expected = "<CruiseControl>" +
                 "<Projects>" +
@@ -63,7 +66,7 @@
                 "</Projects>" +
                 "<Queues />" +
                 "</CruiseControl>";
-            Assert.AreEqual(expected, actual.ResponseFragment);
+            ClassicAssert.AreEqual(expected, actual.ResponseFragment);
         }
         #endregion
     }

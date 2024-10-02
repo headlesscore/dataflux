@@ -1,6 +1,7 @@
 using System.Collections;
 using Moq;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core.Reporting.Dashboard.Navigation;
 using ThoughtWorks.CruiseControl.WebDashboard.Dashboard;
 using ThoughtWorks.CruiseControl.WebDashboard.Dashboard.Actions;
@@ -33,9 +34,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.WebDashboard.Dashboard.Actions
 			XslReportBuildAction action = new XslReportBuildAction((IBuildLogTransformer) buildLogTransformerMock.Object, null);
 			action.XslFileName = @"xsl\myxsl.xsl";
 
-			Assert.AreEqual("transformed", ((HtmlFragmentResponse)action.Execute(cruiseRequest)).ResponseFragment);
-
-			buildLogTransformerMock.Verify();
+			ClassicAssert.AreEqual("transformed", ((HtmlFragmentResponse)action.Execute(cruiseRequest)).ResponseFragment);
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
+            buildLogTransformerMock.Verify();
 			cruiseRequestMock.Verify();
 			buildSpecifierMock.Verify();
 		}

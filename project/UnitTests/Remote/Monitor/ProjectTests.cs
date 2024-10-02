@@ -5,6 +5,7 @@ using Moq;
 using NUnit.Framework;
 using ThoughtWorks.CruiseControl.Remote.Monitor;
 using ThoughtWorks.CruiseControl.Remote;
+using NUnit.Framework.Legacy;
 
 namespace ThoughtWorks.CruiseControl.UnitTests.Remote.Monitor
 {
@@ -31,7 +32,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote.Monitor
             try
             {
                 var project = new Project(null, null, null);
-                Assert.Fail("ArgumentNullException was expected");
+                ClassicAssert.Fail("ArgumentNullException was expected");
+                ClassicAssert.IsTrue(true);
+                ClassicAssert.IsTrue(true);
             }
             catch (ArgumentNullException) { }
         }
@@ -43,7 +46,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote.Monitor
             try
             {
                 var project = new Project(client, null, null);
-                Assert.Fail("ArgumentNullException was expected");
+                ClassicAssert.Fail("ArgumentNullException was expected");
             }
             catch (ArgumentNullException) { }
         }
@@ -56,7 +59,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote.Monitor
             try
             {
                 var project = new Project(client, server, null);
-                Assert.Fail("ArgumentNullException was expected");
+                ClassicAssert.Fail("ArgumentNullException was expected");
             }
             catch (ArgumentNullException) { }
         }
@@ -70,7 +73,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote.Monitor
             var server = InitialiseServer();
             var status = new ProjectStatus();
             var project = new Project(client, server, status);
-            Assert.AreSame(server, project.Server);
+            ClassicAssert.AreSame(server, project.Server);
         }
         #endregion
 
@@ -82,7 +85,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote.Monitor
             var server = InitialiseServer();
             var status = new ProjectStatus { Name = "Test Project" };
             var project = new Project(client, server, status);
-            Assert.AreEqual(status.Name, project.Name);
+            ClassicAssert.AreEqual(status.Name, project.Name);
         }
         #endregion
 
@@ -94,7 +97,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote.Monitor
             var server = InitialiseServer();
             var status = new ProjectStatus { BuildStage = "Old" };
             var project = new Project(client, server, status);
-            Assert.AreEqual(status.BuildStage, project.BuildStage);
+            ClassicAssert.AreEqual(status.BuildStage, project.BuildStage);
         }
         #endregion
 
@@ -106,7 +109,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote.Monitor
             var server = InitialiseServer();
             var status = new ProjectStatus { BuildStatus = IntegrationStatus.Exception };
             var project = new Project(client, server, status);
-            Assert.AreEqual(status.BuildStatus, project.BuildStatus);
+            ClassicAssert.AreEqual(status.BuildStatus, project.BuildStatus);
         }
         #endregion
 
@@ -118,7 +121,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote.Monitor
             var server = InitialiseServer();
             var status = new ProjectStatus { Status = ProjectIntegratorState.Stopping };
             var project = new Project(client, server, status);
-            Assert.AreEqual(status.Status, project.Status);
+            ClassicAssert.AreEqual(status.Status, project.Status);
         }
         #endregion
 
@@ -130,7 +133,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote.Monitor
             var server = InitialiseServer();
             var status = new ProjectStatus { Activity = ProjectActivity.CheckingModifications };
             var project = new Project(client, server, status);
-            Assert.AreEqual(status.Activity, project.Activity);
+            ClassicAssert.AreEqual(status.Activity, project.Activity);
         }
         #endregion
 
@@ -142,7 +145,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote.Monitor
             var server = InitialiseServer();
             var status = new ProjectStatus { Description = "Description" };
             var project = new Project(client, server, status);
-            Assert.AreEqual(status.Description, project.Description);
+            ClassicAssert.AreEqual(status.Description, project.Description);
         }
         #endregion
 
@@ -154,7 +157,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote.Monitor
             var server = InitialiseServer();
             var status = new ProjectStatus { Category = "Category" };
             var project = new Project(client, server, status);
-            Assert.AreEqual(status.Category, project.Category);
+            ClassicAssert.AreEqual(status.Category, project.Category);
         }
         #endregion
 
@@ -166,7 +169,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote.Monitor
             var server = InitialiseServer();
             var status = new ProjectStatus { Queue = "Queue Name" };
             var project = new Project(client, server, status);
-            Assert.AreEqual(status.Queue, project.Queue);
+            ClassicAssert.AreEqual(status.Queue, project.Queue);
         }
         #endregion
 
@@ -178,7 +181,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote.Monitor
             var server = InitialiseServer();
             var status = new ProjectStatus { QueuePriority = 7 };
             var project = new Project(client, server, status);
-            Assert.AreEqual(status.QueuePriority, project.QueuePriority);
+            ClassicAssert.AreEqual(status.QueuePriority, project.QueuePriority);
         }
         #endregion
 
@@ -190,7 +193,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote.Monitor
             var server = InitialiseServer();
             var status = new ProjectStatus { WebURL = "http://somewhere" };
             var project = new Project(client, server, status);
-            Assert.AreEqual(status.WebURL, project.WebURL);
+            ClassicAssert.AreEqual(status.WebURL, project.WebURL);
         }
         #endregion
 
@@ -202,7 +205,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote.Monitor
             var server = InitialiseServer();
             var status = new ProjectStatus { LastBuildDate = new DateTime(2009, 1, 1) };
             var project = new Project(client, server, status);
-            Assert.AreEqual(status.LastBuildDate, project.LastBuildDate);
+            ClassicAssert.AreEqual(status.LastBuildDate, project.LastBuildDate);
         }
         #endregion
 
@@ -214,7 +217,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote.Monitor
             var server = InitialiseServer();
             var status = new ProjectStatus { LastBuildLabel = "Last label" };
             var project = new Project(client, server, status);
-            Assert.AreEqual(status.LastBuildLabel, project.LastBuildLabel);
+            ClassicAssert.AreEqual(status.LastBuildLabel, project.LastBuildLabel);
         }
         #endregion
 
@@ -226,7 +229,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote.Monitor
             var server = InitialiseServer();
             var status = new ProjectStatus { LastSuccessfulBuildLabel = "Last success label" };
             var project = new Project(client, server, status);
-            Assert.AreEqual(status.LastSuccessfulBuildLabel, project.LastSuccessfulBuildLabel);
+            ClassicAssert.AreEqual(status.LastSuccessfulBuildLabel, project.LastSuccessfulBuildLabel);
         }
         #endregion
 
@@ -238,7 +241,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote.Monitor
             var server = InitialiseServer();
             var status = new ProjectStatus { NextBuildTime = new DateTime(2009, 1, 2) };
             var project = new Project(client, server, status);
-            Assert.AreEqual(status.NextBuildTime, project.NextBuildTime);
+            ClassicAssert.AreEqual(status.NextBuildTime, project.NextBuildTime);
         }
         #endregion
 
@@ -253,7 +256,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote.Monitor
             };
             var status = new ProjectStatus { Messages = messages };
             var project = new Project(client, server, status);
-            Assert.AreSame(status.Messages, project.Messages);
+            ClassicAssert.AreSame(status.Messages, project.Messages);
         }
         #endregion
 
@@ -268,7 +271,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote.Monitor
             try
             {
                 project.Update(null);
-                Assert.Fail("ArgumentNullException was expected");
+                ClassicAssert.Fail("ArgumentNullException was expected");
             }
             catch (ArgumentNullException) { }
         }
@@ -283,7 +286,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote.Monitor
 
             var newStatus = new ProjectStatus { BuildStatus = IntegrationStatus.Failure };
             project.Update(newStatus);
-            Assert.AreEqual(newStatus.BuildStatus, project.BuildStatus);
+            ClassicAssert.AreEqual(newStatus.BuildStatus, project.BuildStatus);
         }
 
         [Test]
@@ -331,7 +334,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote.Monitor
                 if (e.PropertyName == "Messages") eventFired = true;
             };
             project.Update(newStatus);
-            Assert.IsTrue(eventFired, "PropertyChanged for Messages change not fired");
+            ClassicAssert.IsTrue(eventFired, "PropertyChanged for Messages change not fired");
         }
 
         [Test]
@@ -361,7 +364,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote.Monitor
                 if (e.PropertyName == "Messages") eventFired = true;
             };
             project.Update(newStatus);
-            Assert.IsTrue(eventFired, "PropertyChanged for Messages change not fired");
+            ClassicAssert.IsTrue(eventFired, "PropertyChanged for Messages change not fired");
         }
 
         [Test]
@@ -390,7 +393,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote.Monitor
                 if (e.PropertyName == "Messages") eventFired = true;
             };
             project.Update(newStatus);
-            Assert.IsTrue(eventFired, "PropertyChanged for Messages change not fired");
+            ClassicAssert.IsTrue(eventFired, "PropertyChanged for Messages change not fired");
         }
         #endregion
 
@@ -485,7 +488,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Remote.Monitor
                 if (e.PropertyName == property) eventFired = true;
             };
             project.Update(newStatus);
-            Assert.IsTrue(eventFired, "PropertyChanged for " + property + " change not fired");
+            ClassicAssert.IsTrue(eventFired, "PropertyChanged for " + property + " change not fired");
         }
 
         private Server InitialiseServer()

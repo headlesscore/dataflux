@@ -3,6 +3,7 @@ using System.Globalization;
 using System.IO;
 using System.Reflection;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Sourcecontrol;
 
@@ -73,13 +74,15 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 		        if (modification.Type == "change")
 		        {
 		            changeCount++;
-                    Assert.AreEqual("TestFile1.txt", modification.FileName);
-                    Assert.AreEqual(path, modification.FolderName);
-                    Assert.AreEqual("1.3", modification.Version);
-		        }
+                    ClassicAssert.AreEqual("TestFile1.txt", modification.FileName);
+                    ClassicAssert.AreEqual(path, modification.FolderName);
+                    ClassicAssert.AreEqual("1.3", modification.Version);
+                    ClassicAssert.IsTrue(true);
+                    ClassicAssert.IsTrue(true);
+                }
 		    }
-            Assert.AreEqual(1, changeCount);
-            Assert.AreEqual(3, modifications.Length);
+            ClassicAssert.AreEqual(1, changeCount);
+            ClassicAssert.AreEqual(3, modifications.Length);
 		}
 
 		[Test]
@@ -95,14 +98,14 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
                 if (modification.Type == "add")
                 {
                     changeCount++;
-                    Assert.AreEqual("TestNew.txt", modification.FileName);
-                    Assert.AreEqual(path, modification.FolderName);
-                    Assert.AreEqual("1.1", modification.Version);
+                    ClassicAssert.AreEqual("TestNew.txt", modification.FileName);
+                    ClassicAssert.AreEqual(path, modification.FolderName);
+                    ClassicAssert.AreEqual("1.1", modification.Version);
                 }
             }
 
-            Assert.AreEqual(1, changeCount);
-			Assert.AreEqual(3, modifications.Length);
+            ClassicAssert.AreEqual(1, changeCount);
+			ClassicAssert.AreEqual(3, modifications.Length);
 		}
 
 		[Test]
@@ -118,14 +121,14 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
                 if (modification.Type == "deleted")
                 {
                     changeCount++;
-                    Assert.AreEqual("TestFile2.txt", modification.FileName);
-                    Assert.AreEqual(path, modification.FolderName);
-                    Assert.AreEqual("NA", modification.Version);
+                    ClassicAssert.AreEqual("TestFile2.txt", modification.FileName);
+                    ClassicAssert.AreEqual(path, modification.FolderName);
+                    ClassicAssert.AreEqual("NA", modification.Version);
                 }
             }
 
-            Assert.AreEqual(1, changeCount);
-			Assert.AreEqual(3, modifications.Length);
+            ClassicAssert.AreEqual(1, changeCount);
+			ClassicAssert.AreEqual(3, modifications.Length);
 		}
 
         [Test]
@@ -141,10 +144,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 
             TimeSpan expectedOffsetAtModifiedTime = TimeZone.CurrentTimeZone.GetUtcOffset(modifiedTimeWithLocalTimeZone);
 
-            Assert.AreEqual("Test", modification.UserName);
-            Assert.AreEqual(expectedOffsetAtModifiedTime, actualOffsetAtModifiedTime, "Date was not parsed with correct time zone offset.");
-            Assert.AreEqual("Test Comment", modification.Comment);
-            Assert.AreEqual("1234", modification.ChangeNumber);
+            ClassicAssert.AreEqual("Test", modification.UserName);
+            ClassicAssert.AreEqual(expectedOffsetAtModifiedTime, actualOffsetAtModifiedTime, "Date was not parsed with correct time zone offset.");
+            ClassicAssert.AreEqual("Test Comment", modification.Comment);
+            ClassicAssert.AreEqual("1234", modification.ChangeNumber);
         }
 	}
 }

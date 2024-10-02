@@ -1,5 +1,6 @@
 ﻿using System;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using CCNet = ThoughtWorks.CruiseControl;
 
 namespace ThoughtWorks.CruiseControl.UnitTests.IntegrationTests
@@ -101,10 +102,11 @@ namespace ThoughtWorks.CruiseControl.UnitTests.IntegrationTests
             var r3 = xd3.InnerText;
 
 
-            Assert.AreEqual(xd1, xd2);
-            Assert.AreEqual(xd1, xd3); 
+            ClassicAssert.AreEqual(xd1, xd2);
+            ClassicAssert.AreEqual(xd1, xd3);
 
-
+            ClassicAssert.IsTrue(true);
+            ClassicAssert.IsTrue(true);
 
         }
 

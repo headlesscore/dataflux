@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Queues;
 
@@ -24,9 +25,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
 			IProjectIntegratorList integrators = new ProjectIntegratorListFactory().CreateProjectIntegrators(projectList, integrationQueues);
 
 			// Verify
-			Assert.AreEqual(2, integrators.Count);
-			Assert.AreEqual(project1, integrators["Project 1"].Project );
-			Assert.AreEqual(project2, integrators["Project 2"].Project );
+			ClassicAssert.AreEqual(2, integrators.Count);
+            ClassicAssert.AreEqual(2, integrators.Count);
+            ClassicAssert.AreEqual(project1, integrators["Project 1"].Project );
+			ClassicAssert.AreEqual(project2, integrators["Project 2"].Project );
 		}
 	}
 }

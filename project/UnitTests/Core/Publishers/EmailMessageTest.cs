@@ -1,5 +1,6 @@
 using System.Text;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Publishers;
 
@@ -42,56 +43,57 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Publishers
         public void VerifyRecipientListForFixedBuild()
         {
             IIntegrationResult result = AddModification(IntegrationResultMother.CreateFixed());
-            Assert.AreEqual(ExpectedRecipients(always, changed, modifier, success), new EmailMessage(result, publisher).Recipients);
+            ClassicAssert.AreEqual(ExpectedRecipients(always, changed, modifier, success), new EmailMessage(result, publisher).Recipients);
+            ClassicAssert.AreEqual(ExpectedRecipients(always, changed, modifier, success), new EmailMessage(result, publisher).Recipients);
         }
 
         [Test]
         public void VerifyRecipientListForFailedBuild()
         {
             IIntegrationResult result = AddModification(IntegrationResultMother.CreateFailed());
-            Assert.AreEqual(ExpectedRecipients(always, changed, failed, modifier), new EmailMessage(result, publisher).Recipients);
+            ClassicAssert.AreEqual(ExpectedRecipients(always, changed, failed, modifier), new EmailMessage(result, publisher).Recipients);
         }
 
         [Test]
         public void VerifyRecipientListForStillFailingBuild()
         {
             IIntegrationResult result = AddModification(IntegrationResultMother.CreateStillFailing());
-            Assert.AreEqual(ExpectedRecipients(always, failed, modifier), new EmailMessage(result, publisher).Recipients);
+            ClassicAssert.AreEqual(ExpectedRecipients(always, failed, modifier), new EmailMessage(result, publisher).Recipients);
         }
 
         [Test]
         public void VerifyRecipientListForExceptionBuild()
         {
             IIntegrationResult result = AddModification(IntegrationResultMother.CreateExceptioned());
-            Assert.AreEqual(ExpectedRecipients(always, changed, modifier), new EmailMessage(result, publisher).Recipients);
+            ClassicAssert.AreEqual(ExpectedRecipients(always, changed, modifier), new EmailMessage(result, publisher).Recipients);
         }
 
         [Test]
         public void VerifyRecipientListForStillExceptionBuild()
         {
             IIntegrationResult result = AddModification(IntegrationResultMother.CreateStillFailing());
-            Assert.AreEqual(ExpectedRecipients(always, failed, modifier), new EmailMessage(result, publisher).Recipients);
+            ClassicAssert.AreEqual(ExpectedRecipients(always, failed, modifier), new EmailMessage(result, publisher).Recipients);
         }
 
         [Test]
         public void VerifyRecipientListForSuccessfulBuild()
         {
             IIntegrationResult result = AddModification(IntegrationResultMother.CreateSuccessful());
-            Assert.AreEqual(ExpectedRecipients(always, modifier, success), new EmailMessage(result, publisher).Recipients);
+            ClassicAssert.AreEqual(ExpectedRecipients(always, modifier, success), new EmailMessage(result, publisher).Recipients);
         }
 
         [Test]
         public void VerifyRecipientListForStillSuccessfulBuild()
         {
             IIntegrationResult result = AddModification(IntegrationResultMother.CreateStillSuccessful());
-            Assert.AreEqual(ExpectedRecipients(always, modifier, success), new EmailMessage(result, publisher).Recipients);
+            ClassicAssert.AreEqual(ExpectedRecipients(always, modifier, success), new EmailMessage(result, publisher).Recipients);
         }
 
         [Test]
         public void CreateRecipientListWithNoRecipients()
         {
             EmailMessage emailMessage = new EmailMessage(IntegrationResultMother.CreateFixed(), new EmailPublisher());
-            Assert.AreEqual(string.Empty, emailMessage.Recipients);
+            ClassicAssert.AreEqual(string.Empty, emailMessage.Recipients);
         }
 
         [Test]
@@ -99,7 +101,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Publishers
         {
             publisher.IndexedEmailUsers.Remove(modifier.Name);
             IIntegrationResult result = AddModification(IntegrationResultMother.CreateStillSuccessful());
-            Assert.AreEqual(ExpectedRecipients(always, success), new EmailMessage(result, publisher).Recipients);
+            ClassicAssert.AreEqual(ExpectedRecipients(always, success), new EmailMessage(result, publisher).Recipients);
         }
 
         [Test]
@@ -107,7 +109,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Publishers
         {
             IIntegrationResult result = AddModification(IntegrationResultMother.CreateStillSuccessful());
             result.Modifications[0].UserName = null;
-            Assert.AreEqual(ExpectedRecipients(always, success), new EmailMessage(result, publisher).Recipients);
+            ClassicAssert.AreEqual(ExpectedRecipients(always, success), new EmailMessage(result, publisher).Recipients);
         }
 
         [Test]
@@ -118,35 +120,35 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Publishers
 
 
             string subject = em.Subject;
-            Assert.AreEqual("CCNET: Project#9 Build Successful: Build 0", subject);
+            ClassicAssert.AreEqual("CCNET: Project#9 Build Successful: Build 0", subject);
         }
 
         [Test]
         public void EmailSubjectForFailedBuild()
         {
             string subject = GetEmailMessage(IntegrationResultMother.CreateFailed(), true).Subject;
-            Assert.AreEqual("CCNET: Project#9 Build Failed", subject);
+            ClassicAssert.AreEqual("CCNET: Project#9 Build Failed", subject);
         }
 
         [Test]
         public void EmailSubjectForSuccessfulBuild()
         {
             string subject = GetEmailMessage(IntegrationResultMother.CreateSuccessful(), true).Subject;
-            Assert.AreEqual("CCNET: Project#9 Build Successful: Build 0", subject);
+            ClassicAssert.AreEqual("CCNET: Project#9 Build Successful: Build 0", subject);
         }
 
         [Test]
         public void EmailSubjectForFixedBuild()
         {
             string subject = GetEmailMessage(IntegrationResultMother.CreateFixed(), true).Subject;
-            Assert.AreEqual("CCNET: Project#9 Build Fixed: Build 0", subject);
+            ClassicAssert.AreEqual("CCNET: Project#9 Build Fixed: Build 0", subject);
         }
 
         [Test]
         public void EmailSubjectForExceptionedBuild()
         {
             string subject = GetEmailMessage(IntegrationResultMother.CreateExceptioned(), true).Subject;
-            Assert.AreEqual("CCNET: Project#9 Exception in Build !", subject);
+            ClassicAssert.AreEqual("CCNET: Project#9 Exception in Build !", subject);
         }
 
 
@@ -160,7 +162,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Publishers
             IntegrationResult result = IntegrationResultMother.CreateFailed(ThoughtWorks.CruiseControl.Remote.IntegrationStatus.Failure);
 
             string subject = new EmailMessage(DecorateIntegrationResult(result), publisher).Subject;
-            Assert.AreEqual("CCNET: Project#9 is still broken", subject);
+            ClassicAssert.AreEqual("CCNET: Project#9 is still broken", subject);
         }
 
 
@@ -169,7 +171,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Publishers
         {
             IntegrationResult result = IntegrationResultMother.CreateFailed(ThoughtWorks.CruiseControl.Remote.IntegrationStatus.Failure);
             string subject = GetEmailMessage(result, true).Subject;
-            Assert.AreEqual("CCNET: Nice try but no cigare on fixing Project#9", subject);
+            ClassicAssert.AreEqual("CCNET: Nice try but no cigare on fixing Project#9", subject);
         }
 
 
@@ -180,7 +182,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Publishers
             publisher.IndexedEmailUsers.Add(modifier.Name, modifier);
             publisher.IndexedEmailUsers.Add(changed.Name, changed);
             IIntegrationResult result = AddModification(IntegrationResultMother.CreateFailed());
-            Assert.AreEqual(ExpectedRecipients(modifier), new EmailMessage(result, publisher).Recipients);
+            ClassicAssert.AreEqual(ExpectedRecipients(modifier), new EmailMessage(result, publisher).Recipients);
         }
 
         [Test]
@@ -190,7 +192,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Publishers
             publisher.IndexedEmailUsers.Add(modifier.Name, modifier);
             publisher.IndexedEmailUsers.Add("foo", new EmailUser("foo", null, "x@x.com"));
             IIntegrationResult result = AddModification(IntegrationResultMother.CreateFailed());
-            Assert.AreEqual(ExpectedRecipients(modifier), new EmailMessage(result, publisher).Recipients);
+            ClassicAssert.AreEqual(ExpectedRecipients(modifier), new EmailMessage(result, publisher).Recipients);
         }
 
         private static EmailMessage GetEmailMessage(IntegrationResult result, bool includeDetails)
@@ -243,7 +245,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Publishers
             result.Modifications = new Modification[1] { modification };
 
             EmailMessage message = new EmailMessage(result, myPublisher);
-            Assert.AreEqual("username@example.com", message.Recipients);
+            ClassicAssert.AreEqual("username@example.com", message.Recipients);
 
         }
 
@@ -268,7 +270,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Publishers
             result.Modifications = new Modification[1] { modification };
 
             EmailMessage message = new EmailMessage(result, myPublisher);
-            Assert.AreEqual("USERNAME@example.com", message.Recipients);
+            ClassicAssert.AreEqual("USERNAME@example.com", message.Recipients);
 
         }
 
@@ -293,7 +295,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Publishers
             result.Modifications = new Modification[1] { modification };
 
             EmailMessage message = new EmailMessage(result, myPublisher);
-            Assert.AreEqual("username@example.com", message.Recipients);
+            ClassicAssert.AreEqual("username@example.com", message.Recipients);
 
         }
 
@@ -318,7 +320,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Publishers
             result.Modifications = new Modification[1] { modification };
 
             EmailMessage message = new EmailMessage(result, myPublisher);
-            Assert.AreEqual("USERNAME@example.com", message.Recipients);
+            ClassicAssert.AreEqual("USERNAME@example.com", message.Recipients);
         }
 
 
@@ -344,7 +346,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Publishers
             result.Modifications = new Modification[1] { modification };
 
             EmailMessage message = new EmailMessage(result, myPublisher);
-            Assert.AreEqual("USERNAME@example.com", message.Recipients);
+            ClassicAssert.AreEqual("USERNAME@example.com", message.Recipients);
         }
 
 
@@ -368,7 +370,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Publishers
             result.Modifications = new Modification[1] { modification };
 
             EmailMessage message = new EmailMessage(result, myPublisher);
-            Assert.AreEqual("USERNAME@example.com", message.Recipients);
+            ClassicAssert.AreEqual("USERNAME@example.com", message.Recipients);
         }
 
 
