@@ -60,6 +60,7 @@
     </Reference>
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Reflection.Metadata, Version=1.4.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Reflection.Metadata.1.6.0\lib\netstandard2.0\System.Reflection.Metadata.dll</HintPath>
     </Reference>
@@ -71,6 +72,7 @@
     <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
     </Reference>
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -93,6 +95,51 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CCnetDeploymentTests.cs" />
+    <Compile Include="CCTrayLib\CCTimeFormatterTest.cs" />
+    <Compile Include="CCTrayLib\Configuration\BuildServerTest.cs" />
+    <Compile Include="CCTrayLib\Configuration\CCTrayMultiConfigurationTest.cs" />
+    <Compile Include="CCTrayLib\IconFileFixture.cs" />
+    <Compile Include="CCTrayLib\Monitoring\AggregatingProjectMonitorTest.cs" />
+    <Compile Include="CCTrayLib\Monitoring\AggregatingServerMonitorTest.cs" />
+    <Compile Include="CCTrayLib\Monitoring\BuildDurationTrackerTest.cs" />
+    <Compile Include="CCTrayLib\Monitoring\CachingCruiseServerManagerTest.cs" />
+    <Compile Include="CCTrayLib\Monitoring\CruiseProjectManagerFactoryTest.cs" />
+    <Compile Include="CCTrayLib\Monitoring\CruiseServerManagerFactoryTest.cs" />
+    <Compile Include="CCTrayLib\Monitoring\DashboardXmlParserTest.cs" />
+    <Compile Include="CCTrayLib\Monitoring\ExtensionProtocolStub.cs" />
+    <Compile Include="CCTrayLib\Monitoring\HttpCruiseProjectManagerTest.cs" />
+    <Compile Include="CCTrayLib\Monitoring\HttpCruiseServerManagerTest.cs" />
+    <Compile Include="CCTrayLib\Monitoring\PollIntervalReporterTest.cs" />
+    <Compile Include="CCTrayLib\Monitoring\ProjectMonitorTest.cs" />
+    <Compile Include="CCTrayLib\Monitoring\ProjectStateTest.cs" />
+    <Compile Include="CCTrayLib\Monitoring\ProjectStatusMonitorTest.cs" />
+    <Compile Include="CCTrayLib\Monitoring\RemotingCruiseServerManagerTest.cs" />
+    <Compile Include="CCTrayLib\Monitoring\ServerMonitorTest.cs" />
+    <Compile Include="CCTrayLib\Monitoring\StubCurrentTimeProvider.cs" />
+    <Compile Include="CCTrayLib\Monitoring\WebDashboardUrlTest.cs" />
+    <Compile Include="CCTrayLib\Presentation\AddBuildServerTest.cs" />
+    <Compile Include="CCTrayLib\Presentation\AddProjectsTest.cs" />
+    <Compile Include="CCTrayLib\Presentation\BuildTransitionSoundPlayerTest.cs" />
+    <Compile Include="CCTrayLib\Presentation\CCTrayMultiSettingsFormTest.cs" />
+    <Compile Include="CCTrayLib\Presentation\ConfigurableBalloonMessageProviderTest.cs" />
+    <Compile Include="CCTrayLib\Presentation\ConfigurableProjectStateIconProviderTest.cs" />
+    <Compile Include="CCTrayLib\Presentation\DetailStringProviderTest.cs" />
+    <Compile Include="CCTrayLib\Presentation\IntegrationQueueTreeNodeAdaptorTest.cs" />
+    <Compile Include="CCTrayLib\Presentation\MainFormControllerTest.cs" />
+    <Compile Include="CCTrayLib\Presentation\ProjectStateIconAdaptorTest.cs" />
+    <Compile Include="CCTrayLib\Presentation\ProjectStatusListViewItemAdaptorTest.cs" />
+    <Compile Include="CCTrayLib\Presentation\ResourceIntegrationQueueIconProviderTest.cs" />
+    <Compile Include="CCTrayLib\Presentation\ResourceProjectStateIconProviderTest.cs" />
+    <Compile Include="CCTrayLib\Presentation\SpeechSettingsControlTest.cs" />
+    <Compile Include="CCTrayLib\Presentation\StubServerMonitor.cs" />
+    <Compile Include="CCTrayLib\Presentation\SynchronizedProjectMonitorTest.cs" />
+    <Compile Include="CCTrayLib\Presentation\SynchronizedServerMonitorTest.cs" />
+    <Compile Include="CCTrayLib\Presentation\X10SettingsControlTest.cs" />
+    <Compile Include="CCTrayLib\Speech\SpeechUtilTest.cs" />
+    <Compile Include="CCTrayLib\StatusIconTest.cs" />
+    <Compile Include="CCTrayLib\X10\LampControllerTest.cs" />
+    <Compile Include="CCTrayLib\X10\LowLevelDriverFactoryTest.cs" />
+    <Compile Include="CCTrayLib\X10\X10ControllerTest.cs" />
     <Compile Include="CodeChecks\ReflectorChecks.cs" />
     <Compile Include="Config\CCNetConfigFileValidationTest.cs" />
     <Compile Include="CustomAssertion.cs" />
@@ -142,6 +189,9 @@
       <Project>{482ef049-ec0c-4819-b568-75b5f74bdd5b}</Project>
       <Name>WebDashboard</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CCTrayLib\TestIcon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
