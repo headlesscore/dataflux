@@ -10,7 +10,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ThoughtWorks.CruiseControl.xUnitTests</RootNamespace>
-    <AssemblyName>xUnitTests</AssemblyName>
+    <AssemblyName>ThoughtWorks.CruiseControl.xUnitTests</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>

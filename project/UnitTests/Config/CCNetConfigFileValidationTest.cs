@@ -24,7 +24,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Config
 				{
 					"ccnet.config", "CVSAndNAntAndEmailPublisherCCNet.config", "VSSAndDevenvAndNUnitCCNet.config", "P4AndDevenv.config"
 				};
-            var currentPath = Environment.CurrentDirectory;
+
 			foreach (string f in configFiles)
 			{
 				filename = f;
@@ -56,6 +56,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Config
 
 		private XmlDocument LoadConfigXml()
 		{
+            var t = GetType();
+            var names = ResourceUtil.GetResourceNames(GetType());
 			Stream stream = ResourceUtil.LoadResource(GetType(), filename);
 			XmlDocument xml = new XmlDocument();
 			xml.Load(stream);

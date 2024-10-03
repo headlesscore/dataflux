@@ -5,9 +5,9 @@ using System.Xml;
 using Exortech.NetReflector;
 using Xunit;
 using ThoughtWorks.CruiseControl.Core.Config;
-using ThoughtWorks.CruiseControl.UnitTests.UnitTestUtils;
+using ThoughtWorks.CruiseControl.xUnitTests.UnitTestUtils;
 
-namespace ThoughtWorks.CruiseControl.UnitTests.Config
+namespace ThoughtWorks.CruiseControl.xUnitTests.Config
 {
 	public class CCNetConfigFileValidationTest
 	{
@@ -53,7 +53,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Config
 
 		private XmlDocument LoadConfigXml()
 		{
-			Stream stream = ResourceUtil.LoadResource(GetType(), filename);
+            Stream stream = ResourceUtil.LoadResource(GetType(), filename);
 			XmlDocument xml = new XmlDocument();
 			xml.Load(stream);
 			return xml;
