@@ -398,10 +398,10 @@ namespace ThoughtWorks.CruiseControl.Core.Sourcecontrol
         /// Modifications discovered by this instance of the source control interface.
         /// This is needed for the Multi Source Control block. (See CCNET-639/CCNET-1307)
         /// </summary>
-        internal Modification[] mods = new Modification[0];
+        public Modification[] mods = new Modification[0];
 
         // Non-private for testing only.
-        internal int latestRevision;
+        public int latestRevision;
 
         /// <summary>
         /// Formats the command date.	

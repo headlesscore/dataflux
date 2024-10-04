@@ -17,7 +17,7 @@ namespace ThoughtWorks.CruiseControl.Core.Publishers.Statistics
         /// in the order of their creation.
         /// </summary>
         /// <param name="writer">The writer.</param>
-        internal void WriteStats(TextWriter writer)
+        public void WriteStats(TextWriter writer)
         {            
             for (int i = 0; i < Count; i++)
             {
@@ -68,7 +68,7 @@ namespace ThoughtWorks.CruiseControl.Core.Publishers.Statistics
         /// </summary>
         /// <param name="writer">The writer.</param>
         /// <param name="statistics">The statistics.</param>
-        internal static void WriteHeadings(TextWriter writer, List<StatisticBase> statistics)
+        public static void WriteHeadings(TextWriter writer, List<StatisticBase> statistics)
         {
             for (int i = 0; i < statistics.Count; i++)
             {
@@ -91,7 +91,7 @@ namespace ThoughtWorks.CruiseControl.Core.Publishers.Statistics
         ///         &lt;/statistic&gt;
         ///     &lt;/statistics&gt;
         /// </remarks>
-        internal void Save(TextWriter outStream)
+        public void Save(TextWriter outStream)
         {
             XmlTextWriter writer = new XmlTextWriter(outStream);
             writer.Formatting = Formatting.Indented;

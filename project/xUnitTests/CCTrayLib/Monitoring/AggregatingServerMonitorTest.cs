@@ -15,7 +15,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Monitoring
 		private IServerMonitor[] monitors;
 		private AggregatingServerMonitor aggregator;
 
-		//[SetUp]
+		//// [SetUp]
 		public void SetUp()
 		{
 			monitor1 = new Mock<IServerMonitor>();
@@ -63,7 +63,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Monitoring
 
 			aggregator = new AggregatingServerMonitor(stubServerMonitor1, stubServerMonitor2);
 			aggregator.QueueChanged += new MonitorServerQueueChangedEventHandler(Aggregator_QueueChanged);
-            // ClassicAssert.AreEqual(0, queueChangedCount);
+            // Assert.Equal(0, queueChangedCount);
             Assert.Equal(0, queueChangedCount);
 			stubServerMonitor1.OnQueueChanged(new MonitorServerQueueChangedEventArgs(stubServerMonitor1));
 

@@ -14,7 +14,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Presentation
 		private StubProjectMonitor monitor;
 		private IProjectStateIconProvider iconProvider;
 
-		//[SetUp]
+		//// [SetUp]
 		public void SetUp()
 		{
 			monitor = new StubProjectMonitor( "testProject" );

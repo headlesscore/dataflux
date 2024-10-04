@@ -23,7 +23,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Monitoring
 
 			Assert.True(result);
 #endif
-            //ClassicAssert.IsTrue(result);
+            //Assert.True(result);
         }
 
 		[Fact]
@@ -68,7 +68,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Monitoring
 			ProjectStatus newProjectStatus = ProjectStatusFixture.New("test project");
 			newProjectStatus.Messages = new Message[] {new Message("message"), new Message("another message")};
 
-			ClassicAssert.IsTrue(new PollIntervalReporter(oldProjectStatus, newProjectStatus).WasNewStatusMessagesReceived);
+			Assert.True(new PollIntervalReporter(oldProjectStatus, newProjectStatus).WasNewStatusMessagesReceived);
 #endif
 		}
 
@@ -90,7 +90,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Monitoring
             expected.Append(latestMessage.Text);
 
 
-			ClassicAssert.AreEqual(new Message(expected.ToString()), pollIntervalReporter.AllStatusMessages);
+			Assert.Equal(new Message(expected.ToString()), pollIntervalReporter.AllStatusMessages);
 #endif
         }
 
@@ -102,7 +102,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Monitoring
 			newProjectStatus.Messages = new Message[] {};
 			PollIntervalReporter pollIntervalReporter = new PollIntervalReporter(newProjectStatus, newProjectStatus);
 
-			ClassicAssert.AreEqual(new Message("").ToString(), pollIntervalReporter.AllStatusMessages.ToString());
+			Assert.Equal(new Message("").ToString(), pollIntervalReporter.AllStatusMessages.ToString());
 #endif
 		}
 
@@ -114,7 +114,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Monitoring
 			ProjectStatus newProjectStatus = ProjectStatusFixture.New("new successful", IntegrationStatus.Success);
 			PollIntervalReporter pollIntervalReporter = new PollIntervalReporter(lastProjectStatus, newProjectStatus);
 
-			ClassicAssert.AreEqual(BuildTransition.StillSuccessful, pollIntervalReporter.BuildTransition);
+			Assert.Equal(BuildTransition.StillSuccessful, pollIntervalReporter.BuildTransition);
 #endif
 		}
 
@@ -126,7 +126,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Monitoring
 			ProjectStatus newProjectStatus = ProjectStatusFixture.New("new failed", IntegrationStatus.Failure);
 			PollIntervalReporter pollIntervalReporter = new PollIntervalReporter(lastProjectStatus, newProjectStatus);
 
-			ClassicAssert.AreEqual(BuildTransition.StillFailing, pollIntervalReporter.BuildTransition);
+			Assert.Equal(BuildTransition.StillFailing, pollIntervalReporter.BuildTransition);
 #endif
 		}
 
@@ -138,7 +138,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Monitoring
 			ProjectStatus newProjectStatus = ProjectStatusFixture.New("new success", IntegrationStatus.Success);
 			PollIntervalReporter pollIntervalReporter = new PollIntervalReporter(lastProjectStatus, newProjectStatus);
 
-			ClassicAssert.AreEqual(BuildTransition.Fixed, pollIntervalReporter.BuildTransition);
+			Assert.Equal(BuildTransition.Fixed, pollIntervalReporter.BuildTransition);
 #endif
 		}
 		
@@ -150,7 +150,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Monitoring
 			ProjectStatus newProjectStatus = ProjectStatusFixture.New("new failed", IntegrationStatus.Failure);
 			PollIntervalReporter pollIntervalReporter = new PollIntervalReporter(lastProjectStatus, newProjectStatus);
 
-			ClassicAssert.AreEqual(BuildTransition.Broken, pollIntervalReporter.BuildTransition);
+			Assert.Equal(BuildTransition.Broken, pollIntervalReporter.BuildTransition);
 #endif
 		}		
 		
@@ -162,7 +162,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Monitoring
 			ProjectStatus newProjectStatus = ProjectStatusFixture.New(IntegrationStatus.Success, new DateTime(2007, 1, 2));
 			PollIntervalReporter pollIntervalReporter = new PollIntervalReporter(lastProjectStatus, newProjectStatus);
 
-			ClassicAssert.IsTrue(pollIntervalReporter.IsAnotherBuildComplete);
+			Assert.True(pollIntervalReporter.IsAnotherBuildComplete);
 #endif
 		}
 		
@@ -174,7 +174,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Monitoring
 			ProjectStatus newProjectStatus = ProjectStatusFixture.New(IntegrationStatus.Success, new DateTime(2007, 1, 2));
 			PollIntervalReporter pollIntervalReporter = new PollIntervalReporter(lastProjectStatus, newProjectStatus);
 
-			ClassicAssert.IsTrue(pollIntervalReporter.WasLatestBuildSuccessful);
+			Assert.True(pollIntervalReporter.WasLatestBuildSuccessful);
 #endif
 		}
 	}

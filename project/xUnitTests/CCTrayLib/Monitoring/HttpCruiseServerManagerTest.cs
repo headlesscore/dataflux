@@ -17,7 +17,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Monitoring
         private BuildServer buildServer;
         private HttpCruiseServerManager manager;
 
-		//[SetUp]
+		//// [SetUp]
 		public void SetUp()
 		{
             serverClient = mocks.Create<CruiseServerClientBase>().Object;

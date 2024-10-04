@@ -17,7 +17,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Presentation
 		private ICCTrayMultiConfiguration configuration;
 		private MainFormController controller;
 
-		//[SetUp]
+		//// [SetUp]
 		public void SetUp()
 		{
 			mockProjectMonitor = new Mock<IProjectMonitor>(MockBehavior.Strict);

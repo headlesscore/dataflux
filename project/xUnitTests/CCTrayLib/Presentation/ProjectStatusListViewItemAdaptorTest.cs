@@ -6,28 +6,36 @@ using ThoughtWorks.CruiseControl.CCTrayLib.Configuration;
 using ThoughtWorks.CruiseControl.CCTrayLib.Monitoring;
 using ThoughtWorks.CruiseControl.CCTrayLib.Presentation;
 using ThoughtWorks.CruiseControl.Remote;
+using System;
 //using ThoughtWorks.CruiseControl.UnitTests.Core;
 
-namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Presentation
+namespace ThoughtWorks.CruiseControl.xUnitTests.CCTrayLib.Presentation
 {
-	public class ProjectStatusListViewItemAdaptorTest
-	{
-		private Mock<IDetailStringProvider> mockProjectDetailStringFormatter;
-		private IDetailStringProvider detailStringFormatter;
 
-		//[SetUp]
-		public void SetUp()
-		{
-			mockProjectDetailStringFormatter = new Mock<IDetailStringProvider>();
-			detailStringFormatter = (IDetailStringProvider) mockProjectDetailStringFormatter.Object;
-		}
+	public class ProjectStatusListViewItemAdaptorTest : IClassFixture<ProjectStatusListViewItemAdaptorTest.TestFixture>, IDisposable
+	{
+        public class TestFixture : IDisposable
+        {
+            internal readonly Mock<IDetailStringProvider> mockProjectDetailStringFormatter;
+            internal IDetailStringProvider detailStringFormatter;
+
+            public TestFixture()
+            {
+                mockProjectDetailStringFormatter = new Mock<IDetailStringProvider>();
+                detailStringFormatter = (IDetailStringProvider)mockProjectDetailStringFormatter.Object;
+            }
+            public void Dispose() { }
+        }
+        private readonly TestFixture fixture;
+
+        public ProjectStatusListViewItemAdaptorTest(TestFixture fixture) => this.fixture = fixture;
 
 		[Fact]
 		public void CanCreateListViewItem()
 		{
 			StubProjectMonitor projectMonitor = new StubProjectMonitor("projectName");
 
-			ProjectStatusListViewItemAdaptor adaptor = new ProjectStatusListViewItemAdaptor(detailStringFormatter);
+			ProjectStatusListViewItemAdaptor adaptor = new ProjectStatusListViewItemAdaptor(fixture.detailStringFormatter);
 			ListViewItem item = adaptor.Create(projectMonitor);
 
 			Assert.Equal("projectName", item.Text);
@@ -40,7 +48,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Presentation
 		public void WhenTheStateOfTheProjectChangesTheIconIsUpdated()
 		{
 			StubProjectMonitor projectMonitor = new StubProjectMonitor("projectName");
-			ProjectStatusListViewItemAdaptor adaptor = new ProjectStatusListViewItemAdaptor(detailStringFormatter);
+			ProjectStatusListViewItemAdaptor adaptor = new ProjectStatusListViewItemAdaptor(fixture.detailStringFormatter);
 			ListViewItem item = adaptor.Create(projectMonitor);
 
 			Assert.Equal("projectName", item.Text);
@@ -62,7 +70,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Presentation
 			projectMonitor.ProjectStatus = null;
             projectMonitor.Configuration = new CCTrayProject("http://somewhere", "projectName");
 
-			ProjectStatusListViewItemAdaptor adaptor = new ProjectStatusListViewItemAdaptor(detailStringFormatter);
+			ProjectStatusListViewItemAdaptor adaptor = new ProjectStatusListViewItemAdaptor(fixture.detailStringFormatter);
 			ListViewItem item = adaptor.Create(projectMonitor);
 
 			Assert.Equal(10, item.SubItems.Count);
@@ -72,7 +80,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Presentation
 			Assert.Equal("", activity.Text);
 			Assert.Equal("", label.Text);
 
-			//ProjectStatus status = ProjectStatusFixture.New(ProjectActivity.Sleeping, "lastLabel");
+			ProjectStatus status = ProjectStatusFixture.New(ProjectActivity.Sleeping, "lastLabel");
 			//projectMonitor.ProjectStatus = status;
 
 			projectMonitor.OnPolled(new MonitorPolledEventArgs(projectMonitor));
@@ -85,8 +93,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Presentation
 		[Fact]
 		public void UsesDescriptionBuilderToGenerateDetailCaption()
 		{
-			mockProjectDetailStringFormatter = new Mock<IDetailStringProvider>(MockBehavior.Strict);
-			detailStringFormatter = mockProjectDetailStringFormatter.Object;
+            var mockProjectDetailStringFormatter = new Mock<IDetailStringProvider>(MockBehavior.Strict);
+			var detailStringFormatter = mockProjectDetailStringFormatter.Object;
 
 			StubProjectMonitor projectMonitor = new StubProjectMonitor("projectName");
 
@@ -105,5 +113,6 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Presentation
 			mockProjectDetailStringFormatter.Verify();
 		}
 
-	}
+        public void Dispose() { }
+    }
 }

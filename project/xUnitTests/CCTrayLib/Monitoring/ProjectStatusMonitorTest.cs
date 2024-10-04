@@ -16,7 +16,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Monitoring
 		private ICruiseProjectManager manager;
 		const string PROJECT_NAME = "projectName";
 
-		//[SetUp]
+		//// [SetUp]
 		public void SetUp()
 		{
             mockCruiseManager = repository.Create<CruiseServerClientBase>(MockBehavior.Strict).Object;
@@ -28,7 +28,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Monitoring
 		public void CanRetriveProjectName()
 		{
 			Assert.Equal(PROJECT_NAME, manager.ProjectName);
-            //ClassicAssert.AreEqual(PROJECT_NAME, manager.ProjectName);
+            //Assert.Equal(PROJECT_NAME, manager.ProjectName);
         }
 
 		[Fact]

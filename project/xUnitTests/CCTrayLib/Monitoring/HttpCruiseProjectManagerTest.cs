@@ -32,7 +32,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Monitoring
     </Queues>
 </CruiseControl>";
 
-		//[SetUp]
+		//// [SetUp]
 		public void SetUp()
 		{
             serverClient = mocks.Create<CruiseServerClientBase>().Object;

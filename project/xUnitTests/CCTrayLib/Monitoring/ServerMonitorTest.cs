@@ -16,7 +16,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Monitoring
 		private int queueChangedCount;
         const string PROJECT_NAME = "projectName";
 
-		//[SetUp]
+		//// [SetUp]
 		public void SetUp()
 		{
 			queueChangedCount = pollCount = 0;

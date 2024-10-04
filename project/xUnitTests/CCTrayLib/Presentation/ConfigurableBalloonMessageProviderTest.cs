@@ -15,7 +15,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Presentation
 			ConfigurableBalloonMessageProvider provider = new ConfigurableBalloonMessageProvider(messages);
 			
 			Assert.Same(messages.BrokenBuildMessage, provider.GetCaptionAndMessageForBuildTransition(BuildTransition.Broken));
-            //ClassicAssert.AreSame(messages.BrokenBuildMessage, provider.GetCaptionAndMessageForBuildTransition(BuildTransition.Broken));
+            //Assert.Same(messages.BrokenBuildMessage, provider.GetCaptionAndMessageForBuildTransition(BuildTransition.Broken));
             Assert.Same(messages.FixedBuildMessage, provider.GetCaptionAndMessageForBuildTransition(BuildTransition.Fixed));			
 			Assert.Same(messages.StillFailingBuildMessage, provider.GetCaptionAndMessageForBuildTransition(BuildTransition.StillFailing));			
 			Assert.Same(messages.StillSuccessfulBuildMessage, provider.GetCaptionAndMessageForBuildTransition(BuildTransition.StillSuccessful));			

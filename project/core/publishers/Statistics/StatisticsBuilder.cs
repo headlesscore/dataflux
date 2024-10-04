@@ -42,7 +42,7 @@ namespace ThoughtWorks.CruiseControl.Core.Publishers.Statistics
         /// </summary>
         /// <param name="result">The results of the build.</param>
         /// <returns>The set of statistic values.</returns>
-        internal StatisticsResults ProcessBuildResults(IIntegrationResult result)
+        public StatisticsResults ProcessBuildResults(IIntegrationResult result)
         {
             return ProcessBuildResults(ToXml(result));
         }
@@ -65,7 +65,7 @@ namespace ThoughtWorks.CruiseControl.Core.Publishers.Statistics
         /// </summary>
         /// <param name="xmlString"></param>
         /// <returns></returns>
-        internal StatisticsResults ProcessBuildResults(string xmlString)
+        public StatisticsResults ProcessBuildResults(string xmlString)
         {
             XmlDocument doc = new XmlDocument();
             doc.Load(new StringReader(xmlString));
@@ -80,7 +80,7 @@ namespace ThoughtWorks.CruiseControl.Core.Publishers.Statistics
         /// If the statistic's <see cref="StatisticBase.Include"/> property
         /// is false, this method may actually remove it from the list!
         /// </remarks>
-        internal void Add(StatisticBase statistic)
+        public void Add(StatisticBase statistic)
         {
             if (!logStatistics.Contains(statistic))
             {

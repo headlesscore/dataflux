@@ -9,7 +9,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Monitoring
 		private BuildDurationTracker tracker;
 		private StubCurrentTimeProvider currentTimeProvider;
 
-		//[SetUp]
+		//// [SetUp]
 		public void SetUp()
 		{
 			currentTimeProvider = new StubCurrentTimeProvider();

@@ -13,7 +13,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Monitoring
 		private const string ProjectName = "projectName";
         private MockRepository mocks = new MockRepository(MockBehavior.Default);
 
-        //[SetUp]
+        //// [SetUp]
         public void SetUp()
         {
             mocks = new MockRepository(MockBehavior.Default);

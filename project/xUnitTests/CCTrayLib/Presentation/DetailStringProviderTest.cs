@@ -14,7 +14,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Presentation
 		private StubProjectMonitor monitor;
 		private DetailStringProvider provider;
 
-		//[SetUp]
+		//// [SetUp]
 		protected void SetUp()
 		{
 			monitor = new StubProjectMonitor("name");

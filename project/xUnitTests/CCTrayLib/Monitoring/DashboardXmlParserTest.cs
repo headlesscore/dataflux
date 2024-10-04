@@ -36,7 +36,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Monitoring
 			
 			CruiseServerSnapshot snapshot = parser.ExtractAsCruiseServerSnapshot(PROJECTS_XML);
 			Assert.NotNull(snapshot);
-            //ClassicAssert.IsNotNull(snapshot);
+            //Assert.NotNull(snapshot);
 
             Assert.Equal(2, snapshot.ProjectStatuses.Length);
 		    AssertProjectsSerializedCorrectly(snapshot);

@@ -1,0 +1,58 @@
+using System.IO;
+using Moq;
+using Xunit;
+using ThoughtWorks.CruiseControl.Core;
+using ThoughtWorks.CruiseControl.Core.Config;
+using ThoughtWorks.CruiseControl.Core.Sourcecontrol;
+using ThoughtWorks.CruiseControl.Core.Tasks;
+using ThoughtWorks.CruiseControl.Core.Util;
+
+namespace ThoughtWorks.CruiseControl.UnitTests.Core.Config
+{
+	
+	public class ConfigurationFileSaverTest
+	{
+		// [TearDown]
+		protected void TearDown() 
+		{
+			TempFileUtil.DeleteTempDir(this);
+		}
+
+		[Fact]
+		public void ShouldBeAbleToSaveProjectsThatALoaderCanLoad()
+		{
+			ExecutableTask builder = new ExecutableTask();
+			builder.Executable = "foo";
+			FileSourceControl sourceControl = new FileSourceControl();
+			sourceControl.RepositoryRoot = "bar";
+			// Setup
+			Project project1 = new Project();
+			project1.Name = "Project One";
+			project1.SourceControl = sourceControl;
+			Project project2 = new Project();
+			project2.Name = "Project Two";
+			project2.SourceControl = sourceControl;
+			ProjectList projectList = new ProjectList();
+			projectList.Add(project1);
+			projectList.Add(project2);
+
+			var mockConfiguration = new Mock<IConfiguration>();
+			mockConfiguration.SetupGet(_configuration => _configuration.Projects).Returns(projectList).Verifiable();
+
+			FileInfo configFile = new FileInfo(TempFileUtil.CreateTempFile(TempFileUtil.CreateTempDir(this), "loadernet.config"));
+
+			// Execute
+			DefaultConfigurationFileSaver saver = new DefaultConfigurationFileSaver(new NetReflectorProjectSerializer());
+			saver.Save((IConfiguration) mockConfiguration.Object, configFile);
+
+			DefaultConfigurationFileLoader loader = new DefaultConfigurationFileLoader();
+			IConfiguration configuration2 = loader.Load(configFile);
+
+			// Verify
+			Assert.NotNull(configuration2.Projects["Project One"]);
+            Assert.NotNull(configuration2.Projects["Project One"]);
+            Assert.NotNull(configuration2.Projects["Project Two"]);
+			mockConfiguration.Verify();
+		}
+	}
+}

@@ -17,7 +17,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Monitoring
 		BuildServer buildServer;
 		RemotingCruiseServerManager manager;
 
-		//[SetUp]
+		//// [SetUp]
 		public void SetUp()
 		{
 			cruiseManagerMock = mocks.Create<CruiseServerClientBase>(MockBehavior.Strict).Object;
@@ -30,7 +30,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Monitoring
 		public void InitialisingReturnsCorrectServerProperties()
 		{
 			Assert.Equal(ServerUrl, manager.Configuration.Url);
-            //ClassicAssert.AreEqual(ServerUrl, manager.Configuration.Url);
+            //Assert.Equal(ServerUrl, manager.Configuration.Url);
             Assert.Equal(@"blah:1000", manager.DisplayName);
 			Assert.Equal(BuildServerTransport.Remoting, manager.Configuration.Transport);
 		}

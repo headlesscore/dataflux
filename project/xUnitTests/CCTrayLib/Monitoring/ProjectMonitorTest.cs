@@ -24,7 +24,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Monitoring
 
 	    private const string PROJECT_NAME = "Project1";
 
-		//[SetUp]
+		//// [SetUp]
 		public void SetUp()
 		{
 			buildOccurredCount = pollCount = 0;
@@ -396,7 +396,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Monitoring
 		[Fact]
 		public void IsNotPendingIfThereIsNoProjectStatus()
 		{
-			ClassicAssert.IsFalse(monitor.IsPending);
+			Assert.False(monitor.IsPending);
 		}
 
 		private void OnMessageReceived(string projectName, Message message)

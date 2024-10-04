@@ -26,7 +26,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Monitoring
         private IProjectMonitor[] monitors;
         private AggregatingProjectMonitor aggregator;
 
-        //[SetUp]
+        //// [SetUp]
         public void SetUp()
         {
             monitor1 = new Mock<IProjectMonitor>();
@@ -238,7 +238,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Monitoring
             monitor3.Verify();
         }
 
-        //[Test]
+        //[Fact]
         //[ExpectedException(typeof(NotImplementedException))]
         //public void ForceBuildThrowsAnNotImplementedException()
         //{
@@ -246,14 +246,14 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Monitoring
         //    aggregator.ForceBuild(parameters);
         //}
 
-        //[Test]
+        //[Fact]
         //[ExpectedException(typeof(NotImplementedException))]
         //public void FixBuildThrowsAnNotImplementedException()
         //{
         //    aggregator.FixBuild("JoeSmith");
         //}
 
-        //[Test]
+        //[Fact]
         //[ExpectedException(typeof(NotImplementedException))]
         //public void CancelPendingThrowsAnNotImplementedException()
         //{

@@ -11,7 +11,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib.Monitoring
 		private Mock<ICruiseServerManager> wrappedManagerMock;
 		private ICruiseServerManager cachingManager;
 
-		//[SetUp]
+		//// [SetUp]
 		public void SetUp()
 		{
 			wrappedManagerMock = new Mock<ICruiseServerManager>();

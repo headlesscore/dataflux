@@ -147,7 +147,7 @@ namespace ThoughtWorks.CruiseControl.Core.Sourcecontrol
         /// <summary>
         /// Modifications discovered by this instance of the source control interface.
         /// </summary>
-        internal Modification[] mods = new Modification[0];
+        public Modification[] mods = new Modification[0];
 
         /// <summary>
 		/// Create an instance of the source control integration with the default history parser and 

@@ -8,7 +8,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.CCTrayLib
 {
 	public class StatusIconTest : IconFileFixture, IDisposable
 	{
-		//[SetUp]
+		//// [SetUp]
 		public override void Init()
 		{
 			base.Init();
