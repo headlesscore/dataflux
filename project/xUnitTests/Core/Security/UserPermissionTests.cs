@@ -50,20 +50,20 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security
             string userName = "johndoe";
             UserPermission assertion = new UserPermission();
             assertion.UserName = userName;
-            Assert.Equal(userName, assertion.UserName, "UserName not correctly set");
-            Assert.Equal(userName, assertion.Identifier, "Identifier not correctly set");
+            Assert.Equal(userName, assertion.UserName);
+            Assert.Equal(userName, assertion.Identifier);
 
             assertion.DefaultRight = SecurityRight.Deny;
-            Assert.Equal(SecurityRight.Deny, assertion.DefaultRight, "DefaultRight not correctly set");
+            Assert.Equal(SecurityRight.Deny, assertion.DefaultRight);
             assertion.ForceBuildRight = SecurityRight.Deny;
-            Assert.Equal(SecurityRight.Deny, assertion.ForceBuildRight, "ForceBuildRight not correctly set");
+            Assert.Equal(SecurityRight.Deny, assertion.ForceBuildRight);
             assertion.SendMessageRight = SecurityRight.Deny;
-            Assert.Equal(SecurityRight.Deny, assertion.SendMessageRight, "SendMessageRight not correctly set");
+            Assert.Equal(SecurityRight.Deny, assertion.SendMessageRight);
             assertion.StartProjectRight = SecurityRight.Deny;
-            Assert.Equal(SecurityRight.Deny, assertion.StartProjectRight, "StartProjectRight not correctly set");
+            Assert.Equal(SecurityRight.Deny, assertion.StartProjectRight);
 
             assertion.RefId = "A reference";
-            Assert.Equal("A reference", assertion.RefId, "RefId not correctly set");
+            Assert.Equal("A reference", assertion.RefId);
         }
     }
 }

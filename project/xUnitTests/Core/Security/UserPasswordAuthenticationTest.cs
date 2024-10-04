@@ -69,12 +69,12 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security
             string password = "whoareyou";
             UserPasswordAuthentication authentication = new UserPasswordAuthentication();
             authentication.UserName = userName;
-            Assert.Equal(userName, authentication.UserName, "UserName not correctly set");
-            Assert.Equal(userName, authentication.Identifier, "Identifier not correctly set");
+            Assert.Equal(userName, authentication.UserName);
+            Assert.Equal(userName, authentication.Identifier);
             authentication.Password = password;
-            Assert.Equal(password, authentication.Password, "Password not correctly set");
+            Assert.Equal(password, authentication.Password);
             authentication.DisplayName = displayName;
-            Assert.Equal(displayName, authentication.DisplayName, "DisplayName not correctly set");
+            Assert.Equal(displayName, authentication.DisplayName);
         }
 
         [Fact]

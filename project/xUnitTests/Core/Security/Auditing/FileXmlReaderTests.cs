@@ -21,7 +21,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security.Auditing
             FileXmlReader logger = new FileXmlReader();
             string fileName = "LogFile.xml";
             logger.AuditFileLocation = fileName;
-            Assert.Equal(fileName, logger.AuditFileLocation, "AuditFileLocation not correctly set");
+            Assert.Equal(fileName, logger.AuditFileLocation);
             Assert.True(true);
         }
 
@@ -31,7 +31,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security.Auditing
             FileXmlReader reader = new FileXmlReader();
             reader.AuditFileLocation = GenerateAuditFile();
             List<AuditRecord> records = reader.Read(0, 100);
-            Assert.Equal(4, records.Count, "Incorrect number of records returned");
+            Assert.Equal(4, records.Count);
         }
 
         [Fact]
@@ -40,7 +40,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security.Auditing
             FileXmlReader reader = new FileXmlReader();
             reader.AuditFileLocation = GenerateAuditFile();
             List<AuditRecord> records = reader.Read(0, 2);
-            Assert.Equal(2, records.Count, "Incorrect number of records returned");
+            Assert.Equal(2, records.Count);
         }
 
         [Fact]
@@ -49,7 +49,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security.Auditing
             FileXmlReader reader = new FileXmlReader();
             reader.AuditFileLocation = GenerateAuditFile();
             List<AuditRecord> records = reader.Read(0, 100, AuditFilters.ByUser("User #1"));
-            Assert.Equal(2, records.Count, "Incorrect number of records returned");
+            Assert.Equal(2, records.Count);
         }
 
         [Fact]
@@ -58,7 +58,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security.Auditing
             FileXmlReader reader = new FileXmlReader();
             reader.AuditFileLocation = GenerateAuditFile();
             List<AuditRecord> records = reader.Read(0, 1, AuditFilters.ByUser("User #1"));
-            Assert.Equal(1, records.Count, "Incorrect number of records returned");
+            Assert.Single(records);
         }
 
         private string GenerateAuditFile()

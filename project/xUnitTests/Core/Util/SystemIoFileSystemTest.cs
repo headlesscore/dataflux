@@ -169,7 +169,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Util
                 }
                 var results = new SystemIoFileSystem().GetFilesInDirectory(tempPath);
                 Array.Sort(results);
-                CollectionAssert.AreEqual(files, results);
+                Assert.Equal(files, results);
             }
             finally
             {

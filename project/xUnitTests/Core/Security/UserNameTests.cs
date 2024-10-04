@@ -32,7 +32,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security
             string name = "johnDoe";
             UserName userName = new UserName();
             userName.Name = name;
-            Assert.Equal(name, userName.Name, "Name does not match");
+            Assert.Equal(name, userName.Name);
         }
     }
 }

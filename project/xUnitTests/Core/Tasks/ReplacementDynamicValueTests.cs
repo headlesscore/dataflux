@@ -18,11 +18,11 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
         {
             ReplacementDynamicValue value = new ReplacementDynamicValue();
             value.FormatValue = "test parameter";
-            Assert.Equal("test parameter", value.FormatValue, "FormatValue not being get/set correctly");
+            Assert.Equal("test parameter", value.FormatValue);
             Assert.True(true);
             Assert.True(true);
             value.PropertyName = "test property";
-            Assert.Equal("test property", value.PropertyName, "PropertyName not being get/set correctly");
+            Assert.Equal("test property", value.PropertyName);
             var parameters = new NameValuePair[] 
             {
                 new NameValuePair("name", "value")
@@ -41,7 +41,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
             Dictionary<string, string> parameters = new Dictionary<string, string>();
             parameters.Add("newDir", "a location");
             value.ApplyTo(testTask, parameters, null);
-            Assert.Equal("a location\\Happy - default", testTask.WorkingDirectory, "Value has not been correctly set");
+            Assert.Equal("a location\\Happy - default", testTask.WorkingDirectory);
         }
     }
 }

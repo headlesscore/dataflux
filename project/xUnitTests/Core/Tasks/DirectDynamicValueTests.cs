@@ -16,11 +16,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
         {
             DirectDynamicValue value = new DirectDynamicValue();
             value.ParameterName = "test parameter";
-            Assert.Equal("test parameter", value.ParameterName, "ParameterName not being get/set correctly");
+            Assert.Equal("test parameter", value.ParameterName);
             value.PropertyName = "test property";
-            Assert.Equal("test property", value.PropertyName, "PropertyName not being get/set correctly");
-            Assert.True(true);
-            Assert.True(true);
+            Assert.Equal("test property", value.PropertyName);
         }
 
         [Fact]
@@ -31,7 +29,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
             Dictionary<string, string> parameters = new Dictionary<string, string>();
             parameters.Add("newDir", "a location");
             value.ApplyTo(testTask, parameters, null);
-            Assert.Equal("a location", testTask.WorkingDirectory, "Value has not been correctly set");
+            Assert.Equal("a location", testTask.WorkingDirectory);
         }
     }
 }

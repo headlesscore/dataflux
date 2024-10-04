@@ -1,8 +1,8 @@
 using System;
-using Xunit;
-
+using FluentAssertions;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Util;
+using Xunit;
 
 namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 {
@@ -82,18 +82,18 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
             };
 
             Modification[] modifications = new Modification[] { mod1 };
-            Assert.Equal("10", Modification.GetLastChangeNumber(modifications), "from Modification.GetLastChangeNumber({10})");
+            Assert.Equal("10", Modification.GetLastChangeNumber(modifications));
             modifications = new Modification[] { mod1, mod2 };
-            Assert.Equal("20", Modification.GetLastChangeNumber(modifications), "from Modification.GetLastChangeNumber({10, 20})");
+            Assert.Equal("20", Modification.GetLastChangeNumber(modifications));
             modifications = new Modification[] { mod2, mod1 };
-            Assert.Equal("20", Modification.GetLastChangeNumber(modifications), "from Modification.GetLastChangeNumber({20, 10})");
+            Assert.Equal("20", Modification.GetLastChangeNumber(modifications));
         }
 
         [Fact]
         public void ShouldReturnNullAsLastChangeNumberIfNoModifications()
         {
             Modification[] modifications = new Modification[0];
-            Assert.Equal(null, Modification.GetLastChangeNumber(modifications), "LastChangeNumer({})");
+            Modification.GetLastChangeNumber(modifications).Should().Be(null);
         }
 
 		private static Modification CreateModification()

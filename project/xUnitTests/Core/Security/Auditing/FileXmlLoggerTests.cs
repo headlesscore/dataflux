@@ -21,7 +21,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security.Auditing
             FileXmlLogger logger = new FileXmlLogger();
             string fileName = "LogFile.xml";
             logger.AuditFileLocation = fileName;
-            Assert.Equal(fileName, logger.AuditFileLocation, "AuditFileLocation not correctly set");
+            Assert.Equal(fileName, logger.AuditFileLocation);
 
             logger.LogFailureEvents = false;
             Assert.False(logger.LogFailureEvents, "LogFailureEvents not correctly set");
@@ -157,7 +157,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security.Auditing
             Regex test = new Regex(expected);
             if (!test.IsMatch(actual))
             {
-                Assert.Equal(expected, actual, "Log details do not match");
+                Assert.Equal(expected, actual);
             }
         }
     }

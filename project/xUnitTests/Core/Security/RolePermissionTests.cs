@@ -50,24 +50,24 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security
             string userName = "testrole";
             RolePermission assertion = new RolePermission();
             assertion.RoleName = userName;
-            Assert.Equal(userName, assertion.RoleName, "RoleName not correctly set");
-            Assert.Equal(userName, assertion.Identifier, "Identifier not correctly set");
+            Assert.Equal(userName, assertion.RoleName);
+            Assert.Equal(userName, assertion.Identifier);
 
             assertion.DefaultRight = SecurityRight.Deny;
-            Assert.Equal(SecurityRight.Deny, assertion.DefaultRight, "DefaultRight not correctly set");
+            Assert.Equal(SecurityRight.Deny, assertion.DefaultRight);
             assertion.ForceBuildRight = SecurityRight.Deny;
-            Assert.Equal(SecurityRight.Deny, assertion.ForceBuildRight, "ForceBuildRight not correctly set");
+            Assert.Equal(SecurityRight.Deny, assertion.ForceBuildRight);
             assertion.SendMessageRight = SecurityRight.Deny;
-            Assert.Equal(SecurityRight.Deny, assertion.SendMessageRight, "SendMessageRight not correctly set");
+            Assert.Equal(SecurityRight.Deny, assertion.SendMessageRight);
             assertion.StartProjectRight = SecurityRight.Deny;
-            Assert.Equal(SecurityRight.Deny, assertion.StartProjectRight, "StartProjectRight not correctly set");
+            Assert.Equal(SecurityRight.Deny, assertion.StartProjectRight);
 
             assertion.RefId = "A reference";
-            Assert.Equal("A reference", assertion.RefId, "RefId not correctly set");
+            Assert.Equal("A reference", assertion.RefId);
             assertion.Users = new UserName[0];
-            Assert.Equal(0, assertion.Users.Length, "Users not correctly set - empty array");
+            Assert.Empty(assertion.Users);
             assertion.Users = new UserName[] { new UserName("JohnDoe") };
-            Assert.Equal(1, assertion.Users.Length, "Users not correctly set - array with data");
+            Assert.Single(assertion.Users);
         }
     }
 }

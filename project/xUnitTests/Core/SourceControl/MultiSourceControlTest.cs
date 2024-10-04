@@ -171,15 +171,15 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
             var returnedMods = new ArrayList(multiSourceControl.GetModifications(from, to));
 
             //// VERIFY
-            Assert.Equal(0, returnedMods.Count, "SourceControlData.Count");
+            Assert.Equal(0, returnedMods.Count);
 
-            Assert.Equal(2, to.SourceControlData.Count, "SourceControlData.Count");
+            Assert.Equal(2, to.SourceControlData.Count);
 
-            Assert.Equal("<ArrayOfNameValuePair />", to.SourceControlData[0].Value, "SourceControlData[0].Value");
-            Assert.Equal("sc0", to.SourceControlData[0].Name, "SourceControlData[0].Name");
+            Assert.Equal("<ArrayOfNameValuePair />", to.SourceControlData[0].Value);
+            Assert.Equal("sc0", to.SourceControlData[0].Name);
 
-            Assert.Equal("<ArrayOfNameValuePair><NameValuePair name=\"SVN:LastRevision:svn://myserver/mypath\" /></ArrayOfNameValuePair>", to.SourceControlData[1].Value, "SourceControlData[1].Value");
-            Assert.Equal("sc1", to.SourceControlData[1].Name, "SourceControlData[1].Name");
+            Assert.Equal("<ArrayOfNameValuePair><NameValuePair name=\"SVN:LastRevision:svn://myserver/mypath\" /></ArrayOfNameValuePair>", to.SourceControlData[1].Value);
+            Assert.Equal("sc1", to.SourceControlData[1].Name);
         }
 
         [Fact]
@@ -213,18 +213,18 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
             ArrayList returnedMods = new ArrayList(multiSourceControl.GetModifications(from, to));
 
             //// VERIFY
-            Assert.Equal(from.SourceControlData.Count, to.SourceControlData.Count, "SourceControlData.Count");
+            Assert.Equal(from.SourceControlData.Count, to.SourceControlData.Count);
 
             list.Add(new NameValuePair("name0", "first"));
-            Assert.Equal(XmlConversionUtil.ConvertObjectToXml(list), to.SourceControlData[0].Value, "SourceControlData[0].Value");
+            Assert.Equal(XmlConversionUtil.ConvertObjectToXml(list), to.SourceControlData[0].Value);
             list.Clear();
-            Assert.Equal("sc0", to.SourceControlData[0].Name, "SourceControlData[0].Name");
+            Assert.Equal("sc0", to.SourceControlData[0].Name);
 
             list.Add(new NameValuePair("name1", "first"));
             list.Add(new NameValuePair("name2", "first"));
-            Assert.Equal(XmlConversionUtil.ConvertObjectToXml(list), to.SourceControlData[1].Value, "SourceControlData[1].Value");
+            Assert.Equal(XmlConversionUtil.ConvertObjectToXml(list), to.SourceControlData[1].Value);
             list.Clear();
-            Assert.Equal("sc1", to.SourceControlData[1].Name, "SourceControlData[1].Name");
+            Assert.Equal("sc1", to.SourceControlData[1].Name);
         }
 
         [Fact]
@@ -292,12 +292,12 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
             ArrayList returnedMods = new ArrayList(multiSourceControl.GetModifications(from, to));
 
             //// VERIFY
-            Assert.Equal(from.SourceControlData.Count, to.SourceControlData.Count, "SourceControlData.Count");
+            Assert.Equal(from.SourceControlData.Count, to.SourceControlData.Count);
 
             list.Add(new NameValuePair("name0", "first"));
-            Assert.Equal(XmlConversionUtil.ConvertObjectToXml(list), to.SourceControlData[0].Value, "SourceControlData[0].Value");
+            Assert.Equal(XmlConversionUtil.ConvertObjectToXml(list), to.SourceControlData[0].Value);
             list.Clear();
-            Assert.Equal("sc0", to.SourceControlData[0].Name, "SourceControlData[0].Name");
+            Assert.Equal("sc0", to.SourceControlData[0].Name);
         }
 
         [Fact]
@@ -332,21 +332,21 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 
             List<NameValuePair> list = new List<NameValuePair>();
 
-            Assert.Equal(XmlConversionUtil.ConvertObjectToXml(list), to.SourceControlData[0].Value, "SourceControlData[0].Value");
-            Assert.Equal("sc0", to.SourceControlData[0].Name, "SourceControlData[0].Name");
+            Assert.Equal(XmlConversionUtil.ConvertObjectToXml(list), to.SourceControlData[0].Value);
+            Assert.Equal("sc0", to.SourceControlData[0].Name);
 
-            Assert.Equal(XmlConversionUtil.ConvertObjectToXml(list), to.SourceControlData[1].Value, "SourceControlData[1].Value");
-            Assert.Equal("sc1", to.SourceControlData[1].Name, "SourceControlData[1].Name");
+            Assert.Equal(XmlConversionUtil.ConvertObjectToXml(list), to.SourceControlData[1].Value);
+            Assert.Equal("sc1", to.SourceControlData[1].Name);
 
             list.Add(new NameValuePair("test", "first"));
-            Assert.Equal(XmlConversionUtil.ConvertObjectToXml(list), to.SourceControlData[2].Value, "SourceControlData[2].Value");
+            Assert.Equal(XmlConversionUtil.ConvertObjectToXml(list), to.SourceControlData[2].Value);
             list.Clear();
-            Assert.Equal("sc2", to.SourceControlData[2].Name, "SourceControlData[2].Name");
+            Assert.Equal("sc2", to.SourceControlData[2].Name);
 
             list.Add(new NameValuePair("commit", "first"));
-            Assert.Equal(XmlConversionUtil.ConvertObjectToXml(list), to.SourceControlData[3].Value, "SourceControlData[3].Value");
+            Assert.Equal(XmlConversionUtil.ConvertObjectToXml(list), to.SourceControlData[3].Value);
             list.Clear();
-            Assert.Equal("sc3", to.SourceControlData[3].Name, "SourceControlData[3].Name");
+            Assert.Equal("sc3", to.SourceControlData[3].Name);
         }
 
         [Fact]
@@ -374,14 +374,14 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
             List<NameValuePair> list = new List<NameValuePair>();
 
             list.Add(new NameValuePair("test", "first"));
-            Assert.Equal(XmlConversionUtil.ConvertObjectToXml(list), to.SourceControlData[0].Value, "SourceControlData[0].Value");
+            Assert.Equal(XmlConversionUtil.ConvertObjectToXml(list), to.SourceControlData[0].Value);
             list.Clear();
-            Assert.Equal("sc0", to.SourceControlData[0].Name, "SourceControlData[0].Name");
+            Assert.Equal("sc0", to.SourceControlData[0].Name);
 
             list.Add(new NameValuePair("commit", "first"));
-            Assert.Equal(XmlConversionUtil.ConvertObjectToXml(list), to.SourceControlData[1].Value, "SourceControlData[1].Value");
+            Assert.Equal(XmlConversionUtil.ConvertObjectToXml(list), to.SourceControlData[1].Value);
             list.Clear();
-            Assert.Equal("sc1", to.SourceControlData[1].Name, "SourceControlData[1].Name");
+            Assert.Equal("sc1", to.SourceControlData[1].Name);
         }
 
         [Fact]

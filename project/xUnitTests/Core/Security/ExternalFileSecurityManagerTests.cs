@@ -45,7 +45,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security
 
             string actual = TrimWhitespace(File.ReadAllText(GenerateUsersFileName()));
             string expected = GenerateUserFileContents("whoami");
-            Assert.Equal(expected, actual, "File contents do not match");
+            Assert.Equal(expected, actual);
             
         }
 
@@ -76,7 +76,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security
 
             string actual = TrimWhitespace(File.ReadAllText(GenerateUsersFileName()));
             string expected = GenerateUserFileContents("whoami");
-            Assert.Equal(expected, actual, "File contents do not match");
+            Assert.Equal(expected, actual);
         }
 
         [Fact]

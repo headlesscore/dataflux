@@ -47,10 +47,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security
             string displayName = "John Doe";
             UserNameAuthentication authentication = new UserNameAuthentication();
             authentication.UserName = userName;
-            Assert.Equal(userName, authentication.UserName, "UserName not correctly set");
-            Assert.Equal(userName, authentication.Identifier, "Identifier not correctly set");
+            Assert.Equal(userName, authentication.UserName );
+            Assert.Equal(userName, authentication.Identifier);
             authentication.DisplayName = displayName;
-            Assert.Equal(displayName, authentication.DisplayName, "DisplayName not correctly set");
+            Assert.Equal(displayName, authentication.DisplayName);
         }
 
         [Fact]
