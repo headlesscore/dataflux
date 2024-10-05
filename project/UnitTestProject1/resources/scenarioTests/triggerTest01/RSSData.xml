@@ -1,0 +1,16 @@
+<rss version="2.0">
+  <channel>
+    <title>CruiseControl.Net - triggerTest01</title>
+    <link>http://confluence.public.thoughtworks.org</link>
+    <description>Latest build results for 'triggerTest01'</description>
+    <language>en</language>
+    <ttl>5</ttl>
+    <generator>CruiseControl.Net</generator>
+    <item>
+      <title>Build 2 : Success  No changed files found in build  </title>
+      <description>No changed files found in build</description>
+      <guid>bf54b89a-630a-4eed-b2d1-73c911953d4f</guid>
+      <pubDate>Sat, 05 Oct 2024 09:42:53 GMT</pubDate>
+    </item>
+  </channel>
+</rss>

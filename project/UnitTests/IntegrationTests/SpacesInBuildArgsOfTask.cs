@@ -104,10 +104,6 @@ namespace ThoughtWorks.CruiseControl.UnitTests.IntegrationTests
 
             ClassicAssert.AreEqual(xd1, xd2);
             ClassicAssert.AreEqual(xd1, xd3);
-
-            ClassicAssert.IsTrue(true);
-            ClassicAssert.IsTrue(true);
-
         }
 
         private void Log(string message)

@@ -1,0 +1,69 @@
+<cruisecontrol project="PowerShell2">
+  <request source="WIN-OHV4FQM7TSM" buildCondition="ForceBuild">Build (ForceBuild) triggered from WIN-OHV4FQM7TSM</request>
+  <parameters>
+    <parameter name="$CCNetArtifactDirectory" value="C:\Users\Administrator\Desktop\dataflux\project\UnitTestProject1\resources\scenarioTests\PowerShell1" />
+    <parameter name="$CCNetBuildCondition" value="ForceBuild" />
+    <parameter name="$CCNetBuildDate" value="2024-10-05" />
+    <parameter name="$CCNetBuildId" value="e0fa94f2bd3549efb1a9eac009633db7" />
+    <parameter name="$CCNetBuildTime" value="09:31:25" />
+    <parameter name="$CCNetFailureTasks" value="System.Collections.ArrayList" />
+    <parameter name="$CCNetFailureUsers" value="System.Collections.ArrayList" />
+    <parameter name="$CCNetIntegrationStatus" value="Unknown" />
+    <parameter name="$CCNetLabel" value="1" />
+    <parameter name="$CCNetLastIntegrationStatus" value="Unknown" />
+    <parameter name="$CCNetListenerFile" value="C:\Users\Administrator\Desktop\dataflux\project\UnitTestProject1\resources\scenarioTests\PowerShell1\PowerShell2_ListenFile.xml" />
+    <parameter name="$CCNetModifyingUsers" value="System.Collections.ArrayList" />
+    <parameter name="$CCNetNumericLabel" value="1" />
+    <parameter name="$CCNetProject" value="PowerShell2" />
+    <parameter name="$CCNetProjectUrl" value="http://confluence.public.thoughtworks.org" />
+    <parameter name="$CCNetRequestSource" value="WIN-OHV4FQM7TSM" />
+    <parameter name="$CCNetUser" value="" />
+    <parameter name="$CCNetWorkingDirectory" value="C:\Users\Administrator\Desktop\dataflux\project\UnitTestProject1\resources\scenarioTests\PowerShell1" />
+  </parameters>
+  <modifications />
+  <integrationProperties>
+    <CCNetArtifactDirectory>C:\Users\Administrator\Desktop\dataflux\project\UnitTestProject1\resources\scenarioTests\PowerShell1</CCNetArtifactDirectory>
+    <CCNetBuildCondition>ForceBuild</CCNetBuildCondition>
+    <CCNetBuildDate>2024-10-05</CCNetBuildDate>
+    <CCNetBuildTime>09:31:25</CCNetBuildTime>
+    <CCNetFailureUsers />
+    <CCNetFailureTasks>
+      <task>Example of how to run a PowerShell script.</task>
+    </CCNetFailureTasks>
+    <CCNetIntegrationStatus>Exception</CCNetIntegrationStatus>
+    <CCNetLabel>1</CCNetLabel>
+    <CCNetLastIntegrationStatus>Unknown</CCNetLastIntegrationStatus>
+    <CCNetListenerFile>C:\Users\Administrator\Desktop\dataflux\project\UnitTestProject1\resources\scenarioTests\PowerShell1\PowerShell2_ListenFile.xml</CCNetListenerFile>
+    <CCNetModifyingUsers />
+    <CCNetNumericLabel>1</CCNetNumericLabel>
+    <CCNetProject>PowerShell2</CCNetProject>
+    <CCNetProjectUrl>http://confluence.public.thoughtworks.org</CCNetProjectUrl>
+    <CCNetRequestSource>WIN-OHV4FQM7TSM</CCNetRequestSource>
+    <CCNetWorkingDirectory>C:\Users\Administrator\Desktop\dataflux\project\UnitTestProject1\resources\scenarioTests\PowerShell1</CCNetWorkingDirectory>
+    <CCNetBuildId>e0fa94f2bd3549efb1a9eac009633db7</CCNetBuildId>
+    <LastIntegrationStatus>Unknown</LastIntegrationStatus>
+    <LastSuccessfulIntegrationLabel>UNKNOWN</LastSuccessfulIntegrationLabel>
+    <LastModificationDate>10/4/2024 9:31:25 AM</LastModificationDate>
+  </integrationProperties>
+  <build date="2024-10-05 09:31:25" buildtime="00:00:00" buildcondition="ForceBuild" />
+  <exception><![CDATA[ThoughtWorks.CruiseControl.Core.Tasks.BuilderException: Unable to execute: FileName: [C:\program Files\PowerShell\PowerShell.exe] -- Arguments: [-nologo -NoProfile -NonInteractive -file "C:\Scripts\dosomething.ps" -level=1] -- WorkingDirectory: [C:\Scripts] -- StandardInputContent: [] -- Timeout: [10000]
+System.IO.DirectoryNotFoundException: Directory does not exist: C:\Scripts
+   at ThoughtWorks.CruiseControl.Core.Util.ProcessInfo.CreateProcess() in C:\Users\Administrator\Desktop\dataflux\project\core\util\ProcessInfo.cs:line 246
+   at ThoughtWorks.CruiseControl.Core.Util.ProcessExecutor.RunnableProcess..ctor(ProcessInfo processInfo, String projectName, String publicArgs) in C:\Users\Administrator\Desktop\dataflux\project\core\util\ProcessExecutor.cs:line 101
+   at ThoughtWorks.CruiseControl.Core.Util.ProcessExecutor.Execute(ProcessInfo processInfo) in C:\Users\Administrator\Desktop\dataflux\project\core\util\ProcessExecutor.cs:line 36
+   at ThoughtWorks.CruiseControl.Core.Tasks.PowerShellTask.AttemptToExecute(ProcessInfo info) in C:\Users\Administrator\Desktop\dataflux\project\core\tasks\PowerShellTask.cs:line 287 ---> System.IO.DirectoryNotFoundException: Directory does not exist: C:\Scripts
+   at ThoughtWorks.CruiseControl.Core.Util.ProcessInfo.CreateProcess() in C:\Users\Administrator\Desktop\dataflux\project\core\util\ProcessInfo.cs:line 246
+   at ThoughtWorks.CruiseControl.Core.Util.ProcessExecutor.RunnableProcess..ctor(ProcessInfo processInfo, String projectName, String publicArgs) in C:\Users\Administrator\Desktop\dataflux\project\core\util\ProcessExecutor.cs:line 101
+   at ThoughtWorks.CruiseControl.Core.Util.ProcessExecutor.Execute(ProcessInfo processInfo) in C:\Users\Administrator\Desktop\dataflux\project\core\util\ProcessExecutor.cs:line 36
+   at ThoughtWorks.CruiseControl.Core.Tasks.PowerShellTask.AttemptToExecute(ProcessInfo info) in C:\Users\Administrator\Desktop\dataflux\project\core\tasks\PowerShellTask.cs:line 287
+   --- End of inner exception stack trace ---
+   at ThoughtWorks.CruiseControl.Core.Tasks.PowerShellTask.AttemptToExecute(ProcessInfo info) in C:\Users\Administrator\Desktop\dataflux\project\core\tasks\PowerShellTask.cs:line 291
+   at ThoughtWorks.CruiseControl.Core.Tasks.PowerShellTask.Execute(IIntegrationResult result) in C:\Users\Administrator\Desktop\dataflux\project\core\tasks\PowerShellTask.cs:line 224
+   at ThoughtWorks.CruiseControl.Core.Tasks.TaskBase.Run(IIntegrationResult result) in C:\Users\Administrator\Desktop\dataflux\project\core\tasks\TaskBase.cs:line 124
+   at ThoughtWorks.CruiseControl.Core.Project.RunTask(ITask task, IIntegrationResult result, Boolean isPublisher) in C:\Users\Administrator\Desktop\dataflux\project\core\Project.cs:line 1093
+   at ThoughtWorks.CruiseControl.Core.Project.RunTasks(IIntegrationResult result, IList tasksToRun, Dictionary`2 parameterValues) in C:\Users\Administrator\Desktop\dataflux\project\core\Project.cs:line 910
+   at ThoughtWorks.CruiseControl.Core.Project.Run(IIntegrationResult result, Dictionary`2 parameterValues) in C:\Users\Administrator\Desktop\dataflux\project\core\Project.cs:line 897
+   at ThoughtWorks.CruiseControl.Core.Project.Run(IIntegrationResult result) in C:\Users\Administrator\Desktop\dataflux\project\core\Project.cs:line 886
+   at ThoughtWorks.CruiseControl.Core.IntegrationRunner.Build(IIntegrationResult result) in C:\Users\Administrator\Desktop\dataflux\project\core\IntegrationRunner.cs:line 246
+   at ThoughtWorks.CruiseControl.Core.IntegrationRunner.Integrate(IntegrationRequest request) in C:\Users\Administrator\Desktop\dataflux\project\core\IntegrationRunner.cs:line 132 BaseDirectory: C:\Scripts, PowerShell: powershell.exe]]></exception>
+</cruisecontrol>

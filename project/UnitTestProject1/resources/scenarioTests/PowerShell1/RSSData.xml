@@ -1,0 +1,22 @@
+<rss version="2.0">
+  <channel>
+    <title>CruiseControl.Net - PowerShell2</title>
+    <link>http://confluence.public.thoughtworks.org</link>
+    <description>Latest build results for 'PowerShell2'</description>
+    <language>en</language>
+    <ttl>5</ttl>
+    <generator>CruiseControl.Net</generator>
+    <item>
+      <title>Build 1 : Exception  No changed files found in build  </title>
+      <description>No changed files found in build</description>
+      <guid>e9fb44e3-5d50-450f-ba6e-c5c052a4e954</guid>
+      <pubDate>Sat, 05 Oct 2024 09:31:25 GMT</pubDate>
+    </item>
+    <item>
+      <title>Build 2 : Exception  No changed files found in build  </title>
+      <description>No changed files found in build</description>
+      <guid>fdf51678-b305-492d-93d0-fd57a9a0af0e</guid>
+      <pubDate>Sat, 05 Oct 2024 09:43:00 GMT</pubDate>
+    </item>
+  </channel>
+</rss>

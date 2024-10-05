@@ -1,0 +1,16 @@
+<rss version="2.0">
+  <channel>
+    <title>CruiseControl.Net - LabelTest</title>
+    <link>http://confluence.public.thoughtworks.org</link>
+    <description>Latest build results for 'LabelTest'</description>
+    <language>en</language>
+    <ttl>5</ttl>
+    <generator>CruiseControl.Net</generator>
+    <item>
+      <title>Build 1.5.1604 : Success  No changed files found in build  </title>
+      <description>No changed files found in build</description>
+      <guid>9cbd365d-be0e-46b0-9f96-590427302a1f</guid>
+      <pubDate>Sat, 05 Oct 2024 09:42:47 GMT</pubDate>
+    </item>
+  </channel>
+</rss>

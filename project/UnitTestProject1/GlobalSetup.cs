@@ -4,13 +4,13 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace ThoughtWorks.CruiseControl.UnitTests
 {
-    //[SetUpFixture]
+    [TestClass]
     public class GlobalSetup
     {
-        //[OneTimeSetUp]
+        [ClassInitialize]
         public void RunBeforeAnyTests()
         {
-            //Environment.CurrentDirectory = TestContext.CurrentContext.TestDirectory;
+            Console.WriteLine(Environment.CurrentDirectory);
             // or identically under the hoods
             //Directory.SetCurrentDirectory(TestContext.CurrentContext.TestDirectory);
         }
