@@ -56,8 +56,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Util
 			string input = @"<This is some invalid xml";
 			string xslfile = TempFileUtil.CreateTempXmlFile(TestFolder, "samplestylesheet.xsl", TestData.StyleSheetContents);
 
-			Assert.True(delegate { new XslTransformer().Transform(input, xslfile, null); },
-                        Throws.TypeOf<CruiseControlException>());
+			Assert.Throws<CruiseControlException>(delegate { new XslTransformer().Transform(input, xslfile, null); });
 		}
 
 		[Fact]
@@ -66,8 +65,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Util
 			string logfile = TestData.LogFileContents;
 			string xslfile = "nosuchstylefile";
 
-			Assert.True(delegate { new XslTransformer().Transform(logfile, xslfile, null); },
-                        Throws.TypeOf<CruiseControlException>());
+			Assert.Throws<CruiseControlException>(delegate { new XslTransformer().Transform(logfile, xslfile, null); });
 		}
 
 		[Fact]
@@ -75,8 +73,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Util
 		{
 			string logfile = TestData.LogFileContents;
 			string xslfile = XslFileBadFormat;
-            Assert.True(delegate { new XslTransformer().Transform(logfile, xslfile, null); },
-                        Throws.TypeOf<CruiseControlException>());
+            Assert.Throws<CruiseControlException>(delegate { new XslTransformer().Transform(logfile, xslfile, null); });
 		}
 
 		private static string XslFileBadFormat

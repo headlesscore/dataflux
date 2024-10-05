@@ -25,9 +25,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security
 
             UserPermission assertion = new UserPermission();
             assertion.RefId = badReference;
-            Assert.True(delegate { assertion.CheckUser(manager, userName); },
-                        Throws.TypeOf<BadReferenceException>().With.Message.EqualTo("Reference 'doesNotExist' is either incorrect or missing."));
-            Assert.True(true);
+            Assert.Equal("Reference 'doesNotExist' is either incorrect or missing.", Assert.Throws< BadReferenceException>(delegate { assertion.CheckUser(manager, userName); }).Message);
         }
 
         [Fact]
@@ -57,8 +55,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security
 
             UserPermission assertion = new UserPermission();
             assertion.RefId = badReference;
-            Assert.True(delegate { assertion.CheckPermission(manager, permission); },
-                        Throws.TypeOf<BadReferenceException>().With.Message.EqualTo("Reference 'doesNotExist' is either incorrect or missing."));
+            Assert.Equal("Reference 'doesNotExist' is either incorrect or missing.", Assert.Throws< BadReferenceException>(delegate { assertion.CheckPermission(manager, permission); }).Message);
         }
 
         [Fact]

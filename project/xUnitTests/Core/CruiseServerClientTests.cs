@@ -47,7 +47,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
             var manager = new ThoughtWorks.CruiseControl.Core.CruiseServerClient(server);
             string responseText = manager.ProcessMessage("ForceBuild", "<garbage><data/></garbage>");
             Response response = ConvertXmlToResponse(responseText);
-            Assert.Equal(ResponseResult.Failure, response.Result, "Result is unexpected");
+            Assert.Equal(ResponseResult.Failure, response.Result);
         }
 
         [Fact]
@@ -63,7 +63,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
             var manager = new ThoughtWorks.CruiseControl.Core.CruiseServerClient(server);
             string responseText = manager.ProcessMessage("UnknownAction", request.ToString());
             Response response = ConvertXmlToResponse(responseText);
-            Assert.Equal(ResponseResult.Failure, response.Result, "Result is unexpected");
+            Assert.Equal(ResponseResult.Failure, response.Result);
         }
 
         /// <summary>

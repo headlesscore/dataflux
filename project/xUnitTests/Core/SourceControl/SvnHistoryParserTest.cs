@@ -84,8 +84,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 		[Fact]
 		public void HandleInvalidXml()
 		{
-            Assert.True(delegate { svn.Parse(new StringReader("<foo/><bar/>"), DateTime.Now, DateTime.Now); },
-                        Throws.TypeOf<CruiseControlException>());
+            Assert.Throws<CruiseControlException>(delegate { svn.Parse(new StringReader("<foo/><bar/>"), DateTime.Now, DateTime.Now); });
 		}
 
 		[Fact]
@@ -114,7 +113,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 </log>
             ";
             Modification[] mods = svn.Parse(new StringReader(xml), new DateTime(2007, 2, 1, 23, 17, 8), new DateTime(2007, 2, 3, 23, 17, 9));
-            Assert.Equal(0, mods.Length, "Number of modifications found");
+            Assert.Equal(0, mods.Length);
         }
 
         [Fact]
@@ -132,7 +131,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
             ";
             Modification[] mods = svn.Parse(new StringReader(xml), new DateTime(2007, 2, 1, 23, 17, 8), new DateTime(2007, 2, 3, 23, 17, 9));
             Assert.Single(mods);
-            Assert.Equal("4", mods[0].ChangeNumber, "Revision number");
+            Assert.Equal("4", mods[0].ChangeNumber);
             Assert.True(string.IsNullOrEmpty(mods[0].Comment));
             Assert.Null(mods[0].EmailAddress);
             Assert.True("addedfile.txt" == mods[0].FileName);

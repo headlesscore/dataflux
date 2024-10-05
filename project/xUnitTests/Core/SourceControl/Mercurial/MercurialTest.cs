@@ -337,8 +337,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol.Mercurial
 
 			ExpectToExecuteWithArgumentsAndReturn("heads --template {rev}:", new ProcessResult("1:2:", "", 0, false));
 
-			Assert.True(delegate { hg.GetSource(IntegrationResult()); },
-			            Throws.TypeOf<MultipleHeadsFoundException>());
+			Assert.Throws<MultipleHeadsFoundException>(delegate { hg.GetSource(IntegrationResult()); });
 		}
 
 		[Fact]

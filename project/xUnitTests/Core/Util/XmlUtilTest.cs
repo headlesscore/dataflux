@@ -42,10 +42,14 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Util
 		[Fact]
 		public void GetSingleElement()
 		{
-			Assert.True(delegate { XmlUtil.GetSingleElement(doc, ONE_SUCH_ELEMENT); },
-                        Throws.Nothing);
-			Assert.True(delegate { XmlUtil.GetSingleElement(doc, TWO_SUCH_ELEMENTS); },
-                        Throws.TypeOf<CruiseControlException>());
+            try
+            {
+                _ = XmlUtil.GetSingleElement(doc, ONE_SUCH_ELEMENT);
+            } catch (System.Exception ex) {
+                Assert.Fail(ex.Message);
+            }
+
+			Assert.Throws<CruiseControlException>(delegate { XmlUtil.GetSingleElement(doc, TWO_SUCH_ELEMENTS); });
 		}
 
 		[Fact]
@@ -87,16 +91,14 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Util
 		public void SelectRequiredValueWithMissingValue()
 		{
 			XmlDocument document = XmlUtil.CreateDocument("<configuration><martin></martin></configuration>");
-            Assert.True(delegate { XmlUtil.SelectRequiredValue(document, "/configuration/martin"); },
-                        Throws.TypeOf<CruiseControlException>());
+            Assert.Throws<CruiseControlException>(delegate { XmlUtil.SelectRequiredValue(document, "/configuration/martin"); });
 		}
 
 		[Fact]
 		public void SelectRequiredValueWithMissingElement()
 		{
 			XmlDocument document = XmlUtil.CreateDocument("<configuration><martin></martin></configuration>");
-			Assert.True(delegate { XmlUtil.SelectRequiredValue(document, "/configuration/larry"); },
-                        Throws.TypeOf<CruiseControlException>());
+			Assert.Throws<CruiseControlException>(delegate { XmlUtil.SelectRequiredValue(document, "/configuration/larry"); });
 		}
 
 		[Fact]

@@ -182,8 +182,9 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
             NetReflector.Read(@"<FinalBuilder>
 				<ProjectFile>C:\Dummy\Project.txt</ProjectFile>
 			</FinalBuilder>", _task);
-            Assert.True(delegate { _task.Run(_result); },
-                        Throws.TypeOf<BuilderException>().With.Message.EqualTo("Finalbuilder version could not be autodetected from project file name."));
+
+            Assert.Equal("Finalbuilder version could not be autodetected from project file name.",
+                Assert.Throws<BuilderException>(() => { _task.Run(_result); }).Message);
             mockProcessExecutor.VerifyNoOtherCalls();
            _mockRegistry.VerifyNoOtherCalls();
         }
@@ -195,16 +196,17 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
             _mockRegistry.Setup(registry => registry.GetLocalMachineSubKeyValue(@"SOFTWARE\Wow6432Node\VSoft\FinalBuilder\5.0", "Location")).Returns(() => null).Verifiable();
 
             _task.ProjectFile = @"C:\Dummy\Project.fbz5";
-            Assert.True(delegate { _task.Run(_result); },
-                        Throws.TypeOf<BuilderException>().With.Message.EqualTo("Path to Finalbuilder 5 command line executable could not be found."));
+
+            Assert.Equal("Path to Finalbuilder 5 command line executable could not be found.",
+                Assert.Throws<BuilderException>(()=> { _task.Run(_result); }).Message);
+
             mockProcessExecutor.VerifyNoOtherCalls();
         }
 
 		[Fact]
 		public void RequiredPropertiesNotProvided()
 		{
-            Assert.True(delegate { NetReflector.Read(@"<FinalBuilder />", _task); },
-                        Throws.TypeOf<NetReflectorException>());
+            Assert.Throws<NetReflectorException>(delegate { NetReflector.Read(@"<FinalBuilder />", _task); });
 		}
 
         [Fact]

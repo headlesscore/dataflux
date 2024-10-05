@@ -54,8 +54,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security
         {
             ExternalFileSecurityManager manager = new ExternalFileSecurityManager();
             string session = InitialiseManagerAndLogin(manager);
-            Assert.True(delegate { manager.ChangePassword("unknown", "whoareyou", "whoami"); },
-                        Throws.TypeOf<SessionInvalidException>());
+            Assert.Throws<SessionInvalidException>(delegate { manager.ChangePassword("unknown", "whoareyou", "whoami"); });
         }
 
         [Fact]
@@ -63,8 +62,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security
         {
             ExternalFileSecurityManager manager = new ExternalFileSecurityManager();
             string session = InitialiseManagerAndLogin(manager);
-            Assert.True(delegate { manager.ChangePassword(session, "wrong", "whoami"); },
-                        Throws.TypeOf<SecurityException>());
+            Assert.Throws<SecurityException>(delegate { manager.ChangePassword(session, "wrong", "whoami"); });
         }
 
         [Fact]
@@ -84,8 +82,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security
         {
             ExternalFileSecurityManager manager = new ExternalFileSecurityManager();
             string session = InitialiseManagerAndLogin(manager);
-            Assert.True(delegate { manager.ResetPassword("unknown", "johndoe", "whoami"); },
-                        Throws.TypeOf<SessionInvalidException>());
+            Assert.Throws< SessionInvalidException>(delegate { manager.ResetPassword("unknown", "johndoe", "whoami"); });
         }
 
         [Fact]
@@ -93,8 +90,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security
         {
             ExternalFileSecurityManager manager = new ExternalFileSecurityManager();
             string session = InitialiseManagerAndLogin(manager);
-            Assert.True(delegate { manager.ResetPassword(session, "johndoe", "whoami"); },
-                        Throws.TypeOf<PermissionDeniedException>());
+            Assert.Throws< PermissionDeniedException>(delegate { manager.ResetPassword(session, "johndoe", "whoami"); });
         }
 
         private string TrimWhitespace(string xml)

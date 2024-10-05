@@ -64,7 +64,7 @@
             Assert.Throws<NetReflectorItemRequiredException>(() =>
             {
                 serialiser.Read(null, null);
-            }, "test is required");
+            });
         }
 
         [Fact]

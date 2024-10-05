@@ -466,6 +466,10 @@
       <Project>{f8113db9-6c47-4fd1-8a01-655fcf151747}</Project>
       <Name>core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\objection\objection.csproj">
+      <Project>{1c0b8046-fe79-4845-84b9-369a76f817a3}</Project>
+      <Name>objection</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Remote\Remote.csproj">
       <Project>{e820cf3b-8c5a-4002-bc16-b7818d3d54a8}</Project>
       <Name>Remote</Name>

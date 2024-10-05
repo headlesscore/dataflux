@@ -66,7 +66,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 
 			Modification[] actual = parser.ParseModifications(makeArray(entry));
 			Assert.NotNull(actual);
-			Assert.Equal(0, actual.Length, "created should not have produced a modification");
+			Assert.Empty(actual);
 		}
 
 		[Fact]
@@ -323,7 +323,7 @@ happyTheFile.txt deleted";
 			Modification[] mod = parser.ParseModifications(entries);
 			
 			Assert.NotNull(mod);
-			Assert.Equal(1, mod.Length);
+			Assert.Single(mod);
 			Assert.Equal(expectedFile, mod[0].FileName);
 			Assert.Equal(expectedFolder, mod[0].FolderName);
 
@@ -418,7 +418,7 @@ Comment: added fir to tree file, checked in recursively from project root";
             {
                 CultureInfo culture = new CultureInfo(localeName);
                 VssLocale locale = new VssLocale(culture);
-                Assert.NotNull(locale, "Locale for \"{0}\"", localeName);
+                Assert.NotNull(locale);
             }
         }
 

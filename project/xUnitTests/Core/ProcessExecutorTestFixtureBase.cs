@@ -19,7 +19,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
 		protected string testTimeString = "08:45:00";
         
 
-		protected Mock<ProcessExecutor> mockProcessExecutor;
+		public Mock<ProcessExecutor> mockProcessExecutor;
 		protected string defaultExecutable;
 
 		protected void CreateProcessExecutorMock(string executable)

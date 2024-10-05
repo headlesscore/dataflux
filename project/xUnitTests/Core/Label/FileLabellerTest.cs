@@ -48,8 +48,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Label
         {
             FileLabeller labeller = new FileLabeller(new TestFileReader("001"));
             string xml = @"<fileLabeller prefix=""foo"" allowDuplicateSubsequentLabels=""false"" />";
-            Assert.True(delegate { NetReflector.Read(xml, labeller); },
-                        Throws.TypeOf<NetReflectorException>());
+            Assert.Throws<ArgumentOutOfRangeException>(delegate { NetReflector.Read(xml, labeller); });
         }
 
         [Fact]

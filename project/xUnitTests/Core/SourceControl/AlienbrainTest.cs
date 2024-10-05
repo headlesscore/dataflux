@@ -212,16 +212,14 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 		public void CanCatchInvalidGetSourceFlagConfiguration()
 		{
 			const string invalidXml = "<sourcecontrol type=\"alienbrain\"><autoGetSource>NOT_A_BOOLEAN</autoGetSource></sourcecontrol>";
-			Assert.True(delegate { NetReflector.Read(invalidXml); },
-                        Throws.TypeOf<NetReflectorException>());
+			Assert.Throws<NetReflectorConverterException>(delegate { NetReflector.Read(invalidXml); });
 		}
 
 		[Fact]
 		public void CanCatchInvalidLabelOnSuccessConfiguration()
 		{
 			const string invalidXml = "<sourcecontrol type=\"alienbrain\"><labelOnSuccess>NOT_A_BOOLEAN</labelOnSuccess></sourcecontrol>";
-            Assert.True(delegate { NetReflector.Read(invalidXml); },
-                        Throws.TypeOf<NetReflectorException>());
+            Assert.Throws<NetReflectorConverterException>(delegate { NetReflector.Read(invalidXml); });
 		}
 
 // Actions tests

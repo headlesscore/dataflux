@@ -32,7 +32,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
         {
             IntegrationResult result = new IntegrationResult();
             task.SimulateFailure = true;
-            Assert.True(delegate { task.Run(result); }, Throws.TypeOf<Exception>());
+            Assert.Throws<Exception>(delegate { task.Run(result); });
 
         }
     }

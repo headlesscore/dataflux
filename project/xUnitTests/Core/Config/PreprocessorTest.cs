@@ -524,13 +524,13 @@ namespace ThoughtWorks.CruiseControl.xUnitTests.Core.Config
         private static void AssertNodeExists(XPathNavigator nav, string xpath)
         {
             XPathNavigator node = nav.SelectSingleNode(xpath, nav);
-            Assert.NotNull(node, "Node '{0}' not found", xpath);
+            Assert.NotNull(node);
         }
 
         private static void AssertNodeDoesNotExist(XPathNavigator nav, string xpath)
         {
             XPathNavigator node = nav.SelectSingleNode(xpath, nav);
-            Assert.Null(node, "Node '{0}' found when it should not exist", xpath);
+            Assert.Null(node);
         }
 
         private static XmlReader GetInput(string filename)
@@ -554,7 +554,7 @@ namespace ThoughtWorks.CruiseControl.xUnitTests.Core.Config
 				filename.Replace("/", "."));
             if (assertResourceFound)
             {
-                Assert.NotNull(result, "Unable to load data from assembly : " + filename);
+                Assert.NotNull(result);
             }
 			return result;
 		}

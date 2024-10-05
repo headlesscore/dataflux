@@ -59,7 +59,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 			ExpectToExecuteArguments(itemHistoryArgs);
 
 			Modification[] mods = vault.GetModifications(result, IntegrationResultMother.CreateSuccessful(dtAfterChange));
-			Assert.Equal(1, mods.Length, "Should have found 1 modification.");
+			Assert.Equal(1, mods.Length);
             Assert.True(true);
             Assert.True(true);
             VerifyAll();
@@ -86,7 +86,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 			ExpectToExecuteArguments(itemHistoryArgs);
 
 			mods = vault.GetModifications(result, IntegrationResultMother.CreateSuccessful(dtAfterChange));
-			Assert.Equal(1, mods.Length, "Should have found 1 modification.");
+			Assert.Equal(1, mods.Length);
 
 			VerifyAll();
 		}
@@ -121,7 +121,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 			ExpectToExecuteArguments(itemHistoryArgs);
 
 			Modification[] mods = vault.GetModifications(result, IntegrationResultMother.CreateSuccessful(dtAfterChange));
-			Assert.Equal(1, mods.Length, "Should have found 1 modification.");
+			Assert.Equal(1, mods.Length);
 
 			VerifyAll();
 
@@ -148,7 +148,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 			ExpectToExecuteArguments(itemHistoryArgs);
 
 			mods = vault.GetModifications(result, IntegrationResultMother.CreateSuccessful(dtEnd));
-			Assert.Equal(1, mods.Length, "Should have found 1 modification.");
+			Assert.Equal(1, mods.Length);
 
 			VerifyAll();
 		}
@@ -699,7 +699,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 			ExpectToExecuteArguments(itemHistoryArgs);
 
 			Modification[] mods = vault.GetModifications(result, IntegrationResultMother.CreateSuccessful(dtAfterChange));
-			Assert.Equal(1, mods.Length, "Should have found 1 modification.");
+			Assert.Equal(1, mods.Length);
 
 			VerifyAll();
 

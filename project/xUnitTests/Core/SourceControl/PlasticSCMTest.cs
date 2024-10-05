@@ -39,11 +39,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
                  </sourceControl>";
 
             PlasticSCM plasticscm = new PlasticSCM();
-            Assert.True(delegate { NetReflector.Read(PLASTICSCM_ERR2_XML, plasticscm); },
-                        Throws.TypeOf<NetReflectorException>());
-            Assert.True(true);
-            Assert.True(true);
-
+            Assert.Throws<NetReflectorException>(delegate { NetReflector.Read(PLASTICSCM_ERR2_XML, plasticscm); });
         }
 
         [Fact]

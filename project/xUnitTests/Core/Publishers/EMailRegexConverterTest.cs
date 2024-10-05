@@ -35,22 +35,19 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Publishers
         [Fact]
         public void ShouldFailToReadEmptyConverter()
         {
-            Assert.True(delegate { NetReflector.Read(@"<regexConverter/>"); },
-                        Throws.TypeOf<NetReflectorException>());
+            Assert.Throws<NetReflectorException>(delegate { NetReflector.Read(@"<regexConverter/>"); });
         }
 
         [Fact]
         public void ShouldFailToReadOmittedFindAttribute()
         {
-            Assert.True(delegate { NetReflector.Read(@"<regexConverter replace=""asdf"" />"); },
-                        Throws.TypeOf<NetReflectorException>());
+            Assert.Throws<NetReflectorException>(delegate { NetReflector.Read(@"<regexConverter replace=""asdf"" />"); });
         }
 
         [Fact]
         public void ShouldFailToReadOmittedReplaceAttribute()
         {
-            Assert.True(delegate { NetReflector.Read(@"<regexConverter find=""asdf""/>"); },
-                        Throws.TypeOf<NetReflectorException>());
+            Assert.Throws<NetReflectorException>(delegate { NetReflector.Read(@"<regexConverter find=""asdf""/>"); });
         }
 	}
 }

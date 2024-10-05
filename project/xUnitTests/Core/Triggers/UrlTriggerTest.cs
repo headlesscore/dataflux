@@ -42,10 +42,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Triggers
 		{
 			string xml = string.Format(@"<urlTrigger name=""url"" seconds=""1"" buildCondition=""ForceBuild"" url=""{0}"" />", DefaultUrl);
 			trigger = (UrlTrigger) NetReflector.Read(xml);
-            Assert.Equal(1, trigger.IntervalSeconds, "trigger.IntervalSeconds");
-            Assert.Equal(BuildCondition.ForceBuild, trigger.BuildCondition, "trigger.BuildCondition");
-            Assert.Equal(DefaultUrl, trigger.Url, "trigger.Url");
-            Assert.Equal("url", trigger.Name, "trigger.Name");
+            Assert.Equal(1, trigger.IntervalSeconds);
+            Assert.Equal(BuildCondition.ForceBuild, trigger.BuildCondition);
+            Assert.Equal(DefaultUrl, trigger.Url);
+            Assert.Equal("url", trigger.Name);
             Assert.True(true);
             Assert.True(true);
         }
@@ -55,10 +55,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Triggers
 		{
 			string xml = string.Format(@"<urlTrigger url=""{0}"" />", DefaultUrl);
 			trigger = (UrlTrigger) NetReflector.Read(xml);
-            Assert.Equal(UrlTrigger.DefaultIntervalSeconds, trigger.IntervalSeconds, "trigger.IntervalSeconds");
-            Assert.Equal(BuildCondition.IfModificationExists, trigger.BuildCondition, "trigger.BuildCondition");
-            Assert.Equal(DefaultUrl, trigger.Url, "trigger.Url");
-			Assert.Equal("UrlTrigger", trigger.Name, "trigger.Name");
+            Assert.Equal(UrlTrigger.DefaultIntervalSeconds, trigger.IntervalSeconds);
+            Assert.Equal(BuildCondition.IfModificationExists, trigger.BuildCondition);
+            Assert.Equal(DefaultUrl, trigger.Url);
+			Assert.Equal("UrlTrigger", trigger.Name);
 		}
 
 		[Fact]
@@ -74,7 +74,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Triggers
         {
             mockDateTime.SetupGet(provider => provider.Now).Returns(initialDateTimeNow.AddSeconds(trigger.IntervalSeconds));
             mockHttpWrapper.Setup(http => http.GetLastModifiedTimeFor(new Uri(DefaultUrl), DateTime.MinValue)).Returns(initialDateTimeNow).Verifiable();
-            Assert.Equal(ModificationExistRequest(), trigger.Fire(), "trigger.Fire()");
+            Assert.Equal(ModificationExistRequest(), trigger.Fire());
             VerifyAll();
         }
 
@@ -102,7 +102,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Triggers
 		public void ShouldHandleExceptionAccessingUrl()
 		{
 			mockHttpWrapper.Setup(http => http.GetLastModifiedTimeFor(new Uri(DefaultUrl), DateTime.MinValue)).Throws(new Exception("Uh-oh")).Verifiable();
-            Assert.Null(trigger.Fire(), "trigger.Fire()");
+            Assert.Null(trigger.Fire());
 		}
 	}
 }

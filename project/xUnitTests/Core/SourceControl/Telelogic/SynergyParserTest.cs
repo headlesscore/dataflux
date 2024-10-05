@@ -105,13 +105,13 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol.Telelogic
 		[Fact]
 		public void ParseNewObjects()
 		{
-			ParseNewObjects(SynergyMother.NewTaskInfo, SynergyMother.NewObjects);
+			ParseNewObjectsInternal(SynergyMother.NewTaskInfo, SynergyMother.NewObjects);
 		}
 
 		[Fact]
 		public void ParseDCMObjects()
 		{
-			ParseNewObjects(SynergyMother.NewDcmTaskInfo, SynergyMother.NewDCMObjects);
+			ParseNewObjectsInternal(SynergyMother.NewDcmTaskInfo, SynergyMother.NewDCMObjects);
 		}
 
 		[Fact]
@@ -127,7 +127,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol.Telelogic
 			Assert.Equal("9999", actual[6].ChangeNumber);
 		}
 
-		private void ParseNewObjects(string newTasks, string newObjects)
+		private void ParseNewObjectsInternal(string newTasks, string newObjects)
 		{
 			SynergyParser parser = new SynergyParser();
 			// set the from date to be one week back

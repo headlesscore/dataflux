@@ -19,9 +19,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 		[Fact]
 		public void ShouldReturnEmptyListOfModifications()
 		{
-			Assert.Equal(0, sourceControl.GetModifications(IntegrationResultMother.CreateSuccessful(DateTime.MinValue), IntegrationResultMother.CreateSuccessful(DateTime.MaxValue)).Length);
-            Assert.True(true);
-            Assert.True(true);
+			Assert.Empty(sourceControl.GetModifications(IntegrationResultMother.CreateSuccessful(DateTime.MinValue), IntegrationResultMother.CreateSuccessful(DateTime.MaxValue)));
         }
 
 		[Fact]
@@ -37,24 +35,24 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
         public void ShouldFailGetModsWhenFailModsIsTrue()
         {
             sourceControl.FailGetModifications = true;
-            Assert.True(delegate { sourceControl.GetModifications(null, null); },
-                        Throws.TypeOf<Exception>().With.Message.EqualTo("Failing GetModifications"));
+            Assert.Equal("Failing GetModifications",
+                Assert.Throws<Exception>(() => { sourceControl.GetModifications(null, null); }).Message);
         }
 
         [Fact]
         public void ShouldFailGetSourceWhenFailGetSourceIsTrue()
         {
             sourceControl.FailGetSource = true;
-            Assert.True(delegate { sourceControl.GetSource(null); },
-                        Throws.TypeOf<Exception>().With.Message.EqualTo("Failing getting the source"));
+            Assert.Equal("Failing getting the source",
+                Assert.Throws<Exception>(()=> { sourceControl.GetSource(null); }).Message);
         }
 
         [Fact]
         public void ShouldFailLabelSourceWhenFailLabelSourceIsTrue()
         {
             sourceControl.FailLabelSourceControl = true;
-            Assert.True(delegate { sourceControl.LabelSourceControl(null); },
-                        Throws.TypeOf<Exception>().With.Message.EqualTo("Failing label source control"));
+            Assert.Equal("Failing label source control",
+                Assert.Throws<Exception>(()=> { sourceControl.LabelSourceControl(null); }).Message);
         }
 
         [Fact]

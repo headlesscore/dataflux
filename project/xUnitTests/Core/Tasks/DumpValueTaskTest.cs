@@ -14,7 +14,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 {
 
     
-    class DumpValueTaskTest
+    public class DumpValueTaskTest
     {
         #region Private fields
         private string dumpFilePath;

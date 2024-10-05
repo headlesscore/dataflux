@@ -171,8 +171,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 		public void ShouldFailIfProcessTimesOut()
 		{
 			ExpectToExecuteAndReturn(new ProcessResult("x", null, ProcessResult.TIMED_OUT_EXIT_CODE, true));
-            Assert.True(delegate { vss.GetModifications(IntegrationResult(yesterday), IntegrationResult(today)); },
-                        Throws.TypeOf<CruiseControlException>());
+            Assert.Throws<CruiseControlException>(delegate { vss.GetModifications(IntegrationResult(yesterday), IntegrationResult(today)); });
 		}
 
 		// GetSource tests

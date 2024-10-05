@@ -62,8 +62,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 			executorMock.Setup(executor => executor.Execute(It.IsAny<ProcessInfo>())).Returns(ProcessResultFixture.CreateNonZeroExitCodeResult()).Verifiable();
 
 			task = new NUnitTask((ProcessExecutor) executorMock.Object);
-            Assert.True(delegate { task.Run(result); },
-                        Throws.TypeOf<CruiseControlException>());
+            Assert.Throws<CruiseControlException>(delegate { task.Run(result); });
 		}
 
         /// <summary>

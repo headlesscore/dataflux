@@ -11,10 +11,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 		[Fact]
 		public void IfNoAssembliesAreSpecifiedThenTheArgumentIsInvalid()
 		{
-            Assert.True(delegate { new NUnitArgument(null, null); },
-                        Throws.TypeOf<CruiseControlException>());
-            Assert.True(true);
-            Assert.True(true);
+            Assert.Throws<CruiseControlException>(delegate { new NUnitArgument(null, null); });
         }
 
 		[Fact]

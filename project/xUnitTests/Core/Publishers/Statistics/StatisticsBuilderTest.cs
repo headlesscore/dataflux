@@ -84,7 +84,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Publishers.Statistics
             builder.Add(new Statistic("abc", "cdf"));
             Assert.Equal(count + 1, builder.Statistics.Count);
             builder.Add(new Statistic("abc", "cdf"));
-            Assert.Equal(count + 1, builder.Statistics.Count, "Duplicate Statistic added");
+            Assert.Equal(count + 1, builder.Statistics.Count);
         }
 
         [Fact]

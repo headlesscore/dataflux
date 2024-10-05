@@ -55,7 +55,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
                 new MergeFileInfo{FileName = "File 2", MergeAction = MergeFileInfo.MergeActionType.Copy},
                 new MergeFileInfo{FileName = "File 3", MergeAction = MergeFileInfo.MergeActionType.Merge}
             };
-            Assert.Equal(task.MergeFiles.Length, expected.Length, "File count incorrect");
+            Assert.Equal(task.MergeFiles.Length, expected.Length);
             for (var loop = 0; loop < expected.Length; loop++)
             {
                 Assert.Equal(expected[loop].FileName, task.MergeFiles[loop].FileName);
@@ -83,8 +83,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
     </project>
 </cruisecontrol>
 ");
-            Assert.True(delegate { reader.Read(xml, null); },
-                        Throws.TypeOf<ConfigurationException>());
+            Assert.Throws<ConfigurationException>(delegate { reader.Read(xml, null); });
         }
 
         [Fact]
@@ -107,8 +106,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
     </project>
 </cruisecontrol>
 ");
-            Assert.True(delegate { reader.Read(xml, null); },
-                        Throws.TypeOf<ConfigurationException>());
+            Assert.Throws<ConfigurationException>(delegate { reader.Read(xml, null); });
         }
 
         [Fact]
@@ -131,8 +129,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
     </project>
 </cruisecontrol>
 ");
-            Assert.True(delegate { reader.Read(xml, null); },
-                        Throws.TypeOf<ConfigurationException>());
+            Assert.Throws<ConfigurationException>(delegate { reader.Read(xml, null); });
         }
 
         [Fact]
@@ -155,8 +152,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
     </project>
 </cruisecontrol>
 ");
-            Assert.True(delegate { reader.Read(xml, null); },
-                        Throws.TypeOf<ConfigurationException>());
+            Assert.Throws<ConfigurationException>(delegate { reader.Read(xml, null); });
         }
 
         [Fact]

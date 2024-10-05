@@ -7,7 +7,7 @@ using ThoughtWorks.CruiseControl.CCTrayLib.Monitoring;
 using ThoughtWorks.CruiseControl.CCTrayLib.Presentation;
 using ThoughtWorks.CruiseControl.Remote;
 using System;
-//using ThoughtWorks.CruiseControl.UnitTests.Core;
+using ThoughtWorks.CruiseControl.UnitTests.Core;
 
 namespace ThoughtWorks.CruiseControl.xUnitTests.CCTrayLib.Presentation
 {

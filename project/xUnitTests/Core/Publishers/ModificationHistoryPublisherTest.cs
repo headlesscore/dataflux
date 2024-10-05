@@ -100,7 +100,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Publishers
             //Verify
             PublishedModifications = ModificationHistoryPublisher.LoadHistory(ARTIFACTS_DIR_PATH);
 
-            Assert.Equal(ExpectedLoggedModifications.ToString(), PublishedModifications, "Differences in log Detected");
+            Assert.Equal(ExpectedLoggedModifications.ToString(), PublishedModifications);
         }
 
         [Fact]
@@ -125,7 +125,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Publishers
             //Verify
             PublishedModifications = ModificationHistoryPublisher.LoadHistory(ARTIFACTS_DIR_PATH);
 
-            Assert.Equal(ExpectedLoggedModifications.ToString(), PublishedModifications, "Differences in log Detected");
+            Assert.Equal(ExpectedLoggedModifications.ToString(), PublishedModifications);
         }
 
         private string GetExpectedMods(IntegrationResult result)

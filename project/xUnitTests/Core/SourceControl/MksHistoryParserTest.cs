@@ -145,7 +145,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
             TimeSpan expectedOffsetAtModifiedTime = TimeZone.CurrentTimeZone.GetUtcOffset(modifiedTimeWithLocalTimeZone);
 
             Assert.Equal("Test", modification.UserName);
-            Assert.Equal(expectedOffsetAtModifiedTime, actualOffsetAtModifiedTime, "Date was not parsed with correct time zone offset.");
+            Assert.Equal(expectedOffsetAtModifiedTime, actualOffsetAtModifiedTime);
             Assert.Equal("Test Comment", modification.Comment);
             Assert.Equal("1234", modification.ChangeNumber);
         }

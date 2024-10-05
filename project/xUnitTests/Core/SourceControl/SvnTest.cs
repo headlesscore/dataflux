@@ -358,8 +358,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
             svn.TrunkUrl = string.Empty;
             svn.AutoGetSource = true;
             svn.WorkingDirectory = DefaultWorkingDirectory;
-            Assert.True(delegate { svn.GetSource(IntegrationResult()); },
-                        Throws.TypeOf<ConfigurationException>());
+            Assert.Throws<ConfigurationException>(delegate { svn.GetSource(IntegrationResult()); });
         }
 
         [Fact]

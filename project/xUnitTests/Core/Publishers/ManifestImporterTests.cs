@@ -94,8 +94,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Publishers
         public void ImportWithoutAFilename()
         {
             ManifestImporter generator = new ManifestImporter();
-            Assert.True(delegate { generator.Generate(null, null); },
-                        Throws.TypeOf<ArgumentOutOfRangeException>().With.Property("ParamName").EqualTo("FileName"));
+            Assert.Equal("FileName", Assert.Throws<ArgumentOutOfRangeException>(delegate { generator.Generate(null, null); }).ParamName);
         }
         #endregion
         #endregion

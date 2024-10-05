@@ -41,7 +41,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
             // Verify the results
             VerifyResultMock(result, 5);
             mocks.Verify();
-            Assert.Equal(IntegrationStatus.Success, result.Status, "Status does not match");
+            Assert.Equal(IntegrationStatus.Success, result.Status);
             Assert.True(true);
             Assert.True(true);
         }
@@ -70,7 +70,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
             // Verify the results
             VerifyResultMock(result, 4);
             mocks.Verify();
-            Assert.Equal(IntegrationStatus.Failure, result.Status, "Status does not match");
+            Assert.Equal(IntegrationStatus.Failure, result.Status);
         }
 
         [Fact]
@@ -98,7 +98,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
             // Verify the results
             VerifyResultMock(result, 5);
             mocks.Verify();
-            Assert.Equal(IntegrationStatus.Failure, result.Status, "Status does not match");
+            Assert.Equal(IntegrationStatus.Failure, result.Status);
         }
 
         [Fact]
@@ -125,7 +125,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
             // Verify the results
             VerifyResultMock(result, 0);
             mocks.Verify();
-            Assert.Equal(IntegrationStatus.Failure, result.Status, "Status does not match");
+            Assert.Equal(IntegrationStatus.Failure, result.Status);
         }
 
         [Fact]
@@ -163,8 +163,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 
             // Verify the results
             mocks.Verify();
-            Assert.Equal(IntegrationStatus.Failure, result.Status, "Status does not match");
-            Assert.Equal(innerCount * leafCount, result.TaskResults.Count, "Bad task results count");
+            Assert.Equal(IntegrationStatus.Failure, result.Status);
+            Assert.Equal(innerCount * leafCount, result.TaskResults.Count);
         }
 
         private IIntegrationResult GenerateResultMock(int runCount)

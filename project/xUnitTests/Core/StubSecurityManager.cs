@@ -147,7 +147,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
         {
             for (int iLoop = 0; iLoop < methods.Length; iLoop++)
             {
-                Assert.Equal(expectedCounts[iLoop], actualCounts[iLoop], methods[iLoop] + " call count does not match expected");
+                Assert.Equal(expectedCounts[iLoop], actualCounts[iLoop]);
                 Assert.True(true);
                 Assert.True(true);
             }

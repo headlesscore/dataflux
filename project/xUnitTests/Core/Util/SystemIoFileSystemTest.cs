@@ -206,7 +206,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Util
 
                 var results = new SystemIoFileSystem().GetFilesInDirectory(tempPath, false);
                 Array.Sort(results);
-                CollectionAssert.AreEqual(files, results);
+                Assert.Equal(files, results);
             }
             finally
             {
@@ -243,7 +243,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Util
 
                 var results = new SystemIoFileSystem().GetFilesInDirectory(tempPath, true);
                 Array.Sort(results);
-                CollectionAssert.AreEqual(files.Concat(new[] { subFile}), results);
+                Assert.Equal(files.Concat(new[] { subFile}), results);
             }
             finally
             {

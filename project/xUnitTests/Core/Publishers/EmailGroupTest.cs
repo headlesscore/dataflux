@@ -11,10 +11,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Publishers
 		[Fact]
 		public void ReadEmailGroupFromXmlUsingInvalidNotificationType()
 		{
-            Assert.True(delegate { NetReflector.Read(@"<group> name=""foo"" <notifications><NotificationType>bar</NotificationType></notifications>  </group>"); },
-                        Throws.TypeOf<NetReflectorException>());
-            Assert.True(delegate { NetReflector.Read(@"<group> name=""foo"" <notifications><NotificationType>bar</NotificationType></notifications>  </group>"); },
-                        Throws.TypeOf<NetReflectorException>());
+            Assert.Throws<NetReflectorException>(delegate { NetReflector.Read(@"<group> name=""foo"" <notifications><NotificationType>bar</NotificationType></notifications>  </group>"); });
+            Assert.Throws<NetReflectorException>(delegate { NetReflector.Read(@"<group> name=""foo"" <notifications><NotificationType>bar</NotificationType></notifications>  </group>"); });
         }
 
 		[Fact]

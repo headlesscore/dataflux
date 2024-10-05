@@ -99,8 +99,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Extensions
             configuration.Items = new XmlElement[] {
                 CreateSizeElement("garbage", 100, "C:\\")
             };
-            Assert.True(delegate { extension.Initialise(server, configuration); },
-                        Throws.TypeOf<ArgumentOutOfRangeException>());
+            Assert.Throws<ArgumentOutOfRangeException>(delegate { extension.Initialise(server, configuration); });
         }
 
         [Fact]
@@ -113,8 +112,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Extensions
             configuration.Items = new XmlElement[] {
                 document.CreateElement("garbage")
             };
-            Assert.True(delegate { extension.Initialise(server, configuration); },
-                        Throws.TypeOf<ArgumentOutOfRangeException>());
+            Assert.Throws<ArgumentOutOfRangeException>(delegate { extension.Initialise(server, configuration); });
         }
 
         [Fact]
@@ -125,8 +123,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Extensions
             var configuration = new ExtensionConfiguration();
             configuration.Items = new XmlElement[] {
             };
-            Assert.True(delegate { extension.Initialise(server, configuration); },
-                        Throws.TypeOf<ArgumentOutOfRangeException>());
+            Assert.Throws<ArgumentOutOfRangeException>(delegate { extension.Initialise(server, configuration); });
         }
 
         [Fact]

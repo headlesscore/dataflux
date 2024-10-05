@@ -63,7 +63,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Triggers
 			mockTrigger.Setup(_trigger => _trigger.Fire()).Returns(ModificationExistRequest()).Verifiable();
 			mockDateTime.SetupGet(provider => provider.Now).Returns(new DateTime(2004, 12, 1, 11, 30, 0, 0)).Verifiable();
 
-            Assert.Equal(ModificationExistRequest(), trigger.Fire(), "trigger.Fire()");
+            Assert.Equal(ModificationExistRequest(), trigger.Fire());
 		}
 
 		[Fact]
@@ -138,7 +138,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Triggers
 		{
 			DateTime triggerNextBuildTime = new DateTime(2004, 12, 1, 10, 30, 00);
 			mockTrigger.SetupGet(_trigger => _trigger.NextBuild).Returns(triggerNextBuildTime).Verifiable();
-			Assert.Equal(new DateTime(2004, 12, 1, 11, 00, 00), trigger.NextBuild, "trigger.NextBuild");
+			Assert.Equal(new DateTime(2004, 12, 1, 11, 00, 00), trigger.NextBuild);
 		}
 
 		[Fact]
@@ -146,7 +146,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Triggers
 		{
 			DateTime triggerNextBuildTime = new DateTime(2004, 12, 4, 10, 00, 00);
 			mockTrigger.SetupGet(_trigger => _trigger.NextBuild).Returns(triggerNextBuildTime).Verifiable();
-            Assert.Equal(triggerNextBuildTime, trigger.NextBuild, "trigger.NextBuild");
+            Assert.Equal(triggerNextBuildTime, trigger.NextBuild);
 		}
 
 		[Fact]
@@ -154,7 +154,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Triggers
 		{
 			DateTime nextBuildTime = new DateTime(2004, 12, 1, 13, 30, 00);
 			mockTrigger.SetupGet(_trigger => _trigger.NextBuild).Returns(nextBuildTime).Verifiable();
-            Assert.Equal(nextBuildTime, trigger.NextBuild, "trigger.NextBuild");
+            Assert.Equal(nextBuildTime, trigger.NextBuild);
 		}
 
 		[Fact]
@@ -170,12 +170,12 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Triggers
 											</weekDays>
 										</filterTrigger>");
 			trigger = (FilterTrigger) NetReflector.Read(xml);
-            Assert.Equal("08:30:30", trigger.StartTime, "trigger.StartTime");
-            Assert.Equal("22:30:30", trigger.EndTime, "trigger.EndTime");
-			Assert.Equal(typeof (ScheduleTrigger), trigger.InnerTrigger.GetType(), "trigger.InnerTrigger type");
-			Assert.Equal(DayOfWeek.Monday, trigger.WeekDays[0], "trigger.WeekDays[0]");
-			Assert.Equal(DayOfWeek.Tuesday, trigger.WeekDays[1], "trigger.WeekDays[1]");
-			Assert.Equal(BuildCondition.ForceBuild, trigger.BuildCondition, "trigger.BuildCondition");
+            Assert.Equal("08:30:30", trigger.StartTime);
+            Assert.Equal("22:30:30", trigger.EndTime);
+			Assert.Equal(typeof (ScheduleTrigger), trigger.InnerTrigger.GetType());
+			Assert.Equal(DayOfWeek.Monday, trigger.WeekDays[0]);
+			Assert.Equal(DayOfWeek.Tuesday, trigger.WeekDays[1]);
+			Assert.Equal(BuildCondition.ForceBuild, trigger.BuildCondition);
 		}
 
 		[Fact]
@@ -187,11 +187,11 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Triggers
 											<trigger type=""scheduleTrigger"" time=""12:00:00"" />
 										</filterTrigger>");
 			trigger = (FilterTrigger) NetReflector.Read(xml);
-            Assert.Equal("00:00:00", trigger.StartTime, "trigger.StartTime");
-            Assert.Equal("23:59:59", trigger.EndTime, "trigger.EndTime");
-            Assert.Equal(typeof(ScheduleTrigger), trigger.InnerTrigger.GetType(), "trigger.InnerTrigger type");
-            Assert.Equal(7, trigger.WeekDays.Length, "trigger.WeekDays.Length");
-            Assert.Equal(BuildCondition.NoBuild, trigger.BuildCondition, "trigger.BuildCondition");
+            Assert.Equal("00:00:00", trigger.StartTime);
+            Assert.Equal("23:59:59", trigger.EndTime);
+            Assert.Equal(typeof(ScheduleTrigger), trigger.InnerTrigger.GetType());
+            Assert.Equal(7, trigger.WeekDays.Length);
+            Assert.Equal(BuildCondition.NoBuild, trigger.BuildCondition);
 		}
 
 		[Fact]
@@ -208,8 +208,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Triggers
                     </trigger>
 				  </filterTrigger>";
 			trigger = (FilterTrigger) NetReflector.Read(xml);
-            Assert.Equal(typeof(FilterTrigger), trigger.InnerTrigger.GetType(), "trigger.InnerTrigger type");
-            Assert.Equal(typeof(IntervalTrigger), ((FilterTrigger)trigger.InnerTrigger).InnerTrigger.GetType(), "trigger.InnerTrigger.InnerTrigger type");
+            Assert.Equal(typeof(FilterTrigger), trigger.InnerTrigger.GetType());
+            Assert.Equal(typeof(IntervalTrigger), ((FilterTrigger)trigger.InnerTrigger).InnerTrigger.GetType());
 		}
 
 		[Fact]

@@ -9,6 +9,7 @@ using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Tasks;
 using ThoughtWorks.CruiseControl.Core.Util;
 using ThoughtWorks.CruiseControl.Remote;
+using System;
 
 namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 {
@@ -133,8 +134,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 		{
 			ExpectToExecuteAndThrow();
 
-            Assert.True(delegate { task.Run(IntegrationResult()); },
-                        Throws.TypeOf<BuilderException>());
+            Assert.Throws<BuilderException>(delegate { task.Run(IntegrationResult()); });
 			Verify();
 		}
 
@@ -256,8 +256,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 		[Fact]
 		public void ShouldThrowExceptionOnInvalidSuccessExitCodes()
 		{
-			Assert.True(delegate { task.SuccessExitCodes = "0, 1, GOOD"; },
-                        Throws.TypeOf<System.FormatException>());
+			Assert.Throws<FormatException>(delegate { task.SuccessExitCodes = "0, 1, GOOD"; });
 		}
 
 		[Fact]
@@ -295,8 +294,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 			IIntegrationResult result = IntegrationResult();
 			task.Run(result);
 
-			Assert.True(result.Status, Is.EqualTo(IntegrationStatus.Failure));
-			Assert.True(result.TaskOutput, Does.Match("Command line '.*' timed out after \\d+ seconds"));
+			Assert.True(result.Status == IntegrationStatus.Failure);
+			Assert.Matches(result.TaskOutput, "Command line '.*' timed out after \\d+ seconds");
 
 			Verify();
 		}

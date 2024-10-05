@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using ThoughtWorks.CruiseControl.Core.Tasks;
 
-namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
+namespace ThoughtWorks.CruiseControl.xUnitTests.Core.Tasks
 {
     
     public class DynamicValueUtilityTests
@@ -122,7 +122,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
                 new TestClass("child2")
             };
             DynamicValueUtility.PropertyValue result = DynamicValueUtility.FindProperty(rootValue, "sub.testInstance.someName");
-            Assert.NotNull(result, "Property not found");
+            Assert.NotNull(result);
             Assert.True("Name" == result.Property.Name, "Property names do not match");
             Assert.True("child2" == result.Value as string, "Property values do not match");
         }
@@ -161,7 +161,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
             TestClass rootValue = new TestClass("root");
             DynamicValueUtility.PropertyValue result = DynamicValueUtility.FindProperty(rootValue, "someName");
             result.ChangeProperty("nonRoot");
-            Assert.Equal("nonRoot", rootValue.Name, "Property not changed");
+            Assert.Equal("nonRoot", rootValue.Name);
         }
 
         [Fact]
@@ -171,7 +171,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
             rootValue.Value = 100;
             DynamicValueUtility.PropertyValue result = DynamicValueUtility.FindProperty(rootValue, "aValue");
             result.ChangeProperty("20");
-            Assert.Equal(20, rootValue.Value, "Property not changed");
+            Assert.Equal(20, rootValue.Value);
         }
 
         [Fact]

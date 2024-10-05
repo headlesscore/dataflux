@@ -5,13 +5,13 @@ using System.IO;
 using System.Reflection;
 using Exortech.NetReflector;
 using Exortech.NetReflector.Util;
+using FluentAssertions;
 using Moq;
-using Xunit;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Config;
-using ThoughtWorks.CruiseControl.Core.Queues;
 using ThoughtWorks.CruiseControl.Core.Label;
 using ThoughtWorks.CruiseControl.Core.Publishers;
+using ThoughtWorks.CruiseControl.Core.Queues;
 using ThoughtWorks.CruiseControl.Core.Sourcecontrol;
 using ThoughtWorks.CruiseControl.Core.State;
 using ThoughtWorks.CruiseControl.Core.Tasks;
@@ -19,6 +19,7 @@ using ThoughtWorks.CruiseControl.Core.Triggers;
 using ThoughtWorks.CruiseControl.Core.Util;
 using ThoughtWorks.CruiseControl.Remote;
 using ThoughtWorks.CruiseControl.UnitTests.UnitTestUtils;
+using Xunit;
 
 
 namespace ThoughtWorks.CruiseControl.UnitTests.Core
@@ -46,8 +47,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
             this.mocks = new MockRepository(MockBehavior.Default);
             workingDirPath = TempFileUtil.CreateTempDir("workingDir");
 			artifactDirPath = TempFileUtil.CreateTempDir("artifactDir");
-			Assert.True(Directory.Exists(workingDirPath));
-            Assert.True(Directory.Exists(workingDirPath));
+			Directory.Exists(workingDirPath).Should().BeTrue();
+            Directory.Exists(workingDirPath).Should().BeTrue();
             Assert.True(Directory.Exists(artifactDirPath));
 			queue = new IntegrationQueue("foo", new DefaultQueueConfiguration("foo"), null);
 			mockery = new Mockery();
@@ -441,8 +442,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
             resultMock.SetupGet(_result => _result.Succeeded).Returns(false).Verifiable();
 
 
-            Assert.True(delegate { project.Integrate(ModificationExistRequest()); },
-                        Throws.TypeOf<CruiseControlException>());
+            Assert.Throws<CruiseControlException>(delegate { project.Integrate(ModificationExistRequest()); });
 			VerifyAll();
 		}
 
@@ -460,7 +460,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
 
 			IIntegrationResult results = project.Integrate(ModificationExistRequest());
 
-			Assert.Equal(results, project.CurrentResult, "new integration result has not been set to the last integration result");
+			Assert.Equal(results, project.CurrentResult);
 			Assert.NotNull(results.EndTime);
 			VerifyAll();
 		}
@@ -508,8 +508,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
 			IIntegrationResult results = project.Integrate(ModificationExistRequest());
 
 			// failure to save the integration result will register as a failed project
-			Assert.Equal(results, project.CurrentResult, "new integration result has not been set to the last integration result");
-			Assert.NotNull(results.EndTime);
+			Assert.Equal(results, project.CurrentResult);
+			results.EndTime.Should().NotBe(null);
 			VerifyAll();
 		}
 

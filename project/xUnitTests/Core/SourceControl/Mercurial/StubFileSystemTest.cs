@@ -89,10 +89,7 @@
 		[Fact]
 		public void EnsureFileExistsShouldThrowException()
 		{
-			Assert.True(delegate { sf.EnsureFileExists("asdf"); },
-			            Throws.TypeOf<NotImplementedException>());
-            Assert.True(true);
-            Assert.True(true);
+			Assert.Throws<NotImplementedException>(delegate { sf.EnsureFileExists("asdf"); });
         }
 
 		[Fact]
@@ -128,22 +125,19 @@
 		[Fact]
 		public void GetFilesInDirectoryShouldThrowException()
 		{
-			Assert.True(delegate {sf.GetFilesInDirectory("asdf", "asdf", SearchOption.AllDirectories); },
-			            Throws.TypeOf<NotImplementedException>());
+			Assert.Throws<NotImplementedException>(delegate {sf.GetFilesInDirectory("asdf", "asdf", SearchOption.AllDirectories); });
 		}
 
 		[Fact]
 		public void GetFileLengthShouldThrowException()
 		{
-			Assert.True(delegate { sf.GetFileLength("asdf"); },
-			            Throws.TypeOf<NotImplementedException>());
+			Assert.Throws<NotImplementedException>(delegate { sf.GetFileLength("asdf"); });
 		}
 
 		[Fact]
 		public void GetFileVersionShouldThrowException()
 		{
-			Assert.True(delegate {sf.GetFileVersion("asdf"); },
-			            Throws.TypeOf<NotImplementedException>());
+			Assert.Throws<NotImplementedException>(delegate {sf.GetFileVersion("asdf"); });
 		}
 
 		[Fact]

@@ -104,8 +104,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 		{
 			ClearCase clearCase = new ClearCase();
 			const string invalidXml = "<sourcecontrol type=\"ClearCase\"><useBaseline>NOT_A_BOOLEAN</useBaseline></sourcecontrol>";
-			Assert.True(delegate { NetReflector.Read(invalidXml, clearCase); },
-                        Throws.TypeOf<NetReflectorConverterException>());
+			Assert.Throws<NetReflectorConverterException>(delegate { NetReflector.Read(invalidXml, clearCase); });
 		}
 
         [Fact]
@@ -113,29 +112,25 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 		{
 			ClearCase clearCase = new ClearCase();
 			const string invalidXml = "<sourcecontrol type=\"ClearCase\"><useLabel>NOT_A_BOOLEAN</useLabel></sourcecontrol>";
-			Assert.True(delegate { NetReflector.Read(invalidXml, clearCase); },
-                        Throws.TypeOf<NetReflectorConverterException>());
+			Assert.Throws< NetReflectorConverterException>(delegate { NetReflector.Read(invalidXml, clearCase); });
 		}
 
 		[Fact]
 		public void ValidateBaselineNameFailsForEmptyString()
 		{
-			Assert.True(delegate { clearCase.ValidateBaselineName(""); },
-                        Throws.TypeOf<CruiseControlException>());
+			Assert.Throws<CruiseControlException>(delegate { clearCase.ValidateBaselineName(""); });
 		}
 
 		[Fact]
 		public void ValidateBaselineNameFailsForNull()
 		{
-			Assert.True(delegate { clearCase.ValidateBaselineName(null); },
-                        Throws.TypeOf<CruiseControlException>());
+			Assert.Throws<CruiseControlException>(delegate { clearCase.ValidateBaselineName(null); });
 		}
 
 		[Fact]
 		public void ValidateBaselineNameFailsForNameWithSpaces()
 		{
-			Assert.True(delegate { clearCase.ValidateBaselineName("name with spaces"); },
-                        Throws.TypeOf<CruiseControlException>());
+			Assert.Throws<CruiseControlException>(delegate { clearCase.ValidateBaselineName("name with spaces"); });
 		}
 
 		[Fact]
@@ -143,8 +138,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 		{
 			clearCase.UseBaseline = true;
 			clearCase.ProjectVobName = null;
-            Assert.True(delegate { clearCase.LabelSourceControl(IntegrationResultMother.CreateSuccessful()); },
-                        Throws.TypeOf<CruiseControlException>());
+            Assert.Throws<CruiseControlException>(delegate { clearCase.LabelSourceControl(IntegrationResultMother.CreateSuccessful()); });
 		}
 
 		[Fact]

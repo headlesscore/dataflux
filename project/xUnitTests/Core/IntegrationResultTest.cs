@@ -50,10 +50,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
             IntegrationResult initial = IntegrationResult.CreateInitialIntegrationResult("project", workingDir, artifactDir);
 
             Assert.Equal("project", initial.ProjectName);
-            Assert.Equal(IntegrationStatus.Unknown, initial.LastIntegrationStatus, "last integration status is unknown because no previous integrations exist.");
-            Assert.Equal(IntegrationStatus.Unknown, initial.Status, "status should be unknown as integration has not run yet.");
-            Assert.Equal(DateTime.Now.AddDays(-1).Day, initial.StartTime.Day, "assume start date is yesterday in order to detect some modifications.");
-            Assert.Equal(DateTime.Now.Day, initial.EndTime.Day, "assume end date is today in order to detect some modifications.");
+            Assert.Equal(IntegrationStatus.Unknown, initial.LastIntegrationStatus);
+            Assert.Equal(IntegrationStatus.Unknown, initial.Status);
+            Assert.Equal(DateTime.Now.AddDays(-1).Day, initial.StartTime.Day);
+            Assert.Equal(DateTime.Now.Day, initial.EndTime.Day);
             Assert.Equal(workingDir, initial.WorkingDirectory);
             Assert.Equal(artifactDir, initial.ArtifactDirectory);
             Assert.Equal(IntegrationResult.InitialLabel, initial.Label);

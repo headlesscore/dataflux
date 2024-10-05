@@ -101,24 +101,24 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 			Assert.Empty(mod.Version);
 
 			mod = modifications[22211];
-			Assert.True("0653fe2541cde05dc6098fe8afac79d1b4e0a62f", mod.ChangeNumber, "#D14");
-			Assert.True("first checkin\n\ngit-svn-id: https://ccnet.svn.sourceforge.net/svnroot/ccnet/trunk@2 8a0e9b86-a613-0410-befa-817088176213", mod.Comment, "#D15");
-			Assert.True("mikeroberts@8a0e9b86-a613-0410-befa-817088176213", mod.EmailAddress, "#D16");
-			Assert.True("updateConfig.bat", mod.FileName, "#D17");
-			Assert.Empty(mod.FolderName, "#D18");
+			Assert.True("0653fe2541cde05dc6098fe8afac79d1b4e0a62f" == mod.ChangeNumber, "#D14");
+			Assert.True("first checkin\n\ngit-svn-id: https://ccnet.svn.sourceforge.net/svnroot/ccnet/trunk@2 8a0e9b86-a613-0410-befa-817088176213" == mod.Comment, "#D15");
+			Assert.True("mikeroberts@8a0e9b86-a613-0410-befa-817088176213" == mod.EmailAddress, "#D16");
+			Assert.True("updateConfig.bat" == mod.FileName, "#D17");
+			Assert.Empty(mod.FolderName);
 			Assert.Null(mod.IssueUrl);
-			Assert.True(new DateTime(2003, 4, 22, 16, 49, 49, DateTimeKind.Utc), mod.ModifiedTime.ToUniversalTime(), "#D20");
-			Assert.True("Added", mod.Type, "#D21");
+			Assert.True(new DateTime(2003, 4, 22, 16, 49, 49, DateTimeKind.Utc) == mod.ModifiedTime.ToUniversalTime(), "#D20");
+			Assert.True("Added" == mod.Type, "#D21");
 			Assert.Null(mod.Url);
-			Assert.True("mikeroberts", mod.UserName, "#D23");
-			Assert.Empty(mod.Version, "#D24");
+			Assert.True("mikeroberts" == mod.UserName, "#D23");
+			Assert.Empty(mod.Version);
 		}
 
 		[Fact]
 		public void ParsingLogWithCRLF()
 		{
 			Modification[] modifications = git.Parse(new StringReader(rubyOnRailsLog), new DateTime(2009, 06, 13, 10, 00, 00, DateTimeKind.Utc), DateTime.Now);
-			Assert.True(129, modifications.Length, "#E1");
+			Assert.True(129 == modifications.Length, "#E1");
 
 			Modification mod = modifications[0];
 			Assert.True("1fbfa3e705c37656c308436f21d42b09591ba60e" == mod.ChangeNumber, "#E2");

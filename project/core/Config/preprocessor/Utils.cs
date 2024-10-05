@@ -16,7 +16,7 @@ namespace ThoughtWorks.CruiseControl.Core.Config.Preprocessor
     /// <summary>
     /// Internal static utility methods
     /// </summary>
-    internal sealed class Utils
+    public sealed class Utils
     {
         private  Utils()
         {}
@@ -31,7 +31,7 @@ namespace ThoughtWorks.CruiseControl.Core.Config.Preprocessor
         /// </summary>
         /// <param name="url"></param>
         /// <returns></returns>
-        internal static XmlWriter CreateWriter(string url)
+        public static XmlWriter CreateWriter(string url)
         {
             var writer_settings = new XmlWriterSettings();
             writer_settings.Indent = true;
@@ -48,7 +48,7 @@ namespace ThoughtWorks.CruiseControl.Core.Config.Preprocessor
         /// </summary>
         /// <param name="fmt"></param>
         /// <param name="args"></param>
-        internal static void ThrowAppException(string fmt, params object[] args)
+        public static void ThrowAppException(string fmt, params object[] args)
         {
             throw new ApplicationException(String.Format(CultureInfo.CurrentCulture, fmt, args));
         }

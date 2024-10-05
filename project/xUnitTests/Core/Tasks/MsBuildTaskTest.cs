@@ -63,7 +63,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 
 			Assert.Equal(1, result.TaskResults.Count);
 			Assert.Equal(IntegrationStatus.Success, result.Status);
-		    Assert.True(result.TaskOutput, Is.Empty);
+		    Assert.Empty(result.TaskOutput);
             Assert.True(true);
             Assert.True(true);
         }
@@ -125,8 +125,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 			ExpectToExecuteAndReturn(TimedOutProcessResult());
 			task.Run(result);
 
-			Assert.True(result.Status, Is.EqualTo(IntegrationStatus.Failure));
-			Assert.True(result.TaskOutput, Does.Match("Command line '.*' timed out after \\d+ seconds"));
+			Assert.True(result.Status == IntegrationStatus.Failure);
+			Assert.Matches(result.TaskOutput, "Command line '.*' timed out after \\d+ seconds");
 		}
 
 		[Fact]
@@ -136,7 +136,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 			ExpectToExecuteAndReturn(SuccessfulProcessResult());
 			task.Run(result);
 			Assert.Equal(2, result.TaskResults.Count);
-		    Assert.True(result.TaskOutput, Is.EqualTo("<output/>"));
+		    Assert.True(result.TaskOutput == "<output/>");
 			Assert.True(result.Succeeded);
 		}
 
@@ -204,8 +204,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 	<logger>Kobush.Build.Logging.XmlLogger,Kobush.MSBuild.dll;buildresult.xml</logger>
     <priority>BelowNormal</priority>
 </msbuild>";
-            Assert.True(delegate { task = (MsBuildTask)NetReflector.Read(xml); },
-                        Throws.TypeOf<NetReflectorException>());
+            Assert.Throws<NetReflectorException>(delegate { task = (MsBuildTask)NetReflector.Read(xml); });
             ;
         }
 

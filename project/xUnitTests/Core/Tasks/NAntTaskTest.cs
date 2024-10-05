@@ -87,7 +87,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 			
 			Assert.True(result.Succeeded);
 			Assert.Equal(IntegrationStatus.Success, result.Status);
-		    Assert.True(result.TaskOutput, Is.Empty);
+		    Assert.Empty(result.TaskOutput);
 		}
 
 		[Fact]
@@ -109,16 +109,15 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 
 			builder.Run(result);
 
-			Assert.True(result.Status, Is.EqualTo(IntegrationStatus.Failure));
-			Assert.True(result.TaskOutput, Does.Match("Command line '.*' timed out after \\d+ seconds"));
+			Assert.True(result.Status == IntegrationStatus.Failure);
+			Assert.Matches(result.TaskOutput, "Command line '.*' timed out after \\d+ seconds");
 		}
 		
 		[Fact]
 		public void ShouldThrowBuilderExceptionIfProcessThrowsException()
 		{
 			ExpectToExecuteAndThrow();
-            Assert.True(delegate { builder.Run(result); },
-                        Throws.TypeOf<BuilderException>());
+            Assert.Throws<BuilderException>(delegate { builder.Run(result); });
 		}
 
 		[Fact]

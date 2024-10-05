@@ -424,8 +424,8 @@
             task.Run(result);
             mocks.Verify();
 
-            Assert.True(result.Status, Is.EqualTo(IntegrationStatus.Failure));
-            Assert.True(result.TaskOutput, Does.Match("Command line '.*' timed out after \\d+ seconds"));
+            Assert.True(result.Status == IntegrationStatus.Failure);
+            Assert.Matches(result.TaskOutput,"Command line '.*' timed out after \\d+ seconds");
         }
         #endregion
 

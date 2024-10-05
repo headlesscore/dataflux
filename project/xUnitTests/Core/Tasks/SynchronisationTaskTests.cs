@@ -434,8 +434,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
             task.Run(result);
             this.mocks.VerifyAll();
 
-            Assert.Equal(IntegrationStatus.Failure, result.Status, "Status does not match");
-            Assert.Equal(innerCount * leafCount, taskRunCount, "Bad task run count");
+            Assert.Equal(IntegrationStatus.Failure, result.Status);
+            Assert.Equal(innerCount * leafCount, taskRunCount);
         }
 
         #endregion

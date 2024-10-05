@@ -168,8 +168,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol.Mercurial
 		[Fact]
 		public void HandleInvalidXml()
 		{
-			Assert.True(delegate { hg.Parse(new StringReader("<foo/><bar/>"), DateTime.Now, DateTime.Now); },
-			            Throws.TypeOf<CruiseControlException>());
+			Assert.Throws<CruiseControlException>(delegate { hg.Parse(new StringReader("<foo/><bar/>"), DateTime.Now, DateTime.Now); });
 		}
 
 		#endregion

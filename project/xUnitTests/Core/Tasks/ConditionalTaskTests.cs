@@ -425,7 +425,7 @@
             task.Run(resultMock);
 
             this.mocks.Verify();
-            Assert.Equal(innerCount * leafCount, taskRunCount, "Bad task run count");
+            Assert.Equal(innerCount * leafCount, taskRunCount);
             Assert.False(failRan);
         }
 
@@ -499,7 +499,7 @@
 
             this.mocks.Verify();
             Assert.False(passRan);
-            Assert.Equal(innerCount * leafCount, taskRunCount, "Bad task run count");
+            Assert.Equal(innerCount * leafCount, taskRunCount);
         }
 
         #endregion

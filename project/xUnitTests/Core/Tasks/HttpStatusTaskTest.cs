@@ -9,7 +9,7 @@ using ThoughtWorks.CruiseControl.Core.Tasks;
 namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 {
    
-   class HttpStatusTaskTest
+   public class HttpStatusTaskTest
    {
 
 		// [SetUp]

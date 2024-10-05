@@ -27,11 +27,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
             string configFile = "<issueUrlBuilder type=\"multiIssueTracker\"></issueUrlBuilder>";
             
             MultiIssueTrackerUrlBuilder multiIssue = new MultiIssueTrackerUrlBuilder();
-            Assert.True(delegate { NetReflector.Read(configFile, multiIssue); },
-                        Throws.TypeOf<NetReflectorException>().With.Message.EqualTo(
-                            "Missing Xml node (issueTrackers) for required member (ThoughtWorks.CruiseControl.Core.Sourcecontrol.MultiIssueTrackerUrlBuilder.IssueTrackers)." + Environment.NewLine + "Xml: <issueUrlBuilder type=\"multiIssueTracker\"></issueUrlBuilder>"));
-            Assert.True(true);
-            Assert.True(true);
+            Assert.Equal("Missing Xml node (issueTrackers) for required member (ThoughtWorks.CruiseControl.Core.Sourcecontrol.MultiIssueTrackerUrlBuilder.IssueTrackers)." + Environment.NewLine + "Xml: <issueUrlBuilder type=\"multiIssueTracker\"></issueUrlBuilder>",
+                Assert.Throws<NetReflectorException>(()=> { NetReflector.Read(configFile, multiIssue); }).Message);
         }
 
 

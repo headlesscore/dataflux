@@ -40,8 +40,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 		[Fact]
 		public void ShouldThrowReadableExceptionIfFileDoesNotExist()
 		{
-            Assert.True(delegate { new FileTaskResult("unknown.file"); },
-                        Throws.TypeOf<CruiseControlException>());
+            Assert.Throws<CruiseControlException>(delegate { new FileTaskResult("unknown.file"); });
 		}
 
         [Fact]

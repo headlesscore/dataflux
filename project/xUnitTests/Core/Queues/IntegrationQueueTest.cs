@@ -531,8 +531,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Queues
 
             // Check the queued items
             IIntegrationQueueItem[] queuedItems = integrationQueueReAdd.GetQueuedIntegrations();
-            Assert.Equal(integrationQueueItem3, queuedItems[1], "Integration item #1 is incorrect");
-            Assert.Equal(integrationQueueItem2, queuedItems[2], "Integration item #2 is incorrect");
+            Assert.Equal(integrationQueueItem3, queuedItems[1]);
+            Assert.Equal(integrationQueueItem2, queuedItems[2]);
             VerifyAll();
         }
 
@@ -566,8 +566,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Queues
 
             // Check the queued items
             IIntegrationQueueItem[] queuedItems = integrationQueueReAddTop.GetQueuedIntegrations();
-            Assert.Equal(integrationQueueItem2, queuedItems[1], "Integration item #1 is incorrect");
-            Assert.Equal(integrationQueueItem3, queuedItems[2], "Integration item #2 is incorrect");
+            Assert.Equal(integrationQueueItem2, queuedItems[1]);
+            Assert.Equal(integrationQueueItem3, queuedItems[2]);
             VerifyAll();
         }
 
@@ -601,8 +601,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Queues
 
             // Check the queued items
             IIntegrationQueueItem[] queuedItems = integrationQueueReplace.GetQueuedIntegrations();
-            Assert.Equal(integrationQueueItem2, queuedItems[1], "Integration item #1 is incorrect");
-            Assert.Equal(integrationQueueItem3, queuedItems[2], "Integration item #2 is incorrect");
+            Assert.Equal(integrationQueueItem2, queuedItems[1]);
+            Assert.Equal(integrationQueueItem3, queuedItems[2]);
             VerifyAll();
         }
 
@@ -634,8 +634,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Queues
 
             // Check the queued items
             IIntegrationQueueItem[] queuedItems = integrationQueueReAdd.GetQueuedIntegrations();
-            Assert.Equal(integrationQueueItem4, queuedItems[1], "Integration item #1 is incorrect");
-            Assert.Equal(integrationQueueItem3, queuedItems[2], "Integration item #2 is incorrect");
+            Assert.Equal(integrationQueueItem4, queuedItems[1]);
+            Assert.Equal(integrationQueueItem3, queuedItems[2]);
             VerifyAll();
         }
 
@@ -667,8 +667,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Queues
 
             // Check the queued items
             IIntegrationQueueItem[] queuedItems = integrationQueueReplace.GetQueuedIntegrations();
-            Assert.Equal(integrationQueueItem4, queuedItems[1], "Integration item #1 is incorrect");
-            Assert.Equal(integrationQueueItem3, queuedItems[2], "Integration item #2 is incorrect");
+            Assert.Equal(integrationQueueItem4, queuedItems[1]);
+            Assert.Equal(integrationQueueItem3, queuedItems[2]);
             VerifyAll();
         }
 

@@ -325,7 +325,7 @@
                 "</package>";
             var publisher = NetReflector.Read(xml);
             Assert.NotNull(publisher);
-            Assert.IsInstanceOf<PackagePublisher>(publisher);
+            Assert.IsType< PackagePublisher >(publisher);
             var packagePublisher = publisher as PackagePublisher;
             Assert.Equal("Test", packagePublisher.PackageName);
             Assert.Equal(2, packagePublisher.PackageList.Length);
@@ -346,7 +346,8 @@
                 "</package>";
             var publisher = NetReflector.Read(xml);
             Assert.NotNull(publisher);
-            Assert.IsInstanceOf<PackagePublisher>(publisher);
+            Assert.IsType< PackagePublisher >(publisher);
+            
             var packagePublisher = publisher as PackagePublisher;
             Assert.Equal("Test", packagePublisher.PackageName);
             Assert.Equal(2, packagePublisher.PackageList.Length);
@@ -359,7 +360,7 @@
         #region Private methods
         private void AssertFilesAreTheSame(PackageFile expected, object actual)
         {
-            Assert.IsInstanceOf<PackageFile>(actual);
+            Assert.IsType<PackageFile>(actual);
             var actualFile = actual as PackageFile;
             Assert.Equal(expected.SourceFile, actualFile.SourceFile);
             Assert.Equal(expected.TargetFileName, actualFile.TargetFileName);

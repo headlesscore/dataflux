@@ -92,30 +92,26 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Config
 		public void DeserialiseProjectFromXmlWithUnusedNodesShouldGenerateEvent()
 		{
 			string xml = @"<customtestproject name=""foo"" bar=""baz"" />";
-			Assert.True(delegate {  reader.Read(ConfigurationFixture.GenerateConfig(xml), null); },
-                        Throws.TypeOf<ConfigurationException>());
+			Assert.Throws<ConfigurationException>(delegate {  reader.Read(ConfigurationFixture.GenerateConfig(xml), null); });
 		}
 
 		[Fact]
 		public void AttemptToDeserialiseProjectWithMissingXmlForRequiredProperties()
 		{
 			string projectXml = @"<project />";
-			Assert.True(delegate { reader.Read(ConfigurationFixture.GenerateConfig(projectXml), null); },
-                        Throws.TypeOf<ConfigurationException>());
+			Assert.Throws<ConfigurationException>(delegate { reader.Read(ConfigurationFixture.GenerateConfig(projectXml), null); });
 		}
 
 		[Fact]
 		public void AttemptToDeserialiseProjectFromEmptyDocument()
 		{
-			Assert.True(delegate { reader.Read(new XmlDocument(), null); },
-                        Throws.TypeOf<ConfigurationException>());
+			Assert.Throws<ConfigurationException>(delegate { reader.Read(new XmlDocument(), null); });
 		}
 
 		[Fact]
 		public void AttemptToDeserialiseProjectFromXmlWithInvalidRootElement()
 		{
-			Assert.True(delegate { reader.Read(XmlUtil.CreateDocument("<loader/>"), null); },
-                        Throws.TypeOf<ConfigurationException>());
+			Assert.Throws<ConfigurationException>(delegate { reader.Read(XmlUtil.CreateDocument("<loader/>"), null); });
 		}
 
         [Fact]
@@ -141,8 +137,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Config
         {
             string projectXml = ConfigurationFixture.GenerateProjectXml("test");
             string queueXml = "<queue name=\"testQueue\" duplicates=\"ApplyForceBuildsReAdd\"/>";
-            Assert.True(delegate { reader.Read(ConfigurationFixture.GenerateConfig(projectXml + queueXml), null); },
-                        Throws.TypeOf<ConfigurationException>());
+            Assert.Throws<ConfigurationException>(delegate { reader.Read(ConfigurationFixture.GenerateConfig(projectXml + queueXml), null); });
         }
         
 		private void ValidateProject(IConfiguration configuration, string projectName)

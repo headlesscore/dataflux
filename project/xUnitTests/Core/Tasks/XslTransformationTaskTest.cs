@@ -18,7 +18,7 @@ using ThoughtWorks.CruiseControl.Remote;
 namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 {
     
-    class XslTransformationTaskTest
+    public class XslTransformationTaskTest
     {
         private MockRepository mocks = new MockRepository(MockBehavior.Default);
 
@@ -46,18 +46,16 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
             var configuration = reader.Read(xml, null);
             Assert.NotNull(configuration);
             var project = configuration.Projects["WebTrunkTest"] as Project;
-            Assert.NotNull(project, "Project not loaded");
-            Assert.NotEqual(0, project.Tasks.Length, "Tasks not loaded");
+            Assert.NotNull(project);
+            Assert.NotEmpty(project.Tasks);
             var task = project.Tasks[0] as XslTransformationTask;
-            Assert.NotNull(task, "Task not correctly loaded");
-            Assert.Equal("File 1", task.XMLFile, "XMLFile is incorrect");
-            Assert.Equal("File 2", task.XSLFile, "XSLFile is incorrect");
-            Assert.Equal("File 3", task.OutputFile, "OutputFile is incorrect");
-            Assert.Equal(1, task.XsltArgs.Length, "Invalid number of xslt arguments");
-            Assert.Equal("ArgumentName", task.XsltArgs[0].Name, "Argument name is incorrect");
-            Assert.Equal("SomeValue", task.XsltArgs[0].Value, "Argument value is incorrect");
-            Assert.True(true);
-            Assert.True(true);
+            Assert.NotNull(task);
+            Assert.Equal("File 1", task.XMLFile);
+            Assert.Equal("File 2", task.XSLFile);
+            Assert.Equal("File 3", task.OutputFile);
+            Assert.Single(task.XsltArgs);
+            Assert.Equal("ArgumentName", task.XsltArgs[0].Name);
+            Assert.Equal("SomeValue", task.XsltArgs[0].Value);
         }
 
         [Fact]

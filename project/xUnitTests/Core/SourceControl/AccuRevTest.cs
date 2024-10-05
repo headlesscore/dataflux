@@ -43,8 +43,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 @"<sourcecontrol type=""accurev"">
     <autoGetSource>NOT_A_BOOLEAN</autoGetSource>
 </sourcecontrol>";
-            Assert.True(delegate { NetReflector.Read(invalidXml, accurev); },
-                        Throws.TypeOf<NetReflectorConverterException>());
+            Assert.Throws< NetReflectorConverterException>(delegate { NetReflector.Read(invalidXml, accurev); });
         }
 
         [Fact]
@@ -55,8 +54,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 @"<sourcecontrol type=""accurev"">
     <labelOnSuccess>NOT_A_BOOLEAN</labelOnSuccess>
 </sourcecontrol>";
-            Assert.True(delegate { NetReflector.Read(invalidXml, accurev); },
-                        Throws.TypeOf<NetReflectorConverterException>());
+            Assert.Throws<NetReflectorConverterException>(delegate { NetReflector.Read(invalidXml, accurev); });
         }
 
 		[Fact]

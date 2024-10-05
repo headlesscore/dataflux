@@ -76,8 +76,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
         {
             const string xml = @"<sourceControl type=""external""></sourceControl>";
             ExternalSourceControl externalSC = new ExternalSourceControl();
-            Assert.True(delegate { NetReflector.Read(xml, externalSC); },
-                        Throws.TypeOf<NetReflectorException>());
+            Assert.Throws<NetReflectorException>(delegate { NetReflector.Read(xml, externalSC); });
         }
 
 		[Fact]

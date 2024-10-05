@@ -78,8 +78,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.State
 			result = IntegrationResultMother.CreateSuccessful();
 			result.ProjectName = ProjectName;
 
-		    Assert.True(delegate { state.LoadState(ProjectName); },
-		                Throws.TypeOf<CruiseControlException>().With.Property("InnerException").TypeOf<FileNotFoundException>());
+            Assert.IsType<FileNotFoundException>(Assert.Throws<CruiseControlException>(delegate { state.LoadState(ProjectName); }).InnerException);
 		}
 
 		[Fact]
@@ -167,7 +166,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.State
 
 			state = new FileStateManager(fileSystem, executionEnvironment);
 
-		    Assert.True(delegate { state.LoadState(ProjectName); }, Throws.TypeOf<CruiseControlException>());
+		    Assert.Throws<CruiseControlException>(delegate { state.LoadState(ProjectName); });
 		}
 
         [Fact]
@@ -224,7 +223,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.State
 
 			state = new FileStateManager(fileSystem, executionEnvironment);
 
-            Assert.True(delegate { state.SaveState(result); }, Throws.TypeOf<CruiseControlException>());
+            Assert.Throws<CruiseControlException>(delegate { state.SaveState(result); });
 		}
 
 		[Fact]
@@ -237,7 +236,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.State
 
 			state = new FileStateManager(fileSystem, executionEnvironment);
 
-            Assert.True(delegate { state.LoadState(ProjectName); }, Throws.TypeOf<CruiseControlException>());
+            Assert.Throws<CruiseControlException>(delegate { state.LoadState(ProjectName); });
 		}
 
 		[Fact]

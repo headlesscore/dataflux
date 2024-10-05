@@ -328,7 +328,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
             ArrayList returnedMods = new ArrayList(multiSourceControl.GetModifications(from, to));
 
             //// VERIFY
-            Assert.Equal(4, to.SourceControlData.Count, "SourceControlData.Count");
+            Assert.Equal(4, to.SourceControlData.Count);
 
             List<NameValuePair> list = new List<NameValuePair>();
 
@@ -369,7 +369,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
             ArrayList returnedMods = new ArrayList(multiSourceControl.GetModifications(from, to));
 
             //// VERIFY
-            Assert.Equal(2, to.SourceControlData.Count, "SourceControlData.Count");
+            Assert.Equal(2, to.SourceControlData.Count);
 
             List<NameValuePair> list = new List<NameValuePair>();
 

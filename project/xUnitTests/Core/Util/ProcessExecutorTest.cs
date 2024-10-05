@@ -94,15 +94,13 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Util
 		[Fact]
 		public void SupplyInvalidFilenameAndVerifyException()
 		{
-            Assert.True(delegate { executor.Execute(new ProcessInfo("foodaddy.bat")); },
-                        Throws.TypeOf<IOException>());
+            Assert.Throws<IOException>(delegate { executor.Execute(new ProcessInfo("foodaddy.bat")); });
 		}
 
 		[Fact]
 		public void ShouldThrowMeaningfulExceptionIfWorkingDirectoryDoesNotExist()
 		{
-            Assert.True(delegate { executor.Execute(new ProcessInfo("myExecutable", "", @"c:\invalid_path\that_is_invalid")); },
-                        Throws.TypeOf<DirectoryNotFoundException>());
+            Assert.Throws<DirectoryNotFoundException>(delegate { executor.Execute(new ProcessInfo("myExecutable", "", @"c:\invalid_path\that_is_invalid")); });
 		}
 
 		[Fact]
@@ -191,34 +189,34 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Util
 
 			ProcessResult result1 = executor.Execute(processInfo1);
 			Assert.Equal("Hello World", result1.StandardOutput.Trim());
-			Assert.Equal(1, result1.ExitCode, "Process did not exit successfully");
+			Assert.Equal(1, result1.ExitCode);
 			AssertFalse("process should not return an error", result1.Failed);
 
             ProcessInfo processInfo2 = Platform.IsWindows ? new ProcessInfo("cmd.exe", "/C @echo Hello World & exit 3", null, ProcessPriorityClass.AboveNormal, successExitCodes) : new ProcessInfo("bash", "-c \"echo Hello World ; exit 3\"", null, ProcessPriorityClass.AboveNormal, successExitCodes);
 
 			ProcessResult result2 = executor.Execute(processInfo2);
 			Assert.Equal("Hello World", result2.StandardOutput.Trim());
-			Assert.Equal(3, result2.ExitCode, "Process did not exit successfully");
+			Assert.Equal(3, result2.ExitCode);
 			AssertFalse("process should not return an error", result2.Failed);
 
             ProcessInfo processInfo3 = Platform.IsWindows ? new ProcessInfo("cmd.exe", "/C @echo Hello World & exit 5", null, ProcessPriorityClass.AboveNormal, successExitCodes) : new ProcessInfo("bash", "-c \"echo Hello World ; exit 5\"", null, ProcessPriorityClass.AboveNormal, successExitCodes);
 
 			ProcessResult result3 = executor.Execute(processInfo3);
 			Assert.Equal("Hello World", result3.StandardOutput.Trim());
-			Assert.Equal(5, result3.ExitCode, "Process did not exit successfully");
+			Assert.Equal(5, result3.ExitCode);
 			AssertFalse("process should not return an error", result3.Failed);
 
             ProcessInfo processInfo4 = Platform.IsWindows ? new ProcessInfo("cmd.exe", "/C @echo Hello World", null, ProcessPriorityClass.AboveNormal, successExitCodes) : new ProcessInfo("bash", "-c \"echo Hello World\"", null, ProcessPriorityClass.AboveNormal, successExitCodes);
 
 			ProcessResult result4 = executor.Execute(processInfo4);
 			Assert.Equal("Hello World", result4.StandardOutput.Trim());
-			Assert.Equal(ProcessResult.SUCCESSFUL_EXIT_CODE, result4.ExitCode, "Process did not exit successfully");
+			Assert.Equal(ProcessResult.SUCCESSFUL_EXIT_CODE, result4.ExitCode);
 			Assert.True(result4.Failed, "process should return an error");
 		}
 
 		private static void AssertProcessExitsSuccessfully(ProcessResult result)
 		{
-			Assert.Equal(ProcessResult.SUCCESSFUL_EXIT_CODE, result.ExitCode, "Process did not exit successfully");
+			Assert.Equal(ProcessResult.SUCCESSFUL_EXIT_CODE, result.ExitCode);
 			AssertFalse("process should not return an error", result.Failed);
 		}
 

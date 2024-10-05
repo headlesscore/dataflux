@@ -144,8 +144,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol.Perforce
 <sourceControl name=""p4"">
 </sourceControl>
 ";
-            Assert.True(delegate { CreateP4WithNoArgContructor(xml); },
-                        Throws.TypeOf<NetReflectorException>());
+            Assert.Throws<NetReflectorException>(delegate { CreateP4WithNoArgContructor(xml); });
 		}
 
 		[Fact]
@@ -265,15 +264,13 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol.Perforce
 		{
 			string changes = "3327 3328 332; echo 'rm -rf /'";
 
-            Assert.True(delegate { new P4().CreateDescribeProcess(changes); },
-                        Throws.TypeOf<CruiseControlException>());
+            Assert.Throws<CruiseControlException>(delegate { new P4().CreateDescribeProcess(changes); });
 		}
 
 		[Fact]
 		public void CreateGetDescribeProcessWithNoChanges()
 		{
-            Assert.True(delegate { new P4().CreateDescribeProcess(""); },
-                        Throws.TypeOf<CruiseControlException>());
+            Assert.Throws<CruiseControlException>(delegate { new P4().CreateDescribeProcess(""); });
 		}
 
 		[Fact]

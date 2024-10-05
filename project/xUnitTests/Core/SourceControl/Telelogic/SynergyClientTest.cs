@@ -17,24 +17,22 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol.Telelogic
 		public void VerifyDefaultValues()
 		{
 			Synergy synergy = new Synergy();
-			Assert.Equal("ccm.exe", synergy.Connection.Executable, "#A1");
-			Assert.Equal("localhost", synergy.Connection.Host, "#A2");
+			Assert.Equal("ccm.exe", synergy.Connection.Executable);
+			Assert.Equal("localhost", synergy.Connection.Host);
 			Assert.Null(synergy.Connection.Database);
 			Assert.Null(synergy.Connection.SessionId);
-			Assert.Equal(3600, synergy.Connection.Timeout, "#A5");
-			Assert.Equal('-', synergy.Connection.Delimiter, "#A6");
+			Assert.Equal(3600, synergy.Connection.Timeout);
+			Assert.Equal('-', synergy.Connection.Delimiter);
 			Assert.Null(synergy.Project.Release);
 			Assert.Equal(0, synergy.Project.TaskFolder);
-			Assert.Equal(Environment.ExpandEnvironmentVariables("%USERNAME%"), synergy.Connection.Username, "#A9");
-			Assert.Equal(String.Empty, synergy.Connection.Password, "#A10");
-			Assert.Equal("build_mgr", synergy.Connection.Role, "#A11");
+			Assert.Equal(Environment.ExpandEnvironmentVariables("%USERNAME%"), synergy.Connection.Username);
+			Assert.Equal(String.Empty, synergy.Connection.Password);
+			Assert.Equal("build_mgr", synergy.Connection.Role);
 			Assert.False(synergy.Connection.PollingEnabled, "#A12");
 			Assert.False(synergy.Project.BaseliningEnabled, "#A13");
 			Assert.False(synergy.Project.TemplateEnabled, "#A14");
 			Assert.Null(synergy.Project.ReconcilePaths);
-			Assert.Equal("Integration Testing", synergy.Project.Purpose, "#A16");
-            Assert.True(true);
-            Assert.True(true);
+			Assert.Equal("Integration Testing", synergy.Project.Purpose);
         }
 
 		[Fact]

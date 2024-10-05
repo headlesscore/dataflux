@@ -91,7 +91,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
             ExpectToLoadState(lastResult);
 
             IIntegrationResult newResult = manager.StartNewIntegration(ModificationExistRequest());
-            Assert.Equal(1, newResult.FailureUsers.Count, "Mismatched count of inherited FailureUsers");
+            Assert.Equal(1, newResult.FailureUsers.Count);
 
             Modification modification = new Modification();
             modification.UserName = "user";
@@ -100,7 +100,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
             mockStateManager.Setup(_manager => _manager.SaveState(newResult)).Verifiable();
             manager.FinishIntegration();
 
-            Assert.Equal(2, newResult.FailureUsers.Count, "Mismatched count of resulting FailureUsers");
+            Assert.Equal(2, newResult.FailureUsers.Count);
         }
 
         [Fact]
@@ -133,7 +133,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
             ExpectToLoadState(lastResult);
 
             IIntegrationResult newResult = manager.StartNewIntegration(ModificationExistRequest());
-            Assert.Equal(0, newResult.FailureTasks.Count, "Mismatched count of inherited FailureTasks");
+            Assert.Equal(0, newResult.FailureTasks.Count);
 
             Modification modification = new Modification();
             modification.UserName = "user";
@@ -143,7 +143,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
             mockStateManager.Setup(_manager => _manager.SaveState(newResult)).Verifiable();
             manager.FinishIntegration();
 
-            Assert.Equal(1, newResult.FailureTasks.Count, "Mismatched count of resulting FailureTasks");
+            Assert.Equal(1, newResult.FailureTasks.Count);
         }
 
         [Fact]

@@ -12,18 +12,15 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Publishers
         [Fact]
         public void ShouldFailToReadWithoutAddress()
         {
-            Assert.True(delegate { NetReflector.Read(@"<user name=""username""/>"); },
-                        Throws.TypeOf<NetReflectorException>());
-            Assert.True(delegate { NetReflector.Read(@"<user name=""username""/>"); },
-                        Throws.TypeOf<NetReflectorException>());
+            Assert.Throws<NetReflectorException>(delegate { NetReflector.Read(@"<user name=""username""/>"); });
+            Assert.Throws<NetReflectorException>(delegate { NetReflector.Read(@"<user name=""username""/>"); });
         }
 
         [Fact]
         public void ShouldFailToReadWithoutName()
         {
-            Assert.True(delegate { NetReflector.Read(@"<user address=""UserName@example.com""/>"); },
-                        Throws.TypeOf<NetReflectorException>().With.Message.EqualTo(
-                            "Missing Xml node (name) for required member (ThoughtWorks.CruiseControl.Core.Publishers.EmailUser.Name)." + Environment.NewLine + "Xml: <user address=\"UserName@example.com\" />"));
+            Assert.Equal("Missing Xml node (name) for required member (ThoughtWorks.CruiseControl.Core.Publishers.EmailUser.Name)." + Environment.NewLine + "Xml: <user address=\"UserName@example.com\" />",
+                Assert.Throws<NetReflectorException>(()=> { NetReflector.Read(@"<user address=""UserName@example.com""/>"); }).Message);
         }
 
         [Fact]

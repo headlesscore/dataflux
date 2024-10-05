@@ -36,10 +36,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Triggers
 		{
 			string xml = string.Format(@"<intervalTrigger name=""continuous"" seconds=""2"" initialSeconds=""1"" buildCondition=""ForceBuild"" />");
 			trigger = (IntervalTrigger) NetReflector.Read(xml);
-            Assert.Equal(2, trigger.IntervalSeconds, "trigger.IntervalSeconds");
-            Assert.Equal(1, trigger.InitialIntervalSeconds, "trigger.InitialIntervalSeconds");
-            Assert.Equal(BuildCondition.ForceBuild, trigger.BuildCondition, "trigger.BuildCondition");
-            Assert.Equal("continuous", trigger.Name, "trigger.Name");
+            Assert.Equal(2, trigger.IntervalSeconds);
+            Assert.Equal(1, trigger.InitialIntervalSeconds);
+            Assert.Equal(BuildCondition.ForceBuild, trigger.BuildCondition);
+            Assert.Equal("continuous", trigger.Name);
             Assert.True(true);
             Assert.True(true);
         }
@@ -49,7 +49,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Triggers
 		{
 			string xml = string.Format(@"<intervalTrigger />");
 			trigger = (IntervalTrigger) NetReflector.Read(xml);
-            Assert.Equal(IntervalTrigger.DefaultIntervalSeconds, trigger.IntervalSeconds, "trigger.IntervalSeconds");
+            Assert.Equal(IntervalTrigger.DefaultIntervalSeconds, trigger.IntervalSeconds);
             Assert.Equal(IntervalTrigger.DefaultIntervalSeconds, trigger.InitialIntervalSeconds);
             Assert.Equal(BuildCondition.IfModificationExists, trigger.BuildCondition);
             Assert.Equal("IntervalTrigger", trigger.Name);
@@ -124,23 +124,23 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Triggers
 			trigger.BuildCondition = BuildCondition.IfModificationExists;
 
 			mockDateTime.SetupGet(provider => provider.Now).Returns(new DateTime(2004, 1, 1, 1, 0, 0, 0));
-            Assert.Equal(ModificationExistRequest(), trigger.Fire(), "trigger.Fire()");
+            Assert.Equal(ModificationExistRequest(), trigger.Fire());
 
 			mockDateTime.SetupGet(provider => provider.Now).Returns(new DateTime(2004, 1, 1, 1, 0, 0, 550));
 
-            Assert.Equal(ModificationExistRequest(), trigger.Fire(), "trigger.Fire()");
+            Assert.Equal(ModificationExistRequest(), trigger.Fire());
 			trigger.IntegrationCompleted();
 			Assert.Null(trigger.Fire());
 
 			mockDateTime.SetupGet(provider => provider.Now).Returns(new DateTime(2004, 1, 1, 1, 0, 1, 50));
 
-            Assert.Equal(ModificationExistRequest(), trigger.Fire(), "trigger.Fire()");
+            Assert.Equal(ModificationExistRequest(), trigger.Fire());
 			trigger.IntegrationCompleted();
-            Assert.Equal(null, trigger.Fire(), "trigger.Fire()");
+            Assert.Equal(null, trigger.Fire());
 
 			mockDateTime.SetupGet(provider => provider.Now).Returns(new DateTime(2004, 1, 1, 1, 0, 1, 550));
 
-            Assert.Equal(ModificationExistRequest(), trigger.Fire(), "trigger.Fire()");
+            Assert.Equal(ModificationExistRequest(), trigger.Fire());
 			VerifyAll();
 		}
 
@@ -150,7 +150,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Triggers
 			trigger.IntervalSeconds = 10;
 			trigger.BuildCondition = BuildCondition.ForceBuild;
 			mockDateTime.SetupGet(provider => provider.Now).Returns(new DateTime(2004, 1, 1, 1, 0, 0, 0));
-            Assert.Equal(ForceBuildRequest(), trigger.Fire(), "trigger.Fire()");
+            Assert.Equal(ForceBuildRequest(), trigger.Fire());
 			VerifyAll();			
 		}
 
@@ -159,7 +159,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Triggers
 		{
 			trigger.InitialIntervalSeconds = 10;
 			trigger.IntervalSeconds = 30;
-            Assert.Equal(initialDateTimeNow.AddSeconds(10), trigger.NextBuild, "trigger.NextBuild");
+            Assert.Equal(initialDateTimeNow.AddSeconds(10), trigger.NextBuild);
 			VerifyAll();
 		}
 
@@ -170,7 +170,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Triggers
 			DateTime stubNow = new DateTime(2004, 1, 1, 1, 0, 0, 0);
 			mockDateTime.SetupGet(provider => provider.Now).Returns(stubNow);
 			trigger.IntegrationCompleted();
-            Assert.Equal(stubNow.AddSeconds(10), trigger.NextBuild, "trigger.NextBuild");
+            Assert.Equal(stubNow.AddSeconds(10), trigger.NextBuild);
 		}
 
 		[Fact]
@@ -181,7 +181,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Triggers
 			DateTime stubNow = new DateTime(2004, 1, 1, 1, 0, 0, 0);
 			mockDateTime.SetupGet(provider => provider.Now).Returns(stubNow);
 			trigger.IntegrationCompleted();
-            Assert.Equal(stubNow.AddSeconds(30), trigger.NextBuild, "trigger.NextBuild");
+            Assert.Equal(stubNow.AddSeconds(30), trigger.NextBuild);
 		}
 
 	}

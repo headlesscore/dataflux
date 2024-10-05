@@ -138,8 +138,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 		public void ShouldThrowConfigurationExceptionIfAssemblyListNotSet()
 		{
 			//DO NOT SET: AddDefaultAssemblyToCheck(task);
-            Assert.True(delegate { task.Run(result); },
-                        Throws.TypeOf<ThoughtWorks.CruiseControl.Core.Config.ConfigurationException>());
+            Assert.Throws<CruiseControl.Core.Config.ConfigurationException>(delegate { task.Run(result); });
 		}
 
 		[Fact]
@@ -147,8 +146,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 		{
 			AddDefaultAssemblyToCheck(task);
 			ExpectToExecuteAndThrow();
-            Assert.True(delegate { task.Run(result); },
-                        Throws.TypeOf<BuilderException>());
+            Assert.Throws<BuilderException>(delegate { task.Run(result); });
 		}
 
 		[Fact]
@@ -197,8 +195,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 			ExpectToExecuteAndReturn(TimedOutProcessResult());
 			task.Run(result);
 
-			Assert.True(result.Status, Is.EqualTo(IntegrationStatus.Failure));
-			Assert.True(result.TaskOutput, Does.Match("Command line '.*' timed out after \\d+ seconds"));
+			Assert.True(result.Status == IntegrationStatus.Failure);
+			Assert.Matches(result.TaskOutput, "Command line '.*' timed out after \\d+ seconds");
 		}
 
 		[Fact]
@@ -208,8 +206,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 			TempFileUtil.CreateTempXmlFile(logfile, "<output/>");
 			ExpectToExecuteAndReturn(SuccessfulProcessResult());
 			task.Run(result);
-			Assert.Equal(1, result.TaskResults.Count);
-		    Assert.True(result.TaskOutput, Is.Empty);
+			Assert.Single(result.TaskResults);
+		    Assert.Empty(result.TaskOutput);
 			Assert.True(result.Succeeded);
 		}
 
@@ -221,7 +219,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 			ExpectToExecuteAndReturn(FailedProcessResult());
 			task.Run(result);
 			Assert.Equal(1, result.TaskResults.Count);
-		    Assert.True(result.TaskOutput, Is.EqualTo(ProcessResultOutput));
+		    Assert.True(result.TaskOutput == ProcessResultOutput);
 			Assert.True(result.Failed);
 		}
 	}

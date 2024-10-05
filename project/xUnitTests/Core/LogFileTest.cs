@@ -165,15 +165,13 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
 		[Fact]
 		public void AttemptToCreateLogFileForFilenameWithWrongPrefix()
 		{
-            Assert.True(delegate { new LogFile("garbage.txt"); },
-                        Throws.TypeOf<ArgumentException>().With.Property("ParamName").EqualTo("filename"));
+            Assert.Equal("filename", Assert.Throws<ArgumentException>(delegate { new LogFile("garbage.txt"); }).ParamName);
 		}
 		
 		[Fact]
 		public void AttemptToCreateLogFileForFilenameWithoutDate()
 		{
-			Assert.True(delegate { new LogFile("log3.xml"); },
-                        Throws.TypeOf<ArgumentException>().With.Property("ParamName").EqualTo("filename"));
+            Assert.Equal("filename", Assert.Throws<ArgumentException>(delegate { new LogFile("log3.xml"); }).ParamName);
 		}
 		
 		[Fact]

@@ -184,8 +184,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Triggers
         [Fact]
         public void RandomOffSetInMinutesFromTimeShouldBePositive()
         {
-            Assert.True(delegate { trigger.RandomOffSetInMinutesFromTime = -10; },
-                        Throws.TypeOf<ThoughtWorks.CruiseControl.Core.Config.ConfigurationException>());
+            Assert.Throws<ConfigurationException>(delegate { trigger.RandomOffSetInMinutesFromTime = -10; });
 
         }
 
@@ -196,8 +195,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Triggers
          //whatever random time is choosen, the resulted time will still be after midnight
             trigger.Time = "23:59";
             trigger.RandomOffSetInMinutesFromTime = 1;
-            Assert.True(delegate { DateTime x = trigger.NextBuild; },
-                        Throws.TypeOf<ThoughtWorks.CruiseControl.Core.Config.ConfigurationException>());
+            Assert.Throws<ConfigurationException>(delegate { DateTime x = trigger.NextBuild; });
 
         }
 

@@ -85,8 +85,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 		public void ShouldFailToLoadInvalidVersionFromConfiguration()
 		{
 			const string xml = @"<devenv solutionfile=""mySolution.sln"" configuration=""Release"" version=""VSBAD""/>";
-            Assert.True(delegate { NetReflector.Read(xml); },
-                        Throws.TypeOf<NetReflectorException>());
+            Assert.Throws<NetReflectorException>(delegate { NetReflector.Read(xml); });
 		}
 
         [Fact]
@@ -403,8 +402,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 			task.SolutionFile = @"D:\dev\ccnet\ccnet\project\nosolution.sln";
 			task.Configuration = "Debug";
 
-            Assert.True(delegate { task.Run(IntegrationResult()); },
-                        Throws.TypeOf<BuilderException>());
+            Assert.Throws<BuilderException>(delegate { task.Run(IntegrationResult()); });
 		}
 
 		[Fact]
@@ -416,8 +414,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 			task.Configuration = CONFIGURATION;
 			task.Project = "unknownproject";
 
-            Assert.True(delegate { task.Run(IntegrationResult()); },
-                        Throws.TypeOf<BuilderException>());
+            Assert.Throws<BuilderException>(delegate { task.Run(IntegrationResult()); });
 		}
 
 		[Fact]
@@ -430,8 +427,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 			task.SolutionFile = SOLUTION_FILE;
 			task.Configuration = CONFIGURATION;
 
-            Assert.True(delegate { task.Run(IntegrationResult()); },
-                        Throws.TypeOf<BuilderException>());
+            Assert.Throws<BuilderException>(delegate { task.Run(IntegrationResult()); });
 		}
 	}
 }
