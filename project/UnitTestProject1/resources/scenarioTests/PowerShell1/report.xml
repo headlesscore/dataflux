@@ -50,3 +50,16 @@
   <statistic name="BuildErrorMessage"></statistic>
   <statistic name="mstest"></statistic>
 </integration>
+<integration build-label="5" status="Exception" day="6" month="Oct" year="2024">
+  <statistic name="StartTime">2024-10-06 14:30:11</statistic>
+  <statistic name="Duration">00:00:00</statistic>
+  <statistic name="TestCount">0</statistic>
+  <statistic name="TestFailures">0</statistic>
+  <statistic name="TestIgnored">0</statistic>
+  <statistic name="GendarmeDefects">0</statistic>
+  <statistic name="FxCop Warnings">0</statistic>
+  <statistic name="FxCop Errors">0</statistic>
+  <statistic name="BuildErrorType"></statistic>
+  <statistic name="BuildErrorMessage"></statistic>
+  <statistic name="mstest"></statistic>
+</integration>

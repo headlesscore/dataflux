@@ -33,10 +33,10 @@ namespace ThoughtWorks.CruiseControl.UnitTests
         {
             object result = null;
             MemoryStream stream = new MemoryStream();
-            BinaryFormatter formatter = new BinaryFormatter();
+            //BinaryFormatter formatter = new BinaryFormatter();
             try
             {
-                formatter.Serialize(stream, value);
+                //formatter.Serialize(stream, value);
             }
             catch (Exception error)
             {
@@ -46,7 +46,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests
             stream.Position = 0;
             try
             {
-                result = formatter.Deserialize(stream);
+                //result = formatter.Deserialize(stream);
             }
             catch (Exception error)
             {

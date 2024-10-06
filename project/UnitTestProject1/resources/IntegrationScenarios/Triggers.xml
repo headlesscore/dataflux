@@ -5,7 +5,7 @@
     <artifactDirectory>scenarioTests/triggerTest01</artifactDirectory>
     <webURL>http://confluence.public.thoughtworks.org</webURL>
     <triggers>
-      <scheduleTrigger time="18:28" buildCondition="ForceBuild" />
+      <scheduleTrigger time="14:31" buildCondition="ForceBuild" />
     </triggers>
     <tasks>
       <nullTask simulateFailure="false" description="good task" />

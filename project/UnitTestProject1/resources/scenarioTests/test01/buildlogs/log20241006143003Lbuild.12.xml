@@ -3,17 +3,17 @@
   <parameters>
     <parameter name="$CCNetArtifactDirectory" value="C:\Users\Administrator\Desktop\dataflux\project\UnitTestProject1\resources\scenarioTests\test01" />
     <parameter name="$CCNetBuildCondition" value="ForceBuild" />
-    <parameter name="$CCNetBuildDate" value="2024-10-05" />
-    <parameter name="$CCNetBuildId" value="51396145955c453fa8d70881c6bf6826" />
-    <parameter name="$CCNetBuildTime" value="18:26:03" />
+    <parameter name="$CCNetBuildDate" value="2024-10-06" />
+    <parameter name="$CCNetBuildId" value="848429eaeb0442c1ab1c2264f8822750" />
+    <parameter name="$CCNetBuildTime" value="14:30:03" />
     <parameter name="$CCNetFailureTasks" value="System.Collections.ArrayList" />
     <parameter name="$CCNetFailureUsers" value="System.Collections.ArrayList" />
     <parameter name="$CCNetIntegrationStatus" value="Unknown" />
-    <parameter name="$CCNetLabel" value="10" />
+    <parameter name="$CCNetLabel" value="12" />
     <parameter name="$CCNetLastIntegrationStatus" value="Success" />
     <parameter name="$CCNetListenerFile" value="C:\Users\Administrator\Desktop\dataflux\project\UnitTestProject1\resources\scenarioTests\test01\Test01_ListenFile.xml" />
     <parameter name="$CCNetModifyingUsers" value="System.Collections.ArrayList" />
-    <parameter name="$CCNetNumericLabel" value="10" />
+    <parameter name="$CCNetNumericLabel" value="12" />
     <parameter name="$CCNetProject" value="Test01" />
     <parameter name="$CCNetProjectUrl" value="http://confluence.public.thoughtworks.org" />
     <parameter name="$CCNetRequestSource" value="WIN-OHV4FQM7TSM" />
@@ -24,24 +24,24 @@
   <integrationProperties>
     <CCNetArtifactDirectory>C:\Users\Administrator\Desktop\dataflux\project\UnitTestProject1\resources\scenarioTests\test01</CCNetArtifactDirectory>
     <CCNetBuildCondition>ForceBuild</CCNetBuildCondition>
-    <CCNetBuildDate>2024-10-05</CCNetBuildDate>
-    <CCNetBuildTime>18:26:03</CCNetBuildTime>
+    <CCNetBuildDate>2024-10-06</CCNetBuildDate>
+    <CCNetBuildTime>14:30:03</CCNetBuildTime>
     <CCNetFailureUsers />
     <CCNetFailureTasks />
     <CCNetIntegrationStatus>Success</CCNetIntegrationStatus>
-    <CCNetLabel>10</CCNetLabel>
+    <CCNetLabel>12</CCNetLabel>
     <CCNetLastIntegrationStatus>Success</CCNetLastIntegrationStatus>
     <CCNetListenerFile>C:\Users\Administrator\Desktop\dataflux\project\UnitTestProject1\resources\scenarioTests\test01\Test01_ListenFile.xml</CCNetListenerFile>
     <CCNetModifyingUsers />
-    <CCNetNumericLabel>10</CCNetNumericLabel>
+    <CCNetNumericLabel>12</CCNetNumericLabel>
     <CCNetProject>Test01</CCNetProject>
     <CCNetProjectUrl>http://confluence.public.thoughtworks.org</CCNetProjectUrl>
     <CCNetRequestSource>WIN-OHV4FQM7TSM</CCNetRequestSource>
     <CCNetWorkingDirectory>C:\Users\Administrator\Desktop\dataflux\project\UnitTestProject1\resources\scenarioTests\test01</CCNetWorkingDirectory>
-    <CCNetBuildId>51396145955c453fa8d70881c6bf6826</CCNetBuildId>
+    <CCNetBuildId>848429eaeb0442c1ab1c2264f8822750</CCNetBuildId>
     <LastIntegrationStatus>Success</LastIntegrationStatus>
-    <LastSuccessfulIntegrationLabel>10</LastSuccessfulIntegrationLabel>
-    <LastModificationDate>10/4/2024 6:26:08 PM</LastModificationDate>
+    <LastSuccessfulIntegrationLabel>12</LastSuccessfulIntegrationLabel>
+    <LastModificationDate>10/5/2024 2:30:08 PM</LastModificationDate>
   </integrationProperties>
-  <build date="2024-10-05 18:26:03" buildtime="00:00:05" buildcondition="ForceBuild">All OK for good task</build>
+  <build date="2024-10-06 14:30:03" buildtime="00:00:05" buildcondition="ForceBuild">All OK for good task</build>
 </cruisecontrol>
