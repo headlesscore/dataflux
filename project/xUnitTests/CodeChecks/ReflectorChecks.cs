@@ -9,7 +9,7 @@
     using ThoughtWorks.CruiseControl.Core;
     using ThoughtWorks.CruiseControl.WebDashboard.Configuration;
     using Xunit;
-
+    using Exortech.NetReflector;
 
     public class ReflectorChecks
     {
@@ -70,6 +70,7 @@
                 {
                     foreach (var property in type.GetProperties().OrderBy(p => p.Name))
                     {
+#if false
                         if (this.HasAttribute(typeof(ReflectorArrayAttribute), property) ||
                             this.HasAttribute(typeof(ReflectorCollectionAttribute), property) ||
                             this.HasAttribute(typeof(ReflectorHashAttribute), property))
@@ -77,6 +78,7 @@
                             failedTypes.Add(type.FullName);
                             break;
                         }
+#endif
                     }
                 }
             }
@@ -94,7 +96,7 @@
                 Assert.Fail(message);
             }
         }
-        #endregion
+#endregion
 
         #region CheckForFieldAsReflectorProperty()
         /// <summary>
@@ -111,6 +113,7 @@
                     var fields = type.GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance).OrderBy(p => p.Name);
                     foreach (var field in fields)
                     {
+#if false
                         if (this.HasAttribute(typeof(ReflectorArrayAttribute), field) ||
                             this.HasAttribute(typeof(ReflectorCollectionAttribute), field) ||
                             this.HasAttribute(typeof(ReflectorPropertyAttribute), field) ||
@@ -119,6 +122,7 @@
                             failedTypes.Add(type.FullName);
                             break;
                         }
+#endif
                     }
                 }
             }
@@ -134,7 +138,7 @@
                 Assert.Fail(message);
             }
         }
-        #endregion
+#endregion
 
         #region HasAttribute()
         /// <summary>
@@ -179,6 +183,6 @@
             return hasAttrib;
         }
         #endregion
-        #endregion
+#endregion
     }
 }

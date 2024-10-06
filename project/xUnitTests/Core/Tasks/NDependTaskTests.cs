@@ -217,7 +217,8 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
                 Mock.Get(fileSystem).InSequence(sequence).Setup(_fileSystem => _fileSystem.DirectoryExists(System.IO.Path.Combine("artefactDir", "1", "NDepend", "images"))).Returns(false).Verifiable();
                 Mock.Get(fileSystem).InSequence(sequence).Setup(_fileSystem => _fileSystem.CreateDirectory(System.IO.Path.Combine("artefactDir", "1", "NDepend", "images"))).Verifiable();
                 Mock.Get(fileSystem).InSequence(sequence).Setup(_fileSystem => _fileSystem.FileExists(System.IO.Path.Combine("workingDir", "NDependResults", "images", "test.png"))).Returns(true).Verifiable();
-                Mock.Get(fileSystem).InSequence(sequence).Setup(_fileSystem => _fileSystem.Copy(System.IO.Path.Combine("workingDir", "NDependResults", "images", "test.png"), System.IO.Path.Combine("artefactDir", "1", "NDepend", "images", "test.png"))).Verifiable();
+                string artifactDir = System.IO.Path.Combine("artefactDir", "1", "NDepend", "images", "test.png");
+                Mock.Get(fileSystem).InSequence(sequence).Setup(_fileSystem => _fileSystem.Copy(System.IO.Path.Combine("workingDir", "NDependResults", "images", "test.png"), artifactDir)).Verifiable();
                 var logger = mocks.Create<ILogger>().Object;
                 var task = new NDependTask(executor, fileSystem, logger);
 

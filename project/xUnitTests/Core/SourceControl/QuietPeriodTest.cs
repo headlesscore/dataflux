@@ -165,7 +165,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 
 			mockSourceControl.Setup(sc => sc.GetModifications(lastBuild, thisBuild)).Returns(mods).Verifiable();
 		
-			mockDateTimeProvider.Setup(provider => provider.Sleep(TimeSpan.FromMilliseconds(100))).Verifiable();
+			mockDateTimeProvider.Setup(provider => provider.Sleep(TimeSpan.FromMilliseconds(100,0))).Verifiable();
 
 			DateTime nextBuildTime = thisBuild.StartTime.AddSeconds(1);
 			mockDateTimeProvider.SetupGet(provider => provider.Now).Returns(nextBuildTime).Verifiable();

@@ -1,451 +1,13 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\xunit.core.2.9.2\build\xunit.core.props" Condition="Exists('..\packages\xunit.core.2.9.2\build\xunit.core.props')" />
-  <Import Project="..\packages\xunit.runner.visualstudio.2.8.2\build\net462\xunit.runner.visualstudio.props" Condition="Exists('..\packages\xunit.runner.visualstudio.2.8.2\build\net462\xunit.runner.visualstudio.props')" />
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{6A70E8D7-81A9-4557-B20E-22B7B7379C1F}</ProjectGuid>
+    <TargetFramework>net9.0-windows</TargetFramework>
     <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ThoughtWorks.CruiseControl.xUnitTests</RootNamespace>
     <AssemblyName>ThoughtWorks.CruiseControl.xUnitTests</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <Deterministic>true</Deterministic>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="Castle.Core, Version=5.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
-      <HintPath>..\packages\Castle.Core.5.1.1\lib\net462\Castle.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="FluentAssertions, Version=6.12.1.0, Culture=neutral, PublicKeyToken=33f2691a05b67b6a, processorArchitecture=MSIL">
-      <HintPath>..\packages\FluentAssertions.6.12.1\lib\net47\FluentAssertions.dll</HintPath>
-    </Reference>
-    <Reference Include="ICSharpCode.SharpZipLib, Version=0.85.5.452, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\ICSharpCode.SharpZipLib.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.TestPlatform.CoreUtilities, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.TestPlatform.ObjectModel.17.11.1\lib\net462\Microsoft.TestPlatform.CoreUtilities.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.TestPlatform.PlatformAbstractions, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.TestPlatform.ObjectModel.17.11.1\lib\net462\Microsoft.TestPlatform.PlatformAbstractions.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.VisualStudio.TestPlatform.ObjectModel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.TestPlatform.ObjectModel.17.11.1\lib\net462\Microsoft.VisualStudio.TestPlatform.ObjectModel.dll</HintPath>
-    </Reference>
-    <Reference Include="Moq, Version=4.20.72.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
-      <HintPath>..\packages\Moq.4.20.72\lib\net462\Moq.dll</HintPath>
-    </Reference>
-    <Reference Include="NetReflector, Version=1.1.2009.1214, Culture=neutral, PublicKeyToken=2f4dd8b32acbcd8e, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\NetReflector.dll</HintPath>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Collections.Immutable, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Collections.Immutable.8.0.0\lib\net462\System.Collections.Immutable.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Memory.4.5.5\lib\net461\System.Memory.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Numerics" />
-    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Reflection.Metadata, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Reflection.Metadata.8.0.0\lib\net462\System.Reflection.Metadata.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Runtime" />
-    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
-    <Reference Include="xunit.abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
-      <HintPath>..\packages\xunit.abstractions.2.0.3\lib\net35\xunit.abstractions.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="xunit.assert, Version=2.9.2.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
-      <HintPath>..\packages\xunit.assert.2.9.2\lib\netstandard1.1\xunit.assert.dll</HintPath>
-    </Reference>
-    <Reference Include="xunit.core, Version=2.9.2.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
-      <HintPath>..\packages\xunit.extensibility.core.2.9.2\lib\net452\xunit.core.dll</HintPath>
-    </Reference>
-    <Reference Include="xunit.execution.desktop, Version=2.9.2.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
-      <HintPath>..\packages\xunit.extensibility.execution.2.9.2\lib\net452\xunit.execution.desktop.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="CCnetDeploymentTests.cs" />
-    <Compile Include="CCTrayLib\CCTimeFormatterTest.cs" />
-    <Compile Include="CCTrayLib\Configuration\BuildServerTest.cs" />
-    <Compile Include="CCTrayLib\Configuration\CCTrayMultiConfigurationTest.cs" />
-    <Compile Include="CCTrayLib\IconFileFixture.cs" />
-    <Compile Include="CCTrayLib\Monitoring\AggregatingProjectMonitorTest.cs" />
-    <Compile Include="CCTrayLib\Monitoring\AggregatingServerMonitorTest.cs" />
-    <Compile Include="CCTrayLib\Monitoring\BuildDurationTrackerTest.cs" />
-    <Compile Include="CCTrayLib\Monitoring\CachingCruiseServerManagerTest.cs" />
-    <Compile Include="CCTrayLib\Monitoring\CruiseProjectManagerFactoryTest.cs" />
-    <Compile Include="CCTrayLib\Monitoring\CruiseServerManagerFactoryTest.cs" />
-    <Compile Include="CCTrayLib\Monitoring\DashboardXmlParserTest.cs" />
-    <Compile Include="CCTrayLib\Monitoring\ExtensionProtocolStub.cs" />
-    <Compile Include="CCTrayLib\Monitoring\HttpCruiseProjectManagerTest.cs" />
-    <Compile Include="CCTrayLib\Monitoring\HttpCruiseServerManagerTest.cs" />
-    <Compile Include="CCTrayLib\Monitoring\PollIntervalReporterTest.cs" />
-    <Compile Include="CCTrayLib\Monitoring\ProjectMonitorTest.cs" />
-    <Compile Include="CCTrayLib\Monitoring\ProjectStateTest.cs" />
-    <Compile Include="CCTrayLib\Monitoring\ProjectStatusMonitorTest.cs" />
-    <Compile Include="CCTrayLib\Monitoring\RemotingCruiseServerManagerTest.cs" />
-    <Compile Include="CCTrayLib\Monitoring\ServerMonitorTest.cs" />
-    <Compile Include="CCTrayLib\Monitoring\StubCurrentTimeProvider.cs" />
-    <Compile Include="CCTrayLib\Monitoring\WebDashboardUrlTest.cs" />
-    <Compile Include="CCTrayLib\Presentation\AddBuildServerTest.cs" />
-    <Compile Include="CCTrayLib\Presentation\AddProjectsTest.cs" />
-    <Compile Include="CCTrayLib\Presentation\BuildTransitionSoundPlayerTest.cs" />
-    <Compile Include="CCTrayLib\Presentation\CCTrayMultiSettingsFormTest.cs" />
-    <Compile Include="CCTrayLib\Presentation\ConfigurableBalloonMessageProviderTest.cs" />
-    <Compile Include="CCTrayLib\Presentation\ConfigurableProjectStateIconProviderTest.cs" />
-    <Compile Include="CCTrayLib\Presentation\DetailStringProviderTest.cs" />
-    <Compile Include="CCTrayLib\Presentation\IntegrationQueueTreeNodeAdaptorTest.cs" />
-    <Compile Include="CCTrayLib\Presentation\MainFormControllerTest.cs" />
-    <Compile Include="CCTrayLib\Presentation\ProjectStateIconAdaptorTest.cs" />
-    <Compile Include="CCTrayLib\Presentation\ProjectStatusListViewItemAdaptorTest.cs" />
-    <Compile Include="CCTrayLib\Presentation\ResourceIntegrationQueueIconProviderTest.cs" />
-    <Compile Include="CCTrayLib\Presentation\ResourceProjectStateIconProviderTest.cs" />
-    <Compile Include="CCTrayLib\Presentation\SpeechSettingsControlTest.cs" />
-    <Compile Include="CCTrayLib\Presentation\StubServerMonitor.cs" />
-    <Compile Include="CCTrayLib\Presentation\SynchronizedProjectMonitorTest.cs" />
-    <Compile Include="CCTrayLib\Presentation\SynchronizedServerMonitorTest.cs" />
-    <Compile Include="CCTrayLib\Presentation\X10SettingsControlTest.cs" />
-    <Compile Include="CCTrayLib\Speech\SpeechUtilTest.cs" />
-    <Compile Include="CCTrayLib\StatusIconTest.cs" />
-    <Compile Include="CCTrayLib\X10\LampControllerTest.cs" />
-    <Compile Include="CCTrayLib\X10\LowLevelDriverFactoryTest.cs" />
-    <Compile Include="CCTrayLib\X10\X10ControllerTest.cs" />
-    <Compile Include="CodeChecks\ReflectorChecks.cs" />
-    <Compile Include="Config\CCNetConfigFileValidationTest.cs" />
-    <Compile Include="Core\Config\CachingConfigurationServiceTest.cs" />
-    <Compile Include="Core\Config\ConfigurationFileLoaderTest.cs" />
-    <Compile Include="Core\Config\ConfigurationFileSaverTest.cs" />
-    <Compile Include="Core\Config\ConfigurationFixture.cs" />
-    <Compile Include="Core\Config\ConfigurationTest.cs" />
-    <Compile Include="Core\Config\CruiseControlConfigSectionHandlerTest.cs" />
-    <Compile Include="Core\Config\FileConfigurationServiceTest.cs" />
-    <Compile Include="Core\Config\FileWatcherConfigurationServiceTest.cs" />
-    <Compile Include="Core\Config\NetReflectorConfigurationReaderTest.cs" />
-    <Compile Include="Core\Config\PreprocessorTest.cs" />
-    <Compile Include="Core\Config\TestNodeProcessor.cs" />
-    <Compile Include="Core\Config\ValidatingLoaderTest.cs" />
-    <Compile Include="Core\ConsoleRunnerArgumentsTest.cs" />
-    <Compile Include="Core\ConsoleRunnerTest.cs" />
-    <Compile Include="Core\CruiseServerClientTests.cs" />
-    <Compile Include="Core\CruiseServerCompressionTests.cs" />
-    <Compile Include="Core\CruiseServerTest.cs" />
-    <Compile Include="Core\CruiseXmlWriterTest.cs" />
-    <Compile Include="Core\Extensions\DiskSpaceMonitorExtensionTests.cs" />
-    <Compile Include="Core\Extensions\IntegrationPerformanceCountersExtensionTests.cs" />
-    <Compile Include="Core\Extensions\IntegrationRequestThrottleExtensionTests.cs" />
-    <Compile Include="Core\FileMother.cs" />
-    <Compile Include="Core\IntegrationFixture.cs" />
-    <Compile Include="Core\IntegrationQueueManagerTest.cs" />
-    <Compile Include="Core\IntegrationRequestQueueTest.cs" />
-    <Compile Include="Core\IntegrationResultManagerTest.cs" />
-    <Compile Include="Core\IntegrationResultMother.cs" />
-    <Compile Include="Core\IntegrationResultTest.cs" />
-    <Compile Include="Core\IntegrationRunnerTest.cs" />
-    <Compile Include="Core\Label\AssemblyVersionLabellerTest.cs" />
-    <Compile Include="Core\Label\DateLabellerTest.cs" />
-    <Compile Include="Core\Label\DefaultLabellerTest.cs" />
-    <Compile Include="Core\Label\FileLabellerTest.cs" />
-    <Compile Include="Core\Label\IterationLabellerTest.cs" />
-    <Compile Include="Core\Label\LastChangeLabellerTest.cs" />
-    <Compile Include="Core\Label\RemoteProjectLabellerTest.cs" />
-    <Compile Include="Core\Label\StateFileLabellerTest.cs" />
-    <Compile Include="Core\LogFileTest.cs" />
-    <Compile Include="Core\Log\CircularArrayTest.cs" />
-    <Compile Include="Core\Log\CircularArrayTestResources.cs" />
-    <Compile Include="Core\Log\ServerLogFileReaderTest.cs" />
-    <Compile Include="Core\MockBuilder.cs" />
-    <Compile Include="Core\ProcessExecutorTestFixtureBase.cs" />
-    <Compile Include="Core\ProcessResultFixture.cs" />
-    <Compile Include="Core\ProjectBaseTest.cs" />
-    <Compile Include="Core\ProjectExceptionHandlingTest.cs" />
-    <Compile Include="Core\ProjectIntegratorListFactoryTest.cs" />
-    <Compile Include="Core\ProjectIntegratorTest.cs" />
-    <Compile Include="Core\ProjectStatusFixture.cs" />
-    <Compile Include="Core\ProjectTest.cs" />
-    <Compile Include="Core\Publishers\BuildLogTransformerTest.cs" />
-    <Compile Include="Core\Publishers\BuildPublisherTest.cs" />
-    <Compile Include="Core\Publishers\ConditionalPublisherTests.cs" />
-    <Compile Include="Core\Publishers\EmailGroupTest.cs" />
-    <Compile Include="Core\Publishers\EmailMessageTest.cs" />
-    <Compile Include="Core\Publishers\EmailPublisherMother.cs" />
-    <Compile Include="Core\Publishers\EmailPublisherStub.cs" />
-    <Compile Include="Core\Publishers\EMailRegexConverterTest.cs" />
-    <Compile Include="Core\Publishers\EmailUserTest.cs" />
-    <Compile Include="Core\Publishers\ForceBuildPublisherTest.cs" />
-    <Compile Include="Core\Publishers\HtmlDetailsMessageBuilderTest.cs" />
-    <Compile Include="Core\Publishers\HtmlLinkMessageBuilderTest.cs" />
-    <Compile Include="Core\Publishers\ManifestGeneratorTests.cs" />
-    <Compile Include="Core\Publishers\ManifestImporterTests.cs" />
-    <Compile Include="Core\Publishers\ModificationHistoryPublisherTest.cs" />
-    <Compile Include="Core\Publishers\PackageFileTests.cs" />
-    <Compile Include="Core\Publishers\PackagePublisherTests.cs" />
-    <Compile Include="Core\Publishers\PublisherTest.cs" />
-    <Compile Include="Core\Publishers\RSSPublisherTest.cs" />
-    <Compile Include="Core\Publishers\Statistics\StatisticsBuilderTest.cs" />
-    <Compile Include="Core\Publishers\Statistics\StatisticsBuilderWithNamespacesTest.cs" />
-    <Compile Include="Core\Publishers\Statistics\StatisticsChartGeneratorTest.cs" />
-    <Compile Include="Core\Publishers\Statistics\StatisticsPublisherTest.cs" />
-    <Compile Include="Core\Publishers\Statistics\StatisticsResultsTest.cs" />
-    <Compile Include="Core\Publishers\XmlIntegrationResultWriterTest.cs" />
-    <Compile Include="Core\Publishers\XmlLogFixture.cs" />
-    <Compile Include="Core\Publishers\XmlLogPublisherTest.cs" />
-    <Compile Include="Core\Queues\IntegrationQueueItemTest.cs" />
-    <Compile Include="Core\Queues\IntegrationQueueManagerFactoryTests.cs" />
-    <Compile Include="Core\Queues\IntegrationQueueSetTest.cs" />
-    <Compile Include="Core\Queues\IntegrationQueueTest.cs" />
-    <Compile Include="Core\RemoteCruiseServerTest.cs" />
-    <Compile Include="Core\Reporting\Dashboard\Navigation\AbsolutePathUrlBuilderDecoratorTest.cs" />
-    <Compile Include="Core\Security\ActiveDirectoryAuthenticationTests.cs" />
-    <Compile Include="Core\Security\Auditing\FileXmlLoggerTests.cs" />
-    <Compile Include="Core\Security\Auditing\FileXmlReaderTests.cs" />
-    <Compile Include="Core\Security\DefaultProjectAuthorisationTest.cs" />
-    <Compile Include="Core\Security\ExternalFileSecurityManagerTests.cs" />
-    <Compile Include="Core\Security\FileBasedSessionCacheTests.cs" />
-    <Compile Include="Core\Security\InMemorySessionCacheTest.cs" />
-    <Compile Include="Core\Security\InternalSecurityManagerTest.cs" />
-    <Compile Include="Core\Security\NullSecurityManagerTest.cs" />
-    <Compile Include="Core\Security\PermissionBaseTests.cs" />
-    <Compile Include="Core\Security\RolePermissionTests.cs" />
-    <Compile Include="Core\Security\UserNameAuthenticationTest.cs" />
-    <Compile Include="Core\Security\UserNameTests.cs" />
-    <Compile Include="Core\Security\UserPasswordAuthenticationTest.cs" />
-    <Compile Include="Core\Security\UserPermissionTests.cs" />
-    <Compile Include="Core\SimpleBuildFile.cs" />
-    <Compile Include="Core\SourceControl\AccuRevHistoryParserTest.cs" />
-    <Compile Include="Core\SourceControl\AccuRevMother.cs" />
-    <Compile Include="Core\SourceControl\AccuRevTest.cs" />
-    <Compile Include="Core\SourceControl\ActionFilterTest.cs" />
-    <Compile Include="Core\SourceControl\AlienbrainHistoryParserTest.cs" />
-    <Compile Include="Core\SourceControl\AlienbrainTest.cs" />
-    <Compile Include="Core\SourceControl\BitKeeper\BitKeeperHistoryParserTest.cs" />
-    <Compile Include="Core\SourceControl\BitKeeper\BitKeeperTest.cs" />
-    <Compile Include="Core\SourceControl\ClearCaseHistoryParserTest.cs" />
-    <Compile Include="Core\SourceControl\ClearCaseMother.cs" />
-    <Compile Include="Core\SourceControl\ClearCaseTest.cs" />
-    <Compile Include="Core\SourceControl\CommentFilterTest.cs" />
-    <Compile Include="Core\SourceControl\CvsHistoryParserTest.cs" />
-    <Compile Include="Core\SourceControl\CvsMother.cs" />
-    <Compile Include="Core\SourceControl\CvsTest.cs" />
-    <Compile Include="Core\SourceControl\DefaultIssueTrackerUrlBuilderTest.cs" />
-    <Compile Include="Core\SourceControl\ExternalSourceControlHistoryParserTest.cs" />
-    <Compile Include="Core\SourceControl\ExternalSourceControlTest.cs" />
-    <Compile Include="Core\SourceControl\FileSourceControlTest.cs" />
-    <Compile Include="Core\SourceControl\FilteredSourceControlTest.cs" />
-    <Compile Include="Core\SourceControl\GitHistoryParserTest.cs" />
-    <Compile Include="Core\SourceControl\GitTest.cs" />
-    <Compile Include="Core\SourceControl\Mercurial\HgWebUrlBuilderTest.cs" />
-    <Compile Include="Core\SourceControl\Mercurial\MercurialHistoryParserTest.cs" />
-    <Compile Include="Core\SourceControl\Mercurial\MercurialModificationTest.cs" />
-    <Compile Include="Core\SourceControl\Mercurial\MercurialTest.cs" />
-    <Compile Include="Core\SourceControl\Mercurial\StubFileDirectoryDeleter.cs" />
-    <Compile Include="Core\SourceControl\Mercurial\StubFileDirectoryDeleterTest.cs" />
-    <Compile Include="Core\SourceControl\Mercurial\StubFileSystem.cs" />
-    <Compile Include="Core\SourceControl\Mercurial\StubFileSystemTest.cs" />
-    <Compile Include="Core\SourceControl\MksHistoryParserTest.cs" />
-    <Compile Include="Core\SourceControl\MksTest.cs" />
-    <Compile Include="Core\SourceControl\MockSourceControl.cs" />
-    <Compile Include="Core\SourceControl\ModificationMother.cs" />
-    <Compile Include="Core\SourceControl\ModificationTest.cs" />
-    <Compile Include="Core\SourceControl\MultiFilterTest.cs" />
-    <Compile Include="Core\SourceControl\MultiIssueTrackerUrlbuilderTest.cs" />
-    <Compile Include="Core\SourceControl\MultiSourceControlTest.cs" />
-    <Compile Include="Core\SourceControl\NullSourceControlTest.cs" />
-    <Compile Include="Core\SourceControl\PathFilterTest.cs" />
-    <Compile Include="Core\SourceControl\Perforce\P4ConfigProcessInfoCreatorTest.cs" />
-    <Compile Include="Core\SourceControl\Perforce\P4HistoryParserTest.cs" />
-    <Compile Include="Core\SourceControl\Perforce\P4Mother.cs" />
-    <Compile Include="Core\SourceControl\Perforce\P4Test.cs" />
-    <Compile Include="Core\SourceControl\Perforce\ProcessP4InitializerTest.cs" />
-    <Compile Include="Core\SourceControl\Perforce\ProessP4PurgerTest.cs" />
-    <Compile Include="Core\SourceControl\PlasticSCMHistoryTest.cs" />
-    <Compile Include="Core\SourceControl\PlasticSCMTest.cs" />
-    <Compile Include="Core\SourceControl\ProcessSourceControlTest.cs" />
-    <Compile Include="Core\SourceControl\PvcsHistoryParserTest.cs" />
-    <Compile Include="Core\SourceControl\PvcsMother.cs" />
-    <Compile Include="Core\SourceControl\PvcsTest.cs" />
-    <Compile Include="Core\SourceControl\QuietPeriodTest.cs" />
-    <Compile Include="Core\SourceControl\RegExIssueTrackerUrlBuilderTest.cs" />
-    <Compile Include="Core\SourceControl\RobocopyHistoryParserTest.cs" />
-    <Compile Include="Core\SourceControl\StarTeamHistoryParserTest.cs" />
-    <Compile Include="Core\SourceControl\StarTeamTest.cs" />
-    <Compile Include="Core\SourceControl\SurroundHistoryParserTest.cs" />
-    <Compile Include="Core\SourceControl\SurroundTest.cs" />
-    <Compile Include="Core\SourceControl\SvnHistoryParserTest.cs" />
-    <Compile Include="Core\SourceControl\SvnTest.cs" />
-    <Compile Include="Core\SourceControl\Telelogic\ChangeSynergyUrlBuilderTest.cs" />
-    <Compile Include="Core\SourceControl\Telelogic\SynergyClientTest.cs" />
-    <Compile Include="Core\SourceControl\Telelogic\SynergyCommandBuilderTest.cs" />
-    <Compile Include="Core\SourceControl\Telelogic\SynergyMother.cs" />
-    <Compile Include="Core\SourceControl\Telelogic\SynergyParserTest.cs" />
-    <Compile Include="Core\SourceControl\UserFilterTest.cs" />
-    <Compile Include="Core\SourceControl\Vault317Test.cs" />
-    <Compile Include="Core\SourceControl\Vault3Test.cs" />
-    <Compile Include="Core\SourceControl\VaultHistoryParserTest.cs" />
-    <Compile Include="Core\SourceControl\ViewCVSBuilderTest.cs" />
-    <Compile Include="Core\SourceControl\VssApplyLabelTest.cs" />
-    <Compile Include="Core\SourceControl\VssHistoryParserTest.cs" />
-    <Compile Include="Core\SourceControl\VssLocaleTest.cs" />
-    <Compile Include="Core\SourceControl\VssMother.cs" />
-    <Compile Include="Core\SourceControl\VssTest.cs" />
-    <Compile Include="Core\SourceControl\VstsHistoryParserTest.cs" />
-    <Compile Include="Core\SourceControl\VstsTest.cs" />
-    <Compile Include="Core\SourceControl\WebSVNBuilderTest.cs" />
-    <Compile Include="Core\State\FileStateManagerTest.cs" />
-    <Compile Include="Core\State\XmlProjectStateManagerTest.cs" />
-    <Compile Include="Core\Storage\XmlFolderDataStoreTests.cs" />
-    <Compile Include="Core\StubSecurityManager.cs" />
-    <Compile Include="Core\Tasks\AntsPerformanceProfilerTaskTests.cs" />
-    <Compile Include="Core\Tasks\ArtifactCleanupTest.cs" />
-    <Compile Include="Core\Tasks\CodeItRightTaskTests.cs" />
-    <Compile Include="Core\Tasks\CommentTaskTests.cs" />
-    <Compile Include="Core\Tasks\ConditionalTaskTests.cs" />
-    <Compile Include="Core\Tasks\Conditions\AndTaskConditionTests.cs" />
-    <Compile Include="Core\Tasks\Conditions\BuildConditionTaskConditionTests.cs" />
-    <Compile Include="Core\Tasks\Conditions\CompareValuesTaskConditionTests.cs" />
-    <Compile Include="Core\Tasks\Conditions\FileExistsTaskConditionTests.cs" />
-    <Compile Include="Core\Tasks\Conditions\FolderExistsTaskConditionTests.cs" />
-    <Compile Include="Core\Tasks\Conditions\LastBuildStatusTaskConditionTests.cs" />
-    <Compile Include="Core\Tasks\Conditions\LastBuildTimeTaskConditionTests.cs" />
-    <Compile Include="Core\Tasks\Conditions\MockCondition.cs" />
-    <Compile Include="Core\Tasks\Conditions\OrTaskConditionTests.cs" />
-    <Compile Include="Core\Tasks\Conditions\StatusTaskConditionTests.cs" />
-    <Compile Include="Core\Tasks\Conditions\UrlHeaderValueTaskConditionTests.cs" />
-    <Compile Include="Core\Tasks\Conditions\UrlPingsTaskConditionTests.cs" />
-    <Compile Include="Core\Tasks\CoverageFilterTests.cs" />
-    <Compile Include="Core\Tasks\CoverageThresholdTests.cs" />
-    <Compile Include="Core\Tasks\CruiseServerControlTaskTests.cs" />
-    <Compile Include="Core\Tasks\DataTaskResultTest.cs" />
-    <Compile Include="Core\Tasks\DevenvTaskResultTest.cs" />
-    <Compile Include="Core\Tasks\DevenvTaskTest.cs" />
-    <Compile Include="Core\Tasks\DirectDynamicValueTests.cs" />
-    <Compile Include="Core\Tasks\DumpValueTaskTest.cs" />
-    <Compile Include="Core\Tasks\DynamicValueUtilityTests.cs" />
-    <Compile Include="Core\Tasks\ExecutableTaskTest.cs" />
-    <Compile Include="Core\Tasks\FakeTaskTest.cs" />
-    <Compile Include="Core\Tasks\FileTaskResultTest.cs" />
-    <Compile Include="Core\Tasks\FinalBuilderTaskTest.cs" />
-    <Compile Include="Core\Tasks\GendarmeTaskTest.cs" />
-    <Compile Include="Core\Tasks\HttpRequestSettingsTest.cs" />
-    <Compile Include="Core\Tasks\HttpStatusTaskTest.cs" />
-    <Compile Include="Core\Tasks\MergeFileTaskTest.cs" />
-    <Compile Include="Core\Tasks\MockTask.cs" />
-    <Compile Include="Core\Tasks\ModificationReaderTaskTest.cs" />
-    <Compile Include="Core\Tasks\ModificationWriterTaskTest.cs" />
-    <Compile Include="Core\Tasks\MsBuildTaskTest.cs" />
-    <Compile Include="Core\Tasks\NAntTaskTest.cs" />
-    <Compile Include="Core\Tasks\NDependTaskTests.cs" />
-    <Compile Include="Core\Tasks\NullTaskTest.cs" />
-    <Compile Include="Core\Tasks\NUnitArgumentTest.cs" />
-    <Compile Include="Core\Tasks\NUnitTaskExecutionTest.cs" />
-    <Compile Include="Core\Tasks\NunitTaskTest.cs" />
-    <Compile Include="Core\Tasks\ParallelTaskTests.cs" />
-    <Compile Include="Core\Tasks\PowerShellTaskTest.cs" />
-    <Compile Include="Core\Tasks\ProcessTaskResultTest.cs" />
-    <Compile Include="Core\Tasks\RakeTaskTest.cs" />
-    <Compile Include="Core\Tasks\ReplacementDynamicValueTests.cs" />
-    <Compile Include="Core\Tasks\SequentialTaskTests.cs" />
-    <Compile Include="Core\Tasks\SynchronisationTaskTests.cs" />
-    <Compile Include="Core\Tasks\TaskBaseTests.cs" />
-    <Compile Include="Core\Tasks\TaskContainerBaseTests.cs" />
-    <Compile Include="Core\Tasks\XmlTaskResultTests.cs" />
-    <Compile Include="Core\Tasks\XslTransformationTaskTest.cs" />
-    <Compile Include="Core\TestLogs.cs" />
-    <Compile Include="Core\TraceListenerBackup.cs" />
-    <Compile Include="Core\Triggers\CronTriggerTest.cs" />
-    <Compile Include="Core\Triggers\FilterTriggerTest.cs" />
-    <Compile Include="Core\Triggers\IntervalTriggerTest.cs" />
-    <Compile Include="Core\Triggers\MultipleTriggerTest.cs" />
-    <Compile Include="Core\Triggers\ParameterTriggerTests.cs" />
-    <Compile Include="Core\Triggers\ProjectTriggerTest.cs" />
-    <Compile Include="Core\Triggers\RollUpTriggerTest.cs" />
-    <Compile Include="Core\Triggers\ScheduleTriggerTest.cs" />
-    <Compile Include="Core\Triggers\UrlTriggerTest.cs" />
-    <Compile Include="Core\Util\FileChangedWatcherTest.cs" />
-    <Compile Include="Core\Util\HtmlAwareMultiTransformerTest.cs" />
-    <Compile Include="Core\Util\HtmlExceptionFormatterTest.cs" />
-    <Compile Include="Core\Util\HttpWrapperTest.cs" />
-    <Compile Include="Core\Util\InstanceAssert.cs" />
-    <Compile Include="Core\Util\LogFileTraceListenerTest.cs" />
-    <Compile Include="Core\Util\MockFileWatcher.cs" />
-    <Compile Include="Core\Util\PathUtilTest.cs" />
-    <Compile Include="Core\Util\PrivateArgumentsTests.cs" />
-    <Compile Include="Core\Util\PrivateStringSerialiserTests.cs" />
-    <Compile Include="Core\Util\PrivateStringTests.cs" />
-    <Compile Include="Core\Util\ProcessExecutorTest.cs" />
-    <Compile Include="Core\Util\ProcessInfoTest.cs" />
-    <Compile Include="Core\Util\ReflectionUtilTest.cs" />
-    <Compile Include="Core\Util\RegistryTest.cs" />
-    <Compile Include="Core\Util\RemoteServerUriTests.cs" />
-    <Compile Include="Core\Util\StringUtilTest.cs" />
-    <Compile Include="Core\Util\SystemIoFileSystemTest.cs" />
-    <Compile Include="Core\Util\SystemPathTest.cs" />
-    <Compile Include="Core\Util\TempFileUtilTest.cs" />
-    <Compile Include="Core\Util\TestData.cs" />
-    <Compile Include="Core\Util\TimeoutSerializationTest.cs" />
-    <Compile Include="Core\Util\TimeoutTest.cs" />
-    <Compile Include="Core\Util\WildCardPathTest.cs" />
-    <Compile Include="Core\Util\XmlFragmentWriterTest.cs" />
-    <Compile Include="Core\Util\XmlUtilTest.cs" />
-    <Compile Include="Core\Util\XslTransformerTest.cs" />
-    <Compile Include="Core\Util\ZipCompressionServiceTests.cs" />
-    <Compile Include="CustomAssertion.cs" />
-    <Compile Include="GlobalSetup.cs" />
-    <Compile Include="TestClock.cs" />
-    <Compile Include="TestHelpers.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UnitTestUtils\LatchHelper.cs" />
-    <Compile Include="UnitTestUtils\Mockery.cs" />
-    <Compile Include="UnitTestUtils\Platform.cs" />
-    <Compile Include="UnitTestUtils\ResourceUtil.cs" />
-    <Compile Include="UnitTestUtils\XPathAssert.cs" />
-  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="..\examples\ccnet.config">
       <Link>Config\ccnet.config</Link>
@@ -459,8 +21,6 @@
     <EmbeddedResource Include="..\examples\VSSAndDevenvAndNUnitCCNet.config">
       <Link>Config\VSSAndDevenvAndNUnitCCNet.config</Link>
     </EmbeddedResource>
-    <None Include="app.config" />
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\packages\FluentAssertions.Analyzers.0.33.0\analyzers\dotnet\cs\FluentAssertions.Analyzers.dll" />
@@ -468,26 +28,11 @@
     <Analyzer Include="..\packages\xunit.analyzers.1.16.0\analyzers\dotnet\cs\xunit.analyzers.fixes.dll" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CCTrayLib\CCTrayLib.csproj">
-      <Project>{c8043ad9-0f30-4366-a263-e2fc0d6a57a9}</Project>
-      <Name>CCTrayLib</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\core\core.csproj">
-      <Project>{f8113db9-6c47-4fd1-8a01-655fcf151747}</Project>
-      <Name>core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\objection\objection.csproj">
-      <Project>{1c0b8046-fe79-4845-84b9-369a76f817a3}</Project>
-      <Name>objection</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Remote\Remote.csproj">
-      <Project>{e820cf3b-8c5a-4002-bc16-b7818d3d54a8}</Project>
-      <Name>Remote</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\WebDashboard\WebDashboard.csproj">
-      <Project>{482ef049-ec0c-4819-b568-75b5f74bdd5b}</Project>
-      <Name>WebDashboard</Name>
-    </ProjectReference>
+    <ProjectReference Include="..\CCTrayLib\CCTrayLib.csproj" />
+    <ProjectReference Include="..\core\core.csproj" />
+    <ProjectReference Include="..\objection\objection.csproj" />
+    <ProjectReference Include="..\Remote\Remote.csproj" />
+    <ProjectReference Include="..\WebDashboard\WebDashboard.csproj" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="CCTrayLib\TestIcon.ico" />
@@ -639,14 +184,40 @@
   <ItemGroup>
     <EmbeddedResource Include="Core\SourceControl\MksHistoryParserTestDataMemberInfo.xml" />
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\packages\xunit.runner.visualstudio.2.8.2\build\net462\xunit.runner.visualstudio.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\xunit.runner.visualstudio.2.8.2\build\net462\xunit.runner.visualstudio.props'))" />
-    <Error Condition="!Exists('..\packages\xunit.core.2.9.2\build\xunit.core.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\xunit.core.2.9.2\build\xunit.core.props'))" />
-    <Error Condition="!Exists('..\packages\xunit.core.2.9.2\build\xunit.core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\xunit.core.2.9.2\build\xunit.core.targets'))" />
-  </Target>
-  <Import Project="..\packages\xunit.core.2.9.2\build\xunit.core.targets" Condition="Exists('..\packages\xunit.core.2.9.2\build\xunit.core.targets')" />
+  <ItemGroup>
+    <PackageReference Include="Castle.Core" Version="5.1.1" />
+    <PackageReference Include="FluentAssertions" Version="6.12.1" />
+    <PackageReference Include="FluentAssertions.Analyzers" Version="0.33.0" />
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="Microsoft.TestPlatform.ObjectModel" Version="17.11.1" />
+    <PackageReference Include="Moq" Version="4.20.72" />
+    <PackageReference Include="SharpZipLib" Version="1.4.2" />
+    <PackageReference Include="System.Collections.Immutable" Version="9.0.0-rc.1.24431.7" />
+    <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
+    <PackageReference Include="System.Reflection.Metadata" Version="9.0.0-rc.1.24431.7" />
+    <PackageReference Include="xunit" Version="2.9.2" />
+    <PackageReference Include="xunit.abstractions" Version="2.0.3" />
+    <PackageReference Include="xunit.analyzers" Version="1.16.0" />
+    <PackageReference Include="xunit.assert" Version="2.9.2" />
+    <PackageReference Include="xunit.core" Version="2.9.2" />
+    <PackageReference Include="xunit.extensibility.core" Version="2.9.2" />
+    <PackageReference Include="xunit.extensibility.execution" Version="2.9.2" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="8.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="CCTrayLib\Monitoring\PollerTest.cs" />
+    <Compile Remove="CCTrayLib\Presentation\StubProjectMonitor.cs" />
+    <Compile Remove="Core\ProcessMonitorTest.cs" />
+    <Compile Remove="Core\Publishers\Statistics\MyStatisticsPublisherTest.cs" />
+    <Compile Remove="Core\Publishers\Statistics\StatisticsPublisherTaskTest.cs" />
+    <Compile Remove="Core\Security\SessionSecurityManagerTest.cs" />
+    <Compile Remove="Core\Storage\JsonFolderDataStoreTests.cs" />
+    <Compile Remove="Core\Tasks\ConditionalTaskTest.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="NetReflector">
+      <HintPath>..\..\lib\NetReflector.dll</HintPath>
+    </Reference>
+  </ItemGroup>
 </Project>

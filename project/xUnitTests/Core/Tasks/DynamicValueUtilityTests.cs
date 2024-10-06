@@ -366,7 +366,7 @@ namespace ThoughtWorks.CruiseControl.xUnitTests.Core.Tasks
         }
 
 
-        [ReflectorType("testInstance")]
+        //[ReflectorType("testInstance")]
         public class TestClass
         {
             private string myName;
@@ -376,21 +376,21 @@ namespace ThoughtWorks.CruiseControl.xUnitTests.Core.Tasks
             public TestClass() { }
             public TestClass(string name) { this.myName = name; }
 
-            [ReflectorProperty("someName")]
+            //[ReflectorProperty("someName")]
             public string Name
             {
                 get { return myName; }
                 set { myName = value; }
             }
 
-            [ReflectorProperty("aValue")]
+            //[ReflectorProperty("aValue")]
             public int Value
             {
                 get { return myValue; }
                 set { myValue = value; }
             }
 
-            [ReflectorProperty("sub")]
+            //[ReflectorProperty("sub")]
             public TestClass[] SubValues
             {
                 get { return mySubValues; }

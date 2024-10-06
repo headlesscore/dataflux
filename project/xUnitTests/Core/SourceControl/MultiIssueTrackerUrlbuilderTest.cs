@@ -4,6 +4,7 @@ using Xunit;
 
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Sourcecontrol;
+using Exortech.NetReflector;
 
 namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 {

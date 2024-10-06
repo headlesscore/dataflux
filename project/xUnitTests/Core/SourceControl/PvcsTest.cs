@@ -8,6 +8,7 @@ using Xunit;
 using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Sourcecontrol;
 using ThoughtWorks.CruiseControl.Core.Util;
+using Exortech.NetReflector;
 
 namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 {

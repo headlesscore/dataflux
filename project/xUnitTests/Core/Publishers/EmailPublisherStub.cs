@@ -4,10 +4,10 @@ using ThoughtWorks.CruiseControl.Core.Publishers;
 
 namespace ThoughtWorks.CruiseControl.UnitTests.Core.Publishers
 {
-	[ReflectorType("emailstub")]
+	//[ReflectorType("emailstub")]
 	public class EmailPublisherStub : EmailPublisher
 	{
-		[ReflectorProperty("save", Required=false)]
+		//[ReflectorProperty("save", Required=false)]
 		public bool SaveToFile = false;
 
         public override void SendMessage(string from, string to, string replyto, string subject, string message, string workingFolder)

@@ -150,12 +150,12 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Config
 			Assert.True(project.Publishers[0] is NullTask);
 		}
 
-        [ReflectorType("garbage")]
+        //[ReflectorType("garbage")]
         class Garbage
         {
         }
 
-		[ReflectorType("customtestproject")]
+		//[ReflectorType("customtestproject")]
 		class CustomTestProject : ProjectBase, IProject
 		{
 			public IIntegrationResult Integrate(IntegrationRequest request) { return null; }

@@ -6,6 +6,7 @@ using Exortech.NetReflector;
 using Xunit;
 
 using ThoughtWorks.CruiseControl.Core.Security;
+using Exortech.NetReflector;
 
 namespace ThoughtWorks.CruiseControl.UnitTests.Core.Security
 {

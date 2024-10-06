@@ -6,6 +6,7 @@ using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Label;
 using ThoughtWorks.CruiseControl.Remote;
 using ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol;
+using Exortech.NetReflector;
 
 namespace ThoughtWorks.CruiseControl.UnitTests.Core.Label
 {

@@ -2,6 +2,7 @@ using Exortech.NetReflector;
 using Xunit;
 
 using ThoughtWorks.CruiseControl.Core.Label;
+using Exortech.NetReflector;
 
 namespace ThoughtWorks.CruiseControl.UnitTests.Core.Label
 {

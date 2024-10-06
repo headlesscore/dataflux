@@ -1,5 +1,5 @@
 using System;
-using System.Runtime.Remoting.Channels;
+//using System.Runtime.Remoting.Channels;
 using Moq;
 using Xunit;
 
@@ -17,11 +17,13 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
 		// [SetUp]
 		public void SetUp()
 		{
-			foreach (IChannel channel in ChannelServices.RegisteredChannels)
+#if false
+            foreach (IChannel channel in ChannelServices.RegisteredChannels)
 			{
 				ChannelServices.UnregisterChannel(channel);
 			}
 			Assert.Equal(0, ChannelServices.RegisteredChannels.Length);
+#endif
 		}
 
 		// [TearDown]

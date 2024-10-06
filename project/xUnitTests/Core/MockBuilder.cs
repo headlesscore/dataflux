@@ -3,7 +3,7 @@ using ThoughtWorks.CruiseControl.Core;
 
 namespace ThoughtWorks.CruiseControl.UnitTests.Core
 {
-	[ReflectorType("mockbuildrunner")]
+	//[ReflectorType("mockbuildrunner")]
 	public class MockBuilder : ITask
 	{
 		public const string BUILDER_OUTPUT = "success";

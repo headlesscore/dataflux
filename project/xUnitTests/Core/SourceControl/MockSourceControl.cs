@@ -3,14 +3,14 @@ using ThoughtWorks.CruiseControl.Core;
 
 namespace ThoughtWorks.CruiseControl.UnitTests.Core.Sourcecontrol
 {
-	[ReflectorType("mocksourcecontrol")]
+	//[ReflectorType("mocksourcecontrol")]
 	public class SourceControlMock : ISourceControl
 	{
 		private Modification[] _expectedMods;
 		private bool _invoked = false;
 		private string _anOptionalProperty;
 
-		[ReflectorProperty("anOptionalProperty", Required=false)]
+		//[ReflectorProperty("anOptionalProperty", Required=false)]
 		public string AnOptionalProperty
 		{
 			get { return _anOptionalProperty; }

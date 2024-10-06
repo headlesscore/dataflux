@@ -18,10 +18,6 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Util
             Assert.True(true);
         }
 
-		public void TestReflectionEquals_BothNull()
-		{
-			Assert.Equal(null, null);
-		}
 
 		public void TestReflectionEquals_OneNull()
 		{

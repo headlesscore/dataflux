@@ -16,7 +16,7 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
     /// <summary>
     /// Since this version of NMock doesn't support generics this is a stub for the security manager
     /// </summary>
-    [ReflectorType("securityStub")]
+    //[ReflectorType("securityStub")]
     public class StubSecurityManager
         : ISecurityManager
     {
@@ -54,14 +54,14 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
         }
         #endregion
 
-        [ReflectorProperty("dummy")]
+        //[ReflectorProperty("dummy")]
         public string Dummy
         {
             get { return "Dummy Value"; }
             set { }
         }
 
-        [ReflectorProperty("password")]
+        //[ReflectorProperty("password")]
         public string Password
         {
             get { return "Dummy Value"; }

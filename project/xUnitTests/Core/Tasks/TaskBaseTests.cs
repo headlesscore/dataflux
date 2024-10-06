@@ -12,6 +12,7 @@ using ThoughtWorks.CruiseControl.Core;
 using ThoughtWorks.CruiseControl.Core.Tasks;
 using ThoughtWorks.CruiseControl.Remote;
 using ThoughtWorks.CruiseControl.Remote.Parameters;
+using Exortech.NetReflector;
 
 namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
 {
@@ -194,23 +195,23 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
             Assert.Equal(expected, actual.OuterXml);
         }
 
-        [ReflectorType("item")]
+        //[ReflectorType("item")]
         private class Item
         {
-            [ReflectorProperty("subItems", Required = true)]
+            //[ReflectorProperty("subItems", Required = true)]
             public SubItemBase[] SubItems { get; set; }
 
-            [ReflectorProperty("subItemsDV", Required = true)]
+            //[ReflectorProperty("subItemsDV", Required = true)]
             public SubItemDV[] SubItemsDV { get; set; }
         }
 
-        [ReflectorType("subItem")]
+        //[ReflectorType("subItem")]
         private class SubItem : SubItemBase
         {
-            [ReflectorProperty("subSubItems", Required = false)]
+            //[ReflectorProperty("subSubItems", Required = false)]
             public SubItemBase[] SubSubItems { get; set; }
 
-            [ReflectorProperty("subSubItemsDV", Required = false)]
+            //[ReflectorProperty("subSubItemsDV", Required = false)]
             public SubItemDV[] SubSubItemsDV { get; set; }
         }
 
@@ -229,17 +230,17 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core.Tasks
             public IDynamicValue[] DynamicValues { get; set; }
         }
 
-        [ReflectorType("subItemDV")]
+        //[ReflectorType("subItemDV")]
         private class SubItemDV : SubItem, IWithDynamicValuesItem
         {
-            [ReflectorProperty("dynamicValues", Required = false)]
+            //[ReflectorProperty("dynamicValues", Required = false)]
             public IDynamicValue[] DynamicValues { get; set; }
         }
 
-        [ReflectorType("subSubItemDV")]
+        //[ReflectorType("subSubItemDV")]
         private class subSubItemDV : subSubItem, IWithDynamicValuesItem
         {
-            [ReflectorProperty("dynamicValues", Required = false)]
+            //[ReflectorProperty("dynamicValues", Required = false)]
             public IDynamicValue[] DynamicValues { get; set; }
         }
 

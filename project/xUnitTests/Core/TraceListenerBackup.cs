@@ -12,28 +12,28 @@ namespace ThoughtWorks.CruiseControl.UnitTests.Core
 		{
 			backupListenerCollection = new ArrayList();
 			backupListenerCollection.AddRange(Trace.Listeners);
-			Trace.Listeners.Clear();			
+			System.Diagnostics.Trace.Listeners.Clear();			
 		}
 
 		public void Reset()
 		{
-			Trace.Listeners.Clear();
+			System.Diagnostics.Trace.Listeners.Clear();
 			foreach (TraceListener listener in backupListenerCollection)
 			{
-				Trace.Listeners.Add(listener);				
+				System.Diagnostics.Trace.Listeners.Add(listener);				
 			}			
 		}
 
 		public TestTraceListener AddTestTraceListener()
 		{
 			TestTraceListener listener = new TestTraceListener();
-			Trace.Listeners.Add(listener);
+			System.Diagnostics.Trace.Listeners.Add(listener);
 			return listener;
 		}
 
 		public TraceListener AddTraceListener(TraceListener listener)
 		{
-			Trace.Listeners.Add(listener);
+			System.Diagnostics.Trace.Listeners.Add(listener);
 			return listener;
 		}
 	}

@@ -6,11 +6,11 @@
     using Xunit;
     using ThoughtWorks.CruiseControl.Core.Util;
     using Exortech.NetReflector;
-    using Exortech.NetReflector.Util;
+    //using Exortech.NetReflector.Util;
     using System.Xml;
-    
+    using Exortech.NetReflector;
+    using Exortech.NetReflector.Util;
 
-    
     public class PrivateStringSerialiserTests
     {
         [Fact]
