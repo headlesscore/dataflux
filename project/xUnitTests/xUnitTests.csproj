@@ -9,215 +9,36 @@
     <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
   </PropertyGroup>
   <ItemGroup>
-    <EmbeddedResource Include="..\examples\ccnet.config">
-      <Link>Config\ccnet.config</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\examples\CVSAndNAntAndEmailPublisherCCNet.config">
-      <Link>Config\CVSAndNAntAndEmailPublisherCCNet.config</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\examples\P4AndDevenv.config">
-      <Link>Config\P4AndDevenv.config</Link>
-    </EmbeddedResource>
-    <EmbeddedResource Include="..\examples\VSSAndDevenvAndNUnitCCNet.config">
-      <Link>Config\VSSAndDevenvAndNUnitCCNet.config</Link>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <Analyzer Include="..\packages\FluentAssertions.Analyzers.0.33.0\analyzers\dotnet\cs\FluentAssertions.Analyzers.dll" />
-    <Analyzer Include="..\packages\xunit.analyzers.1.16.0\analyzers\dotnet\cs\xunit.analyzers.dll" />
-    <Analyzer Include="..\packages\xunit.analyzers.1.16.0\analyzers\dotnet\cs\xunit.analyzers.fixes.dll" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\CCTrayLib\CCTrayLib.csproj" />
-    <ProjectReference Include="..\core\core.csproj" />
-    <ProjectReference Include="..\objection\objection.csproj" />
-    <ProjectReference Include="..\Remote\Remote.csproj" />
-    <ProjectReference Include="..\WebDashboard\WebDashboard.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="CCTrayLib\TestIcon.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Core\Config\TestAssets\Sample.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Core\Config\TestAssets\SampleInclude.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Core\Config\TestAssets\SampleProject.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Core\Config\TestAssets\Subfolder\TestExpandNodeset.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Core\Config\TestAssets\Subfolder\TestIncluded.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Core\Config\TestAssets\Subfolder\TestIncludeStack2.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Core\Config\TestAssets\Test Include File With Spaces.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Core\Config\TestAssets\TestAttrNodesetDefine.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Core\Config\TestAssets\TestBigFor.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Core\Config\TestAssets\TestCCNET-1991.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Core\Config\TestAssets\TestCount.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Core\Config\TestAssets\TestCycle.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Core\Config\TestAssets\TestCycle2.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Core\Config\TestAssets\TestDefineConst.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Core\Config\TestAssets\TestDocType.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Core\Config\TestAssets\TestElementAttribute.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Core\Config\TestAssets\TestEnvironmentVariableExpansion.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Core\Config\TestAssets\TestEval.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Core\Config\TestAssets\TestExpandNodeset.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Core\Config\TestAssets\TestExpandNodesetWithParams.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Core\Config\TestAssets\TestExplicitDefine.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Core\Config\TestAssets\TestFor.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Core\Config\TestAssets\TestForEach.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Core\Config\TestAssets\TestIf.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Core\Config\TestAssets\TestIfdefIfNDef.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Core\Config\TestAssets\TestImport.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Core\Config\TestAssets\TestImportFrom.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Core\Config\TestAssets\TestIncluded2.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Core\Config\TestAssets\TestIncluder.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Core\Config\TestAssets\TestIncludeStack1.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Core\Config\TestAssets\TestIncludeStack3.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Core\Config\TestAssets\TestIncludeStack4.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Core\Config\TestAssets\TestIncludeVariable.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Core\Config\TestAssets\TestInvalidAttribute.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Core\Config\TestAssets\TestInvalidAttribute2.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Core\Config\TestAssets\TestMissingIncludeFile.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Core\Config\TestAssets\TestParamRef.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Core\Config\TestAssets\TestProcessingInstruction.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Core\Config\TestAssets\TestRedefineBug.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Core\Config\TestAssets\TestScope.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Core\Config\TestAssets\TestUseConst.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Core\Config\TestAssets\TestUseNestedConst.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Core\Config\TestAssets\TestUseNestedConst2.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Core\Log\TestLog.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Core\Publishers\Rss.BeyondLimits.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Core\Publishers\Rss.NewFeed.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Core\Publishers\Rss.WithinLimits.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Core\SourceControl\MksHistoryParserTestData.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Core\SourceControl\MksHistoryParserTestDataMemberInfo.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Castle.Core" Version="5.1.1" />
+    <PackageReference Include="coverlet.collector" Version="6.0.2" />
     <PackageReference Include="FluentAssertions" Version="6.12.1" />
-    <PackageReference Include="FluentAssertions.Analyzers" Version="0.33.0" />
-    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
-    <PackageReference Include="Microsoft.TestPlatform.ObjectModel" Version="17.11.1" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.10.0" />
     <PackageReference Include="Moq" Version="4.20.72" />
-    <PackageReference Include="SharpZipLib" Version="1.4.2" />
-    <PackageReference Include="System.Collections.Immutable" Version="9.0.0-rc.1.24431.7" />
-    <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
-    <PackageReference Include="System.Reflection.Metadata" Version="9.0.0-rc.1.24431.7" />
     <PackageReference Include="xunit" Version="2.9.2" />
     <PackageReference Include="xunit.abstractions" Version="2.0.3" />
-    <PackageReference Include="xunit.analyzers" Version="1.16.0" />
+    <PackageReference Include="xunit.analyzers" Version="1.16.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="xunit.assert" Version="2.9.2" />
     <PackageReference Include="xunit.core" Version="2.9.2" />
     <PackageReference Include="xunit.extensibility.core" Version="2.9.2" />
     <PackageReference Include="xunit.extensibility.execution" Version="2.9.2" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2" />
-    <PackageReference Include="System.Configuration.ConfigurationManager" Version="8.0.0" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Remove="CCTrayLib\Monitoring\PollerTest.cs" />
-    <Compile Remove="CCTrayLib\Presentation\StubProjectMonitor.cs" />
-    <Compile Remove="Core\ProcessMonitorTest.cs" />
-    <Compile Remove="Core\Publishers\Statistics\MyStatisticsPublisherTest.cs" />
-    <Compile Remove="Core\Publishers\Statistics\StatisticsPublisherTaskTest.cs" />
-    <Compile Remove="Core\Security\SessionSecurityManagerTest.cs" />
-    <Compile Remove="Core\Storage\JsonFolderDataStoreTests.cs" />
-    <Compile Remove="Core\Tasks\ConditionalTaskTest.cs" />
+    <ProjectReference Include="..\CCTrayLib\CCTrayLib.csproj" />
+    <ProjectReference Include="..\core\core.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>..\..\lib\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
     <Reference Include="NetReflector">
       <HintPath>..\..\lib\NetReflector.dll</HintPath>
     </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="Xunit" />
   </ItemGroup>
 </Project>
