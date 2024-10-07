@@ -11,6 +11,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="CCnetDeploymentTests.fs" />
     <Compile Include="MSTestSettings.fs" />
     <Compile Include="Test1.fs" />
   </ItemGroup>
