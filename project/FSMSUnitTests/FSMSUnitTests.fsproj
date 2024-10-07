@@ -1,7 +1,7 @@
 ﻿<Project Sdk="MSTest.Sdk/3.5.1">
 
   <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
+    <TargetFramework>net9.0-windows</TargetFramework>
     <LangVersion>latest</LangVersion>
     <!--
       Displays error on console in addition to the log file. Note that this feature comes with a performance impact.
